@@ -50,3 +50,20 @@
 > - When are errors detected and how are they reported? Detecting the actual style of the input and actually look at how the input string is organized (ex. is a minus sign right next to a value?). In terms of incorrect commands, there should only be one command then values after it, and if it is not in this form we will throw an error. We will keep all our valid commands in a map to check whether the user has input a correct command or not.
 > - What do commands know, when do they know it, and how do they get it? The command would need to know the current position of the turtle so that when the user inputs a new command the commands will know where to move the turtle. The command would also be able to keep track of variables and their values. The commands would get this information from a class that keeps track of these changing variables.
 > - How is the GUI updated after a command has completed execution? The turtle display screen would be updated with new positions of the turtle and any new lines that may be drawn. If the user has input an arithmetic operation, the console would output the result of the arithmetic. 
+
+###Frontend Design
+> - Display
+  * Functions similar to a "main" class where it calls the neccesary "componenet" classes to create the general GUI. 
+  * Creates the stage, calls other classes to populate everything (window, buttons, console, etc.)
+  > - UI 
+    * Creates all of the neccessary buttons for the user to interact with. 
+    * Also creates the "dialogue box" where the user can type in commands. 
+    * Toolbar of things that users can click on (change preferences for languages). 
+  > - Window
+    * Creates the window that displays the turtle graphics.  
+    * Displays the previous commands
+    * Displays a table with variable values 
+  > - Console
+    * Displays the console that outputs information such as arithmetic and boolean operations.  
+  > - 
+> - 
