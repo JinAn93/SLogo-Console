@@ -1,4 +1,8 @@
 #Cell Society Team 2 API Exercise
+#David Yan
+#Jin An
+#Sarp Uner
+#Cody Li 
 =======
 
 ###API Critique
@@ -55,15 +59,21 @@
 > - Display
   * Functions similar to a "main" class where it calls the neccesary "componenet" classes to create the general GUI. 
   * Creates the stage, calls other classes to populate everything (window, buttons, console, etc.)
+   *  void update()
   > - UI 
     * Creates all of the neccessary buttons for the user to interact with. 
     * Also creates the "dialogue box" where the user can type in commands. 
     * Toolbar of things that users can click on (change preferences for languages). 
+     * void createToolbar
+     * void createTextBox
   > - Window
     * Creates the window that displays the turtle graphics.  
     * Displays the previous commands
     * Displays a table with variable values 
+     * void createGraphicsWindows
+     * void createVarTable
+     * void createPrevCommands
   > - Console
     * Displays the console that outputs information such as arithmetic and boolean operations.  
-  > - 
-> - 
+     * void createConsole
+     * void updateConsole(String command) - Maybe use an ArrayList due store all commands and then iterate through to update        console 
