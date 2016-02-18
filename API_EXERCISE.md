@@ -47,6 +47,6 @@
 ###SLogo Architecture Design
 > - When does parsing need to take place and what does it need to start properly? Parsing will start on the front end once the user types in a command to a dialog box and hits enter. The command will be sent to the backend for interpretation, and according to the command, the back end will send back the instruction to the front end.
 > - What is the result of parsing and who receives it? The result of parsing will be the evaluation of the command entered, and the backend will interpret this command and send back information to the front end.
-> - When are errors detected and how are they reported? 
+> - When are errors detected and how are they reported? Detecting the actual style of the input and actually look at how the input string is organized (ex. is a minus sign right next to a value?). In terms of incorrect commands, there should only be one command then values after it, and if it is not in this form we will throw an error. We will keep all our valid commands in a map to check whether the user has input a correct command or not.
 > - What do commands know, when do they know it, and how do they get it?
 > - How is the GUI updated after a command has completed execution?
