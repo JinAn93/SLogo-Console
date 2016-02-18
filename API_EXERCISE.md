@@ -36,6 +36,6 @@
 > - public void adjustSpeed(double ratio) - External API
 > - public void stop() - External API
 > - public void resume() - External API
-> -public void byStep() - External API
+> - public void byStep() - External API
 
 
