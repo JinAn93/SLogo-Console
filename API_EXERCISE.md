@@ -80,5 +80,5 @@
      
  ### Backend Design UML
  
- ![Backend UML]()
+ ![Backend UML](https://github.com/duke-compsci308-spring2016/slogo_team02/blob/master/ClassDiagram.png)
 
