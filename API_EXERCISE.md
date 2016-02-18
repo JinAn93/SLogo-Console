@@ -77,3 +77,8 @@
     * Displays the console that outputs information such as arithmetic and boolean operations.  
      * void createConsole
      * void updateConsole(String command) - Maybe use an ArrayList due store all commands and then iterate through to update        console 
+     
+ ### Backend Design UML
+ 
+ ![Backend UML]()
+
