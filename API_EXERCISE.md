@@ -38,4 +38,7 @@
 > - public void resume() - External API
 > - public void byStep() - External API
 
-
+######Summary
+> - The simulation portion of Cell Society consisted of the purely internal backend class of RuleEnforcer, and the mixed internal and external frontend/backend classes of Grid, Cell, and GridInitializer. The Grid and Cell class define the basic data objects used to store information of the simulation as well as display portions of the UI to the user. 
+> - The configuration portion of Cell Society is almost completely internal and consists of the FileReader the FileErrorCheck and FileReader classes and is responsible for reading the XML file, determining the validity of values in the XML file, and then passing the values into the appropriate classes that call for it. 
+> - The visualization portion of Cell Society is consisted almost purely of external frontend classes of Simulation and Control. The purpose of these classes are to visually display the simulation as well as provide the user with controls to manipulate the simulation .
