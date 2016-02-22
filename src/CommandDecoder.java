@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -15,18 +16,21 @@ public class CommandDecoder {
     }
 
     public Collection<List<String>> parseCommand (String input) {
-        PriorityQueue<List<String>> commandList = new PriorityQueue<List<String>>();
+        PriorityQueue<List<String>> commandQueue = new PriorityQueue<List<String>>();
+        List<String> commandList = new ArrayList<String>();
         String[] CommandbyLine = input.split("\n");
         String commentFreeInput = new String();
-        for (String line : CommandbyLine){
-            if(!line.startsWith("#")){
+        for (String line : CommandbyLine) {
+            if (!line.startsWith("#")) {
                 commentFreeInput += line;
             }
             // If line includes only space, take out the line
         }
-        //Split with space
-        //Group command name with relevant information
-        //Store into PQ
-        return commandList;
+        String[] commands = commentFreeInput.split(" ");
+        for (String command : commands) {
+            // Group command name with relevant information
+            // Store into PQ
+        }
+        return commandQueue;
     }
 }
