@@ -1,17 +1,46 @@
-import java.util.Collection;
-import java.util.List;
+import java.util.Stack;
+
 
 public class MainBackEnd {
 
-//    private static final CommandExecutor[] myPossibleExecutors =
-//    { new TurtleCommandExecutor(), new TurtleQueryExecutor(), new MathOperationExecutor(),
-//     new BooleanOperationExecutor(), new UserDefinedExecutor() };
+    private static final String[] possibleLanguages = { "English.properties" };
 
-    
-    public MainBackEnd (String input) {
+    public MainBackEnd () {
+    }
+
+    public String[] setup (String input) {
         CommandDecoder cDecoder = new CommandDecoder();
-        CommandExecutor cExecutor = new CommandExecutor();
         cDecoder.checkError(input);
-        Collection<List<String>> command = cDecoder.parseCommand(input);
+        String[] commands = cDecoder.parseCommand(input);
+        return commands;
+    }
+
+    public void executeCommand (String[] commands) {
+        CommandExecutor[] possibleExecutors =
+        { new TurtleCommandExecutor(), new TurtleQueriesExecutor(), new MathOpExecutor(),
+         new BoolOpExecutor(), new UserDefinedExecutor() };
+        Stack<String> stack = new Stack<String>();
+        for (String input : commands) {
+            if (isCommand(input)) {}
+            if (isVariable(input)) {}
+            if (isConstant(input)) {}
+            if (isList(input)) {}
+        }
+    }
+
+    private boolean isCommand (String input) {
+        return input.matches("[a-zA-Z_]+(\\?)?");
+    }
+
+    private boolean isVariable (String input) {
+        return input.matches(":[a-zA-Z_]+");
+    }
+
+    private boolean isConstant (String input) {
+        return input.matches("-?[0-9]+\\.?[0-9]*");
+    }
+
+    private boolean isList (String input) {
+        return input.matches("[ ]");
     }
 }
