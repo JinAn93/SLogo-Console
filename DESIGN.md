@@ -9,6 +9,7 @@ We are creating an IDE which focuses on helping users to experiment with and man
 The program is divided into frontend and backend. Frontend involves display, userinterface, and window. Backend involves command decoding and command execution. The userinterface class creates button, which interacts with main backend class. Then, the main back end class will call check error method in commandDecoder class and execute command method in abstract commandExecutor class. Then, frontend will access the output class which contains the printable outputs and instance of grid. The four APIs we intend to create are: User Interaction with Display(frontend internal) Interaction with Backend where it reads the user input and pass down to backend(frontend external), command decoding(backend internal), and passing the output object to front-end (backend external)
 
 # User Interface
+![alt text](https://github.com/duke-compsci308-spring2016/slogo_team02/blob/master/slogoUI.png "Slogo UI")
 
 Main Display Window - Will display the turtle and display the movement of the turtle as well as the user adds commands. This window will primarily be used for turtle commands and displaying the result of turtle commands.
 Console - If the user decides to perform a non-turtle command such as arithmetic calculation, the console will output the results of those calculations. Additionally, the error messages (bad input data, bad commands, etc.)  will also be displayed through the console.
