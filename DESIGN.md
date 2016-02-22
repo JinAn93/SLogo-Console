@@ -86,3 +86,4 @@ Sarp Uner: CommandExecutor, Command, Grid
 Even though we have designated our responsibilities, we will be meeting together as frequently as possible to help each other in solving the more difficult challenges and make the design decision.
 
 # Plan diagram: 
+![alt text](https://github.com/duke-compsci308-spring2016/slogo_team02/blob/master/20160221_010826486_iOS.jpg "Slogo UI")
