@@ -47,7 +47,7 @@ public class UIConsole extends JPanel {
 		for (String s: codeHistory){
 			output += s + "\n";
 		}
-		consoleText.setText(output);
+		userHistory.setText(output);
 	}
 	
 	
