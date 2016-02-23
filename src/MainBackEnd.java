@@ -1,4 +1,5 @@
 import java.util.Stack;
+import CommandExecutors.*;
 
 
 public class MainBackEnd {
@@ -10,7 +11,6 @@ public class MainBackEnd {
     private static final int MATHOP = 2;
     private static final int BOOLOP = 3;
     private static final int USERDEFINED = 4;
-    
 
     public MainBackEnd () {
     }
@@ -27,25 +27,30 @@ public class MainBackEnd {
         { new TurtleCommandExecutor(), new TurtleQueriesExecutor(), new MathOpExecutor(),
          new BoolOpExecutor(), new UserDefinedExecutor() };
         Stack<String> stack = new Stack<String>();
+        String prevElement = new String();
+        String commandExecuting = new String();
+        int argCount = 0;
         for (String input : commands) {
-            if (stack.isEmpty()) {
-                if (isCommand(input)){
-                    stack.push(input);
-                }
-                else{
-                    //Wrong input
-                }
+            if (stack.isEmpty() && !(isCommand(input))) {
+                // Wrong input
             }
             else {
                 if (isCommand(input)) {
+                    stack.push(input);
+                    commandExecuting = input;
                 }
                 if (isConstant(input)) {
+                    argCount ++;
+                    //check how many args commandExecuting requires
+                    // if # args required == argCount --> Execute commandExecuting
+                    
                 }
                 if (isVariable(input)) {
                 }
                 if (isList(input)) {
                 }
             }
+            prevElement = stack.peek();
         }
     }
 
@@ -57,7 +62,7 @@ public class MainBackEnd {
         return input.matches(":[a-zA-Z_]+");
     }
 
-    private boolean isConstant (String input) { 
+    private boolean isConstant (String input) {
         return input.matches("-?[0-9]+\\.?[0-9]*");
     }
 
