@@ -4,6 +4,13 @@ import java.util.Stack;
 public class MainBackEnd {
 
     private static final String[] possibleLanguages = { "English.properties" };
+    private static final int ENGLISH = 0;
+    private static final int TURTLECOMMAND = 0;
+    private static final int TURTLEQUERIES = 1;
+    private static final int MATHOP = 2;
+    private static final int BOOLOP = 3;
+    private static final int USERDEFINED = 4;
+    
 
     public MainBackEnd () {
     }
@@ -21,10 +28,24 @@ public class MainBackEnd {
          new BoolOpExecutor(), new UserDefinedExecutor() };
         Stack<String> stack = new Stack<String>();
         for (String input : commands) {
-            if (isCommand(input)) {}
-            if (isVariable(input)) {}
-            if (isConstant(input)) {}
-            if (isList(input)) {}
+            if (stack.isEmpty()) {
+                if (isCommand(input)){
+                    stack.push(input);
+                }
+                else{
+                    //Wrong input
+                }
+            }
+            else {
+                if (isCommand(input)) {
+                }
+                if (isVariable(input)) {
+                }
+                if (isConstant(input)) {
+                }
+                if (isList(input)) {
+                }
+            }
         }
     }
 
