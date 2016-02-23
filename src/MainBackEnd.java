@@ -39,9 +39,9 @@ public class MainBackEnd {
             else {
                 if (isCommand(input)) {
                 }
-                if (isVariable(input)) {
-                }
                 if (isConstant(input)) {
+                }
+                if (isVariable(input)) {
                 }
                 if (isList(input)) {
                 }
@@ -57,7 +57,7 @@ public class MainBackEnd {
         return input.matches(":[a-zA-Z_]+");
     }
 
-    private boolean isConstant (String input) {
+    private boolean isConstant (String input) { 
         return input.matches("-?[0-9]+\\.?[0-9]*");
     }
 
