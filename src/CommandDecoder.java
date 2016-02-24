@@ -6,10 +6,6 @@
  *
  */
 public class CommandDecoder {
-    public boolean checkError (String input) {
-        return false;
-    }
-
     public String[] parseCommand (String input) {
         String[] CommandbyLine = input.split("\n");
         String commentFreeInput = new String();

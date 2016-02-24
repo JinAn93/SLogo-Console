@@ -1,5 +1,6 @@
 import java.util.Stack;
 import CommandExecutors.*;
+import Commands.CommandFactory;
 
 
 public class MainBackEnd {
@@ -17,15 +18,12 @@ public class MainBackEnd {
 
     public String[] setup (String input) {
         CommandDecoder cDecoder = new CommandDecoder();
-        cDecoder.checkError(input);
         String[] commands = cDecoder.parseCommand(input);
         return commands;
     }
 
     public void executeCommand (String[] commands) {
-        CommandExecutor[] possibleExecutors =
-        { new TurtleCommandExecutor(), new TurtleQueriesExecutor(), new MathOpExecutor(),
-         new BoolOpExecutor(), new UserDefinedExecutor() };
+        CommandFactory cFactory = new CommandFactory();
         Stack<String> stack = new Stack<String>();
         String prevElement = new String();
         String commandExecuting = new String();
