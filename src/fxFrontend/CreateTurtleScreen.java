@@ -38,4 +38,8 @@ public class CreateTurtleScreen {
 	public VBox getScreen(){
 		return myScreen;
 	}
+	
+	public Button getButton(){
+		return myButton;
+	}
 }

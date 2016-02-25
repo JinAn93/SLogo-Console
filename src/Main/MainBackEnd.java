@@ -6,12 +6,16 @@ import Commands.CommandFactory;
 import Commands.CommandInterface;
 import MathCommands.*;
 
+<<<<<<< .merge_file_2LEfSV
 /**
  * MainBackEnd serves to create Expression Tree and execute commands as it reads the nodes
  * @author Jin An
  * @author Sarp Uner
  *
  */
+=======
+
+>>>>>>> .merge_file_LS52l3
 public class MainBackEnd {
 
     private static final String[] possibleLanguages = { "English" };
