@@ -1,5 +1,6 @@
 package fxFrontend;
 
+import Main.Output;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -19,7 +20,7 @@ public class Display {
 	private CreateConsole myConsole = new CreateConsole();
 	private Button myButton;
 	private TextArea turtleBox;
-	
+	private Output backendOutput; 
 	public Display(){
 		myBorder = new BorderPane();
 		displayScreen();
@@ -38,13 +39,15 @@ public class Display {
         
         myButton = myScreen.getButton();
         
+        //Test
+        backendOutput = new Output("Test");
+        
         myButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-            	turtleBox.appendText("HI\n");
+            	turtleBox.appendText(backendOutput.getCommand() + "/n");
             }
         });
         
-
 	}
 	public Scene getScene(){
 		return myScene;
