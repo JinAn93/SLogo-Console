@@ -17,7 +17,7 @@ public class CommandFactory {
         catch (IllegalAccessException e) {
             // TODO BAD CODE!!
             e.printStackTrace();
-        }
+        }       
         catch (ClassNotFoundException e) {
             // TODO BAD CODE!!
             e.printStackTrace();
