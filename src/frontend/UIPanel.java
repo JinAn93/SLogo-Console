@@ -37,7 +37,7 @@ public class UIPanel extends JPanel {
 	}
 	
 	public void paint(Graphics g) {
-		turtleStats.setText("Turtle Stats: \n");	
+		turtleStats.setText("Turtle Coordinates: \n");	
 		variablesList.setText("Variables: \n" );	
 		commandsList.setText("User Commands: \n");
 	}

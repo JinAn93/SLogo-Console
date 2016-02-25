@@ -1,6 +1,7 @@
 package frontend;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -30,6 +31,7 @@ public class TurtlePanel extends Component {
 		return SCREEN_DIMENSION;
 	}
 	void drawBorder() {
+		useEngine.setColor(Color.blue);
 		useEngine.draw3DRect(0, 0, SCREEN_DIMENSION.width - 1,
 				SCREEN_DIMENSION.height - 1, true);
 	}
