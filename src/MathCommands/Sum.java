@@ -1,9 +1,11 @@
 package MathCommands;
 import Commands.*;
 
-public class SumCommand extends MathOpCommand{
+public class Sum extends MathOpCommand{
+    String[] listOfArguments;
     
-    public void SumCommand(String[] listOfArguments){
+    public void SumCommand(String[] listOfCommands){
+        listOfArguments = listOfCommands;
 
         
         

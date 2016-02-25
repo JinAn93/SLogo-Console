@@ -1,11 +1,31 @@
-
 package Commands;
+import java.lang.Class;
 
 public class CommandFactory {
     public CommandInterface makeInstruction (String commandType){
         if(commandType == null){
             return null;
         }
+        
+        try {
+            return (CommandInterface) Class.forName(commandType).newInstance();
+        }
+        catch (InstantiationException e) {
+            // TODO BAD CODE!!
+            e.printStackTrace();
+        }
+        catch (IllegalAccessException e) {
+            // TODO BAD CODE!!
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+            // TODO BAD CODE!!
+            e.printStackTrace();
+        }
+        return null;
+        
+        
+        /*
         if(commandType.equalsIgnoreCase("TURTLE")){ //use resourcebundle
             return new TurtleCommand();
         }
@@ -23,4 +43,8 @@ public class CommandFactory {
         }
         return null;
     }
+    */
+    }
 }
+
+        

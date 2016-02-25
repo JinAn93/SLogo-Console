@@ -2,7 +2,6 @@ package Main;
 import java.util.ResourceBundle;
 import java.util.Stack;
 import CommandExecutors.*;
-import Commands.Command;
 import Commands.CommandFactory;
 import Commands.CommandInterface;
 import MathCommands.*;
@@ -23,7 +22,7 @@ public class MainBackEnd {
 
     public static void main(String args[]){
         MainBackEnd mb = new MainBackEnd();
-        System.out.println(mb.myResources.getString("Sum"));
+        System.out.println(mb.myResources.getObject("Sum").getClass().getName());
         
     }
     public MainBackEnd () {
@@ -38,8 +37,7 @@ public class MainBackEnd {
     
     private void buildExpressionTree(String[] commands){
         if(commands[0] == myResources.getString("Sum")){
-            SumCommand sm = new SumCommand();
-            
+            MainBackEnd mbe = new MainBackEnd();   
         }
             
     }
@@ -56,7 +54,7 @@ public class MainBackEnd {
             if(isCommand(commands[0])){
                 currentCommand = cFactory.makeInstruction(commands[0]);
             }
-            
+            /*
             if (stack.isEmpty() && !(isCommand(input))) {
                 // Wrong input
             }
@@ -76,8 +74,8 @@ public class MainBackEnd {
                 if (isList(input)) {
                 }
             }
-            prevElement = stack.peek();
-        }
+            prevElement = stack.peek();*/
+        } 
     }
 
     public static boolean isCommand (String input) {
