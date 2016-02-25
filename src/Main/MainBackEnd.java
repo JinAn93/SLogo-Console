@@ -9,8 +9,7 @@ import MathCommands.*;
 
 public class MainBackEnd {
 
-    private static final String[] possibleLanguages = { "English.properties" };
-    private static final int ENGLISH = 0;
+    private static final String[] possibleLanguages = { "English" };
     private static final int TURTLECOMMAND = 0;
     private static final int TURTLEQUERIES = 1;
     private static final int MATHOP = 2;
@@ -18,7 +17,7 @@ public class MainBackEnd {
     private static final int USERDEFINED = 4;
     private CommandInterface currentCommand;
     
-    ResourceBundle myResources = ResourceBundle.getBundle("resources.languages/English");
+    ResourceBundle myResources;
 
     public static void main(String args[]){
         MainBackEnd mb = new MainBackEnd();
@@ -29,7 +28,8 @@ public class MainBackEnd {
         
     }
 
-    public String[] setup (String input) {
+    public String[] setup (String input, int lang) {
+        myResources = ResourceBundle.getBundle("resources.languages/" + possibleLanguages[lang]);
         CommandDecoder cDecoder = new CommandDecoder();
         String[] commands = cDecoder.parseCommand(input);
         return commands;
