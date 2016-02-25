@@ -1,9 +1,7 @@
 package fxFrontend;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -17,32 +15,25 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class main extends Application {
     
     public static void main(String[] args) {
-        Application.launch(args);
+        launch(args);
     }
     
     @Override
     public void start(Stage primaryStage) {
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         VBox testy = createVBox();
         VBox centery = createCenter();
         VBox righty = createConsole();
         BorderPane bp = new BorderPane();
         bp.setPadding(new Insets(10, 20, 10, 20));
-        
-        Button btnLeft = new Button("Left");
         bp.setLeft(testy);
-        
-        Button btnCenter = new Button("Center");
         bp.setCenter(centery);
         
-        Button btnRight = new Button("Right");
         bp.setRight(righty);
         
         Scene scene = new Scene(bp, 1050, 800);
