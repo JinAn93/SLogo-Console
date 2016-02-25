@@ -1,3 +1,4 @@
+package Main;
 
 /**
  * CommandDecoder serves to parse the input and check whether there exist any error.
@@ -6,10 +7,6 @@
  *
  */
 public class CommandDecoder {
-    public boolean checkError (String input) {
-        return false;
-    }
-
     public String[] parseCommand (String input) {
         String[] CommandbyLine = input.split("\n");
         String commentFreeInput = new String();

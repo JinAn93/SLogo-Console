@@ -5,6 +5,8 @@ import frontend.UIConstraints;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -30,6 +32,14 @@ public class UIConsole extends JPanel {
 	private void addRunButton() {
 		runButton = new JButton("Run");
 		add(runButton, UIConstraints.getInstance());
+		
+		runButton.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    	  System.out.println("HI");
+	      }
+	    });
 	}
 	private void addConsoleOutput() {
 		consoleText = new JTextArea(5, 18);

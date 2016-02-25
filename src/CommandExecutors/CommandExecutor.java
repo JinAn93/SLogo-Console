@@ -1,8 +1,8 @@
+package CommandExecutors;
 
-public class CommandExecutor {
+public abstract class CommandExecutor {
 
     public CommandExecutor () {
         // TODO Auto-generated constructor stub
     }
-
 }
