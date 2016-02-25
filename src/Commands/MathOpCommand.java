@@ -28,6 +28,9 @@ public abstract class MathOpCommand implements CommandInterface {
                 return child1.executeCommand();
                 
             }
+            else{
+                
+            }
             
             
         }
