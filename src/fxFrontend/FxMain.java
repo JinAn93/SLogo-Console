@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class main extends Application {
+public class FxMain extends Application {
     
     public static void main(String[] args) {
         launch(args);
@@ -33,10 +33,8 @@ public class main extends Application {
         bp.setPadding(new Insets(10, 20, 10, 20));
         bp.setLeft(testy);
         bp.setCenter(centery);
-        
-        bp.setRight(righty);
-        
-        Scene scene = new Scene(bp, 1050, 800);
+        bp.setRight(righty);     
+        Scene scene = new Scene(bp, 1100, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -79,6 +77,8 @@ public class main extends Application {
     
     public VBox createCenter(){
         VBox toRet = new VBox(20);
+        toRet.setPadding(new Insets(0, 20, 10, 20)); 
+
         Canvas canvas = new Canvas(600,600);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.WHITE);
@@ -99,6 +99,8 @@ public class main extends Application {
     
     public VBox createConsole(){
         VBox vbox = new VBox(20); // spacing = 8
+        vbox.setPadding(new Insets(0, 20, 10, 20)); 
+
         
         final TextArea textArea = new TextArea();
         textArea.setPrefSize(200, 500);
