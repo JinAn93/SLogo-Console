@@ -1,3 +1,4 @@
+package Main;
 
 /**
  * CommandDecoder serves to parse the input and check whether there exist any error.

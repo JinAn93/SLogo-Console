@@ -3,7 +3,7 @@ package Commands;
 import CommandExecutors.CommandExecutor;
 import CommandExecutors.TurtleCommandExecutor;
 
-public class TurtleCommand implements Command {
+public class TurtleCommand implements CommandInterface {
     
     private String myCommand;
     private int myArgNeeded;
@@ -19,7 +19,7 @@ public class TurtleCommand implements Command {
     }
     
     @Override
-    public Command makeCommand (String command) {
+    public CommandInterface makeCommand (String command) {
         myCommand = command;
         myArgNeeded = Commands.valueOf(command).argNeeded;
         // TODO Auto-generated method stub

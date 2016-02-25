@@ -1,6 +1,11 @@
+package Main;
+import java.util.ResourceBundle;
 import java.util.Stack;
 import CommandExecutors.*;
+import Commands.Command;
 import Commands.CommandFactory;
+import Commands.CommandInterface;
+import MathCommands.*;
 
 
 public class MainBackEnd {
@@ -12,8 +17,17 @@ public class MainBackEnd {
     private static final int MATHOP = 2;
     private static final int BOOLOP = 3;
     private static final int USERDEFINED = 4;
+    private CommandInterface currentCommand;
+    
+    ResourceBundle myResources = ResourceBundle.getBundle("resources.languages/English");
 
+    public static void main(String args[]){
+        MainBackEnd mb = new MainBackEnd();
+        System.out.println(mb.myResources.getString("Sum"));
+        
+    }
     public MainBackEnd () {
+        
     }
 
     public String[] setup (String input) {
@@ -21,6 +35,16 @@ public class MainBackEnd {
         String[] commands = cDecoder.parseCommand(input);
         return commands;
     }
+    
+    private void buildExpressionTree(String[] commands){
+        if(commands[0] == myResources.getString("Sum")){
+            SumCommand sm = new SumCommand();
+            
+        }
+            
+    }
+  
+    
 
     public void executeCommand (String[] commands) {
         CommandFactory cFactory = new CommandFactory();
@@ -28,7 +52,11 @@ public class MainBackEnd {
         String prevElement = new String();
         String commandExecuting = new String();
         int argCount = 0;
-        for (String input : commands) {
+        while(commands.length > 0){
+            if(isCommand(commands[0])){
+                currentCommand = cFactory.makeInstruction(commands[0]);
+            }
+            
             if (stack.isEmpty() && !(isCommand(input))) {
                 // Wrong input
             }
@@ -52,7 +80,7 @@ public class MainBackEnd {
         }
     }
 
-    private boolean isCommand (String input) {
+    public static boolean isCommand (String input) {
         return input.matches("[a-zA-Z_]+(\\?)?");
     }
 

@@ -1,19 +1,38 @@
 package Commands;
+import Main.MainBackEnd;
 
-public class MathOpCommand implements Command {
+public abstract class MathOpCommand implements CommandInterface {
+    
+    public static final int ARGUMENT_LIST_SIZE = 3;
 
     private String myCommand;
+    protected String[] myArguments = new String[ARGUMENT_LIST_SIZE];
+    private MathOpCommand child1;
+    private MathOpCommand child2;
+   
+ 
     @Override
-    public Command makeCommand (String command) {
+    public CommandInterface makeCommand (String command) {
         // TODO Auto-generated method stub
         myCommand = command;
         return null;
     }
-
-    @Override
-    public int executeCommand () {
-        // TODO Auto-generated method stub
-        return 0;
+    
+    public int parse(String str, listOfCommands[] str){
+        try{
+            return Integer.parseInt(str);
+        }
+        catch(NumberFormatException e){
+            if(MainBackEnd.isCommand(str)){
+                child1 = new Command(str);
+                return child1.executeCommand();
+                
+            }
+            
+            
+        }
+        
     }
+    
 
 }

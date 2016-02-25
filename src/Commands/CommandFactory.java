@@ -1,7 +1,8 @@
+
 package Commands;
 
 public class CommandFactory {
-    public Command makeInstruction (String commandType){
+    public CommandInterface makeInstruction (String commandType){
         if(commandType == null){
             return null;
         }
