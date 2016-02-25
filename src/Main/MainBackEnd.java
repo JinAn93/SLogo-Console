@@ -16,6 +16,7 @@ import MathCommands.*;
 public class MainBackEnd {
 
     private static final String[] possibleLanguages = { "English" };
+    private static final int DEFAULTLANG = 0;
     private static final int TURTLECOMMAND = 0;
     private static final int TURTLEQUERIES = 1;
     private static final int MATHOP = 2;
@@ -23,22 +24,25 @@ public class MainBackEnd {
     private static final int USERDEFINED = 4;
     private CommandInterface currentCommand;
     
-    ResourceBundle myResources;
+    ResourceBundle myResources = ResourceBundle.getBundle("resources.languages/" + possibleLanguages[DEFAULTLANG]);
 
-    public static void main(String args[]){
-        MainBackEnd mb = new MainBackEnd();
-        System.out.println(mb.myResources.getObject("Sum").getClass().getName());
-        
-    }
+//    public static void main(String args[]){
+//        MainBackEnd mb = new MainBackEnd();
+//        System.out.println(mb.myResources.getObject("Sum").getClass().getName());
+//        
+//    }
     public MainBackEnd () {
         
     }
 
-    public String[] setup (String input, int lang) {
-        myResources = ResourceBundle.getBundle("resources.languages/" + possibleLanguages[lang]);
+    public String[] setup (String input) {
         CommandDecoder cDecoder = new CommandDecoder();
         String[] commands = cDecoder.parseCommand(input);
         return commands;
+    }
+    
+    public void setLanguage (ResourceBundle bundle){
+        myResources = bundle;
     }
     
     private void buildExpressionTree(String[] commands){
