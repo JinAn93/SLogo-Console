@@ -51,35 +51,11 @@ public class MainBackEnd {
 
     public void executeCommand (String[] commands) {
         CommandFactory cFactory = new CommandFactory();
-        Stack<String> stack = new Stack<String>();
-        String prevElement = new String();
-        String commandExecuting = new String();
-        int argCount = 0;
         while(commands.length > 0){
             if(isCommand(commands[0])){
                 currentCommand = cFactory.makeInstruction(commands[0]);
             }
-            /*
-            if (stack.isEmpty() && !(isCommand(input))) {
-                // Wrong input
-            }
-            else {
-                if (isCommand(input)) {
-                    stack.push(input);
-                    commandExecuting = input;
-                }
-                if (isConstant(input)) {
-                    argCount ++;
-                    //check how many args commandExecuting requires
-                    // if # args required == argCount --> Execute commandExecuting
-                    
-                }
-                if (isVariable(input)) {
-                }
-                if (isList(input)) {
-                }
-            }
-            prevElement = stack.peek();*/
+        
         } 
     }
 
