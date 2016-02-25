@@ -18,7 +18,7 @@ public abstract class MathOpCommand implements CommandInterface {
         return null;
     }
     
-    public int parse(String str, listOfCommands[] str){
+    public int parse(String str, String listOfCommands){
         try{
             return Integer.parseInt(str);
         }

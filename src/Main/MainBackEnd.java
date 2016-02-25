@@ -6,7 +6,12 @@ import Commands.CommandFactory;
 import Commands.CommandInterface;
 import MathCommands.*;
 
-
+/**
+ * MainBackEnd serves to create Expression Tree and execute commands as it reads the nodes
+ * @author Jin An
+ * @author Sarp Uner
+ *
+ */
 public class MainBackEnd {
 
     private static final String[] possibleLanguages = { "English" };
