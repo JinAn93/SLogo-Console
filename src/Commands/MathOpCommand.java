@@ -18,7 +18,7 @@ public abstract class MathOpCommand implements CommandInterface {
         return null;
     }
     
-    public int parse(String str, listOfCommands[] str){
+    public int parse(String str, String listOfCommands){
         try{
             return Integer.parseInt(str);
         }
@@ -26,6 +26,9 @@ public abstract class MathOpCommand implements CommandInterface {
             if(MainBackEnd.isCommand(str)){
                 child1 = new Command(str);
                 return child1.executeCommand();
+                
+            }
+            else{
                 
             }
             

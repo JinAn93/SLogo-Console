@@ -9,6 +9,7 @@ public class CreateSidebar {
 	private VBox myConsole;
 	private ScrollPane myTurtleStats, myUserCommands, myVariables;
 	private Label myTurtleLabel, myUserLabel, myVariablesLabel;
+	private TextArea myTurtleText, myUserText, myVariablesText;
 	private int WIDTH = 200;
 	private int HEIGHT = 180;
 	
@@ -17,22 +18,24 @@ public class CreateSidebar {
 		myConsole = new VBox(20); // spacing = 8
 		myTurtleStats = new ScrollPane();
 		myTurtleLabel = new Label("Turtle Stats:");
-		createBox(myTurtleLabel, myTurtleStats);
+		myTurtleText = new TextArea();
+		createBox(myTurtleLabel, myTurtleStats,myTurtleText);
 		
 		myUserCommands = new ScrollPane();
 		myUserLabel = new Label("User Commands:");
-		createBox(myUserLabel, myUserCommands);
+		myUserText = new TextArea();
+		createBox(myUserLabel, myUserCommands,myUserText);
 		
 		myVariables = new ScrollPane();
 		myVariablesLabel = new Label("Variables:");
-		createBox(myVariablesLabel, myVariables);
+		myVariablesText = new TextArea();
+		createBox(myVariablesLabel, myVariables,myVariablesText);
         		
 	}
 	
-	private void createBox(Label myLabel, ScrollPane myPane){
-		TextArea textArea = new TextArea();
+	private void createBox(Label myLabel, ScrollPane myPane, TextArea myText){
 		myConsole.getChildren().add(myLabel);
-        myPane.setContent(textArea);
+        myPane.setContent(myText);
         myPane.setFitToWidth(true);
         myPane.setPrefWidth(WIDTH);
         myPane.setPrefHeight(HEIGHT);
@@ -42,5 +45,10 @@ public class CreateSidebar {
 	public VBox getBox(){
 		return myConsole;
 	}
+	
+	public TextArea getArea(){
+		return myTurtleText;
+	}
+	
 
 }

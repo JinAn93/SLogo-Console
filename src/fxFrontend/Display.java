@@ -1,10 +1,16 @@
 package fxFrontend;
 
+import Main.Output;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.util.*;
 
 public class Display {
 	private BorderPane myBorder;
@@ -13,7 +19,11 @@ public class Display {
 	private CreateSidebar mySidebar = new CreateSidebar();
 	private CreateTurtleScreen myScreen = new CreateTurtleScreen();
 	private CreateConsole myConsole = new CreateConsole();
-
+	private Button myButton;
+	private TextArea turtleBox;
+	private TextArea historyBox; 
+	private Output backendOutput;
+	private StringBuilder commandHistory = new StringBuilder(); 
 	
 	public Display(){
 		myBorder = new BorderPane();
@@ -29,9 +39,22 @@ public class Display {
         myBorder.setLeft(leftBox);
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
+        turtleBox = mySidebar.getArea();
+        historyBox = myConsole.getHistoryTextArea();
+        myButton = myScreen.getButton();
+        updateDisplay(); 
 	}
+	
+	public void updateDisplay(){
+		myButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+            	commandHistory.append(myScreen.getCodeInput().getText() + "\n");
+            	historyBox.setText(commandHistory.toString());
+            }
+        });
+	}
+	
 	public Scene getScene(){
 		return myScene;
 	}
-
 }

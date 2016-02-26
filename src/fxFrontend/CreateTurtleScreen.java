@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -14,7 +15,8 @@ public class CreateTurtleScreen {
 	
 	private VBox myScreen;
 	private Button myButton;
-	
+	private StackPane root = new StackPane(); 
+	private TextField codeInput; 
 	public CreateTurtleScreen(){
 		myScreen = new VBox(20);
 		myScreen.setPadding(new Insets(0, 20, 10, 20)); 
@@ -26,9 +28,9 @@ public class CreateTurtleScreen {
         myScreen.getChildren().add(canvas);
         
         Label label1 = new Label("Code input:");
-        TextField textField = new TextField ();
+        codeInput = new TextField ();
         HBox hb = new HBox();
-        hb.getChildren().addAll(label1, textField);
+        hb.getChildren().addAll(label1, codeInput);
         hb.setSpacing(10);
         myScreen.getChildren().add(hb);
         
@@ -37,5 +39,13 @@ public class CreateTurtleScreen {
 	}
 	public VBox getScreen(){
 		return myScreen;
+	}
+	
+	public Button getButton(){
+		return myButton;
+	}
+	
+	public TextField getCodeInput(){
+		return codeInput; 
 	}
 }
