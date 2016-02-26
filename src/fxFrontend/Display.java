@@ -46,9 +46,9 @@ public class Display {
             public void handle(ActionEvent e) {
             	commandHistory.append(myScreen.getCodeInput().getText() + "\n");
             	historyBox.setText(commandHistory.toString());
-            	MainBackEnd myCommand = new MainBackEnd();
-            	String[] commands = myCommand.setup(myScreen.getCodeInput().getText());
-            	myCommand.executeCommand(commands);
+//            	MainBackEnd myCommand = new MainBackEnd();
+//            	String[] commands = myCommand.setup(myScreen.getCodeInput().getText());
+//            	myCommand.executeCommand(commands);
             	
             }
         });

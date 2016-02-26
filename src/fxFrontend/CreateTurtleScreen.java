@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -17,15 +18,20 @@ public class CreateTurtleScreen {
 	private Button myButton;
 	private StackPane root = new StackPane(); 
 	private TextField codeInput; 
+	private Canvas myCanvas;
+	private GraphicsContext myGraphics;
+	private Image myTurtleImage;
 	public CreateTurtleScreen(){
 		myScreen = new VBox(20);
 		myScreen.setPadding(new Insets(0, 20, 10, 20)); 
 
-        Canvas canvas = new Canvas(600,600);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
-        myScreen.getChildren().add(canvas);
+		myCanvas = new Canvas(600,600);
+		myGraphics = myCanvas.getGraphicsContext2D();
+		myGraphics.setFill(Color.WHITE);
+		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
+        myScreen.getChildren().add(myCanvas);
+        Image img = new Image("/fxFrontend/turtle.png");
+        myGraphics.drawImage(img, 0, 0);
         
         Label label1 = new Label("Code input:");
         codeInput = new TextField ();
