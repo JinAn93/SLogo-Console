@@ -27,6 +27,7 @@ public class Display {
     private GraphicsContext myGraphics;
     private Image myImage;
     private Canvas myCanvas;
+    private int myX,myY;
     
     public Display(){
         myBorder = new BorderPane();
@@ -47,6 +48,8 @@ public class Display {
         myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
         myImage = myScreen.getTurtleImage();
+        myX = myScreen.getTurtleX();
+        myY = myScreen.getTurtleY();
         updateDisplay();
     }
     
@@ -56,8 +59,6 @@ public class Display {
                 commandHistory.append(myScreen.getCodeInput().getText() + "\n");
                 System.out.println(myScreen.getCodeInput().getText());
                 historyBox.setText(commandHistory.toString());
-                int myX = myScreen.getTurtleX();
-                int myY = myScreen.getTurtleY();
                 myY = myY+50;
                 myX = myX+40;
                 myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
