@@ -12,24 +12,6 @@ public class CommandFactory {
         }
         
         return null;
-        /*    
-        try {
-            return (CommandInterface) Class.forName(commands[0]).newInstance().
-        }
-        catch (InstantiationException e) {
-            // TODO BAD CODE!!
-            e.printStackTrace();
-        }
-        catch (IllegalAccessException e) {
-            // TODO BAD CODE!!
-            e.printStackTrace();
-        }       
-        catch (ClassNotFoundException e) {
-            // TODO BAD CODE!!
-            e.printStackTrace();
-        }
-        return null;
-        */
     }
     
     
