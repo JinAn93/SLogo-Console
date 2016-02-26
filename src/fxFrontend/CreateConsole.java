@@ -20,19 +20,20 @@ public class CreateConsole {
 		
 		myHistory = new ScrollPane();
 		myHistoryLabel = new Label("History:");
-		createBox(myHistoryLabel, myHistory, 350+HEIGHT);
+		myHistoryText = new TextArea();
+		createBox(myHistoryLabel, myHistory,myHistoryText, 350+HEIGHT);
 		
 		myConsole = new ScrollPane();
 		myConsoleLabel = new Label("Console:");
-		createBox(myConsoleLabel, myConsole, HEIGHT);
+		myConsoleText = new TextArea();
+		createBox(myConsoleLabel, myConsole, myConsoleText, HEIGHT);
 
 	}
 	
-	private void createBox(Label myLabel, ScrollPane myPane, int height){
-		TextArea textArea = new TextArea();
-		textArea.setPrefSize(WIDTH, height);
+	private void createBox(Label myLabel, ScrollPane myPane, TextArea myText, int height){
+		myText.setPrefSize(WIDTH, height);
 		myConsolePane.getChildren().add(myLabel);
-        myPane.setContent(textArea);
+        myPane.setContent(myText);
         myPane.setFitToWidth(true);
         myPane.setPrefWidth(WIDTH);
         myPane.setPrefHeight(height);
@@ -42,6 +43,12 @@ public class CreateConsole {
 	public VBox getConsole(){
 		return myConsolePane;
 	}
+	
+	public TextArea getHistoryTextArea(){
+		return myHistoryText; 
+	}
+	
+	
 
 
 }
