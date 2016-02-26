@@ -10,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.util.*;
 
 public class Display {
 	private BorderPane myBorder;
@@ -20,7 +21,11 @@ public class Display {
 	private CreateConsole myConsole = new CreateConsole();
 	private Button myButton;
 	private TextArea turtleBox;
-	private Output backendOutput; 
+	private TextArea historyBox; 
+	private Output backendOutput = new Output("Test");
+//	private ArrayList<String> commandHistory = new ArrayList<String>();
+	private StringBuilder commandHistory = new StringBuilder(); 
+	
 	public Display(){
 		myBorder = new BorderPane();
 		displayScreen();
@@ -36,21 +41,28 @@ public class Display {
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
         turtleBox = mySidebar.getArea();
-        
+        historyBox = myConsole.getHistoryTextArea();
         myButton = myScreen.getButton();
-        
-        //Test
-        backendOutput = new Output("Test");
-        
-        myButton.setOnAction(new EventHandler<ActionEvent>() {
+        updateDisplay(); 
+
+	}
+	
+	public void updateDisplay(){
+		myButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-            	turtleBox.appendText(backendOutput.getCommand() + "/n");
+            	commandHistory.append(backendOutput.getCommand() + "\n");
+            	historyBox.setText(commandHistory.toString());
+            	turtleBox.appendText(backendOutput.getCommand() + "\n");
             }
         });
-        
 	}
+	
 	public Scene getScene(){
 		return myScene;
 	}
+	
+//	public List getCommandHistory(){
+//		return commandHistory; 
+//	}
 
 }
