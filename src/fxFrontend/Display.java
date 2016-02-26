@@ -1,5 +1,5 @@
 package fxFrontend;
-
+import Main.MainBackEnd;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -19,7 +19,6 @@ public class Display {
 	private CreateTurtleScreen myScreen = new CreateTurtleScreen();
 	private CreateConsole myConsole = new CreateConsole();
 	private Button myButton;
-	private TextArea turtleBox;
 	private TextArea historyBox; 
 	private StringBuilder commandHistory = new StringBuilder(); 
 	
@@ -37,7 +36,6 @@ public class Display {
         myBorder.setLeft(leftBox);
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
-        turtleBox = mySidebar.getArea();
         historyBox = myConsole.getHistoryTextArea();
         myButton = myScreen.getButton();
         updateDisplay(); 
@@ -48,6 +46,10 @@ public class Display {
             public void handle(ActionEvent e) {
             	commandHistory.append(myScreen.getCodeInput().getText() + "\n");
             	historyBox.setText(commandHistory.toString());
+            	MainBackEnd myCommand = new MainBackEnd();
+            	String[] commands = myCommand.setup(myScreen.getCodeInput().getText());
+            	myCommand.executeCommand(commands);
+            	
             }
         });
 	}
