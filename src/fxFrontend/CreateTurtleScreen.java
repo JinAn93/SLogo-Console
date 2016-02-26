@@ -21,6 +21,8 @@ public class CreateTurtleScreen {
 	private Canvas myCanvas;
 	private GraphicsContext myGraphics;
 	private Image myTurtleImage;
+	private int turtleX,turtleY;
+	
 	public CreateTurtleScreen(){
 		myScreen = new VBox(20);
 		myScreen.setPadding(new Insets(0, 20, 10, 20)); 
@@ -30,8 +32,10 @@ public class CreateTurtleScreen {
 		myGraphics.setFill(Color.WHITE);
 		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
         myScreen.getChildren().add(myCanvas);
-        Image img = new Image("/resources/turtle.png");
-        myGraphics.drawImage(img, 0, 0);
+        myTurtleImage = new Image("/resources/turtle.png");
+        turtleX = 0;
+        turtleY = 0;
+        myGraphics.drawImage(myTurtleImage, turtleX, turtleY);
         
         Label label1 = new Label("Code input:");
         codeInput = new TextField ();
@@ -43,6 +47,9 @@ public class CreateTurtleScreen {
         myButton = new Button("Submit");
         myScreen.getChildren().add(myButton);
 	}
+	public Canvas getCanvas(){
+		return myCanvas;
+	}
 	public VBox getScreen(){
 		return myScreen;
 	}
@@ -53,5 +60,21 @@ public class CreateTurtleScreen {
 	
 	public TextField getCodeInput(){
 		return codeInput; 
+	}
+	
+	public GraphicsContext getGraphics(){
+		return myGraphics;
+	}
+	
+	public Image getTurtleImage(){
+		return myTurtleImage;
+	}
+	
+	public int getTurtleX(){
+		return turtleX;
+	}
+	
+	public int getTurtleY(){
+		return turtleY;
 	}
 }
