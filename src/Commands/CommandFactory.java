@@ -2,13 +2,19 @@ package Commands;
 import java.lang.Class;
 
 public class CommandFactory {
-    public CommandInterface makeInstruction (String commandType){
-        if(commandType == null){
+    public CommandInterface makeInstruction (String[] commands){
+        if(commands[0] == null){
             return null;
         }
+    
+        if(commands[0].equalsIgnoreCase("Sum")){ //use resourcebundle
+            return new SumCommand(commands);
+        }
         
+        return null;
+        /*    
         try {
-            return (CommandInterface) Class.forName(commandType).newInstance();
+            return (CommandInterface) Class.forName(commands[0]).newInstance().
         }
         catch (InstantiationException e) {
             // TODO BAD CODE!!
@@ -23,28 +29,10 @@ public class CommandFactory {
             e.printStackTrace();
         }
         return null;
-        
-        
-        /*
-        if(commandType.equalsIgnoreCase("TURTLE")){ //use resourcebundle
-            return new TurtleCommand();
-        }
-        if(commandType.equalsIgnoreCase("TURTLECQUERIES")){
-            return new TurtleQueriesCommand();
-        }
-        if(commandType.equalsIgnoreCase("MATHOP")){
-            return new MathOpCommand();
-        }
-        if(commandType.equalsIgnoreCase("BOOLOP")){
-            return new BoolOpCommand();
-        }
-        if(commandType.equalsIgnoreCase("USERDEFINED")){
-            return new UserDefinedCommand();
-        }
-        return null;
+        */
     }
-    */
-    }
+    
+    
 }
 
         

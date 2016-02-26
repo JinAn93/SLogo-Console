@@ -58,7 +58,7 @@ public class MainBackEnd {
         CommandFactory cFactory = new CommandFactory();
         while(commands.length > 0){
             if(isCommand(commands[0])){
-                currentCommand = cFactory.makeInstruction(commands[0]);
+                currentCommand = cFactory.makeInstruction(commands);
             }
         
         } 
