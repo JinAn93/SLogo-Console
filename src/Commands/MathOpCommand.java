@@ -7,8 +7,8 @@ public abstract class MathOpCommand implements CommandInterface {
 
     private String myCommand;
     protected String[] myArguments = new String[ARGUMENT_LIST_SIZE];
-    private MathOpCommand child1;
-    private MathOpCommand child2;
+    private CommandInterface child1;
+    private CommandInterface child2;
    
  
     @Override
@@ -18,18 +18,19 @@ public abstract class MathOpCommand implements CommandInterface {
         return null;
     }
     
-    public int parse(String str, String listOfCommands){
+    public int parse(String str, String[] listOfCommands){
+        CommandFactory cm = new CommandFactory();
         try{
             return Integer.parseInt(str);
         }
         catch(NumberFormatException e){
             if(MainBackEnd.isCommand(str)){
-                child1 = new Command(str);
+                child1 = (CommandInterface) cm.makeInstruction(listOfCommands);
                 return child1.executeCommand();
                 
             }
             else{
-                
+                return 0;
             }
             
             

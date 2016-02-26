@@ -18,8 +18,8 @@ public class Sum extends MathOpCommand{
     @Override
     public int executeCommand (){
         return parse(operand1, commands) + parse(operand2, commands);
-        return 0;
     }
+    
     
 
 }

@@ -1,5 +1,6 @@
 package Commands;
 import java.lang.Class;
+import MathCommands.*;
 
 public class CommandFactory {
     public CommandInterface makeInstruction (String[] commands){
@@ -8,7 +9,7 @@ public class CommandFactory {
         }
     
         if(commands[0].equalsIgnoreCase("Sum")){ //use resourcebundle
-            return new SumCommand(commands);
+            return new Sum(commands);
         }
         
         return null;
