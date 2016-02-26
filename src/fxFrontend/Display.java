@@ -22,8 +22,7 @@ public class Display {
 	private Button myButton;
 	private TextArea turtleBox;
 	private TextArea historyBox; 
-	private Output backendOutput = new Output("Test");
-//	private ArrayList<String> commandHistory = new ArrayList<String>();
+	private Output backendOutput;
 	private StringBuilder commandHistory = new StringBuilder(); 
 	
 	public Display(){
@@ -44,15 +43,13 @@ public class Display {
         historyBox = myConsole.getHistoryTextArea();
         myButton = myScreen.getButton();
         updateDisplay(); 
-
 	}
 	
 	public void updateDisplay(){
 		myButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-            	commandHistory.append(backendOutput.getCommand() + "\n");
+            	commandHistory.append(myScreen.getCodeInput().getText() + "\n");
             	historyBox.setText(commandHistory.toString());
-            	turtleBox.appendText(backendOutput.getCommand() + "\n");
             }
         });
 	}
@@ -60,9 +57,4 @@ public class Display {
 	public Scene getScene(){
 		return myScene;
 	}
-	
-//	public List getCommandHistory(){
-//		return commandHistory; 
-//	}
-
 }
