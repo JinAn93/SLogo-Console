@@ -1,6 +1,5 @@
 package fxFrontend;
 
-import Main.Output;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -22,7 +21,6 @@ public class Display {
 	private Button myButton;
 	private TextArea turtleBox;
 	private TextArea historyBox; 
-	private Output backendOutput;
 	private StringBuilder commandHistory = new StringBuilder(); 
 	
 	public Display(){
