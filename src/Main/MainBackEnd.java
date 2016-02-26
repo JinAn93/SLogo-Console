@@ -37,6 +37,7 @@ public class MainBackEnd {
 
     public String[] setup (String input) {
         CommandDecoder cDecoder = new CommandDecoder();
+
         String[] commands = cDecoder.parseCommand(input);
         return commands;
     }
@@ -56,12 +57,12 @@ public class MainBackEnd {
 
     public void executeCommand (String[] commands) {
         CommandFactory cFactory = new CommandFactory();
-        while(commands.length > 0){
+//        while(commands.length > 0){
             if(isCommand(commands[0])){
                 currentCommand = cFactory.makeInstruction(commands);
             }
         
-        } 
+//        } 
     }
 
     public static boolean isCommand (String input) {

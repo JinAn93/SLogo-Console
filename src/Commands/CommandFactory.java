@@ -1,5 +1,4 @@
 package Commands;
-import java.lang.Class;
 import MathCommands.*;
 
 public class CommandFactory {

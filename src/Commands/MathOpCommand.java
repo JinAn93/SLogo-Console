@@ -18,15 +18,16 @@ public abstract class MathOpCommand implements CommandInterface {
         return null;
     }
     
-    public int parse(String str, String[] listOfCommands){
+    public int parse(String[] listOfCommands){
         CommandFactory cm = new CommandFactory();
+        String input = listOfCommands[0];
         try{
-            return Integer.parseInt(str);
+            return Integer.parseInt(input);
         }
         catch(NumberFormatException e){
-            if(MainBackEnd.isCommand(str)){
+            if(MainBackEnd.isCommand(input)){
                 child1 = (CommandInterface) cm.makeInstruction(listOfCommands);
-                return child1.executeCommand();
+                return child1.executeCommand(listOfCommands);
                 
             }
             else{

@@ -44,11 +44,14 @@ public class Display {
     public void updateDisplay(){
         myButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                commandHistory.append(myScreen.getCodeInput().getText() + "\n");
-                historyBox.setText(commandHistory.toString());
                 MainBackEnd myCommand = new MainBackEnd();
+
                 String[] commands = myCommand.setup(myScreen.getCodeInput().getText());
                 myCommand.executeCommand(commands);
+                
+                commandHistory.append(myScreen.getCodeInput().getText() + "\n");
+                historyBox.setText(commandHistory.toString());
+                
                 
             }
         });

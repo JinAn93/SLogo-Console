@@ -4,22 +4,15 @@ import Commands.*;
 
 
 public class Sum extends MathOpCommand{
-    private String operand1;
-    private String operand2;
-    private String[] commands;
     
     public Sum(String[] listOfCommands){
-        operand1 = listOfCommands[0];
-        operand2 = listOfCommands[1];
-        commands = Arrays.copyOfRange(listOfCommands, 2, listOfCommands.length);
+        String[] commands = Arrays.copyOfRange(listOfCommands, 1, listOfCommands.length);
+        int ret = executeCommand(commands);
+        System.out.println(ret);
     }
     
    
-    @Override
-    public int executeCommand (){
-        return parse(operand1, commands) + parse(operand2, commands);
+    public int executeCommand (String[] commands){
+        return parse(commands) + parse(Arrays.copyOfRange(commands,1,commands.length));
     }
-    
-    
-
 }
