@@ -30,7 +30,7 @@ public class CreateTurtleScreen {
 		myGraphics.setFill(Color.WHITE);
 		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
         myScreen.getChildren().add(myCanvas);
-        Image img = new Image("/fxFrontend/turtle.png");
+        Image img = new Image("/resources/turtle.png");
         myGraphics.drawImage(img, 0, 0);
         
         Label label1 = new Label("Code input:");

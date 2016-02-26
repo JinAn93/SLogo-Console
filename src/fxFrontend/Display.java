@@ -45,6 +45,7 @@ public class Display {
 		myButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
             	commandHistory.append(myScreen.getCodeInput().getText() + "\n");
+            	System.out.println(myScreen.getCodeInput().getText());
             	historyBox.setText(commandHistory.toString());
 //            	MainBackEnd myCommand = new MainBackEnd();
 //            	String[] commands = myCommand.setup(myScreen.getCodeInput().getText());
