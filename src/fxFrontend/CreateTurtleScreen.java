@@ -1,10 +1,12 @@
 package fxFrontend;
 
+import Main.Turtle;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
@@ -17,11 +19,12 @@ public class CreateTurtleScreen {
 	private VBox myScreen;
 	private Button myButton;
 	private StackPane root = new StackPane(); 
-	private TextField codeInput; 
+	private TextArea codeInput; 
 	private Canvas myCanvas;
 	private GraphicsContext myGraphics;
 	private Image myTurtleImage;
-	private int turtleX,turtleY;
+//	private int turtleX,turtleY;
+	private Turtle myTurtle; 
 //	private HashMap<>
 	
 	public CreateTurtleScreen(){
@@ -33,13 +36,16 @@ public class CreateTurtleScreen {
 		myGraphics.setFill(Color.WHITE);
 		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
         myScreen.getChildren().add(myCanvas);
-        myTurtleImage = new Image("/resources/koopa.png");
-        turtleX = 0;
-        turtleY = 0;
-        myGraphics.drawImage(myTurtleImage, turtleX, turtleY);
         
-        Label label1 = new Label("Code input:");
-        codeInput = new TextField ();
+        myTurtle = new Turtle(180, 210);
+//        myTurtleImage = new Image("/resources/turtle.png");
+//        turtleX = 180;
+//        turtleY = 210;
+
+        myGraphics.drawImage(myTurtle.getTurtleImage(), myTurtle.getXCor(), myTurtle.getYCor());
+        
+        Label label1 = new Label("Code:");
+        codeInput = new TextArea ();
         HBox hb = new HBox();
         hb.getChildren().addAll(label1, codeInput);
         hb.setSpacing(10);
@@ -59,7 +65,7 @@ public class CreateTurtleScreen {
 		return myButton;
 	}
 	
-	public TextField getCodeInput(){
+	public TextArea getCodeInput(){
 		return codeInput; 
 	}
 	
@@ -71,11 +77,15 @@ public class CreateTurtleScreen {
 		return myTurtleImage;
 	}
 	
-	public int getTurtleX(){
-		return turtleX;
+	public Turtle getMyTurtle(){
+		return myTurtle;
 	}
 	
-	public int getTurtleY(){
-		return turtleY;
-	}
+//	public int getTurtleX(){
+//		return turtleX;
+//	}
+//	
+//	public int getTurtleY(){
+//		return turtleY;
+//	}
 }

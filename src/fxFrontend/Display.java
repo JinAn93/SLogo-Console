@@ -51,9 +51,9 @@ public class Display {
         myButton = myScreen.getButton();
         myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
-        myImage = myScreen.getTurtleImage();
-        myX = myScreen.getTurtleX();
-        myY = myScreen.getTurtleY();
+        myImage = myScreen.getMyTurtle().getTurtleImage();
+        myX = myScreen.getMyTurtle().getXCor();
+        myY = myScreen.getMyTurtle().getYCor();
         updateDisplay();
     }
     
@@ -70,11 +70,15 @@ public class Display {
     				commandHistory.append(myScreen.getCodeInput().getText() + "\n");
     				System.out.println(myScreen.getCodeInput().getText());
     				historyBox.setText(commandHistory.toString());
-    				myY = myY+50;
-    				myX = myX+40;
     				myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
     				myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
+    				
+    				myY = myY+50;
+    				myX = myX+40;
     				myGraphics.drawImage(myImage, myX, myY);
+    				myScreen.getMyTurtle().setXCor(myX);
+    				myScreen.getMyTurtle().setYCor(myY);
+    				
     				//            	MainBackEnd myCommand = new MainBackEnd();
     				//            	String[] commands = myCommand.setup(myScreen.getCodeInput().getText());
     				//            	myCommand.executeCommand(commands);

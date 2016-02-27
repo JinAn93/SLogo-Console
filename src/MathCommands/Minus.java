@@ -1,26 +1,20 @@
 package MathCommands;
-import java.util.Arrays;
-import Commands.*;
 
+import Commands.Command;
+import Commands.Node;
 
-public class Sum extends Command{
-
-    public final int NUMBEROFCHILDREN = 2;
+public class Minus extends Command{
+    public final int NUMBEROFCHILDREN = 1;
     private Node[] children = new Node[NUMBEROFCHILDREN];
     
-    public Sum(){
+    public Minus(){
 
     }
     
     @Override
     public String executeCommand (){
-        int sum = 0;
-        for(int i = 0; i < NUMBEROFCHILDREN; i++){
-            sum += Integer.parseInt(children[i].getValue());
-            
-        }
-        return Integer.toString(sum);
-        
+        int minus = Integer.parseInt(children[0].getValue());
+        return Integer.toString(minus);
     }
 
 
@@ -43,6 +37,7 @@ public class Sum extends Command{
     public Node[] getChildren () {
         return children;
     }
+
 
 
 }

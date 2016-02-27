@@ -1,26 +1,24 @@
 package MathCommands;
-import java.util.Arrays;
-import Commands.*;
 
+import Commands.Command;
+import Commands.Node;
 
-public class Sum extends Command{
-
+public class Product extends Command {
     public final int NUMBEROFCHILDREN = 2;
     private Node[] children = new Node[NUMBEROFCHILDREN];
     
-    public Sum(){
+    public Product(){
 
     }
     
     @Override
     public String executeCommand (){
-        int sum = 0;
+        int product = 1; //This should be 1 as this is multiplication
         for(int i = 0; i < NUMBEROFCHILDREN; i++){
-            sum += Integer.parseInt(children[i].getValue());
-            
+            System.out.println(children[i].getValue());
+            product = product * Integer.parseInt(children[i].getValue());  
         }
-        return Integer.toString(sum);
-        
+        return Integer.toString(product);  
     }
 
 
@@ -43,6 +41,5 @@ public class Sum extends Command{
     public Node[] getChildren () {
         return children;
     }
-
 
 }

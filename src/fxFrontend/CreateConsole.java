@@ -21,11 +21,13 @@ public class CreateConsole {
 		myHistory = new ScrollPane();
 		myHistoryLabel = new Label("History:");
 		myHistoryText = new TextArea();
+		myHistoryText.setEditable(false);
 		createBox(myHistoryLabel, myHistory,myHistoryText, 350+HEIGHT);
 		
 		myConsole = new ScrollPane();
 		myConsoleLabel = new Label("Console:");
 		myConsoleText = new TextArea();
+		myConsoleText.setEditable(false);
 		createBox(myConsoleLabel, myConsole, myConsoleText, HEIGHT);
 
 	}
