@@ -15,7 +15,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.util.*;
-
+import Main.Output;
+import Main.Turtle;
 public class Display {
     private BorderPane myBorder;
     private Scene myScene;
@@ -30,8 +31,8 @@ public class Display {
     private Image myImage;
     private Canvas myCanvas;
     private int myX,myY;
+    private Turtle myTurtle;
     private Alert alert = new Alert(AlertType.INFORMATION);
-    
     
     public Display(){
         myBorder = new BorderPane();
@@ -47,42 +48,48 @@ public class Display {
         myBorder.setLeft(leftBox);
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
+        myTurtle = myScreen.getMyTurtle();
         historyBox = myConsole.getHistoryTextArea();
         myButton = myScreen.getButton();
         myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
         myImage = myScreen.getMyTurtle().getTurtleImage();
-        myX = myScreen.getMyTurtle().getXCor();
-        myY = myScreen.getMyTurtle().getYCor();
+        myX = myTurtle.getXCor();
+        myY = myTurtle.getYCor();
         updateDisplay();
     }
     
     public void updateDisplay(){
     	myButton.setOnAction(new EventHandler<ActionEvent>() {
     		public void handle(ActionEvent e) {
-    			if(!myScreen.getCodeInput().getText().equals("hi")){ //Alert for bad commands
-    				alert.setTitle("Error Dialog");
-    				alert.setHeaderText("Error processing the command");
-    				alert.setContentText("\"" + myScreen.getCodeInput().getText() + "\" is not a valid command. Please input a valid command");
-    				alert.showAndWait();
-    			}
-    			else{
-    				commandHistory.append(myScreen.getCodeInput().getText() + "\n");
-    				System.out.println(myScreen.getCodeInput().getText());
-    				historyBox.setText(commandHistory.toString());
-    				myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-    				myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
-    				
-    				myY = myY+50;
-    				myX = myX+40;
-    				myGraphics.drawImage(myImage, myX, myY);
-    				myScreen.getMyTurtle().setXCor(myX);
-    				myScreen.getMyTurtle().setYCor(myY);
-    				
-    				//            	MainBackEnd myCommand = new MainBackEnd();
-    				//            	String[] commands = myCommand.setup(myScreen.getCodeInput().getText());
-    				//            	myCommand.executeCommand(commands);
-    			}
+    			String myCommand = myScreen.getCodeInput().getText();
+    			MainBackEnd mb = new MainBackEnd();
+				commandHistory.append(myCommand + "\n");
+				historyBox.setText(commandHistory.toString());
+
+    			//List<String> parsedCommands = mb.setup(myCommand,Turtle);
+    			//Output output = mb.executeCommand(parsedCommands);
+    			
+//    			if(!myScreen.getCodeInput().getText().equals("hi")){ //Alert for bad commands
+//    				alert.setTitle("Error Dialog");
+//    				alert.setHeaderText("Error processing the command");
+//    				alert.setContentText("\"" + myScreen.getCodeInput().getText() + "\" is not a valid command. Please input a valid command");
+//    				alert.showAndWait();
+//    			}
+//    			else{
+//    				commandHistory.append(myScreen.getCodeInput().getText() + "\n");
+//    				System.out.println(myScreen.getCodeInput().getText());
+//    				historyBox.setText(commandHistory.toString());
+//    				myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+//    				myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
+//    				
+//    				myY = myY+50;
+//    				myX = myX+40;
+//    				myGraphics.drawImage(myImage, myX, myY);
+//    				myScreen.getMyTurtle().setXCor(myX);
+//    				myScreen.getMyTurtle().setYCor(myY);
+//    				
+//    			}
     		}
     	});
     }
