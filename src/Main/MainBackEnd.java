@@ -63,7 +63,7 @@ public class MainBackEnd {
                 command = cf.makeInstruction(commands[i]);
                 Node[] children = new Node[command.numberOfChildren()];
                 for(int c = 0; c < command.numberOfChildren(); c++){
-                    System.out.println(command.numberOfChildren());
+                    System.out.println(command.numberOfChildren() + " " + command.getClass().getName());
                     children[c] = stack.pop();
                 }
                 ((Command) command).setChildren(children);
@@ -76,12 +76,6 @@ public class MainBackEnd {
         return stack.toArray(new Node[stack.size()]);
     }
   
-    
-    
-
-    
-    
-
     public static boolean isCommand (String input) {
         return input.matches("[a-zA-Z_]+(\\?)?");
     }
