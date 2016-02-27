@@ -3,22 +3,18 @@ package MathCommands;
 import Commands.Command;
 import Commands.Node;
 
-public class Product extends Command {
-    public final int NUMBEROFCHILDREN = 2;
+public class Minus extends Command{
+    public final int NUMBEROFCHILDREN = 1;
     private Node[] children = new Node[NUMBEROFCHILDREN];
     
-    public Product(){
+    public Minus(){
 
     }
     
     @Override
     public String executeCommand (){
-        int product = 1; //This should be 1 as this is multiplication
-        for(int i = 0; i < NUMBEROFCHILDREN; i++){
-            System.out.println(children[i].getValue());
-            product = product * Integer.parseInt(children[i].getValue());  
-        }
-        return Integer.toString(product);  
+        int minus = Integer.parseInt(children[0].getValue());
+        return Integer.toString(minus);
     }
 
 
@@ -41,5 +37,7 @@ public class Product extends Command {
     public Node[] getChildren () {
         return children;
     }
+
+
 
 }

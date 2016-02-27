@@ -46,9 +46,13 @@ public abstract class Command implements Node{
     }
 
 
-    @Override
     public Node[] getChildren () {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public int numberOfChildren () {
+        // TODO Auto-generated method stub
+        return 0;
     }   
 }

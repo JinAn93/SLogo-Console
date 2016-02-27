@@ -30,22 +30,20 @@ public class Operand implements Node{
 
 
 
-    @Override
-    public int numberOfChildren () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
     public void setChildren (Node[] children) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
     public Node[] getChildren () {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public int numberOfChildren () {
+        // TODO Auto-generated method stub
+        return 0;
     }
     
 

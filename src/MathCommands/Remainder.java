@@ -3,22 +3,19 @@ package MathCommands;
 import Commands.Command;
 import Commands.Node;
 
-public class Product extends Command {
+public class Remainder extends Command{
     public final int NUMBEROFCHILDREN = 2;
     private Node[] children = new Node[NUMBEROFCHILDREN];
     
-    public Product(){
+    public Remainder(){
 
     }
     
     @Override
     public String executeCommand (){
-        int product = 1; //This should be 1 as this is multiplication
-        for(int i = 0; i < NUMBEROFCHILDREN; i++){
-            System.out.println(children[i].getValue());
-            product = product * Integer.parseInt(children[i].getValue());  
-        }
-        return Integer.toString(product);  
+        int remainder = Integer.parseInt(children[0].getValue());
+        remainder = remainder % Integer.parseInt(children[1].getValue());
+        return Integer.toString(remainder);      
     }
 
 
@@ -41,5 +38,6 @@ public class Product extends Command {
     public Node[] getChildren () {
         return children;
     }
+    
 
 }

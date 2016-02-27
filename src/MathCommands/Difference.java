@@ -1,24 +1,20 @@
 package MathCommands;
 
-import Commands.Command;
-import Commands.Node;
+import Commands.*;
 
-public class Product extends Command {
+public class Difference extends Command {
     public final int NUMBEROFCHILDREN = 2;
     private Node[] children = new Node[NUMBEROFCHILDREN];
     
-    public Product(){
+    public Difference(){
 
     }
     
     @Override
     public String executeCommand (){
-        int product = 1; //This should be 1 as this is multiplication
-        for(int i = 0; i < NUMBEROFCHILDREN; i++){
-            System.out.println(children[i].getValue());
-            product = product * Integer.parseInt(children[i].getValue());  
-        }
-        return Integer.toString(product);  
+        int difference = Integer.parseInt(children[0].getValue());
+        difference = difference - Integer.parseInt(children[1].getValue());
+        return Integer.toString(difference);      
     }
 
 
@@ -41,5 +37,6 @@ public class Product extends Command {
     public Node[] getChildren () {
         return children;
     }
+
 
 }

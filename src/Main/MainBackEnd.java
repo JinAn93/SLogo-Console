@@ -73,7 +73,7 @@ public class MainBackEnd {
                 for (int c = 0; c < paramNum; c++) {
                     children[c] = stack.pop();
                 }
-                command.setChildren(children);
+                ((Command) command).setChildren(children);
             }
             else {
                 command = cf.makeOperand(commands[i]);
