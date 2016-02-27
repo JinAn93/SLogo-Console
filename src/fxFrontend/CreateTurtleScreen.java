@@ -22,6 +22,7 @@ public class CreateTurtleScreen {
 	private GraphicsContext myGraphics;
 	private Image myTurtleImage;
 	private int turtleX,turtleY;
+//	private HashMap<>
 	
 	public CreateTurtleScreen(){
 		myScreen = new VBox(20);
@@ -32,7 +33,7 @@ public class CreateTurtleScreen {
 		myGraphics.setFill(Color.WHITE);
 		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
         myScreen.getChildren().add(myCanvas);
-        myTurtleImage = new Image("/resources/turtle.png");
+        myTurtleImage = new Image("/resources/koopa.png");
         turtleX = 0;
         turtleY = 0;
         myGraphics.drawImage(myTurtleImage, turtleX, turtleY);
