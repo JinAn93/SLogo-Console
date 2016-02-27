@@ -52,7 +52,7 @@ public class MainBackEnd {
 
     public void executeCommand (Collection<?> commands) {
         Node[] temp = buildExpressionTree(commands);
-        
+        Output output = new Output();
     }
 
     public Collection<?> setup (String input) {
