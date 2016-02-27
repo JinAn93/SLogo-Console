@@ -1,5 +1,8 @@
 package Main;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 /**
  * CommandDecoder serves to parse the input and check whether there exist any error.
  * 
@@ -7,16 +10,21 @@ package Main;
  *
  */
 public class CommandDecoder {
-    public String[] parseCommand (String input) {
-        String[] CommandbyLine = input.split("\n");
-        String commentFreeInput = new String();
-        for (String line : CommandbyLine) {
-            if (!line.matches("^#.*")) {
-                commentFreeInput += line;
-
-            }
+    public Collection<?> parseCommand (String input) {
+        if (input == null) {
+            // throw nullpointer exception error
+            return null;
         }
-        String[] commands = commentFreeInput.split(" ");
-        return commands;
+        else {
+            String[] CommandbyLine = input.split("\n");
+            String commentFreeInput = new String();
+            for (String line : CommandbyLine) {
+                if (!line.matches("^#.*")) {
+                    commentFreeInput += line;
+                }
+            }
+            String[] commands = commentFreeInput.split(" ");
+            return Arrays.asList(commands);
+        }
     }
 }
