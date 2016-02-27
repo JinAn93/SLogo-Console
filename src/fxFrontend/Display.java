@@ -66,9 +66,8 @@ public class Display {
     			MainBackEnd mb = new MainBackEnd();
 				commandHistory.append(myCommand + "\n");
 				historyBox.setText(commandHistory.toString());
-
-    			//List<String> parsedCommands = mb.setup(myCommand,Turtle);
-    			//Output output = mb.executeCommand(parsedCommands);
+    			List<String> parsedCommands = mb.setup(myCommand,myTurtle);
+    			Output output = mb.executeCommand(parsedCommands);
     			
 //    			if(!myScreen.getCodeInput().getText().equals("hi")){ //Alert for bad commands
 //    				alert.setTitle("Error Dialog");
