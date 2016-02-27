@@ -13,6 +13,7 @@ public class CommandDecoder {
         for (String line : CommandbyLine) {
             if (!line.matches("^#.*")) {
                 commentFreeInput += line;
+
             }
         }
         String[] commands = commentFreeInput.split(" ");
