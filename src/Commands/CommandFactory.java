@@ -1,38 +1,47 @@
 package Commands;
-import java.lang.Class;
+
+import MathCommands.*;
+
 
 public class CommandFactory {
-    public CommandInterface makeInstruction (String[] commands){
-        if(commands[0] == null){
+    public Command makeInstruction (String command) {
+        Command ret;
+
+        if (command.equalsIgnoreCase("Sum")) { // use resourcebundle
+            return new Sum();
+        }
+
+        if (command.equalsIgnoreCase("Product")) {
+            return new Product();
+
+        }
+
+        if (command.equalsIgnoreCase("Difference")) {
+            return new Difference();
+        }
+
+        if (command.equalsIgnoreCase("Remainder")) {
+            return new Remainder();
+        }
+
+        if (command.equalsIgnoreCase("Minus")) {
+            return new Remainder();
+        }
+
+        return null;
+    }
+
+    public Operand makeOperand (String operand) {
+        if (operand == null) {
+            System.out.println(operand + " was not created");
             return null;
         }
-    
-        if(commands[0].equalsIgnoreCase("Sum")){ //use resourcebundle
-            return new SumCommand(commands);
-        }
-        
-        return null;
-        /*    
-        try {
-            return (CommandInterface) Class.forName(commands[0]).newInstance().
-        }
-        catch (InstantiationException e) {
-            // TODO BAD CODE!!
-            e.printStackTrace();
-        }
-        catch (IllegalAccessException e) {
-            // TODO BAD CODE!!
-            e.printStackTrace();
-        }       
-        catch (ClassNotFoundException e) {
-            // TODO BAD CODE!!
-            e.printStackTrace();
-        }
-        return null;
-        */
-    }
-    
-    
-}
 
-        
+        Operand op = new Operand();
+        op.setValue(operand);
+        op.setOperand(true);
+        System.out.println(operand + " was created");
+        return op;
+    }
+
+}

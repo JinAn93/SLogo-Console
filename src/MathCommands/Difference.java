@@ -1,27 +1,20 @@
 package MathCommands;
-import java.util.Arrays;
+
 import Commands.*;
 
-
-public class Sum extends Command{
-
+public class Difference extends Command {
     public final int NUMBEROFCHILDREN = 2;
     private Node[] children = new Node[NUMBEROFCHILDREN];
     
-    public Sum(){
+    public Difference(){
 
     }
     
     @Override
     public String executeCommand (){
-        int sum = 0;
-        for(int i = 0; i < NUMBEROFCHILDREN; i++){
-            System.out.println(children[i].getClass().getName());
-            sum += Integer.parseInt(children[i].getValue());
-            
-        }
-        return Integer.toString(sum);
-        
+        int difference = Integer.parseInt(children[0].getValue());
+        difference = difference - Integer.parseInt(children[1].getValue());
+        return Integer.toString(difference);      
     }
 
 
