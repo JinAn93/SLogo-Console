@@ -16,6 +16,7 @@ public class Sum extends Command{
     public String executeCommand (){
         int sum = 0;
         for(int i = 0; i < NUMBEROFCHILDREN; i++){
+            System.out.println(children[i].getClass().getName());
             sum += Integer.parseInt(children[i].getValue());
             
         }

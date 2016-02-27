@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
 import CommandExecutors.*;
@@ -32,6 +33,7 @@ public class MainBackEnd {
             .getBundle("resources.languages/Syntax");
     private ResourceBundle myLanguages = ResourceBundle.getBundle("resources.languages/" +
                                                                   possibleLanguages[DEFAULTLANG]);
+
     private Turtle myTurtle;
     // public static void main(String args[]){
     // MainBackEnd mb = new MainBackEnd();
@@ -69,8 +71,11 @@ public class MainBackEnd {
             Node command;
             if (isCommand(commands[i])) {
                 command = cf.makeInstruction(commands[i]);
+
                 int paramNum = getParamNum(commands[i]);
                 Node[] children = new Node[paramNum];
+                System.out.println(commands[i]);
+                System.out.println(paramNum);
                 for (int c = 0; c < paramNum; c++) {
                     children[c] = stack.pop();
                 }
@@ -84,11 +89,13 @@ public class MainBackEnd {
         return stack.toArray(new Node[stack.size()]);
     }
 
+
     private int getParamNum (String command) {
         Enumeration<String> keys = myLanguages.getKeys();
         while (keys.hasMoreElements()) {
-            String whichCommand = myLanguages.getString(keys.nextElement());
-            if (whichCommand.equals(command)) {
+            String whichCommand =(keys.nextElement());
+            System.out.println(whichCommand);
+            if (command.matches(myLanguages.getString(whichCommand))) {
                 return Integer.parseInt(myParameters.getString(whichCommand));
             }
         }
