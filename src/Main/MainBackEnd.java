@@ -32,7 +32,7 @@ public class MainBackEnd {
             .getBundle("resources.languages/Syntax");
     private ResourceBundle myLanguages = ResourceBundle.getBundle("resources.languages/" +
                                                                   possibleLanguages[DEFAULTLANG]);
-
+    private Turtle myTurtle;
     // public static void main(String args[]){
     // MainBackEnd mb = new MainBackEnd();
     // String[] commands = mb.setup("sum sum sum sum 1 sum 1 1 1 1 1"); // JUST PLAY AROUND WITH
@@ -55,8 +55,9 @@ public class MainBackEnd {
         
     }
 
-    public Collection<?> setup (String input) {
+    public Collection<?> setup (String input, Turtle turtle) {
         CommandDecoder cDecoder = new CommandDecoder();
+        myTurtle = turtle;
         return cDecoder.parseCommand(input);
     }
 
