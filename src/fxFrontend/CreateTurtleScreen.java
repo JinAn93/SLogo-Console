@@ -1,5 +1,6 @@
 package fxFrontend;
 
+import Main.Turtle;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,7 +23,9 @@ public class CreateTurtleScreen {
 	private Canvas myCanvas;
 	private GraphicsContext myGraphics;
 	private Image myTurtleImage;
-	private int turtleX,turtleY;
+//	private int turtleX,turtleY;
+	private Turtle myTurtle; 
+//	private HashMap<>
 	
 	public CreateTurtleScreen(){
 		myScreen = new VBox(20);
@@ -33,10 +36,13 @@ public class CreateTurtleScreen {
 		myGraphics.setFill(Color.WHITE);
 		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
         myScreen.getChildren().add(myCanvas);
-        myTurtleImage = new Image("/resources/turtle.png");
-        turtleX = 180;
-        turtleY = 210;
-        myGraphics.drawImage(myTurtleImage, turtleX, turtleY);
+        
+        myTurtle = new Turtle(180, 210);
+//        myTurtleImage = new Image("/resources/turtle.png");
+//        turtleX = 180;
+//        turtleY = 210;
+
+        myGraphics.drawImage(myTurtle.getTurtleImage(), myTurtle.getXCor(), myTurtle.getYCor());
         
         Label label1 = new Label("Code:");
         codeInput = new TextArea ();
@@ -71,11 +77,15 @@ public class CreateTurtleScreen {
 		return myTurtleImage;
 	}
 	
-	public int getTurtleX(){
-		return turtleX;
+	public Turtle getMyTurtle(){
+		return myTurtle;
 	}
 	
-	public int getTurtleY(){
-		return turtleY;
-	}
+//	public int getTurtleX(){
+//		return turtleX;
+//	}
+//	
+//	public int getTurtleY(){
+//		return turtleY;
+//	}
 }
