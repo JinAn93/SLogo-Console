@@ -24,11 +24,7 @@ public class Sum extends Command{
     }
 
 
-    @Override
-    public String traverseDown () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
 
     @Override
     public int numberOfChildren () {
@@ -38,7 +34,6 @@ public class Sum extends Command{
     @Override
     public void setChildren (Node[] kids) {
         for(int i = 0; i < kids.length; i++){
-            System.out.println(kids[i].getClass().getName() + "setChildren");
             children[i] = kids[i];
            
         }

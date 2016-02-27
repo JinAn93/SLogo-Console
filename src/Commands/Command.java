@@ -4,6 +4,7 @@ public abstract class Command implements Node{
     protected String strValue = "eben";
     private boolean operand;
     private final String OPERAND = "Operand";
+    protected Node[] children;
 
 
     @Override
@@ -35,30 +36,19 @@ public abstract class Command implements Node{
         return operand;
     }
 
-    @Override
-    public String traverseDown () {
-        // TODO Auto-generated method stub
-        return null;
+
+
+    public void setChildren (Node[] kids) {
+        children = new Node[kids.length];
+        for(int i = 0; i < kids.length; i++){
+            children[i] = kids[i];
+        }
     }
 
-    @Override
-    public int numberOfChildren () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public void setChildren (Node[] children) {
-        // TODO Auto-generated method stub
-        
-    }
 
     @Override
     public Node[] getChildren () {
         // TODO Auto-generated method stub
         return null;
-    }
-
- 
-    
+    }   
 }

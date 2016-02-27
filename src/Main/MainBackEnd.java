@@ -29,13 +29,12 @@ public class MainBackEnd {
 
     public static void main(String args[]){
         MainBackEnd mb = new MainBackEnd();
-        String[] commands = mb.setup("sum 1 sum 1 1 sum 1 6");   // JUST PLAY AROUND WITH THIS STRING AND THEN RUN MAINBACKEND TO RUN IT !!
+        String[] commands = mb.setup("sum sum sum sum 1 sum 1 1 1 1 1");   // JUST PLAY AROUND WITH THIS STRING AND THEN RUN MAINBACKEND TO RUN IT !!
         for(int i = commands.length - 1; i > -1; i--){
             //System.out.println(commands[i]);
         }
         Node[] temp = mb.buildExpressionTree(commands);
         for(int i = 0; i < temp.length; i++){
-            System.out.println(temp[i].getClass().getName());
             System.out.println(temp[i].getValue());
         }
         }
@@ -58,14 +57,13 @@ public class MainBackEnd {
     private Node[] buildExpressionTree(String[] commands){
         Deque<Node> stack = new ArrayDeque<Node>();
         CommandFactory cf = new CommandFactory();
-        Node command;
         for(int i = commands.length - 1; i > -1; i--){
+            Node command;
             if(isCommand(commands[i])){
                 command = cf.makeInstruction(commands[i]);
                 Node[] children = new Node[command.numberOfChildren()];
                 for(int c = 0; c < command.numberOfChildren(); c++){
                     children[c] = stack.pop();
-                    System.out.println(children[c].getClass().getName());
                 }
                 command.setChildren(children);
             }
@@ -73,22 +71,15 @@ public class MainBackEnd {
                 command = cf.makeOperand(commands[i]);
             }
             stack.push(command);
-//            System.out.println(command.getClass().getName());
         }
         return stack.toArray(new Node[stack.size()]);
     }
   
     
-/*
-    public void executeCommand (String[] commands) {
-        CommandFactory cFactory = new CommandFactory();
-//        while(commands.length > 0){
-            if(isCommand(commands[0])){
-                currentCommand = cFactory.makeInstruction(commands);
-            }
-        
-//        } 
-    } */
+    
+
+    
+    
 
     public static boolean isCommand (String input) {
         return input.matches("[a-zA-Z_]+(\\?)?");

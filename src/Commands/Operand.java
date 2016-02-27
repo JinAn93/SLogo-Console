@@ -28,11 +28,7 @@ public class Operand implements Node{
         return operand;
     }
 
-    @Override
-    public String traverseDown () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
 
     @Override
     public int numberOfChildren () {
