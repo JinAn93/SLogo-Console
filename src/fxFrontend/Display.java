@@ -57,7 +57,6 @@ public class Display {
         myButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 commandHistory.append(myScreen.getCodeInput().getText() + "\n");
-                System.out.println(myScreen.getCodeInput().getText());
                 historyBox.setText(commandHistory.toString());
                 myY = myY+50;
                 myX = myX+40;
