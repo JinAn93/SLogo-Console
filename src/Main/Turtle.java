@@ -1,4 +1,7 @@
 package Main;
+
+import javafx.scene.image.Image;
+
 /**
  * Turtle class serves to store its properties such as visibility, xCor, yCor, and pen (up or Down)
  * 
@@ -9,10 +12,10 @@ public class Turtle {
 
     private int myXCor, myYCor;
     private boolean myVisibility, myPen;
-
-    public Turtle () {
-        myXCor = 0;
-        myYCor = 0;
+    private Image myTurtleImage = new Image("/resources/koopa.png");
+    public Turtle (int x, int y) {
+        myXCor = x;
+        myYCor = y;
         myVisibility = true;
         myPen = false;
     }
@@ -47,5 +50,9 @@ public class Turtle {
 
     public void setPen (boolean pen) {
         myPen = pen;
+    }
+    
+    public Image getTurtleImage(){
+    	return myTurtleImage; 
     }
 }
