@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 import java.util.*;
 import Main.Output;
 import Main.Turtle;
+import Main.InputObject;
+
 public class Display {
     private BorderPane myBorder;
     private Scene myScene;
@@ -66,8 +68,9 @@ public class Display {
     			MainBackEnd mb = new MainBackEnd();
 				commandHistory.append(myCommand + "\n");
 				historyBox.setText(commandHistory.toString());
-    			List<String> parsedCommands = mb.setup(myCommand,myTurtle);
-    			Output output = mb.executeCommand(parsedCommands);
+				InputObject myInput = new InputObject(myCommand,myTurtle);
+    			//List<String> parsedCommands = mb.setup(myCommand,myTurtle);
+    			//Output output = mb.executeCommand(parsedCommands);
     			
 //    			if(!myScreen.getCodeInput().getText().equals("hi")){ //Alert for bad commands
 //    				alert.setTitle("Error Dialog");
