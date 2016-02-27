@@ -1,50 +1,47 @@
 package Commands;
+
 import MathCommands.*;
 
-public class CommandFactory {
-    public Command makeInstruction (String command){
-        Command ret;
-        
 
-    
-        if(command.equalsIgnoreCase("Sum")){ //use resourcebundle
+public class CommandFactory {
+    public Command makeInstruction (String command) {
+        Command ret;
+
+        if (command.equalsIgnoreCase("Sum")) { // use resourcebundle
             return new Sum();
         }
-        
-        if(command.equalsIgnoreCase("Product")){
+
+        if (command.equalsIgnoreCase("Product")) {
             return new Product();
-            
+
         }
-        
-        if(command.equalsIgnoreCase("Difference")){
+
+        if (command.equalsIgnoreCase("Difference")) {
             return new Difference();
         }
-        
-        if(command.equalsIgnoreCase("Remainder")){
+
+        if (command.equalsIgnoreCase("Remainder")) {
             return new Remainder();
         }
-        
-        if(command.equalsIgnoreCase("Minus")){
+
+        if (command.equalsIgnoreCase("Minus")) {
             return new Remainder();
         }
-        
+
         return null;
     }
-    
-    public Operand makeOperand (String operand){
-        if(operand == null){
+
+    public Operand makeOperand (String operand) {
+        if (operand == null) {
             System.out.println(operand + " was not created");
             return null;
         }
-        
+
         Operand op = new Operand();
         op.setValue(operand);
         op.setOperand(true);
         System.out.println(operand + " was created");
         return op;
     }
-    
-    
-}
 
-        
+}

@@ -50,6 +50,10 @@ public class CreateConsole {
 		return myHistoryText; 
 	}
 	
+	public TextArea getConsoleText(){
+	    return myConsoleText;
+	}
+	
 	
 
 

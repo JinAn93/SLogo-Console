@@ -1,6 +1,8 @@
 package Main;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.Enumeration;
@@ -52,17 +54,28 @@ public class MainBackEnd {
 
     }
 
-    public void executeCommand (Collection<?> commands) {
-        Node[] temp = buildExpressionTree(commands);
+    public Output executeCommand (Collection<?> commands) {
+        Node[] result = buildExpressionTree(commands);
         Output output = new Output();
+        
+        output.setResult(stringizer(result));
+        return output;
     }
 
-    public Collection<?> setup (String input, Turtle turtle) {
+    public Collection<?> setup (String input, InputObject inputObject) {
         CommandDecoder cDecoder = new CommandDecoder();
-        myTurtle = turtle;
+        InputObject io = inputObject;
+        myTurtle = io.getTurtle();
         return cDecoder.parseCommand(input);
     }
 
+    private List<String> stringizer (Node[] input){
+        List<String> ret = new ArrayList<String>();
+        for(int i=0; i<input.length; i++){
+            ret.add(input[i].getValue());
+        }
+        return ret;
+    }
     private Node[] buildExpressionTree (Collection<?> ListOfCommands) {
         Deque<Node> stack = new ArrayDeque<Node>();
         CommandFactory cf = new CommandFactory();
