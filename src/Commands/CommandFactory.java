@@ -20,6 +20,14 @@ public class CommandFactory {
             return new Difference();
         }
         
+        if(command.equalsIgnoreCase("Remainder")){
+            return new Remainder();
+        }
+        
+        if(command.equalsIgnoreCase("Minus")){
+            return new Remainder();
+        }
+        
         return null;
     }
     

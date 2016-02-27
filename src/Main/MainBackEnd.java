@@ -29,7 +29,7 @@ public class MainBackEnd {
 
     public static void main(String args[]){
         MainBackEnd mb = new MainBackEnd();
-        String[] commands = mb.setup("sum 1 product 2 difference 5 4");   // JUST PLAY AROUND WITH THIS STRING AND THEN RUN MAINBACKEND TO RUN IT !!
+        String[] commands = mb.setup("remainder 3 minus 5");   // JUST PLAY AROUND WITH THIS STRING AND THEN RUN MAINBACKEND TO RUN IT !!
         for(int i = commands.length - 1; i > -1; i--){
             //System.out.println(commands[i]);
         }
@@ -63,9 +63,10 @@ public class MainBackEnd {
                 command = cf.makeInstruction(commands[i]);
                 Node[] children = new Node[command.numberOfChildren()];
                 for(int c = 0; c < command.numberOfChildren(); c++){
+                    System.out.println(command.numberOfChildren());
                     children[c] = stack.pop();
                 }
-                command.setChildren(children);
+                ((Command) command).setChildren(children);
             }
             else{
                 command = cf.makeOperand(commands[i]);
