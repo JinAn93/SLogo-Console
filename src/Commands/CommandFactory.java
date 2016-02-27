@@ -3,13 +3,21 @@ import MathCommands.*;
 
 public class CommandFactory {
     public Command makeInstruction (String command){
+        Command ret;
+        
 
     
         if(command.equalsIgnoreCase("Sum")){ //use resourcebundle
-            Command ret = new Sum();
-            ret.setOperand(false);
-            System.out.println("sum was created");
-            return ret;
+            return new Sum();
+        }
+        
+        if(command.equalsIgnoreCase("Product")){
+            return new Product();
+            
+        }
+        
+        if(command.equalsIgnoreCase("Difference")){
+            return new Difference();
         }
         
         return null;

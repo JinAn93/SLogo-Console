@@ -29,7 +29,7 @@ public class MainBackEnd {
 
     public static void main(String args[]){
         MainBackEnd mb = new MainBackEnd();
-        String[] commands = mb.setup("sum sum sum sum 1 sum 1 1 1 1 1");   // JUST PLAY AROUND WITH THIS STRING AND THEN RUN MAINBACKEND TO RUN IT !!
+        String[] commands = mb.setup("sum 1 product 2 difference 5 4");   // JUST PLAY AROUND WITH THIS STRING AND THEN RUN MAINBACKEND TO RUN IT !!
         for(int i = commands.length - 1; i > -1; i--){
             //System.out.println(commands[i]);
         }
