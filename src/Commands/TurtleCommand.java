@@ -1,36 +1,20 @@
 package Commands;
 
-import CommandExecutors.CommandExecutor;
-import CommandExecutors.TurtleCommandExecutor;
+import Main.Turtle;
 
-public class TurtleCommand implements CommandInterface {
-    
-    private String myCommand;
-    private int myArgNeeded;
-    
-    public enum Commands {
-        Forward(1), Backward(1), Left(1), Right(1), SetHeading(1), SetTowards(2), SetPosition(2),
-        PenDown(0), PenUp(0), ShowTurtle(0), HideTurtle(0), Home(0), ClearScreen(0);
-        private int argNeeded;
+public class TurtleCommand extends Command {
 
-        private Commands (int value) {
-            this.argNeeded = value;
-        }
+    @Override
+    public String executeCommand () {
+        // TODO Auto-generated method stub
+        return "";
     }
     
-    @Override
-    public CommandInterface makeCommand (String command) {
-        myCommand = command;
-        myArgNeeded = Commands.valueOf(command).argNeeded;
-        // TODO Auto-generated method stub
+    public String executeCommand (Turtle turtle){
         return null;
     }
-
-    @Override
-    public int executeCommand () {
-        CommandExecutor cExector = new TurtleCommandExecutor(myCommand);
-        // TODO Auto-generated method stub
-        return 0;
+    
+    public String getValue(Turtle turtle){
+        return executeCommand(turtle);
     }
-
 }

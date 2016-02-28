@@ -1,33 +1,42 @@
 package Commands;
 
+import Main.MainBackEnd;
 import MathCommands.*;
+import TurtleQuery.*;
 
 
 public class CommandFactory {
     public Command makeInstruction (String command) {
         Command ret;
 
-        if (command.equalsIgnoreCase("Sum")) { // use resourcebundle
+        if (command.matches(MainBackEnd.getLanguage().getString("Sum"))) {
             return new Sum();
         }
 
-        if (command.equalsIgnoreCase("Product")) {
+        if (command.matches(MainBackEnd.getLanguage().getString("Product"))) {
             return new Product();
-
         }
 
-        if (command.equalsIgnoreCase("Difference")) {
+        if (command.matches(MainBackEnd.getLanguage().getString("Difference"))) {
             return new Difference();
         }
 
-        if (command.equalsIgnoreCase("Remainder")) {
+        if (command.matches(MainBackEnd.getLanguage().getString("Remainder"))) {
             return new Remainder();
         }
 
-        if (command.equalsIgnoreCase("Minus")) {
+        if (command.matches(MainBackEnd.getLanguage().getString("Minus"))) {
             return new Remainder();
         }
 
+        if (command.matches(MainBackEnd.getLanguage().getString("XCoordinate"))) {
+            return new XCoordinate();
+        }
+
+        if (command.matches(MainBackEnd.getLanguage().getString("YCoordinate"))) {
+            return new YCoordinate();
+        }
+        
         return null;
     }
 

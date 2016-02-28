@@ -1,18 +1,14 @@
 package Commands;
 
-public class BoolOpCommand implements CommandInterface {
-    private String myCommand;
+public class BoolOpCommand extends Command {
+
     @Override
-    public CommandInterface makeCommand (String command) {
-     // TODO Auto-generated method stub
-        myCommand = command;
+    public String executeCommand () {
+        // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
-    public int executeCommand () {
-        // TODO Auto-generated method stub
-        return 0;
+    public String getValue () {
+        return executeCommand();
     }
-
 }

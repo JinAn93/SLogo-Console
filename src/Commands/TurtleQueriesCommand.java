@@ -1,18 +1,20 @@
 package Commands;
 
-public class TurtleQueriesCommand implements CommandInterface {
+import Main.Turtle;
 
-    private String myCommand;
+public class TurtleQueriesCommand extends Command {
+
     @Override
-    public CommandInterface makeCommand (String command) {
+    public String executeCommand () {
         // TODO Auto-generated method stub
-        myCommand = command;
+        return "";
+    }
+    
+    public String executeCommand (Turtle turtle){
         return null;
     }
-
-    @Override
-    public int executeCommand () {
-        // TODO Auto-generated method stub
-        return 0;
+    
+    public String getValue(Turtle turtle){
+        return executeCommand(turtle);
     }
 }

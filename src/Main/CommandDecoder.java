@@ -19,7 +19,7 @@ public class CommandDecoder {
             String[] CommandbyLine = input.split("\n");
             String commentFreeInput = new String();
             for (String line : CommandbyLine) {
-                if (!line.matches("^#.*")) {
+                if (!line.matches(MainBackEnd.getSyntax().getString("Comment"))) {
                     commentFreeInput += line;
                 }
             }

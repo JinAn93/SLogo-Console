@@ -33,7 +33,7 @@ public class MainBackEnd {
             .getBundle("resources.ParameterList/AllParameters");
     private static final ResourceBundle mySyntaxes = ResourceBundle
             .getBundle("resources.languages/Syntax");
-    private ResourceBundle myLanguages = ResourceBundle.getBundle("resources.languages/" +
+    private static ResourceBundle myLanguages = ResourceBundle.getBundle("resources.languages/" +
                                                                   possibleLanguages[DEFAULTLANG]);
 
     private Turtle myTurtle;
@@ -118,7 +118,14 @@ public class MainBackEnd {
     public void setLanguage (ResourceBundle bundle) {
         myLanguages = bundle;
     }
+    
+    public static ResourceBundle getLanguage(){
+        return myLanguages;
+    }
 
+    public static ResourceBundle getSyntax(){
+        return mySyntaxes;
+    }
     public static boolean isCommand (String input) {
         return input.matches(mySyntaxes.getString("Command"));
     }
