@@ -12,12 +12,13 @@ public class Turtle {
 
     private int myXCor, myYCor;
     private boolean myVisibility, myPen;
-    private Image myTurtleImage = new Image("/resources/koopa.png");
-    public Turtle (int x, int y) {
+    private Image myTurtleImage;
+    public Turtle (int x, int y, String dir) {
         myXCor = x;
         myYCor = y;
         myVisibility = true;
         myPen = false;
+        myTurtleImage = new Image(dir);
     }
 
     public int getXCor () {
@@ -54,5 +55,9 @@ public class Turtle {
     
     public Image getTurtleImage(){
     	return myTurtleImage; 
+    }
+    
+    public void setTurtleImage(String dir){
+    	this.myTurtleImage = new Image(dir);
     }
 }

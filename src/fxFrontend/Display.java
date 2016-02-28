@@ -23,7 +23,8 @@ import java.util.*;
 import Main.Output;
 import Main.Turtle;
 import Main.InputObject;
-import fxMenu.CreateMenu;
+import fxMenu.CreateColorMenu;
+import fxMenu.CreateTurtleSelectionMenu;
 
 public class Display {
     private BorderPane myBorder;
@@ -43,7 +44,8 @@ public class Display {
     private Turtle myTurtle;
     private Alert alert = new Alert(AlertType.INFORMATION);
     private MenuBar myMenu;
-    private CreateMenu createMenu;
+    private CreateColorMenu createMenu;
+    private CreateTurtleSelectionMenu myTurtleImages;
 
     public Display () {
         myBorder = new BorderPane();
@@ -71,9 +73,13 @@ public class Display {
         myX = myTurtle.getXCor();
         myY = myTurtle.getYCor();
         
-        createMenu = new CreateMenu(myColorGraphics,600,600);
-        myMenu = createMenu.getMenuBar();
+        myMenu = new MenuBar();
+        createMenu = new CreateColorMenu(myColorGraphics,600,600);
+        myMenu.getMenus().add(createMenu.getColorMenu());
+        myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
+        myMenu.getMenus().add(myTurtleImages.getImageMenu());
         myBorder.setTop(myMenu);
+
 
 //        Menu menuView = new Menu("Change Color");
 //        MenuItem add = new MenuItem("Blue");
@@ -121,10 +127,9 @@ public class Display {
                 myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
                 myY = myY+50;
                 myX = myX+40;
-                myGraphics.drawImage(myImage, myX, myY);
+                myGraphics.drawImage(myTurtle.getTurtleImage(), myX, myY);
                 myScreen.getMyTurtle().setXCor(myX);
-                myScreen.getMyTurtle().setYCor(myY);
-                
+                myScreen.getMyTurtle().setYCor(myY);                
                 // }
             }
         });
