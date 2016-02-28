@@ -8,18 +8,22 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.util.*;
 import Main.Output;
 import Main.Turtle;
 import Main.InputObject;
-
+import fxMenu.CreateMenu;
 
 public class Display {
     private BorderPane myBorder;
@@ -32,12 +36,14 @@ public class Display {
     private TextArea historyBox, myConsoleBox;
     private StringBuilder commandHistory = new StringBuilder();
     private String consoleText;
-    private GraphicsContext myGraphics;
+    private GraphicsContext myGraphics, myColorGraphics;
     private Image myImage;
     private Canvas myCanvas;
     private int myX, myY;
     private Turtle myTurtle;
     private Alert alert = new Alert(AlertType.INFORMATION);
+    private MenuBar myMenu;
+    private CreateMenu createMenu;
 
     public Display () {
         myBorder = new BorderPane();
@@ -50,6 +56,7 @@ public class Display {
         leftBox = mySidebar.getBox();
         centerBox = myScreen.getScreen();
         consoleBox = myConsole.getConsole();
+                
         myBorder.setLeft(leftBox);
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
@@ -59,9 +66,30 @@ public class Display {
         myButton = myScreen.getButton();
         myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
+        myColorGraphics = myScreen.getColorGraphics();
         myImage = myScreen.getMyTurtle().getTurtleImage();
         myX = myTurtle.getXCor();
         myY = myTurtle.getYCor();
+        
+        createMenu = new CreateMenu(myColorGraphics,600,600);
+        myMenu = createMenu.getMenuBar();
+        myBorder.setTop(myMenu);
+
+//        Menu menuView = new Menu("Change Color");
+//        MenuItem add = new MenuItem("Blue");
+//        add.setOnAction(new EventHandler<ActionEvent>() {
+//            public void handle(ActionEvent e) {
+//            	myColorGraphics.setFill(Color.ALICEBLUE);
+//            	myColorGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
+//            }
+//        });
+//        menuView.getItems().add(add);
+//        myMenu.getMenus().addAll(menuView);
+//        myMenu.useSystemMenuBarProperty().set(true);
+//        myBorder.setTop(myMenu);
+
+      
+        
         updateDisplay();
     }
 
@@ -89,15 +117,14 @@ public class Display {
                 // commandHistory.append(myScreen.getCodeInput().getText() + "\n");
                 // System.out.println(myScreen.getCodeInput().getText());
                 // historyBox.setText(commandHistory.toString());
-                // myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                // myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
-                //
-                // myY = myY+50;
-                // myX = myX+40;
-                // myGraphics.drawImage(myImage, myX, myY);
-                // myScreen.getMyTurtle().setXCor(myX);
-                // myScreen.getMyTurtle().setYCor(myY);
-                //
+                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+                myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
+                myY = myY+50;
+                myX = myX+40;
+                myGraphics.drawImage(myImage, myX, myY);
+                myScreen.getMyTurtle().setXCor(myX);
+                myScreen.getMyTurtle().setYCor(myY);
+                
                 // }
             }
         });
