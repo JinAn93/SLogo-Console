@@ -2,7 +2,7 @@ package MathCommands;
 
 import Commands.*;
 
-public class Difference extends Command {
+public class Difference extends MathOpCommand {
     public final int NUMBEROFCHILDREN = 2;
     private Node[] children = new Node[NUMBEROFCHILDREN];
     
@@ -15,14 +15,6 @@ public class Difference extends Command {
         int difference = Integer.parseInt(children[0].getValue());
         difference = difference - Integer.parseInt(children[1].getValue());
         return Integer.toString(difference);      
-    }
-
-
-
-
-    @Override
-    public int numberOfChildren () {
-        return NUMBEROFCHILDREN;
     }
 
     @Override

@@ -10,46 +10,53 @@ import javafx.scene.image.Image;
  */
 public class Turtle {
 
-    private int myXCor, myYCor;
-    private boolean myVisibility, myPen;
+    private double myXCor, myYCor, myHeading;
+    private int myVisibility, myPen;
     private Image myTurtleImage;
     public Turtle (int x, int y, String dir) {
         myXCor = x;
         myYCor = y;
-        myVisibility = true;
-        myPen = false;
+        myVisibility = 1;
+        myPen = 0;
         myTurtleImage = new Image(dir);
+        myHeading = 0;
     }
 
-    public int getXCor () {
+    public double getHeading () {
+        return myHeading;
+    }
+    public double getXCor () {
         return myXCor;
     }
 
-    public int getYCor () {
+    public double getYCor () {
         return myYCor;
     }
 
-    public void setXCor (int xCor) {
+    public void setHeading (int heading){
+        myHeading = heading;
+    }
+    public void setXCor (double xCor) {
         myXCor = xCor;
     }
 
-    public void setYCor (int yCor) {
+    public void setYCor (double yCor) {
         myYCor = yCor;
     }
 
-    public boolean getVisibility () {
+    public int getVisibility () {
         return myVisibility;
     }
 
-    public void setVisibility (boolean visibility) {
+    public void setVisibility (int visibility) {
         myVisibility = visibility;
     }
 
-    public boolean getPen () {
+    public int getPen () {
         return myPen;
     }
 
-    public void setPen (boolean pen) {
+    public void setPen (int pen) {
         myPen = pen;
     }
     

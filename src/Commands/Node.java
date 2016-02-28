@@ -5,5 +5,5 @@ public interface Node {
     public String getValue();
     public boolean setOperand(boolean bool);
     public boolean isOperand();
-    public int numberOfChildren ();
 }
+ 

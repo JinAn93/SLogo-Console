@@ -1,10 +1,9 @@
 package Commands;
 
-public class Operand implements Node{
+public class Operand implements Node {
     private String strValue;
     private final String OPERAND = "Operand";
     private boolean operand;
-
 
     @Override
     public String setValue (String str) {
@@ -28,23 +27,12 @@ public class Operand implements Node{
         return operand;
     }
 
-
-
     public void setChildren (Node[] children) {
         // TODO Auto-generated method stub
-        
     }
 
     public Node[] getChildren () {
         // TODO Auto-generated method stub
         return null;
     }
-
-    @Override
-    public int numberOfChildren () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-    
-
 }

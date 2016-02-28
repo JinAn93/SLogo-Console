@@ -1,19 +1,16 @@
 package Commands;
 
-public class UserDefinedCommand implements CommandInterface {
 
-    private String myCommand;
-    
+
+public class UserDefinedCommand extends Command {
+
     @Override
-    public CommandInterface makeCommand (String command) {
+    public String executeCommand () {
         // TODO Auto-generated method stub
-        myCommand = command;
         return null;
     }
-
-    @Override
-    public int executeCommand () {
-        // TODO Auto-generated method stub
-        return 0;
+    
+    public String getValue(){
+        return executeCommand();
     }
 }

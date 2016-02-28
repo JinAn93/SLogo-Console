@@ -17,7 +17,6 @@ public abstract class Command implements Node {
         if (isOperand())
             return getValue();
         return executeCommand();
-
     }
 
     public String executeCommand () {
@@ -46,10 +45,5 @@ public abstract class Command implements Node {
     public Node[] getChildren () {
         // TODO Auto-generated method stub
         return null;
-    }
-
-    public int numberOfChildren () {
-        // TODO Auto-generated method stub
-        return 0;
     }
 }

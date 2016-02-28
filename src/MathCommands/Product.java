@@ -1,9 +1,10 @@
 package MathCommands;
 
 import Commands.Command;
+import Commands.MathOpCommand;
 import Commands.Node;
 
-public class Product extends Command {
+public class Product extends MathOpCommand {
     public final int NUMBEROFCHILDREN = 2;
     private Node[] children = new Node[NUMBEROFCHILDREN];
     
@@ -19,14 +20,6 @@ public class Product extends Command {
             product = product * Integer.parseInt(children[i].getValue());  
         }
         return Integer.toString(product);  
-    }
-
-
-
-
-    @Override
-    public int numberOfChildren () {
-        return NUMBEROFCHILDREN;
     }
 
     @Override
