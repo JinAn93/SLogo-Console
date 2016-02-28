@@ -66,6 +66,7 @@ public class MainBackEnd {
         CommandDecoder cDecoder = new CommandDecoder();
         InputObject io = inputObject;
         myTurtle = io.getTurtle();
+        System.out.println(cDecoder.parseCommand(input));
         return cDecoder.parseCommand(input);
     }
 
