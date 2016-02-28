@@ -20,29 +20,37 @@ public class CreateTurtleScreen {
 	private Button myButton;
 	private StackPane root = new StackPane(); 
 	private TextArea codeInput; 
-	private Canvas myCanvas;
-	private GraphicsContext myGraphics;
+	private Canvas myCanvas, myCanvas2;
+	private GraphicsContext myGraphics, myGraphics2;
 	private Image myTurtleImage;
 //	private int turtleX,turtleY;
 	private Turtle myTurtle; 
+	private StackPane myPane;
 //	private HashMap<>
 	
 	public CreateTurtleScreen(){
 		myScreen = new VBox(20);
 		myScreen.setPadding(new Insets(0, 20, 10, 20)); 
-
+		
+		myPane = new StackPane();
+		
 		myCanvas = new Canvas(600,600);
 		myGraphics = myCanvas.getGraphicsContext2D();
-		myGraphics.setFill(Color.WHITE);
+		myGraphics.setFill(Color.TRANSPARENT);
 		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
-        myScreen.getChildren().add(myCanvas);
-        
+		        
         myTurtle = new Turtle(180, 210);
-//        myTurtleImage = new Image("/resources/turtle.png");
-//        turtleX = 180;
-//        turtleY = 210;
-
         myGraphics.drawImage(myTurtle.getTurtleImage(), myTurtle.getXCor(), myTurtle.getYCor());
+        
+		myCanvas2 = new Canvas(600,600);
+		myGraphics2 = myCanvas2.getGraphicsContext2D();
+		myGraphics2.setFill(Color.WHITE);
+		myGraphics2.fillRect(0,0,myCanvas2.getWidth(),myCanvas2.getHeight());
+		
+		myPane.getChildren().add(myCanvas2);
+		myPane.getChildren().add(myCanvas);
+		myScreen.getChildren().add(myPane);
+
         
         Label label1 = new Label("Code:");
         codeInput = new TextArea ();
@@ -55,7 +63,7 @@ public class CreateTurtleScreen {
         myScreen.getChildren().add(myButton);
 	}
 	public Canvas getCanvas(){
-		return myCanvas;
+		return myCanvas2;
 	}
 	public VBox getScreen(){
 		return myScreen;
@@ -71,6 +79,10 @@ public class CreateTurtleScreen {
 	
 	public GraphicsContext getGraphics(){
 		return myGraphics;
+	}
+	
+	public GraphicsContext getColorGraphics(){
+		return myGraphics2;
 	}
 	
 	public Image getTurtleImage(){
