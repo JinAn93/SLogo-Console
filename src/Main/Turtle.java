@@ -10,17 +10,20 @@ import javafx.scene.image.Image;
  */
 public class Turtle {
 
-    private int myXCor, myYCor;
-    private boolean myVisibility, myPen;
+    private int myXCor, myYCor, myHeading, myVisibility, myPen;
     private Image myTurtleImage;
     public Turtle (int x, int y, String dir) {
         myXCor = x;
         myYCor = y;
-        myVisibility = true;
-        myPen = false;
+        myVisibility = 1;
+        myPen = 0;
         myTurtleImage = new Image(dir);
+        myHeading = 0;
     }
 
+    public int getHeading () {
+        return myHeading;
+    }
     public int getXCor () {
         return myXCor;
     }
@@ -29,6 +32,9 @@ public class Turtle {
         return myYCor;
     }
 
+    public void setHeading (int heading){
+        myHeading = heading;
+    }
     public void setXCor (int xCor) {
         myXCor = xCor;
     }
@@ -37,19 +43,19 @@ public class Turtle {
         myYCor = yCor;
     }
 
-    public boolean getVisibility () {
+    public int getVisibility () {
         return myVisibility;
     }
 
-    public void setVisibility (boolean visibility) {
+    public void setVisibility (int visibility) {
         myVisibility = visibility;
     }
 
-    public boolean getPen () {
+    public int getPen () {
         return myPen;
     }
 
-    public void setPen (boolean pen) {
+    public void setPen (int pen) {
         myPen = pen;
     }
     
