@@ -8,24 +8,20 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
 
-public class CreateMenu {
-	private MenuBar myMenu;
+public class CreateColorMenu {
 	private Menu myColorMenu;
 	private GraphicsContext toChangeGraphics;
 	private int width,height;
 	private ArrayList<MenuItem> myColorItems;
 	private String[] myColors = {"RED","BLUE","GREEN","YELLOW","PINK"};
 	
-	public CreateMenu(GraphicsContext myChange, int w, int h){
-		myMenu = new MenuBar();
+	public CreateColorMenu(GraphicsContext myChange, int w, int h){
         toChangeGraphics = myChange;
         width = w;
         height = h;
 		myColorMenu = new Menu("Change Background Color");
 		getColors();
-		myColorMenu.getItems().addAll(myColorItems);
-        myMenu.getMenus().addAll(myColorMenu);
-        myMenu.useSystemMenuBarProperty().set(true);
+		myColorMenu.getItems().addAll(myColorItems);        
 	}
 	
 	private void getColors(){
@@ -42,8 +38,9 @@ public class CreateMenu {
 		}
 	}
 	
-	public MenuBar getMenuBar(){
-		return myMenu;
+	
+	public Menu getColorMenu(){
+		return myColorMenu;
 	}
 	
 }
