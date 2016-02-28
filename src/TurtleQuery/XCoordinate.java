@@ -4,12 +4,14 @@ import Commands.TurtleQueriesCommand;
 import Main.Turtle;
 
 public class XCoordinate extends TurtleQueriesCommand{
-    @Override
-    public String executeCommand (Turtle turtle){
-        return String.valueOf((turtle.getXCor()));
+    private Turtle myTurtle;
+    
+    public XCoordinate(Turtle turtle){
+        myTurtle = turtle;
     }
     
-    public String getValue (Turtle turtle){
-        return executeCommand(turtle);
+    @Override
+    public String executeCommand (){
+        return String.valueOf((myTurtle.getXCor()));
     }
 }

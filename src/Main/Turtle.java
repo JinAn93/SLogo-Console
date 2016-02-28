@@ -10,7 +10,8 @@ import javafx.scene.image.Image;
  */
 public class Turtle {
 
-    private int myXCor, myYCor, myHeading, myVisibility, myPen;
+    private double myXCor, myYCor, myHeading;
+    private int myVisibility, myPen;
     private Image myTurtleImage;
     public Turtle (int x, int y, String dir) {
         myXCor = x;
@@ -21,25 +22,25 @@ public class Turtle {
         myHeading = 0;
     }
 
-    public int getHeading () {
+    public double getHeading () {
         return myHeading;
     }
-    public int getXCor () {
+    public double getXCor () {
         return myXCor;
     }
 
-    public int getYCor () {
+    public double getYCor () {
         return myYCor;
     }
 
     public void setHeading (int heading){
         myHeading = heading;
     }
-    public void setXCor (int xCor) {
+    public void setXCor (double xCor) {
         myXCor = xCor;
     }
 
-    public void setYCor (int yCor) {
+    public void setYCor (double yCor) {
         myYCor = yCor;
     }
 

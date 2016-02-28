@@ -40,7 +40,7 @@ public class Display {
     private GraphicsContext myGraphics, myColorGraphics;
     private Image myImage;
     private Canvas myCanvas;
-    private int myX, myY;
+    private double myX, myY;
     private Turtle myTurtle;
     private Alert alert = new Alert(AlertType.INFORMATION);
     private MenuBar myMenu;

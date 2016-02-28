@@ -1,12 +1,14 @@
 package Commands;
 
 import Main.MainBackEnd;
+import Main.Turtle;
 import MathCommands.*;
+import TurtleCommand.*;
 import TurtleQuery.*;
 
 
 public class CommandFactory {
-    public Command makeInstruction (String command) {
+    public Command makeInstruction (String command, Turtle turtle) {
         Command ret;
 
         if (command.matches(MainBackEnd.getLanguage().getString("Sum"))) {
@@ -30,13 +32,28 @@ public class CommandFactory {
         }
 
         if (command.matches(MainBackEnd.getLanguage().getString("XCoordinate"))) {
-            return new XCoordinate();
+            return new XCoordinate(turtle);
         }
 
         if (command.matches(MainBackEnd.getLanguage().getString("YCoordinate"))) {
-            return new YCoordinate();
+            return new YCoordinate(turtle);
+        }
+
+        if (command.matches(MainBackEnd.getLanguage().getString("Heading"))) {
+            return new Heading(turtle);
         }
         
+        if (command.matches(MainBackEnd.getLanguage().getString("IsPenDown"))) {
+            return new IsPenDown(turtle);
+        }
+        
+        if (command.matches(MainBackEnd.getLanguage().getString("IsShowing"))) {
+            return new IsShowing(turtle);
+        }
+        
+        if (command.matches(MainBackEnd.getLanguage().getString("Forward"))) {
+            return new Forward(turtle);
+        }
         return null;
     }
 

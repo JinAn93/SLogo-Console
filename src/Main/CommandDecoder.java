@@ -23,6 +23,7 @@ public class CommandDecoder {
                     commentFreeInput += line;
                 }
             }
+            commentFreeInput.toLowerCase();
             String[] commands = commentFreeInput.split(" ");
             return Arrays.asList(commands);
         }

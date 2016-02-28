@@ -4,12 +4,14 @@ import Commands.TurtleQueriesCommand;
 import Main.Turtle;
 
 public class Heading extends TurtleQueriesCommand{
-    @Override
-    public String executeCommand (Turtle turtle){
-        return String.valueOf((turtle.getHeading()));
+    private Turtle myTurtle;
+    
+    public Heading (Turtle turtle){
+        myTurtle = turtle;
     }
     
-    public String getValue (Turtle turtle){
-        return executeCommand(turtle);
+    @Override
+    public String executeCommand (){
+        return String.valueOf((myTurtle.getHeading()));
     }
 }

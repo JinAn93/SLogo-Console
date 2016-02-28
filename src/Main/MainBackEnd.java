@@ -83,7 +83,7 @@ public class MainBackEnd {
         for (int i = commands.length - 1; i > -1; i--) {
             Node command;
             if (isCommand(commands[i])) {
-                command = cf.makeInstruction(commands[i]);
+                command = cf.makeInstruction(commands[i], myTurtle);
 
                 int paramNum = getParamNum(commands[i]);
                 Node[] children = new Node[paramNum];

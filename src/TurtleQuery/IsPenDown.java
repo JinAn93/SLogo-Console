@@ -3,13 +3,17 @@ package TurtleQuery;
 import Commands.TurtleQueriesCommand;
 import Main.Turtle;
 
-public class IsPenDown extends TurtleQueriesCommand{
-    @Override
-    public String executeCommand (Turtle turtle){
-        return String.valueOf((turtle.getPen()));
+
+public class IsPenDown extends TurtleQueriesCommand {
+
+    private Turtle myTurtle;
+
+    public IsPenDown (Turtle turtle) {
+        myTurtle = turtle;
     }
-    
-    public String getValue (Turtle turtle){
-        return executeCommand(turtle);
+
+    @Override
+    public String executeCommand () {
+        return String.valueOf((myTurtle.getPen()));
     }
 }

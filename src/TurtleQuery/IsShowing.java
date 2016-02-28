@@ -4,12 +4,14 @@ import Commands.TurtleQueriesCommand;
 import Main.Turtle;
 
 public class IsShowing extends TurtleQueriesCommand{
-    @Override
-    public String executeCommand (Turtle turtle){
-        return String.valueOf((turtle.getVisibility()));
-    }
     
-    public String getValue (Turtle turtle){
-        return executeCommand(turtle);
+    private Turtle myTurtle;
+    
+    public IsShowing(Turtle turtle){
+        myTurtle = turtle;
+    }
+    @Override
+    public String executeCommand (){
+        return String.valueOf((myTurtle.getVisibility()));
     }
 }
