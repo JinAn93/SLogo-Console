@@ -10,6 +10,7 @@ public class IsPenDown extends TurtleQueriesCommand {
 
     public IsPenDown (Turtle turtle) {
         super(turtle);
+        myTurtle = turtle;
     }
 
     @Override

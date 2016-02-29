@@ -9,6 +9,7 @@ public class Heading extends TurtleQueriesCommand {
 
     public Heading (Turtle turtle) {
         super(turtle);
+        myTurtle = turtle;
     }
 
     @Override

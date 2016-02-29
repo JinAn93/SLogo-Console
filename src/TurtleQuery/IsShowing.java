@@ -10,6 +10,7 @@ public class IsShowing extends TurtleQueriesCommand {
 
     public IsShowing (Turtle turtle) {
         super(turtle);
+        myTurtle = turtle;
     }
 
     @Override

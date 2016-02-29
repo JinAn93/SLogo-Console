@@ -9,6 +9,7 @@ public class XCoordinate extends TurtleQueriesCommand {
 
     public XCoordinate (Turtle turtle) {
         super(turtle);
+        myTurtle = turtle;
     }
 
     @Override
