@@ -111,37 +111,38 @@ public class Display {
                 consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
 
-                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                myTurtle = output.getTurtle();
-                myY = myTurtle.getYCor();
-                myX = myTurtle.getXCor();
-                System.out.println(myTurtle.getVisibility());
-                if (myTurtle.getVisibility() == 1) {
-                    myGraphics.drawImage(myTurtle.getTurtleImage(), myX, myY);
-                }
-                else {
-                    myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                }
+//                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+//                myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+//                myTurtle = output.getTurtle();
+//                myY = myTurtle.getYCor();
+//                myX = myTurtle.getXCor();
+//                System.out.println(myTurtle.getVisibility());
+//                
 
-                rotate(myGraphics, myTurtle.getHeading(), calculatePivotX(),
-                       calculatePivotY());
-                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-
-                myGraphics.drawImage(myTurtle.getTurtleImage(), myTurtle.getXCor(),
-                                     myTurtle.getYCor());
+//                rotate(myGraphics, myTurtle.getHeading(), calculatePivotX(),
+//                       calculatePivotY());
+//                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+//                myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+//
+//                myGraphics.drawImage(myTurtle.getTurtleImage(), myTurtle.getXCor(),
+//                                     myTurtle.getYCor());
 
             }
         });
     }
-    private double calculatePivotX(){
-        return (myTurtle.getXCor() + (myTurtle.getTurtleImage().getWidth() / 2));
+
+    public Turtle getTurtle() {
+        return myTurtle;
     }
     
-    private double calculatePivotY(){
-        return (myTurtle.getYCor() + (myTurtle.getTurtleImage().getHeight() / 2));
+    private double calculatePivotX (Turtle turtle) {
+        return (turtle.getXCor() + (turtle.getTurtleImage().getWidth() / 2));
     }
+
+    private double calculatePivotY (Turtle turtle) {
+        return (turtle.getYCor() + (turtle.getTurtleImage().getHeight() / 2));
+    }
+
     private void rotate (GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
@@ -149,5 +150,31 @@ public class Display {
 
     public Scene getScene () {
         return myScene;
+    }
+    
+    public class ObserveTurtle implements Observer {
+
+        @Override
+        public void update(Observable obs, Object turtle){
+            Double XCoor = myTurtle.getXCor();
+            Double YCoor = myTurtle.getYCor();
+            Double Head = myTurtle.getHeading();
+            int Visib = myTurtle.getVisibility();
+            int PenDown = myTurtle.getPen();
+            
+            if (Visib == 1) {
+                myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+            }
+            else {
+                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+            }
+            
+            rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
+                           
+            myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+            myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+            myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+        }
+        
     }
 }

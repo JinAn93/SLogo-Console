@@ -1,5 +1,6 @@
 package Main;
 
+import java.util.Observable;
 import javafx.scene.image.Image;
 
 /**
@@ -8,7 +9,7 @@ import javafx.scene.image.Image;
  * @author Jin An
  *
  */
-public class Turtle {
+public class Turtle extends Observable{
 
     private double myXCor, myYCor, myHeading;
     private int myVisibility, myPen;
@@ -35,13 +36,19 @@ public class Turtle {
 
     public void setHeading (double heading){
         myHeading = heading % 360;
+        setChanged();
+        notifyObservers();
     }
     public void setXCor (double xCor) {
         myXCor = xCor;
+        setChanged();
+        notifyObservers();
     }
 
     public void setYCor (double yCor) {
         myYCor = yCor;
+        setChanged();
+        notifyObservers();
     }
 
     public int getVisibility () {
@@ -50,6 +57,8 @@ public class Turtle {
 
     public void setVisibility (int visibility) {
         myVisibility = visibility;
+        setChanged();
+        notifyObservers();
     }
 
     public int getPen () {
@@ -58,6 +67,8 @@ public class Turtle {
 
     public void setPen (int pen) {
         myPen = pen;
+        setChanged();
+        notifyObservers();
     }
     
     public Image getTurtleImage(){
@@ -66,5 +77,7 @@ public class Turtle {
     
     public void setTurtleImage(String dir){
     	this.myTurtleImage = new Image(dir);
+        setChanged();
+        notifyObservers();
     }
 }
