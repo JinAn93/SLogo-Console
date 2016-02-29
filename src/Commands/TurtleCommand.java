@@ -4,10 +4,10 @@ import Main.Turtle;
 
 public class TurtleCommand extends Command {
 
-    @Override
-    public String executeCommand () {
-        // TODO Auto-generated method stub
-        return "";
+    private Turtle myTurtle;
+    
+    public TurtleCommand(Turtle turtle){
+        myTurtle = turtle;
     }
     
     public String executeCommand (Turtle turtle){

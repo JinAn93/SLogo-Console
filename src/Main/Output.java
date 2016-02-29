@@ -8,8 +8,8 @@ public class Output {
     private List<String> myResult = new ArrayList<String>();
     private Turtle myTurtle;
 
-    public Output () {
-       
+    public Output (Turtle turtle) {
+       myTurtle = turtle;
     }
 
     public List<String> getResult(){

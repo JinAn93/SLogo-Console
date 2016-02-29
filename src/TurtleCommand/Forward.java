@@ -11,7 +11,7 @@ public class Forward extends TurtleCommand {
     private Turtle myTurtle;
 
     public Forward (Turtle turtle) {
-        myTurtle = turtle;
+        super(turtle);
     }
 
     @Override

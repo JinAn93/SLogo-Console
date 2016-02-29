@@ -56,7 +56,7 @@ public class MainBackEnd {
 
     public Output executeCommand (Collection<?> commands) {
         Node[] result = buildExpressionTree(commands);
-        Output output = new Output();
+        Output output = new Output(myTurtle);
         
         output.setResult(stringizer(result));
         return output;

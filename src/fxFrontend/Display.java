@@ -125,9 +125,15 @@ public class Display {
                 // historyBox.setText(commandHistory.toString());
                 myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
                 myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
-                myY = myY+50;
-                myX = myX+40;
-                myGraphics.drawImage(myTurtle.getTurtleImage(), myX, myY);
+                myY = output.getTurtle().getYCor();
+                myX = output.getTurtle().getXCor();
+                System.out.println(output.getTurtle().getVisibility());
+                if(output.getTurtle().getVisibility() == 1){
+                    myGraphics.drawImage(myTurtle.getTurtleImage(), myX, myY);
+                }
+                else{
+                    myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+                }
                 myScreen.getMyTurtle().setXCor(myX);
                 myScreen.getMyTurtle().setYCor(myY);                
                 // }

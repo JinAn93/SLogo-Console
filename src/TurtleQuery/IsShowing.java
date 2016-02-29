@@ -3,15 +3,17 @@ package TurtleQuery;
 import Commands.TurtleQueriesCommand;
 import Main.Turtle;
 
-public class IsShowing extends TurtleQueriesCommand{
-    
+
+public class IsShowing extends TurtleQueriesCommand {
+
     private Turtle myTurtle;
-    
-    public IsShowing(Turtle turtle){
-        myTurtle = turtle;
+
+    public IsShowing (Turtle turtle) {
+        super(turtle);
     }
+
     @Override
-    public String executeCommand (){
+    public String executeCommand () {
         return String.valueOf((myTurtle.getVisibility()));
     }
 }
