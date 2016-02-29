@@ -33,8 +33,8 @@ public class Turtle {
         return myYCor;
     }
 
-    public void setHeading (int heading){
-        myHeading = heading;
+    public void setHeading (double heading){
+        myHeading = heading % 360;
     }
     public void setXCor (double xCor) {
         myXCor = xCor;

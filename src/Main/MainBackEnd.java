@@ -84,7 +84,7 @@ public class MainBackEnd {
         for (int i = commands.length - 1; i > -1; i--) {
             Node command;
             if (isCommand(commands[i])) {
-                command = cf.makeInstruction(commands[i], myTurtle);
+                command = cf.makeInstruction(commands[i], myTurtle, myLanguages);
 
                 int paramNum = getParamNum(commands[i]);
                 Node[] children = new Node[paramNum];
@@ -116,14 +116,10 @@ public class MainBackEnd {
         return 0;
     }
 
-    public void setLanguage (ResourceBundle bundle) {
+    private void setLanguage (ResourceBundle bundle) {
         myLanguages = bundle;
     }
     
-    public static ResourceBundle getLanguage(){
-        return myLanguages;
-    }
-
     public static ResourceBundle getSyntax(){
         return mySyntaxes;
     }

@@ -25,6 +25,8 @@ import Main.Turtle;
 import Main.InputObject;
 import fxMenu.CreateColorMenu;
 import fxMenu.CreateTurtleSelectionMenu;
+import javafx.scene.transform.Rotate;
+
 
 public class Display {
     private BorderPane myBorder;
@@ -58,7 +60,7 @@ public class Display {
         leftBox = mySidebar.getBox();
         centerBox = myScreen.getScreen();
         consoleBox = myConsole.getConsole();
-                
+
         myBorder.setLeft(leftBox);
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
@@ -72,30 +74,27 @@ public class Display {
         myImage = myScreen.getMyTurtle().getTurtleImage();
         myX = myTurtle.getXCor();
         myY = myTurtle.getYCor();
-        
+
         myMenu = new MenuBar();
-        createMenu = new CreateColorMenu(myColorGraphics,600,600);
+        createMenu = new CreateColorMenu(myColorGraphics, 600, 600);
         myMenu.getMenus().add(createMenu.getColorMenu());
         myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
         myMenu.getMenus().add(myTurtleImages.getImageMenu());
         myBorder.setTop(myMenu);
 
+        // Menu menuView = new Menu("Change Color");
+        // MenuItem add = new MenuItem("Blue");
+        // add.setOnAction(new EventHandler<ActionEvent>() {
+        // public void handle(ActionEvent e) {
+        // myColorGraphics.setFill(Color.ALICEBLUE);
+        // myColorGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
+        // }
+        // });
+        // menuView.getItems().add(add);
+        // myMenu.getMenus().addAll(menuView);
+        // myMenu.useSystemMenuBarProperty().set(true);
+        // myBorder.setTop(myMenu);
 
-//        Menu menuView = new Menu("Change Color");
-//        MenuItem add = new MenuItem("Blue");
-//        add.setOnAction(new EventHandler<ActionEvent>() {
-//            public void handle(ActionEvent e) {
-//            	myColorGraphics.setFill(Color.ALICEBLUE);
-//            	myColorGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
-//            }
-//        });
-//        menuView.getItems().add(add);
-//        myMenu.getMenus().addAll(menuView);
-//        myMenu.useSystemMenuBarProperty().set(true);
-//        myBorder.setTop(myMenu);
-
-      
-        
         updateDisplay();
     }
 
@@ -112,33 +111,40 @@ public class Display {
                 consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
 
-                // if(!myScreen.getCodeInput().getText().equals("hi")){ //Alert for bad commands
-                // alert.setTitle("Error Dialog");
-                // alert.setHeaderText("Error processing the command");
-                // alert.setContentText("\"" + myScreen.getCodeInput().getText() +
-                // "\" is not a valid command. Please input a valid command");
-                // alert.showAndWait();
-                // }
-                // else{
-                // commandHistory.append(myScreen.getCodeInput().getText() + "\n");
-                // System.out.println(myScreen.getCodeInput().getText());
-                // historyBox.setText(commandHistory.toString());
                 myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
-                myY = output.getTurtle().getYCor();
-                myX = output.getTurtle().getXCor();
-                System.out.println(output.getTurtle().getVisibility());
-                if(output.getTurtle().getVisibility() == 1){
+                myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+                myTurtle = output.getTurtle();
+                myY = myTurtle.getYCor();
+                myX = myTurtle.getXCor();
+                System.out.println(myTurtle.getVisibility());
+                if (myTurtle.getVisibility() == 1) {
                     myGraphics.drawImage(myTurtle.getTurtleImage(), myX, myY);
                 }
-                else{
+                else {
                     myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
                 }
-                myScreen.getMyTurtle().setXCor(myX);
-                myScreen.getMyTurtle().setYCor(myY);                
-                // }
+
+                rotate(myGraphics, myTurtle.getHeading(), calculatePivotX(),
+                       calculatePivotY());
+                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+                myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+
+                myGraphics.drawImage(myTurtle.getTurtleImage(), myTurtle.getXCor(),
+                                     myTurtle.getYCor());
+
             }
         });
+    }
+    private double calculatePivotX(){
+        return (myTurtle.getXCor() + (myTurtle.getTurtleImage().getWidth() / 2));
+    }
+    
+    private double calculatePivotY(){
+        return (myTurtle.getYCor() + (myTurtle.getTurtleImage().getHeight() / 2));
+    }
+    private void rotate (GraphicsContext gc, double angle, double px, double py) {
+        Rotate r = new Rotate(angle, px, py);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 
     public Scene getScene () {
