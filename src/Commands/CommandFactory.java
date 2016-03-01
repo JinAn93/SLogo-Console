@@ -6,7 +6,7 @@ import Main.Turtle;
 import MathCommands.*;
 import TurtleCommand.*;
 import TurtleQuery.*;
-import UserDefinedCommand.MakeVariable;
+import UserDefinedCommand.*;
 
 
 public class CommandFactory {
@@ -75,6 +75,10 @@ public class CommandFactory {
         if (command.matches(language.getString("MakeVariable"))) {
             return new MakeVariable();
         }
+
+        if (command.matches(language.getString("Repeat"))) {
+            return new Repeat();
+        }
         return null;
     }
 
@@ -103,10 +107,10 @@ public class CommandFactory {
                 return var;
             }
         }
-        
-        Variable newVar = new Variable ();
+
+        Variable newVar = new Variable();
         newVar.setName(variable);
         newVar.setVariable(true);
-        return newVar; //Throw Error
+        return newVar; // Throw Error
     }
 }

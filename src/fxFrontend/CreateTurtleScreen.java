@@ -20,8 +20,8 @@ public class CreateTurtleScreen {
 	private Button myButton;
 	private StackPane root = new StackPane(); 
 	private TextArea codeInput; 
-	private Canvas myCanvas, myCanvas2;
-	private GraphicsContext myGraphics, myGraphics2;
+	private Canvas myCanvas, myCanvas2, myLineCanvas;
+	private GraphicsContext myGraphics, myGraphics2, myLineGraphics;
 	private Image myTurtleImage;
 //	private int turtleX,turtleY;
 	private Turtle myTurtle; 
@@ -47,7 +47,14 @@ public class CreateTurtleScreen {
 		myGraphics2.setFill(Color.WHITE);
 		myGraphics2.fillRect(0,0,myCanvas2.getWidth(),myCanvas2.getHeight());
 		
+		myLineCanvas = new Canvas(600,600);
+		myLineGraphics = myLineCanvas.getGraphicsContext2D();
+		myLineGraphics.setFill(Color.TRANSPARENT);
+		myLineGraphics.fillRect(0,0,myLineCanvas.getWidth(),myLineCanvas.getHeight());
+
+		
 		myPane.getChildren().add(myCanvas2);
+		myPane.getChildren().add(myLineCanvas);
 		myPane.getChildren().add(myCanvas);
 		myScreen.getChildren().add(myPane);
 
@@ -91,6 +98,10 @@ public class CreateTurtleScreen {
 	
 	public Turtle getMyTurtle(){
 		return myTurtle;
+	}
+	
+	public GraphicsContext getLineGraphics(){
+		return myLineGraphics;
 	}
 	
 //	public int getTurtleX(){
