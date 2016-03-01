@@ -18,3 +18,4 @@ public class IsShowing extends TurtleQueriesCommand {
         return String.valueOf((myTurtle.getVisibility()));
     }
 }
+    

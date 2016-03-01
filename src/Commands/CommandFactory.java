@@ -1,4 +1,5 @@
 package Commands;
+
 import java.lang.Class;
 import java.util.ResourceBundle;
 import Main.Turtle;
@@ -9,7 +10,6 @@ import TurtleQuery.*;
 
 public class CommandFactory {
     public Command makeInstruction (String command, Turtle turtle, ResourceBundle language) {
-        Command ret;
 
         if (command.matches(language.getString("Sum"))) {
             return new Sum();
@@ -61,6 +61,14 @@ public class CommandFactory {
 
         if (command.matches(language.getString("Right"))) {
             return new Right(turtle);
+        }
+
+        if (command.matches(language.getString("PenUp"))) {
+            return new Penup(turtle);
+        }
+
+        if (command.matches(language.getString("PenDown"))) {
+            return new Pendown(turtle);
         }
 
         return null;

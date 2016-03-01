@@ -18,7 +18,7 @@ public class Turtle extends Observable{
         myXCor = x;
         myYCor = y;
         myVisibility = 1;
-        myPen = 0;
+        myPen = 1;
         myTurtleImage = new Image(dir);
         myHeading = 0;
     }
