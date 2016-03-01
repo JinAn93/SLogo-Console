@@ -6,23 +6,19 @@ import Commands.*;
 
 public class Sum extends MathOpCommand {
 
-    private int myNumChildren;
+    private static final int FIRSTCHILD = 0;
+    private static final int SECONDCHILD = 1;
     private Node[] myChildren;
 
     @Override
     public String executeCommand () {
-        int sum = 0;
-        for (int i = 0; i < myNumChildren; i++) {
-            System.out.println(myChildren[i].getClass().getName());
-            sum += Integer.parseInt(myChildren[i].getValue());
-        }
-        return Integer.toString(sum);
-
+        double firstValue = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
+        double secondValue = Double.parseDouble(myChildren[SECONDCHILD].getValue());
+        return Double.toString(firstValue + secondValue);
     }
 
     @Override
     public void setChildren (Node[] kids, ResourceBundle parameters) {
-        myNumChildren = Integer.parseInt(parameters.getString(this.getClass().getSimpleName()));
         myChildren = kids;
     }
 

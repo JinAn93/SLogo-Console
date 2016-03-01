@@ -1,7 +1,6 @@
 package MathCommands;
 
 import java.util.ResourceBundle;
-import Commands.Command;
 import Commands.MathOpCommand;
 import Commands.Node;
 
@@ -9,10 +8,10 @@ import Commands.Node;
 public class Product extends MathOpCommand {
     private int myNumChildren;
     private Node[] myChildren;
-
+    private final static int INITIALIZATION = 1;
     @Override
     public String executeCommand () {
-        int product = 1; // initialization
+        int product = INITIALIZATION;
         for (int i = 0; i < myNumChildren; i++) {
             System.out.println(myChildren[i].getValue());
             product *= Integer.parseInt(myChildren[i].getValue());

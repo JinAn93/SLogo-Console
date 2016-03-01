@@ -5,19 +5,20 @@ import Commands.Node;
 
 
 public class Remainder extends MathOpCommand {
-    public final int NUMBEROFCHILDREN = 2;
-    private Node[] children = new Node[NUMBEROFCHILDREN];
+    private static final int FIRSTCHILD = 0;
+    private static final int SECONDCHILD = 1;
+    private Node[] myChildren;
 
     @Override
     public String executeCommand () {
-        int remainder = Integer.parseInt(children[0].getValue());
-        remainder = remainder % Integer.parseInt(children[1].getValue());
-        return Integer.toString(remainder);
+        double remainder = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
+        remainder = remainder % Integer.parseInt(myChildren[SECONDCHILD].getValue());
+        return Double.toString(remainder);
     }
 
     @Override
     public Node[] getChildren () {
-        return children;
+        return myChildren;
     }
 
 }

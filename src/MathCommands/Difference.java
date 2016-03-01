@@ -5,23 +5,22 @@ import Commands.*;
 
 
 public class Difference extends MathOpCommand {
-    private int myNumChildren;
     private Node[] myChildren;
-
+    private static final int FIRSTCHILD = 0;
+    private static final int SECONDCHILD = 1;
     public Difference () {
 
     }
 
     @Override
     public String executeCommand () {
-        int difference = Integer.parseInt(myChildren[0].getValue());
-        difference -= Integer.parseInt(myChildren[1].getValue());
+        int difference = Integer.parseInt(myChildren[FIRSTCHILD].getValue());
+        difference -= Integer.parseInt(myChildren[SECONDCHILD].getValue());
         return Integer.toString(difference);
     }
 
     @Override
     public void setChildren (Node[] kids, ResourceBundle parameters) {
-        myNumChildren = Integer.parseInt(parameters.getString(this.getClass().getSimpleName()));
         myChildren = kids;
     }
 
