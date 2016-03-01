@@ -16,13 +16,11 @@ public class Operand implements Node {
         return strValue;
     }
 
-    @Override
     public boolean setOperand (boolean bool) {
         operand = bool;
         return operand;
     }
 
-    @Override
     public boolean isOperand () {
         return operand;
     }

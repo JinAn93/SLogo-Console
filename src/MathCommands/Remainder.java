@@ -21,7 +21,7 @@ public class Remainder extends MathOpCommand {
     }
     
     @Override
-    public void setChildren (Node[] kids, ResourceBundle parameters){
+    public void setChildren (Node[] kids){
         myChildren = kids;
     }
 

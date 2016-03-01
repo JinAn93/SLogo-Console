@@ -16,7 +16,7 @@ public class Minus extends MathOpCommand {
     }
 
     @Override
-    public void setChildren (Node[] kids, ResourceBundle parameters) {
+    public void setChildren (Node[] kids) {
         myChildren = kids;
     }
 

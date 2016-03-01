@@ -27,15 +27,16 @@ public class MainBackEnd {
     private static final String[] possibleLanguages = { "English" };
     private static final int DEFAULTLANG = 0;
 
-
     private static final ResourceBundle myParameters = ResourceBundle
             .getBundle("resources.ParameterList/AllParameters");
     private static final ResourceBundle mySyntaxes = ResourceBundle
             .getBundle("resources.languages/Syntax");
-    private static ResourceBundle myLanguages = ResourceBundle.getBundle("resources.languages/" +
-                                                                  possibleLanguages[DEFAULTLANG]);
-
+    private static ResourceBundle myLanguages = ResourceBundle
+            .getBundle("resources.languages/" +
+                       possibleLanguages[DEFAULTLANG]);
+    private static List<Variable> myVariableList = new ArrayList<Variable>();
     private Turtle myTurtle;
+    private static final int COLON = 1;
 
     public MainBackEnd () {
     }
@@ -43,7 +44,7 @@ public class MainBackEnd {
     public Output executeCommand (Collection<?> commands) {
         Node[] result = buildExpressionTree(commands);
         Output output = new Output(myTurtle);
-        
+
         output.setResult(stringizer(result));
         return output;
     }
@@ -56,13 +57,14 @@ public class MainBackEnd {
         return cDecoder.parseCommand(input);
     }
 
-    private List<String> stringizer (Node[] input){
+    private List<String> stringizer (Node[] input) {
         List<String> ret = new ArrayList<String>();
-        for(int i=0; i<input.length; i++){
+        for (int i = 0; i < input.length; i++) {
             ret.add(input[i].getValue());
         }
         return ret;
     }
+
     private Node[] buildExpressionTree (Collection<?> ListOfCommands) {
         Deque<Node> stack = new ArrayDeque<Node>();
         CommandFactory cf = new CommandFactory();
@@ -77,21 +79,24 @@ public class MainBackEnd {
                 for (int c = 0; c < paramNum; c++) {
                     children[c] = stack.pop();
                 }
-                ((Command) command).setChildren(children, myParameters);
+                ((Command) command).setChildren(children);
             }
-            else {
+            else if (isConstant(commands[i])) {
                 command = cf.makeOperand(commands[i]);
+            }
+            
+            else { //  if variable for now
+                command = cf.makeVariable(commands[i].substring(COLON));
             }
             stack.push(command);
         }
         return stack.toArray(new Node[stack.size()]);
     }
 
-
     private int getParamNum (String command) {
         Enumeration<String> keys = myLanguages.getKeys();
         while (keys.hasMoreElements()) {
-            String whichCommand =(keys.nextElement());
+            String whichCommand = (keys.nextElement());
             if (command.matches(myLanguages.getString(whichCommand))) {
                 return Integer.parseInt(myParameters.getString(whichCommand));
             }
@@ -102,11 +107,16 @@ public class MainBackEnd {
     private void setLanguage (ResourceBundle bundle) {
         myLanguages = bundle;
     }
-    
-    public static ResourceBundle getSyntax(){
+
+    public static List<Variable> getVariables () {
+        return myVariableList;
+    }
+
+    public static ResourceBundle getSyntax () {
         return mySyntaxes;
     }
-    public static boolean isCommand (String input) {
+
+    public boolean isCommand (String input) {
         return input.matches(mySyntaxes.getString("Command"));
     }
 

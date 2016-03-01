@@ -17,9 +17,8 @@ public class UserDefinedCommand extends Command {
     }
 
     @Override
-    public void setChildren (Node[] kids, ResourceBundle parameters) {
+    public void setChildren (Node[] kids) {
         // TODO Auto-generated method stub
-        
     }
 
     @Override

@@ -23,7 +23,7 @@ public class Pendown extends TurtleCommand {
     }
 
     @Override
-    public void setChildren (Node[] kids, ResourceBundle parameters) {
+    public void setChildren (Node[] kids) {
         myChildren = kids;
     }
 

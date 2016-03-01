@@ -13,7 +13,7 @@ public class MathOpCommand extends Command {
     }
 
     @Override
-    public void setChildren (Node[] kids, ResourceBundle parameters) {
+    public void setChildren (Node[] kids) {
     }
 
     @Override

@@ -1,11 +1,12 @@
 package Commands;
 
-import java.lang.Class;
 import java.util.ResourceBundle;
+import Main.MainBackEnd;
 import Main.Turtle;
 import MathCommands.*;
 import TurtleCommand.*;
 import TurtleQuery.*;
+import UserDefinedCommand.MakeVariable;
 
 
 public class CommandFactory {
@@ -71,6 +72,9 @@ public class CommandFactory {
             return new Pendown(turtle);
         }
 
+        if (command.matches(language.getString("MakeVariable"))) {
+            return new MakeVariable();
+        }
         return null;
     }
 
@@ -87,4 +91,22 @@ public class CommandFactory {
         return op;
     }
 
+    public Variable makeVariable (String variable) {
+        if (variable == null) {
+            System.out.println(variable + " is not created");
+            return null;
+        }
+
+        for (Variable var : MainBackEnd.getVariables()) {
+            if (var.getName().equals(variable)) {
+                System.out.println(variable + " was created");
+                return var;
+            }
+        }
+        
+        Variable newVar = new Variable ();
+        newVar.setName(variable);
+        newVar.setVariable(true);
+        return newVar; //Throw Error
+    }
 }
