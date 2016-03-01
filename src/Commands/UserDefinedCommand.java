@@ -1,9 +1,5 @@
 package Commands;
 
-import java.util.ResourceBundle;
-
-
-
 public class UserDefinedCommand extends Command {
 
     @Override
@@ -11,8 +7,8 @@ public class UserDefinedCommand extends Command {
         // TODO Auto-generated method stub
         return null;
     }
-    
-    public String getValue(){
+
+    public String getValue () {
         return executeCommand();
     }
 

@@ -43,8 +43,8 @@ public class MainBackEnd {
 
     public Output executeCommand (Collection<?> commands) {
         Node[] result = buildExpressionTree(commands);
-        Output output = new Output(myTurtle,myVariableList);
-        
+        Output output = new Output(myTurtle, myVariableList);
+
         output.setResult(stringizer(result));
         return output;
     }
@@ -69,6 +69,8 @@ public class MainBackEnd {
         Deque<Node> stack = new ArrayDeque<Node>();
         CommandFactory cf = new CommandFactory();
         String[] commands = ListOfCommands.toArray(new String[ListOfCommands.size()]);
+        int currOpenBracket = 0;
+        int currClosedBracket = 0;
         for (int i = commands.length - 1; i > -1; i--) {
             Node command;
             if (isCommand(commands[i])) {
@@ -85,12 +87,34 @@ public class MainBackEnd {
                 command = cf.makeOperand(commands[i]);
             }
             
-            else { //  if variable for now
+            else if (isVariable(commands[i])){
                 command = cf.makeVariable(commands[i].substring(COLON));
+            }
+            
+            else if (isListStart(commands[i])){
+                if 
+            }
+            else{ //ListEnd for now
+                currClosedBracket = i;
+                currOpenBracket = searchListStart(commands,i);
+                Stack<Node> groupedCommands = new Stack<Node>();
+                for(int j=i+1; j > currOpenBracket; j--){
+                    groupedCommands.push()
+                }
+                command = null;
             }
             stack.push(command);
         }
         return stack.toArray(new Node[stack.size()]);
+    }
+
+    private int searchListStart (String[] commands, int startIndex) {
+        for (int i = startIndex; i > -1; i--) {
+            if (isListStart(commands[i])) {
+                return i;
+            }
+        }
+        return 0; // no bracket, throw error
     }
 
     private int getParamNum (String command) {
