@@ -22,6 +22,7 @@ import Main.Output;
 import Main.Turtle;
 import Main.InputObject;
 import fxMenu.CreateColorMenu;
+import fxMenu.CreatePenColorMenu;
 import fxMenu.CreateTurtleSelectionMenu;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
@@ -44,6 +45,7 @@ public class Display {
     private MenuBar myMenu;
     private CreateColorMenu createMenu;
     private CreateTurtleSelectionMenu myTurtleImages;
+    private CreatePenColorMenu myPenMenu; 
     private ArrayList<Line> myLines;
     private Output output; 
     
@@ -74,6 +76,8 @@ public class Display {
         myMenu.getMenus().add(createMenu.getColorMenu());
         myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
         myMenu.getMenus().add(myTurtleImages.getImageMenu());
+        myPenMenu = new CreatePenColorMenu(myGraphics); 
+        myMenu.getMenus().add(myPenMenu.getPenMenu());
         myBorder.setTop(myMenu);
         updateDisplay();
     }
@@ -96,6 +100,9 @@ public class Display {
 
     public Turtle getTurtle () {
         return myTurtle;
+    }
+    public GraphicsContext getMyGraphics(){
+    	return myGraphics;
     }
 
     private double calculatePivotX (Turtle turtle) {
@@ -139,16 +146,17 @@ public class Display {
             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
             // Override this tomorrow when we get to lines
             //Drawing stuff 
-            if(PenDown == 1){
-            	double startX = output.getTurtle().getStartXCor();
-            	double startY = output.getTurtle().getStartYCor();
-            	if(myLines.isEmpty()){
-            		updateLines(XCoor, YCoor, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
-            	}
-            	else{
-            		updateLines(startX, startY, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
-            	}
-            }
+            updateLines(32,14, 25, 21);
+//            if(PenDown == 1){
+//            	double startX = output.getTurtle().getStartXCor();
+//            	double startY = output.getTurtle().getStartYCor();
+//            	if(myLines.isEmpty()){
+//            		updateLines(XCoor, YCoor, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
+//            	}
+//            	else{
+//            		updateLines(startX, startY, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
+//            	}
+//            }
         }
         
         public void updateLines(double beginX, double beginY, double endX, double endY){
@@ -156,8 +164,7 @@ public class Display {
         	myLines.add(myLine); 
         	for(Line aline: myLines){
         		myGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(), aline.getEndY());
-        	}
-        	
+        	}	
         }
         
     
