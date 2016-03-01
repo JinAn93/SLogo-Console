@@ -42,7 +42,7 @@ public class MainBackEnd {
     }
 
     public Output executeCommand (Collection<?> commands) {
-        Node[] result = buildExpressionTree(commands);
+        Stack<Node> result = buildExpressionTree(commands);
         Output output = new Output(myTurtle, myVariableList);
 
         output.setResult(stringizer(result));
@@ -57,20 +57,19 @@ public class MainBackEnd {
         return cDecoder.parseCommand(input);
     }
 
-    private List<String> stringizer (Node[] input) {
+    private List<String> stringizer (Stack<Node> input) {
         List<String> ret = new ArrayList<String>();
-        for (int i = 0; i < input.length; i++) {
-            ret.add(input[i].getValue());
+        for (int i = 0; i < input.size(); i++) {
+            ret.add(input.get(i).getValue());
         }
         return ret;
     }
 
-    private Node[] buildExpressionTree (Collection<?> ListOfCommands) {
-        Deque<Node> stack = new ArrayDeque<Node>();
+    private Stack<Node> buildExpressionTree (Collection<?> ListOfCommands) {
+        Stack<Node> stack = new Stack<Node>();
         CommandFactory cf = new CommandFactory();
         String[] commands = ListOfCommands.toArray(new String[ListOfCommands.size()]);
         int currOpenBracket = 0;
-        int currClosedBracket = 0;
         for (int i = commands.length - 1; i > -1; i--) {
             Node command;
             if (isCommand(commands[i])) {
@@ -92,20 +91,19 @@ public class MainBackEnd {
             }
             
             else if (isListStart(commands[i])){
-                if 
+                command = null;
             }
             else{ //ListEnd for now
-                currClosedBracket = i;
                 currOpenBracket = searchListStart(commands,i);
-                Stack<Node> groupedCommands = new Stack<Node>();
+//                Stack<Node> listStack = buildExpressionTree();
                 for(int j=i+1; j > currOpenBracket; j--){
-                    groupedCommands.push()
+//                    groupedCommands.push()
                 }
                 command = null;
             }
             stack.push(command);
         }
-        return stack.toArray(new Node[stack.size()]);
+        return stack;
     }
 
     private int searchListStart (String[] commands, int startIndex) {

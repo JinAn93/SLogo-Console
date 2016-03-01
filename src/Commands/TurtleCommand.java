@@ -5,10 +5,11 @@ import Main.Turtle;
 
 public class TurtleCommand extends Command {
 
-    private Turtle myTurtle;
+    protected Turtle myTurtle;
     public static final int FIRSTCHILD = 0;
     
     public TurtleCommand(Turtle turtle){
+        System.out.println(turtle);
         myTurtle = turtle;
     }
     

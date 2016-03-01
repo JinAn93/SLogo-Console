@@ -11,7 +11,27 @@ import UserDefinedCommand.*;
 
 public class CommandFactory {
     public Command makeInstruction (String command, Turtle turtle, ResourceBundle language) {
+System.out.println(command);
+        try {
+            Class<?> clas = Class.forName(command);
+            try {
+                Command com = (Command) clas.newInstance();
+                return com;
+            }
+            catch (InstantiationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            catch (IllegalAccessException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
+        }
+        catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         if (command.matches(language.getString("Sum"))) {
             return new Sum();
         }
