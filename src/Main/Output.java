@@ -2,29 +2,42 @@ package Main;
 
 import java.util.ArrayList;
 import java.util.List;
+import Commands.Variable;
+
 
 public class Output {
 
     private List<String> myResult = new ArrayList<String>();
     private Turtle myTurtle;
+    private List<Variable> myVariables = new ArrayList<Variable>();
 
-    public Output (Turtle turtle) {
-       myTurtle = turtle;
+    public Output (Turtle turtle, List<Variable> variables) {
+        myTurtle = turtle;
+        myVariables = variables;
     }
 
-    public List<String> getResult(){
+    public List<String> getResult () {
         return myResult;
     }
 
-    public void setResult(List<String> result){
+    public void setResult (List<String> result) {
         this.myResult = result;
     }
-    
-    public void updateTurtle (Turtle turtle){
+
+    public Turtle getTurtle () {
+        return myTurtle;
+    }
+
+    public void updateTurtle (Turtle turtle) {
         this.myTurtle = turtle;
     }
 
-    public Turtle getTurtle (){
-        return myTurtle;
+    public List<Variable> getVariables () {
+        return myVariables;
     }
+
+    public void updateVariable (List<Variable> variables) {
+        this.myVariables = variables;
+    }
+
 }
