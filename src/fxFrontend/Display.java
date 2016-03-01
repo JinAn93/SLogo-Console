@@ -36,7 +36,7 @@ public class Display {
     private TextArea historyBox, myConsoleBox;
     private StringBuilder commandHistory = new StringBuilder();
     private String consoleText;
-    private GraphicsContext myGraphics, myColorGraphics;
+    private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
     private Canvas myCanvas;
     private Turtle myTurtle;
     private Alert alert = new Alert(AlertType.INFORMATION);
@@ -67,6 +67,7 @@ public class Display {
         myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
+        myLineGraphics = myScreen.getLineGraphics();
 
         myLines = new ArrayList<Line>();
 
@@ -142,7 +143,7 @@ public class Display {
             Line myLine = new Line(0, 0, XCoor, YCoor);
             myLines.add(myLine);
             for (Line aline : myLines) {
-                myGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(),
+            	myLineGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(),
                                       aline.getEndY());
             }
         }
