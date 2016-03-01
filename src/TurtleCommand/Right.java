@@ -1,5 +1,6 @@
 package TurtleCommand;
 
+import java.util.ResourceBundle;
 import Commands.Node;
 import Commands.TurtleCommand;
 import Main.Turtle;
@@ -8,8 +9,7 @@ import Main.Turtle;
 public class Right extends TurtleCommand {
 
     private Turtle myTurtle;
-    public final int NUMBEROFCHILDREN = 1;
-    private Node[] children = new Node[NUMBEROFCHILDREN];
+    private Node[] myChildren;
     
     public Right (Turtle turtle) {
         super(turtle);
@@ -18,14 +18,17 @@ public class Right extends TurtleCommand {
 
     @Override
     public String executeCommand(){
-        myTurtle.setHeading(myTurtle.getHeading() + Double.parseDouble(children[0].getValue()));
-        return children[0].getValue();
+        myTurtle.setHeading(myTurtle.getHeading() + Double.parseDouble(myChildren[FIRSTCHILD].getValue()));
+        return myChildren[FIRSTCHILD].getValue();
     }
     
     @Override
-    public void setChildren (Node[] kids){
-        for (int i=0; i<kids.length; i++){
-            children[i] = kids[i];
-        }
+    public void setChildren (Node[] kids, ResourceBundle parameters){
+        myChildren = kids;
+    }
+    
+    @Override
+    public Node[] getChildren (){
+        return myChildren;
     }
 }

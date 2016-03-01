@@ -6,8 +6,6 @@ import Commands.*;
 
 public class Sum extends MathOpCommand {
 
-    private static final int FIRSTCHILD = 0;
-    private static final int SECONDCHILD = 1;
     private Node[] myChildren;
 
     @Override

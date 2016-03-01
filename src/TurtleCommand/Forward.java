@@ -1,13 +1,13 @@
 package TurtleCommand;
 
+import java.util.ResourceBundle;
 import Commands.Node;
 import Commands.TurtleCommand;
 import Main.Turtle;
 
 
 public class Forward extends TurtleCommand {
-    public final int NUMBEROFCHILDREN = 1;
-    private Node[] children = new Node[NUMBEROFCHILDREN];
+    private Node[] myChildren;
     private Turtle myTurtle;
 
     public Forward (Turtle turtle) {
@@ -17,22 +17,20 @@ public class Forward extends TurtleCommand {
 
     @Override
     public String executeCommand () {
-        double moveBy = Double.parseDouble(children[0].getValue());
+        double moveBy = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
         double radian = Math.toRadians(myTurtle.getHeading());
         myTurtle.setXCor(myTurtle.getXCor() + (moveBy * (Math.cos(radian))));
         myTurtle.setYCor(myTurtle.getYCor() + (moveBy * (Math.sin(radian))));
-        return children[0].getValue();
+        return myChildren[FIRSTCHILD].getValue();
     }
     
     @Override
-    public void setChildren (Node[] kids) {
-        for (int i = 0; i < kids.length; i++) {
-            children[i] = kids[i];
-        }
+    public void setChildren (Node[] kids, ResourceBundle parameters) {
+        myChildren = kids;
     }
     
     @Override
     public Node[] getChildren(){
-        return children;
+        return myChildren;
     }
 }

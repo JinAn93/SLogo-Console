@@ -1,5 +1,5 @@
 package Commands;
-
+import java.lang.Class;
 import java.util.ResourceBundle;
 import Main.Turtle;
 import MathCommands.*;
@@ -27,6 +27,10 @@ public class CommandFactory {
             return new Remainder();
         }
 
+        if (command.matches(language.getString("Quotient"))) {
+            return new Quotient();
+        }
+
         if (command.matches(language.getString("Minus"))) {
             return new Minus();
         }
@@ -42,23 +46,23 @@ public class CommandFactory {
         if (command.matches(language.getString("Heading"))) {
             return new Heading(turtle);
         }
-        
+
         if (command.matches(language.getString("IsPenDown"))) {
             return new IsPenDown(turtle);
         }
-        
+
         if (command.matches(language.getString("IsShowing"))) {
             return new IsShowing(turtle);
         }
-        
+
         if (command.matches(language.getString("Forward"))) {
             return new Forward(turtle);
         }
-        
-        if(command.matches(language.getString("Right"))){
+
+        if (command.matches(language.getString("Right"))) {
             return new Right(turtle);
         }
-        
+
         return null;
     }
 

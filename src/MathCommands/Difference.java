@@ -6,17 +6,12 @@ import Commands.*;
 
 public class Difference extends MathOpCommand {
     private Node[] myChildren;
-    private static final int FIRSTCHILD = 0;
-    private static final int SECONDCHILD = 1;
-    public Difference () {
-
-    }
 
     @Override
     public String executeCommand () {
-        int difference = Integer.parseInt(myChildren[FIRSTCHILD].getValue());
-        difference -= Integer.parseInt(myChildren[SECONDCHILD].getValue());
-        return Integer.toString(difference);
+        double difference = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
+        difference -= Double.parseDouble(myChildren[SECONDCHILD].getValue());
+        return Double.toString(difference);
     }
 
     @Override

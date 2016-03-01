@@ -11,8 +11,8 @@ public class Minus extends MathOpCommand {
 
     @Override
     public String executeCommand () {
-        int minus = (-1) * Integer.parseInt(myChildren[0].getValue());
-        return Integer.toString(minus);
+        double minus = (-1) * Double.parseDouble(myChildren[0].getValue());
+        return Double.toString(minus);
     }
 
     @Override
