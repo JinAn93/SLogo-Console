@@ -15,6 +15,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
 import java.util.*;
 import Main.Output;
 import Main.Turtle;
@@ -136,18 +138,17 @@ public class Display {
             myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
             // Override this tomorrow when we get to lines
-            
-//            if(PenDown == 1){
-//            	if(myLines.isEmpty()){
-//            		updateLines(XCoor, YCoor, output.)
-//            	}
-//            }
-//            Line myLine = new Line(0, 0, XCoor, YCoor);
-//            myLines.add(myLine);
-//            for (Line aline : myLines) {
-//                myGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(),
-//                                      aline.getEndY());
-//            }
+            //Drawing stuff 
+            if(PenDown == 1){
+            	double startX = output.getTurtle().getStartXCor();
+            	double startY = output.getTurtle().getStartYCor();
+            	if(myLines.isEmpty()){
+            		updateLines(XCoor, YCoor, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
+            	}
+            	else{
+            		updateLines(startX, startY, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
+            	}
+            }
         }
         
         public void updateLines(double beginX, double beginY, double endX, double endY){
