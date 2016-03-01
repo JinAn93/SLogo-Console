@@ -27,7 +27,6 @@ public class MainBackEnd {
     private static final String[] possibleLanguages = { "English" };
     private static final int DEFAULTLANG = 0;
 
-    // private CommandInterface currentCommand;
 
     private static final ResourceBundle myParameters = ResourceBundle
             .getBundle("resources.ParameterList/AllParameters");
@@ -37,21 +36,8 @@ public class MainBackEnd {
                                                                   possibleLanguages[DEFAULTLANG]);
 
     private Turtle myTurtle;
-    // public static void main(String args[]){
-    // MainBackEnd mb = new MainBackEnd();
-    // String[] commands = mb.setup("sum sum sum sum 1 sum 1 1 1 1 1"); // JUST PLAY AROUND WITH
-    // THIS STRING AND THEN RUN MAINBACKEND TO RUN IT !!
-    // for(int i = commands.length - 1; i > -1; i--){
-    // //System.out.println(commands[i]);
-    // }
-    // Node[] temp = mb.buildExpressionTree(commands);
-    // for(int i = 0; i < temp.length; i++){
-    // System.out.println(temp[i].getValue());
-    // }
-    // }
 
     public MainBackEnd () {
-
     }
 
     public Output executeCommand (Collection<?> commands) {
@@ -88,12 +74,10 @@ public class MainBackEnd {
 
                 int paramNum = getParamNum(commands[i]);
                 Node[] children = new Node[paramNum];
-                System.out.println(commands[i]);
-                System.out.println(paramNum);
                 for (int c = 0; c < paramNum; c++) {
                     children[c] = stack.pop();
                 }
-                ((Command) command).setChildren(children);
+                ((Command) command).setChildren(children, myParameters);
             }
             else {
                 command = cf.makeOperand(commands[i]);
@@ -108,7 +92,6 @@ public class MainBackEnd {
         Enumeration<String> keys = myLanguages.getKeys();
         while (keys.hasMoreElements()) {
             String whichCommand =(keys.nextElement());
-            System.out.println(whichCommand);
             if (command.matches(myLanguages.getString(whichCommand))) {
                 return Integer.parseInt(myParameters.getString(whichCommand));
             }

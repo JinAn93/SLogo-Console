@@ -1,34 +1,33 @@
 package MathCommands;
 
+import java.util.ResourceBundle;
 import Commands.*;
 
+
 public class Difference extends MathOpCommand {
-    public final int NUMBEROFCHILDREN = 2;
-    private Node[] children = new Node[NUMBEROFCHILDREN];
-    
-    public Difference(){
+    private int myNumChildren;
+    private Node[] myChildren;
 
-    }
-    
-    @Override
-    public String executeCommand (){
-        int difference = Integer.parseInt(children[0].getValue());
-        difference = difference - Integer.parseInt(children[1].getValue());
-        return Integer.toString(difference);      
+    public Difference () {
+
     }
 
     @Override
-    public void setChildren (Node[] kids) {
-        for(int i = 0; i < kids.length; i++){
-            children[i] = kids[i];
-           
-        }
+    public String executeCommand () {
+        int difference = Integer.parseInt(myChildren[0].getValue());
+        difference -= Integer.parseInt(myChildren[1].getValue());
+        return Integer.toString(difference);
     }
-    
+
+    @Override
+    public void setChildren (Node[] kids, ResourceBundle parameters) {
+        myNumChildren = Integer.parseInt(parameters.getString(this.getClass().getSimpleName()));
+        myChildren = kids;
+    }
+
     @Override
     public Node[] getChildren () {
-        return children;
+        return myChildren;
     }
-
 
 }

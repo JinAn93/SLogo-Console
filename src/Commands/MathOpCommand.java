@@ -1,14 +1,20 @@
 package Commands;
 
-public class MathOpCommand extends Command {
+import java.util.ResourceBundle;
 
-    @Override
-    public String executeCommand () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
+public class MathOpCommand extends Command {
 
     public String getValue () {
         return executeCommand();
+    }
+
+    @Override
+    public void setChildren (Node[] kids, ResourceBundle parameters) {
+    }
+
+    @Override
+    public Node[] getChildren () {
+        return null;
     }
 }

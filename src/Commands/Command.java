@@ -1,10 +1,10 @@
 package Commands;
 
+import java.util.ResourceBundle;
+
 public abstract class Command implements Node {
     protected String strValue = "eben";
     private boolean operand;
-    private final String OPERAND = "Operand";
-    protected Node[] children;
 
     @Override
     public String setValue (String str) {
@@ -19,6 +19,9 @@ public abstract class Command implements Node {
         return executeCommand();
     }
 
+    public abstract void setChildren (Node[] kids, ResourceBundle parameters);
+    
+    
     public String executeCommand () {
         // TODO Auto-generated method stub
         return null;
@@ -35,15 +38,5 @@ public abstract class Command implements Node {
         return operand;
     }
 
-    public void setChildren (Node[] kids) {
-        children = new Node[kids.length];
-        for (int i = 0; i < kids.length; i++) {
-            children[i] = kids[i];
-        }
-    }
-
-    public Node[] getChildren () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public abstract Node[] getChildren ();
 }
