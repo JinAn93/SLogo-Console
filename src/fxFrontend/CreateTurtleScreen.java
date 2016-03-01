@@ -40,7 +40,7 @@ public class CreateTurtleScreen {
 		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
 		        
         myTurtle = new Turtle(180, 210, "/resources/koopa.png");
-        myGraphics.drawImage(myTurtle.getTurtleImage(), myTurtle.getXCor(), myTurtle.getYCor());
+        myGraphics.drawImage(myTurtle.getTurtleImage(), myTurtle.getStartXCor(), myTurtle.getStartYCor());
         
 		myCanvas2 = new Canvas(600,600);
 		myGraphics2 = myCanvas2.getGraphicsContext2D();

@@ -24,7 +24,6 @@ import fxMenu.CreateTurtleSelectionMenu;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
 
-
 public class Display {
     private BorderPane myBorder;
     private Scene myScene;
@@ -44,7 +43,8 @@ public class Display {
     private CreateColorMenu createMenu;
     private CreateTurtleSelectionMenu myTurtleImages;
     private ArrayList<Line> myLines;
-
+    private Output output; 
+    
     public Display () {
         myBorder = new BorderPane();
         displayScreen();
@@ -56,7 +56,6 @@ public class Display {
         leftBox = mySidebar.getBox();
         centerBox = myScreen.getScreen();
         consoleBox = myConsole.getConsole();
-
         myBorder.setLeft(leftBox);
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
@@ -67,9 +66,7 @@ public class Display {
         myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
-
         myLines = new ArrayList<Line>();
-
         myMenu = new MenuBar();
         createMenu = new CreateColorMenu(myColorGraphics, 600, 600);
         myMenu.getMenus().add(createMenu.getColorMenu());
@@ -88,7 +85,7 @@ public class Display {
                 historyBox.setText(commandHistory.toString());
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
-                Output output = mb.executeCommand(parsedCommands);
+                output = mb.executeCommand(parsedCommands);
                 consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
             }
@@ -100,11 +97,11 @@ public class Display {
     }
 
     private double calculatePivotX (Turtle turtle) {
-        return (turtle.getXCor() + (turtle.getTurtleImage().getWidth() / 2));
+        return (turtle.getStartXCor() + (turtle.getTurtleImage().getWidth() / 2));
     }
 
     private double calculatePivotY (Turtle turtle) {
-        return (turtle.getYCor() + (turtle.getTurtleImage().getHeight() / 2));
+        return (turtle.getStartYCor() + (turtle.getTurtleImage().getHeight() / 2));
     }
 
     private void rotate (GraphicsContext gc, double angle, double px, double py) {
@@ -120,8 +117,8 @@ public class Display {
 
         @Override
         public void update (Observable obs, Object turtle) {
-            Double XCoor = myTurtle.getXCor();
-            Double YCoor = myTurtle.getYCor();
+            Double XCoor = myTurtle.getStartXCor();
+            Double YCoor = myTurtle.getStartYCor();
             Double Head = myTurtle.getHeading();
             int Visib = myTurtle.getVisibility();
             int PenDown = myTurtle.getPen();
@@ -139,13 +136,29 @@ public class Display {
             myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
             // Override this tomorrow when we get to lines
-            Line myLine = new Line(0, 0, XCoor, YCoor);
-            myLines.add(myLine);
-            for (Line aline : myLines) {
-                myGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(),
-                                      aline.getEndY());
-            }
+            
+//            if(PenDown == 1){
+//            	if(myLines.isEmpty()){
+//            		updateLines(XCoor, YCoor, output.)
+//            	}
+//            }
+//            Line myLine = new Line(0, 0, XCoor, YCoor);
+//            myLines.add(myLine);
+//            for (Line aline : myLines) {
+//                myGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(),
+//                                      aline.getEndY());
+//            }
         }
-
+        
+        public void updateLines(double beginX, double beginY, double endX, double endY){
+        	Line myLine = new Line(beginX, beginY, endX, endY);
+        	myLines.add(myLine); 
+        	for(Line aline: myLines){
+        		myGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(), aline.getEndY());
+        	}
+        	
+        }
+        
+    
     }
 }

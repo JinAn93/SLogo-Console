@@ -11,12 +11,12 @@ import javafx.scene.image.Image;
  */
 public class Turtle extends Observable{
 
-    private double myXCor, myYCor, myHeading;
+    private double startXCor, startYCor, endXCor, endYCor, myHeading;
     private int myVisibility, myPen;
     private Image myTurtleImage;
     public Turtle (int x, int y, String dir) {
-        myXCor = x;
-        myYCor = y;
+    	startXCor = x;
+    	startYCor = y;
         myVisibility = 1;
         myPen = 1;
         myTurtleImage = new Image(dir);
@@ -26,12 +26,20 @@ public class Turtle extends Observable{
     public double getHeading () {
         return myHeading;
     }
-    public double getXCor () {
-        return myXCor;
+    public double getStartXCor () {
+        return startXCor;
     }
 
-    public double getYCor () {
-        return myYCor;
+    public double getStartYCor () {
+        return startYCor;
+    }
+    
+    public double getEndYCor(){
+    	return endYCor;
+    }
+    
+    public double getEndXCor(){
+    	return endXCor;
     }
 
     public void setHeading (double heading){
@@ -39,16 +47,28 @@ public class Turtle extends Observable{
         setChanged();
         notifyObservers();
     }
-    public void setXCor (double xCor) {
-        myXCor = xCor;
+    public void setStartXCor (double xCor) {
+    	startXCor = xCor;
         setChanged();
         notifyObservers();
     }
 
-    public void setYCor (double yCor) {
-        myYCor = yCor;
+    public void setStartYCor (double yCor) {
+    	startYCor = yCor;
         setChanged();
         notifyObservers();
+    }
+    
+    public void setEndXCor (double xCor){
+    	endXCor = xCor;
+    	setChanged();
+    	notifyObservers();
+    }
+    
+    public void setEndYCor (double yCor){
+    	endYCor = yCor;
+    	setChanged();
+    	notifyObservers();
     }
 
     public int getVisibility () {

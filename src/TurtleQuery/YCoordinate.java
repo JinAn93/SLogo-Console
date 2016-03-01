@@ -14,6 +14,6 @@ public class YCoordinate extends TurtleQueriesCommand {
 
     @Override
     public String executeCommand () {
-        return String.valueOf((myTurtle.getYCor()));
+        return String.valueOf((myTurtle.getStartYCor()));
     }
 }

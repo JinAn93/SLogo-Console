@@ -14,6 +14,6 @@ public class XCoordinate extends TurtleQueriesCommand {
 
     @Override
     public String executeCommand () {
-        return String.valueOf((myTurtle.getXCor()));
+        return String.valueOf((myTurtle.getStartXCor()));
     }
 }
