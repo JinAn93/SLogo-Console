@@ -22,6 +22,7 @@ import Main.InputObject;
 import fxMenu.CreateColorMenu;
 import fxMenu.CreateTurtleSelectionMenu;
 import javafx.scene.transform.Rotate;
+import fxFrontend.Line;
 
 
 public class Display {
@@ -42,6 +43,7 @@ public class Display {
     private MenuBar myMenu;
     private CreateColorMenu createMenu;
     private CreateTurtleSelectionMenu myTurtleImages;
+    private ArrayList<Line> myLines;
 
     public Display () {
         myBorder = new BorderPane();
@@ -65,7 +67,9 @@ public class Display {
         myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
-       
+
+        myLines = new ArrayList<Line>();
+
         myMenu = new MenuBar();
         createMenu = new CreateColorMenu(myColorGraphics, 600, 600);
         myMenu.getMenus().add(createMenu.getColorMenu());
@@ -134,6 +138,13 @@ public class Display {
             myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+            // Override this tomorrow when we get to lines
+            Line myLine = new Line(0, 0, XCoor, YCoor);
+            myLines.add(myLine);
+            for (Line aline : myLines) {
+                myGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(),
+                                      aline.getEndY());
+            }
         }
 
     }
