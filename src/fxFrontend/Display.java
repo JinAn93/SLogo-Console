@@ -26,7 +26,7 @@ import Main.InputObject;
 import fxMenu.CreateColorMenu;
 import fxMenu.CreateTurtleSelectionMenu;
 import javafx.scene.transform.Rotate;
-
+import fxFrontend.Line;
 
 public class Display {
     private BorderPane myBorder;
@@ -40,14 +40,13 @@ public class Display {
     private StringBuilder commandHistory = new StringBuilder();
     private String consoleText;
     private GraphicsContext myGraphics, myColorGraphics;
-    private Image myImage;
     private Canvas myCanvas;
-    private double myX, myY;
     private Turtle myTurtle;
     private Alert alert = new Alert(AlertType.INFORMATION);
     private MenuBar myMenu;
     private CreateColorMenu createMenu;
     private CreateTurtleSelectionMenu myTurtleImages;
+    private ArrayList<Line> myLines;
 
     public Display () {
         myBorder = new BorderPane();
@@ -71,9 +70,7 @@ public class Display {
         myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
-        myImage = myScreen.getMyTurtle().getTurtleImage();
-        myX = myTurtle.getXCor();
-        myY = myTurtle.getYCor();
+        myLines = new ArrayList<Line>();
 
         myMenu = new MenuBar();
         createMenu = new CreateColorMenu(myColorGraphics, 600, 600);
@@ -81,19 +78,6 @@ public class Display {
         myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
         myMenu.getMenus().add(myTurtleImages.getImageMenu());
         myBorder.setTop(myMenu);
-
-        // Menu menuView = new Menu("Change Color");
-        // MenuItem add = new MenuItem("Blue");
-        // add.setOnAction(new EventHandler<ActionEvent>() {
-        // public void handle(ActionEvent e) {
-        // myColorGraphics.setFill(Color.ALICEBLUE);
-        // myColorGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
-        // }
-        // });
-        // menuView.getItems().add(add);
-        // myMenu.getMenus().addAll(menuView);
-        // myMenu.useSystemMenuBarProperty().set(true);
-        // myBorder.setTop(myMenu);
 
         updateDisplay();
     }
@@ -110,22 +94,6 @@ public class Display {
                 Output output = mb.executeCommand(parsedCommands);
                 consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
-
-//                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-//                myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-//                myTurtle = output.getTurtle();
-//                myY = myTurtle.getYCor();
-//                myX = myTurtle.getXCor();
-//                System.out.println(myTurtle.getVisibility());
-//                
-
-//                rotate(myGraphics, myTurtle.getHeading(), calculatePivotX(),
-//                       calculatePivotY());
-//                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-//                myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-//
-//                myGraphics.drawImage(myTurtle.getTurtleImage(), myTurtle.getXCor(),
-//                                     myTurtle.getYCor());
 
             }
         });
@@ -174,6 +142,12 @@ public class Display {
             myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+            //Override this tomorrow when we get to lines
+            Line myLine = new Line(0,0,XCoor,YCoor);
+            myLines.add(myLine);
+            for(Line aline: myLines){
+            	myGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(), aline.getEndY());
+            }
         }
         
     }
