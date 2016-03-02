@@ -1,23 +1,22 @@
 package Commands;
 
-import java.util.ResourceBundle;
+public abstract class MathOpCommand extends Command {
 
+    protected static final int FIRSTCHILD = 0;
+    protected static final int SECONDCHILD = 1;
+    protected Node[] myChildren;
 
-public class MathOpCommand extends Command {
-
-    public static final int FIRSTCHILD = 0;
-    public static final int SECONDCHILD = 1;
-    
     public String getValue () {
         return executeCommand();
     }
 
     @Override
     public void setChildren (Node[] kids) {
+        myChildren = kids;
     }
 
     @Override
     public Node[] getChildren () {
-        return null;
+        return myChildren;
     }
 }

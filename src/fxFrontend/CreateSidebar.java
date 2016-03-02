@@ -47,7 +47,6 @@ public class CreateSidebar {
 		myVariables = new ScrollPane(); 
 		myVariablesLabel = new Label("Variables:");
 		myVariablesTable = new TableView();
-		myVariablesTable.setEditable(false);
 		createTableView(myVariablesLabel, myVariables, myVariablesTable);
 		
 		myHelpButton = new Button("Help"); 
@@ -90,9 +89,6 @@ public class CreateSidebar {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void createTableView(Label myLabel, ScrollPane myPane, TableView myText){
 		myConsole.getChildren().add(myLabel);
-        TableColumn variableCol = new TableColumn("Variable");
-        TableColumn valueCol = new TableColumn("Value");
-        myText.getColumns().addAll(variableCol,valueCol);
         myPane.setContent(myText);
         myPane.setFitToWidth(true);
         myPane.setPrefWidth(WIDTH);
@@ -107,6 +103,11 @@ public class CreateSidebar {
 	public TextArea getArea(){
 		return myTurtleText;
 	}
+	
+	public TableView getTable(){
+		return myVariablesTable;
+	}
+	
 	
 
 }

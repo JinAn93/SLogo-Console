@@ -1,7 +1,5 @@
 package Commands;
 
-import java.util.ResourceBundle;
-
 public abstract class Command implements Node {
     protected String strValue = "eben";
     private boolean operand;
@@ -23,12 +21,10 @@ public abstract class Command implements Node {
     }
 
     public abstract void setChildren (Node[] kids);
-    
-    
-    public String executeCommand () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
+    public abstract String executeCommand ();
+
+    public abstract Node[] getChildren ();
 
     public boolean setOperand (boolean bool) {
         operand = bool;
@@ -38,15 +34,13 @@ public abstract class Command implements Node {
     public boolean isOperand () {
         return operand;
     }
-    
-    public boolean setVariable (boolean bool){
+
+    public boolean setVariable (boolean bool) {
         variable = bool;
         return variable;
     }
-    
-    public boolean isVariable(){
+
+    public boolean isVariable () {
         return variable;
     }
-
-    public abstract Node[] getChildren ();
 }

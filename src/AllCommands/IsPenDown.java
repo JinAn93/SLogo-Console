@@ -1,4 +1,4 @@
-package TurtleQuery;
+package AllCommands;
 
 import Commands.TurtleQueriesCommand;
 import Main.Turtle;
@@ -6,11 +6,8 @@ import Main.Turtle;
 
 public class IsPenDown extends TurtleQueriesCommand {
 
-    private Turtle myTurtle;
-
     public IsPenDown (Turtle turtle) {
         super(turtle);
-        myTurtle = turtle;
     }
 
     @Override

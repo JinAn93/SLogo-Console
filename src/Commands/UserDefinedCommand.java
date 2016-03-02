@@ -1,25 +1,23 @@
 package Commands;
 
-public class UserDefinedCommand extends Command {
+public abstract class UserDefinedCommand extends Command {
 
-    @Override
-    public String executeCommand () {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    protected Node[] myChildren;
+    protected static final int NAME = 0;
+    protected static final int VALUE = 1;
+    protected static final int numRepeatIndex = 0;
+    
     public String getValue () {
         return executeCommand();
     }
 
     @Override
     public void setChildren (Node[] kids) {
-        // TODO Auto-generated method stub
+        myChildren = kids;
     }
 
     @Override
     public Node[] getChildren () {
-        // TODO Auto-generated method stub
-        return null;
+        return myChildren;
     }
 }

@@ -1,15 +1,12 @@
-package UserDefinedCommand;
+package AllCommands;
 
-import Commands.Node;
 import Commands.UserDefinedCommand;
 
 
 public class Repeat extends UserDefinedCommand {
 
-    private Node[] myChildren;
-    private static final int numRepeatIndex = 0;
-
-    public String execommand () {
+    @Override
+    public String executeCommand () {
         int repeatTimes = Integer.parseInt(myChildren[numRepeatIndex].getValue()) - 1;
         myChildren[numRepeatIndex].setValue(Integer.toString(repeatTimes));
         if(repeatTimes == 0){
@@ -18,15 +15,5 @@ public class Repeat extends UserDefinedCommand {
         else{
             return this.getClass().getSimpleName();
         }
-    }
-
-    @Override
-    public void setChildren (Node[] kids) {
-        myChildren = kids;
-    }
-
-    @Override
-    public Node[] getChildren () {
-        return myChildren;
     }
 }

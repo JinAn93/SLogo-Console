@@ -1,6 +1,8 @@
 package fxFrontend;
 
 import Main.MainBackEnd;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -9,15 +11,22 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import fxFrontend.DisplayVariable;
+
 
 import java.util.*;
+
+import Commands.Variable;
 import Main.Output;
 import Main.Turtle;
 import Main.InputObject;
@@ -35,7 +44,7 @@ public class Display {
     private CreateTurtleScreen myScreen = new CreateTurtleScreen();
     private CreateConsole myConsole = new CreateConsole();
     private Button myButton;
-    private TextArea historyBox, myConsoleBox;
+    private TextArea historyBox, myConsoleBox, myTurtleStatsBox;
     private StringBuilder commandHistory = new StringBuilder();
     private String consoleText;
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
@@ -48,6 +57,9 @@ public class Display {
     private CreatePenColorMenu myPenMenu; 
     private ArrayList<Line> myLines;
     private Output output; 
+    private TableView myVariablesTable;
+    private TableColumn variableCol, valueCol;
+    private ObservableList<DisplayVariable> data;
     
     public Display () {
         myBorder = new BorderPane();
@@ -66,6 +78,7 @@ public class Display {
         myTurtle = myScreen.getMyTurtle();
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
+        myTurtleStatsBox = mySidebar.getArea();
         myButton = myScreen.getButton();
         myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
@@ -80,8 +93,27 @@ public class Display {
         myPenMenu = new CreatePenColorMenu(myGraphics); 
         myMenu.getMenus().add(myPenMenu.getPenMenu());
         myBorder.setTop(myMenu);
+        //make the table
+        
+        myVariablesTable = mySidebar.getTable();
+        variableCol = new TableColumn("Variable");
+
+        valueCol = new TableColumn("Value");
+        variableCol.setCellValueFactory(
+        	    new PropertyValueFactory<DisplayVariable,String>("variableName")
+        	);
+        valueCol.setCellValueFactory(
+        	    new PropertyValueFactory<DisplayVariable,Double>("variableValue")
+        	);
+        data = FXCollections.observableArrayList(); // create the data
+        myVariablesTable.setItems(data);
+        myVariablesTable.getColumns().addAll(variableCol,valueCol);
+
+
+
         updateDisplay();
     }
+        
 
     public void updateDisplay () {
         myButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -99,8 +131,28 @@ public class Display {
                 
                 consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
+                
+                String myTurtleStats = "X Coordinate:"+myTurtle.getStartXCor() +"\n"+ "Y Coordinate:" + myTurtle.getStartYCor();
+                myTurtleStatsBox.setText(myTurtleStats);
+                
+                List<Variable> myVarList = output.getVariables();
+                for(Variable aVar: myVarList){
+                	DisplayVariable tempVar = new DisplayVariable(aVar.getName(),aVar.getValue());
+                	if(!contains(myVariablesTable,tempVar)){
+                    	myVariablesTable.getItems().add(tempVar);
+                    }
+                }
+               
             }
         });
+    }
+    
+    public boolean contains(TableView<DisplayVariable> table, DisplayVariable obj){
+        for(DisplayVariable item: table.getItems())
+            if (item.getVariableName().equals(obj.getVariableName()))
+                return true;
+
+        return false;
     }
 
     public Turtle getTurtle () {
@@ -143,9 +195,7 @@ public class Display {
             else {
                 myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             }
-
             rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-
             myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
@@ -161,9 +211,9 @@ public class Display {
 //            		updateLines(startX, startY, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
 //            	}
 //            }
-            System.out.println(output.getTurtle().getStartYCor()+ "hey");
-
         }
+        
+
         
         public void updateLines(double beginX, double beginY, double endX, double endY){
         	Line myLine = new Line(beginX, beginY, endX, endY);

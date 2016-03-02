@@ -1,32 +1,33 @@
 package Commands;
 
-import java.util.ResourceBundle;
 import Main.Turtle;
 
-public class TurtleQueriesCommand extends Command {
 
-    private Turtle myTurtle;
-    
-    public TurtleQueriesCommand(Turtle turtle){
+public abstract class TurtleQueriesCommand extends Command {
+
+    protected Turtle myTurtle;
+    protected Node[] myChildren;
+
+    public TurtleQueriesCommand (Turtle turtle) {
         myTurtle = turtle;
     }
-    
-    public String executeCommand (Turtle turtle){
-        return null;
-    }
-    
-    public String getValue(Turtle turtle){
-        return executeCommand(turtle);
+
+    public String getValue (Turtle turtle) {
+        return executeCommand();
     }
 
     @Override
     public void setChildren (Node[] kids) {
-        // TODO Auto-generated method stub
-        
+        myChildren = kids;
     }
 
     @Override
     public Node[] getChildren () {
+        return myChildren;
+    }
+
+    @Override
+    public String executeCommand () {
         // TODO Auto-generated method stub
         return null;
     }
