@@ -1,10 +1,10 @@
 package AllCommands;
 
-import Commands.TurtleQueriesCommand;
+import Commands.TurtleCommand;
 import Main.Turtle;
 
 
-public class Heading extends TurtleQueriesCommand {
+public class Heading extends TurtleCommand {
 
     public Heading (Turtle turtle) {
         super(turtle);

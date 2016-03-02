@@ -1,10 +1,10 @@
 package AllCommands;
 
-import Commands.TurtleQueriesCommand;
+import Commands.TurtleCommand;
 import Main.Turtle;
 
 
-public class IsPenDown extends TurtleQueriesCommand {
+public class IsPenDown extends TurtleCommand {
 
     public IsPenDown (Turtle turtle) {
         super(turtle);

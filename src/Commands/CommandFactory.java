@@ -11,11 +11,11 @@ import Main.Turtle;
 
 public class CommandFactory {
     private ResourceBundle myLanguage;
-    
-    public CommandFactory (ResourceBundle lang){
+
+    public CommandFactory (ResourceBundle lang) {
         myLanguage = lang;
     }
-    
+
     public Command makeInstruction (String str,
                                     Turtle turtle,
                                     String content,
@@ -63,9 +63,11 @@ public class CommandFactory {
                     }
                 }
             }
-            else if (constructors[0].getParameterCount() == 4){
+            else if (constructors[0].getParameterCount() == 4) {
                 try {
-                    com = (Command) constructors[0].newInstance(turtle, content, myLanguage, variables);
+                    com =
+                            (Command) constructors[0].newInstance(turtle, content, myLanguage,
+                                                                  variables);
                 }
                 catch (InstantiationException | IllegalAccessException
                         | IllegalArgumentException

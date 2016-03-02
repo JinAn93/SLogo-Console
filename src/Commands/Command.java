@@ -1,14 +1,43 @@
 package Commands;
 
 public abstract class Command implements Node {
-    protected String strValue = "eben";
-    private boolean operand;
-    private boolean variable;
+    protected Node[] myChildren;
+    protected String myStrValue;
+    protected boolean isChildOperand;
+    protected boolean isChildVariable;
+
+    public abstract String executeCommand ();
+
+    public boolean setOperand (boolean bool) {
+        isChildOperand = bool;
+        return isChildOperand;
+    }
+
+    public boolean isOperand () {
+        return isChildOperand;
+    }
+
+    public boolean setVariable (boolean bool) {
+        isChildVariable = bool;
+        return isChildVariable;
+    }
+
+    public boolean isVariable () {
+        return isChildVariable;
+    }
+
+    public void setChildren (Node[] kids) {
+        myChildren = kids;
+    }
+
+    public Node[] getChildren () {
+        return myChildren;
+    }
 
     @Override
     public String setValue (String str) {
-        strValue = str;
-        return strValue;
+        myStrValue = str;
+        return myStrValue;
     }
 
     @Override
@@ -20,27 +49,4 @@ public abstract class Command implements Node {
         return executeCommand();
     }
 
-    public abstract void setChildren (Node[] kids);
-
-    public abstract String executeCommand ();
-
-    public abstract Node[] getChildren ();
-
-    public boolean setOperand (boolean bool) {
-        operand = bool;
-        return operand;
-    }
-
-    public boolean isOperand () {
-        return operand;
-    }
-
-    public boolean setVariable (boolean bool) {
-        variable = bool;
-        return variable;
-    }
-
-    public boolean isVariable () {
-        return variable;
-    }
 }

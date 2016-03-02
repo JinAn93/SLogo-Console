@@ -1,10 +1,10 @@
 package AllCommands;
 
-import Commands.TurtleQueriesCommand;
+import Commands.TurtleCommand;
 import Main.Turtle;
 
 
-public class XCoordinate extends TurtleQueriesCommand {
+public class XCoordinate extends TurtleCommand {
 
     public XCoordinate (Turtle turtle) {
         super(turtle);

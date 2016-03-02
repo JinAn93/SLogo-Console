@@ -29,43 +29,43 @@ public class Parser {
         myVariableList = variables;
     }
 
-    public Stack<Node> buildExpressionTree (Collection<?> ListOfCommands) {
+    public Stack<Node> buildExpressionTree (Collection<?> ListOfNodes) {
         Stack<Node> stack = new Stack<Node>();
         CommandFactory cf = new CommandFactory(myLanguage);
-        String[] commands = ListOfCommands.toArray(new String[ListOfCommands.size()]);
+        String[] nodes = ListOfNodes.toArray(new String[ListOfNodes.size()]);
         StringBuilder content = new StringBuilder();
-        for (int i = commands.length - 1; i > -1; i--) {
-            System.out.println(commands[i]);
+        for (int i = nodes.length - 1; i > -1; i--) {
+            System.out.println("We are at " + nodes[i] + " Node");
             Node command = null;
-            if (isCommand(commands[i])) {
+            if (isCommand(nodes[i])) {
                 command =
-                        cf.makeInstruction(commands[i], myTurtle, content.toString(),myVariableList);
+                        cf.makeInstruction(nodes[i], myTurtle, content.toString(),myVariableList);
 
-                int paramNum = getParamNum(commands[i]);
+                int paramNum = getParamNum(nodes[i]);
                 Node[] children = new Node[paramNum];
                 for (int c = 0; c < paramNum; c++) {
                     children[c] = stack.pop();
+                    System.out.println((c+1) + " child is " + children[c].getValue());
                 }
                 ((Command) command).setChildren(children);
-                
             }
-            else if (isConstant(commands[i])) {
-                command = cf.makeOperand(commands[i]);
-            }
-
-            else if (isVariable(commands[i])) {
-                command = cf.makeVariable(commands[i].substring(COLON));
+            else if (isConstant(nodes[i])) {
+                command = cf.makeOperand(nodes[i]);
             }
 
-            else if (isListEnd(commands[i])) {
+            else if (isVariable(nodes[i])) {
+                command = cf.makeVariable(nodes[i].substring(COLON));
+            }
+
+            else if (isListEnd(nodes[i])) {
                 int endListIndex = i;
-                int startListIndex = searchListStart(commands, i);
+                int startListIndex = searchListStart(nodes, i);
                 for (int j = startListIndex + 1; j < endListIndex; j++) {
-                    content.append(commands[j]);
+                    content.append(nodes[j]);
                     content.append(" ");
                 }
                 i = startListIndex;
-                System.out.println(content);
+                System.out.println("In the List : " + content); //prints what's in the list
                 continue;
             }
             stack.push(command);

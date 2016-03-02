@@ -1,36 +1,26 @@
 package Commands;
 
 public class Operand implements Node {
-    private String strValue;
-    private final String OPERAND = "Operand";
-    private boolean operand;
+    private String myStrValue;
+    private boolean myOperand;
 
     @Override
     public String setValue (String str) {
-        strValue = str;
+        myStrValue = str;
         return null;
     }
 
     @Override
     public String getValue () {
-        return strValue;
+        return myStrValue;
     }
 
     public boolean setOperand (boolean bool) {
-        operand = bool;
-        return operand;
+        myOperand = bool;
+        return myOperand;
     }
 
     public boolean isOperand () {
-        return operand;
-    }
-
-    public void setChildren (Node[] children) {
-        // TODO Auto-generated method stub
-    }
-
-    public Node[] getChildren () {
-        // TODO Auto-generated method stub
-        return null;
+        return myOperand;
     }
 }

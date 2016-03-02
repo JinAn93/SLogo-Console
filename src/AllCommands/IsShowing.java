@@ -1,10 +1,10 @@
 package AllCommands;
 
-import Commands.TurtleQueriesCommand;
+import Commands.TurtleCommand;
 import Main.Turtle;
 
 
-public class IsShowing extends TurtleQueriesCommand {
+public class IsShowing extends TurtleCommand {
 
     public IsShowing (Turtle turtle) {
         super(turtle);
