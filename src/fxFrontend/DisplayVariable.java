@@ -1,10 +1,10 @@
 package fxFrontend;
 
-public class Variable {
+public class DisplayVariable {
 	private String variableName;
-	private double variableValue;
+	private String variableValue;
 	
-	public Variable(String myName, double myValue){
+	public DisplayVariable(String myName, String myValue){
 		variableName = myName;
 		variableValue = myValue;
 	}
@@ -12,7 +12,7 @@ public class Variable {
 	public void setName(String name){
 		variableName = name;
 	}
-	public void setValue(double value){
+	public void setValue(String value){
 		variableValue = value;
 	}
 	
@@ -20,7 +20,7 @@ public class Variable {
 		return variableName;
 	}
 	
-	public double getVariableValue(){
+	public String getVariableValue(){
 		return variableValue;
 	}
 }
