@@ -88,7 +88,7 @@ public class Display {
         myMenu.getMenus().add(createMenu.getColorMenu());
         myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
         myMenu.getMenus().add(myTurtleImages.getImageMenu());
-        myPenMenu = new CreatePenColorMenu(myGraphics);
+        myPenMenu = new CreatePenColorMenu(myLineGraphics);
         myMenu.getMenus().add(myPenMenu.getPenMenu());
         myBorder.setTop(myMenu);
         // make the table
@@ -136,18 +136,20 @@ public class Display {
                         myVariablesTable.getItems().add(tempVar);
                     }
                 }
-                updateLines();
+                if(myTurtle.getPen() == 1){
+                	updateLines();
+                }
 
             }
         });
     }
     
-    public void updateLines () {
+    public void updateLines() {
         double startX = myTurtle.getStartXCor();
         double startY = myTurtle.getStartYCor();
         double endX = myTurtle.getEndXCor();
         double endY = myTurtle.getEndYCor();
-        System.out.print(startX +" "+startY+" "+endX+" "+endY);
+        myLineGraphics.setLineWidth(10);
         myLineGraphics.strokeLine(startX, startY, endX, endY);
         myTurtle.setStartXCor(endX);
         myTurtle.setStartYCor(endY);
@@ -203,27 +205,10 @@ public class Display {
                 myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
                 myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
                 myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-//                myTurtle.setStartXCor(XCoor);
-//                myTurtle.setStartYCor(YCoor);
             }
             else {
                 myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             }
-            // Override this tomorrow when we get to lines
-            // Drawing stuff
-            // if(PenDown == 1){
-            // Double startX = output.getTurtle().getStartXCor();
-            // Double startY = output.getTurtle().getStartYCor();
-            // if(myLines.isEmpty()){
-            // updateLines(XCoor, YCoor, output.getTurtle().getEndXCor(),
-            // output.getTurtle().getEndYCor());
-            // }
-            // else{
-            // updateLines(startX, startY, output.getTurtle().getEndXCor(),
-            // output.getTurtle().getEndYCor());
-            // }
-            // }
-
         }
 
 
