@@ -22,6 +22,7 @@ public class CommandDecoder {
                 if (!line.matches(MainBackEnd.getSyntax().getString("Comment"))) {
                     commentFreeInput += line;
                 }
+                commentFreeInput += " ";
             }
             commentFreeInput.toLowerCase();
             String[] commands = commentFreeInput.split(" ");

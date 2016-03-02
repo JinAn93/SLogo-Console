@@ -2,19 +2,30 @@ package Commands;
 
 import Main.Turtle;
 
-public class TurtleCommand extends Command {
+
+public abstract class TurtleCommand extends Command {
+
+    protected static final int FIRSTCHILD = 0;
+    protected static final int PENUP = 0;
+    protected static final int PENDOWN = 1;
+    protected Turtle myTurtle;
+    protected Node[] myChildren;
+
+    public TurtleCommand (Turtle turtle) {
+        myTurtle = turtle;
+    }
+
+    public String getValue (Turtle turtle) {
+        return executeCommand();
+    }
 
     @Override
-    public String executeCommand () {
-        // TODO Auto-generated method stub
-        return "";
+    public void setChildren (Node[] kids) {
+        myChildren = kids;
     }
-    
-    public String executeCommand (Turtle turtle){
-        return null;
-    }
-    
-    public String getValue(Turtle turtle){
-        return executeCommand(turtle);
+
+    @Override
+    public Node[] getChildren () {
+        return myChildren;
     }
 }

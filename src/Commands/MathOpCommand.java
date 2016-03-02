@@ -1,14 +1,22 @@
 package Commands;
 
-public class MathOpCommand extends Command {
+public abstract class MathOpCommand extends Command {
 
-    @Override
-    public String executeCommand () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    protected static final int FIRSTCHILD = 0;
+    protected static final int SECONDCHILD = 1;
+    protected Node[] myChildren;
 
     public String getValue () {
         return executeCommand();
+    }
+
+    @Override
+    public void setChildren (Node[] kids) {
+        myChildren = kids;
+    }
+
+    @Override
+    public Node[] getChildren () {
+        return myChildren;
     }
 }

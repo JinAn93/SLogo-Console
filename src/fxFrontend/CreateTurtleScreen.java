@@ -7,7 +7,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -18,10 +17,9 @@ public class CreateTurtleScreen {
 	
 	private VBox myScreen;
 	private Button myButton;
-	private StackPane root = new StackPane(); 
 	private TextArea codeInput; 
-	private Canvas myCanvas, myCanvas2;
-	private GraphicsContext myGraphics, myGraphics2;
+	private Canvas myCanvas, myCanvas2, myLineCanvas;
+	private GraphicsContext myGraphics, myGraphics2, myLineGraphics;
 	private Image myTurtleImage;
 //	private int turtleX,turtleY;
 	private Turtle myTurtle; 
@@ -40,14 +38,21 @@ public class CreateTurtleScreen {
 		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
 		        
         myTurtle = new Turtle(180, 210, "/resources/koopa.png");
-        myGraphics.drawImage(myTurtle.getTurtleImage(), myTurtle.getXCor(), myTurtle.getYCor());
+        myGraphics.drawImage(myTurtle.getTurtleImage(), myTurtle.getStartXCor(), myTurtle.getStartYCor());
         
 		myCanvas2 = new Canvas(600,600);
 		myGraphics2 = myCanvas2.getGraphicsContext2D();
 		myGraphics2.setFill(Color.WHITE);
 		myGraphics2.fillRect(0,0,myCanvas2.getWidth(),myCanvas2.getHeight());
 		
+		myLineCanvas = new Canvas(600,600);
+		myLineGraphics = myLineCanvas.getGraphicsContext2D();
+		myLineGraphics.setFill(Color.TRANSPARENT);
+		myLineGraphics.fillRect(0,0,myLineCanvas.getWidth(),myLineCanvas.getHeight());
+
+		
 		myPane.getChildren().add(myCanvas2);
+		myPane.getChildren().add(myLineCanvas);
 		myPane.getChildren().add(myCanvas);
 		myScreen.getChildren().add(myPane);
 
@@ -93,11 +98,8 @@ public class CreateTurtleScreen {
 		return myTurtle;
 	}
 	
-//	public int getTurtleX(){
-//		return turtleX;
-//	}
-//	
-//	public int getTurtleY(){
-//		return turtleY;
-//	}
+	public GraphicsContext getLineGraphics(){
+		return myLineGraphics;
+	}
+	
 }

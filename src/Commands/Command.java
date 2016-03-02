@@ -3,8 +3,7 @@ package Commands;
 public abstract class Command implements Node {
     protected String strValue = "eben";
     private boolean operand;
-    private final String OPERAND = "Operand";
-    protected Node[] children;
+    private boolean variable;
 
     @Override
     public String setValue (String str) {
@@ -16,34 +15,32 @@ public abstract class Command implements Node {
     public String getValue () {
         if (isOperand())
             return getValue();
+        if (isVariable())
+            return getValue();
         return executeCommand();
     }
 
-    public String executeCommand () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public abstract void setChildren (Node[] kids);
 
-    @Override
+    public abstract String executeCommand ();
+
+    public abstract Node[] getChildren ();
+
     public boolean setOperand (boolean bool) {
         operand = bool;
         return operand;
     }
 
-    @Override
     public boolean isOperand () {
         return operand;
     }
 
-    public void setChildren (Node[] kids) {
-        children = new Node[kids.length];
-        for (int i = 0; i < kids.length; i++) {
-            children[i] = kids[i];
-        }
+    public boolean setVariable (boolean bool) {
+        variable = bool;
+        return variable;
     }
 
-    public Node[] getChildren () {
-        // TODO Auto-generated method stub
-        return null;
+    public boolean isVariable () {
+        return variable;
     }
 }

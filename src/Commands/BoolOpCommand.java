@@ -1,5 +1,7 @@
 package Commands;
 
+import java.util.ResourceBundle;
+
 public class BoolOpCommand extends Command {
 
     @Override
@@ -10,5 +12,17 @@ public class BoolOpCommand extends Command {
 
     public String getValue () {
         return executeCommand();
+    }
+
+    @Override
+    public void setChildren (Node[] kids) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public Node[] getChildren () {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

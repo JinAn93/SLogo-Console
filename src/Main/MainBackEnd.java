@@ -9,9 +9,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
-import CommandExecutors.*;
 import Commands.*;
-import MathCommands.*;
 
 
 /**
@@ -27,37 +25,24 @@ public class MainBackEnd {
     private static final String[] possibleLanguages = { "English" };
     private static final int DEFAULTLANG = 0;
 
-    // private CommandInterface currentCommand;
-
     private static final ResourceBundle myParameters = ResourceBundle
             .getBundle("resources.ParameterList/AllParameters");
     private static final ResourceBundle mySyntaxes = ResourceBundle
             .getBundle("resources.languages/Syntax");
-    private static ResourceBundle myLanguages = ResourceBundle.getBundle("resources.languages/" +
-                                                                  possibleLanguages[DEFAULTLANG]);
-
+    private static ResourceBundle myLanguages = ResourceBundle
+            .getBundle("resources.languages/" +
+                       possibleLanguages[DEFAULTLANG]);
+    private static List<Variable> myVariableList = new ArrayList<Variable>();
     private Turtle myTurtle;
-    // public static void main(String args[]){
-    // MainBackEnd mb = new MainBackEnd();
-    // String[] commands = mb.setup("sum sum sum sum 1 sum 1 1 1 1 1"); // JUST PLAY AROUND WITH
-    // THIS STRING AND THEN RUN MAINBACKEND TO RUN IT !!
-    // for(int i = commands.length - 1; i > -1; i--){
-    // //System.out.println(commands[i]);
-    // }
-    // Node[] temp = mb.buildExpressionTree(commands);
-    // for(int i = 0; i < temp.length; i++){
-    // System.out.println(temp[i].getValue());
-    // }
-    // }
+    private static final int COLON = 1;
 
     public MainBackEnd () {
-
     }
 
     public Output executeCommand (Collection<?> commands) {
-        Node[] result = buildExpressionTree(commands);
-        Output output = new Output();
-        
+        Stack<Node> result = buildExpressionTree(commands);
+        Output output = new Output(myTurtle, myVariableList);
+
         output.setResult(stringizer(result));
         return output;
     }
@@ -66,48 +51,72 @@ public class MainBackEnd {
         CommandDecoder cDecoder = new CommandDecoder();
         InputObject io = inputObject;
         myTurtle = io.getTurtle();
+        System.out.println(cDecoder.parseCommand(input));
         return cDecoder.parseCommand(input);
     }
 
-    private List<String> stringizer (Node[] input){
+    private List<String> stringizer (Stack<Node> input) {
         List<String> ret = new ArrayList<String>();
-        for(int i=0; i<input.length; i++){
-            ret.add(input[i].getValue());
+        for (int i = 0; i < input.size(); i++) {
+            ret.add(input.get(i).getValue());
         }
         return ret;
     }
-    private Node[] buildExpressionTree (Collection<?> ListOfCommands) {
-        Deque<Node> stack = new ArrayDeque<Node>();
+
+    private Stack<Node> buildExpressionTree (Collection<?> ListOfCommands) {
+        Stack<Node> stack = new Stack<Node>();
         CommandFactory cf = new CommandFactory();
         String[] commands = ListOfCommands.toArray(new String[ListOfCommands.size()]);
+        int currOpenBracket = 0;
         for (int i = commands.length - 1; i > -1; i--) {
             Node command;
             if (isCommand(commands[i])) {
-                command = cf.makeInstruction(commands[i], myTurtle);
+                command = cf.makeInstruction(commands[i], myTurtle, myLanguages);
 
                 int paramNum = getParamNum(commands[i]);
                 Node[] children = new Node[paramNum];
-                System.out.println(commands[i]);
-                System.out.println(paramNum);
                 for (int c = 0; c < paramNum; c++) {
                     children[c] = stack.pop();
                 }
                 ((Command) command).setChildren(children);
             }
-            else {
+            else if (isConstant(commands[i])) {
                 command = cf.makeOperand(commands[i]);
+            }
+
+            else if (isVariable(commands[i])) {
+                command = cf.makeVariable(commands[i].substring(COLON));
+            }
+
+            else if (isListStart(commands[i])) {
+                command = null;
+            }
+            else { // ListEnd for now
+                currOpenBracket = searchListStart(commands, i);
+                // Stack<Node> listStack = buildExpressionTree();
+                for (int j = i + 1; j > currOpenBracket; j--) {
+                    // groupedCommands.push()
+                }
+                command = null;
             }
             stack.push(command);
         }
-        return stack.toArray(new Node[stack.size()]);
+        return stack;
     }
 
+    private int searchListStart (String[] commands, int startIndex) {
+        for (int i = startIndex; i > -1; i--) {
+            if (isListStart(commands[i])) {
+                return i;
+            }
+        }
+        return 0; // no bracket, throw error
+    }
 
     private int getParamNum (String command) {
         Enumeration<String> keys = myLanguages.getKeys();
         while (keys.hasMoreElements()) {
-            String whichCommand =(keys.nextElement());
-            System.out.println(whichCommand);
+            String whichCommand = (keys.nextElement());
             if (command.matches(myLanguages.getString(whichCommand))) {
                 return Integer.parseInt(myParameters.getString(whichCommand));
             }
@@ -115,18 +124,19 @@ public class MainBackEnd {
         return 0;
     }
 
-    public void setLanguage (ResourceBundle bundle) {
+    private void setLanguage (ResourceBundle bundle) {
         myLanguages = bundle;
     }
-    
-    public static ResourceBundle getLanguage(){
-        return myLanguages;
+
+    public static List<Variable> getVariables () {
+        return myVariableList;
     }
 
-    public static ResourceBundle getSyntax(){
+    public static ResourceBundle getSyntax () {
         return mySyntaxes;
     }
-    public static boolean isCommand (String input) {
+
+    public boolean isCommand (String input) {
         return input.matches(mySyntaxes.getString("Command"));
     }
 

@@ -1,58 +1,62 @@
 package Commands;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Enumeration;
+import java.util.ResourceBundle;
 import Main.MainBackEnd;
 import Main.Turtle;
-import MathCommands.*;
-import TurtleCommand.*;
-import TurtleQuery.*;
 
 
 public class CommandFactory {
-    public Command makeInstruction (String command, Turtle turtle) {
-        Command ret;
+    public Command makeInstruction (String str, Turtle turtle, ResourceBundle language) {
+        Enumeration<String> keys = language.getKeys();
+        String command = null;
+        while (keys.hasMoreElements()) {
+            command = (keys.nextElement());
+            if (str.matches(language.getString(command))) {
+                break;
+            }
+        }
+        command = "AllCommands." + command;
+        try {
+            Class<?> clas = Class.forName(command);
+            Constructor<?>[] constructors = null;
+            try {
+                constructors = clas.getDeclaredConstructors();
+            }
+            catch (SecurityException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Command com = null;
+            if (constructors[0].getParameterCount() == 0) {
+                try {
+                    com = (Command) clas.newInstance();
+                }
+                catch (InstantiationException | IllegalAccessException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            else {
+                System.out.println(constructors[0].getName());
 
-        if (command.matches(MainBackEnd.getLanguage().getString("Sum"))) {
-            return new Sum();
+                try {
+                    com = (Command) constructors[0].newInstance(turtle);
+                }
+                catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                        | InvocationTargetException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            return com;
         }
 
-        if (command.matches(MainBackEnd.getLanguage().getString("Product"))) {
-            return new Product();
-        }
-
-        if (command.matches(MainBackEnd.getLanguage().getString("Difference"))) {
-            return new Difference();
-        }
-
-        if (command.matches(MainBackEnd.getLanguage().getString("Remainder"))) {
-            return new Remainder();
-        }
-
-        if (command.matches(MainBackEnd.getLanguage().getString("Minus"))) {
-            return new Remainder();
-        }
-
-        if (command.matches(MainBackEnd.getLanguage().getString("XCoordinate"))) {
-            return new XCoordinate(turtle);
-        }
-
-        if (command.matches(MainBackEnd.getLanguage().getString("YCoordinate"))) {
-            return new YCoordinate(turtle);
-        }
-
-        if (command.matches(MainBackEnd.getLanguage().getString("Heading"))) {
-            return new Heading(turtle);
-        }
-        
-        if (command.matches(MainBackEnd.getLanguage().getString("IsPenDown"))) {
-            return new IsPenDown(turtle);
-        }
-        
-        if (command.matches(MainBackEnd.getLanguage().getString("IsShowing"))) {
-            return new IsShowing(turtle);
-        }
-        
-        if (command.matches(MainBackEnd.getLanguage().getString("Forward"))) {
-            return new Forward(turtle);
+        catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         return null;
     }
@@ -70,4 +74,22 @@ public class CommandFactory {
         return op;
     }
 
+    public Variable makeVariable (String variable) {
+        if (variable == null) {
+            System.out.println(variable + " is not created");
+            return null;
+        }
+
+        for (Variable var : MainBackEnd.getVariables()) {
+            if (var.getName().equals(variable)) {
+                System.out.println(variable + " was created");
+                return var;
+            }
+        }
+
+        Variable newVar = new Variable();
+        newVar.setName(variable);
+        newVar.setVariable(true);
+        return newVar; // Throw Error
+    }
 }
