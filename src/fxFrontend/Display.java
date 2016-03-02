@@ -123,6 +123,10 @@ public class Display {
     			InputObject myInput = new InputObject(myCommand, myTurtle);
     			Collection<?> parsedCommands = mb.setup(myCommand, myInput);
     			output = mb.executeCommand(parsedCommands);
+    			
+    			if(!output.isValidCommand()){
+    				//send out error message 
+    			}
 
     			consoleText = output.getResult().toString();
     			myConsoleBox.setText(consoleText);

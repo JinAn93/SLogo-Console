@@ -11,10 +11,19 @@ public class Output {
     private Turtle myTurtle;
     private List<Variable> myVariables = new ArrayList<Variable>();
     private boolean badCommand = false; 
+    private String myErrorType; 
+    private String myErrorMessage; 
     
     public Output (Turtle turtle, List<Variable> variables) {
         myTurtle = turtle;
         myVariables = variables;
+    }
+    
+    public Output(Turtle turtle, List<Variable> variables, String errorType, String errorMessage){
+    	myTurtle = turtle;
+    	myVariables = variables;
+    	myErrorType = errorType; 
+    	myErrorMessage = errorMessage; 
     }
 
     public List<String> getResult () {
@@ -48,5 +57,7 @@ public class Output {
     public void setValidity(boolean status){
     	badCommand = status; 
     }
+    
+    
 
 }
