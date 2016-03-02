@@ -26,6 +26,7 @@ import java.util.*;
 import Commands.Variable;
 import Main.Output;
 import Main.Turtle;
+import Main.ErrorObject;
 import Main.InputObject;
 import fxMenu.CreateColorMenu;
 import fxMenu.CreatePenColorMenu;
@@ -48,7 +49,7 @@ public class Display {
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
     private Canvas myCanvas;
     private Turtle myTurtle;
-    private Alert alert = new Alert(AlertType.INFORMATION);
+    private ErrorObject error; 
     private MenuBar myMenu;
     private CreateColorMenu createMenu;
     private CreateTurtleSelectionMenu myTurtleImages;
@@ -58,7 +59,7 @@ public class Display {
     private TableView myVariablesTable;
     private TableColumn variableCol, valueCol;
     private ObservableList<DisplayVariable> data;
-
+    
     public Display () {
         myBorder = new BorderPane();
         displayScreen();
@@ -111,37 +112,40 @@ public class Display {
     }
 
     public void updateDisplay () {
-        myButton.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle (ActionEvent e) {
-                String myCommand = myScreen.getCodeInput().getText();
-                MainBackEnd mb = new MainBackEnd();
-                commandHistory.append(myCommand + "\n");
-                historyBox.setText(commandHistory.toString());
-                InputObject myInput = new InputObject(myCommand, myTurtle);
-                Collection<?> parsedCommands = mb.setup(myCommand, myInput);
-                output = mb.executeCommand(parsedCommands);
+    	myButton.setOnAction(new EventHandler<ActionEvent>() {
+    		public void handle (ActionEvent e) {
+    			String myCommand = myScreen.getCodeInput().getText();
 
-                consoleText = output.getResult().toString();
-                myConsoleBox.setText(consoleText);
 
-                String myTurtleStats =
-                        "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
-                                myTurtle.getStartYCor();
-                myTurtleStatsBox.setText(myTurtleStats);
+    			MainBackEnd mb = new MainBackEnd();
+    			commandHistory.append(myCommand + "\n");
+    			historyBox.setText(commandHistory.toString());
+    			InputObject myInput = new InputObject(myCommand, myTurtle);
+    			Collection<?> parsedCommands = mb.setup(myCommand, myInput);
+    			output = mb.executeCommand(parsedCommands);
 
-                List<Variable> myVarList = output.getVariables();
-                for (Variable aVar : myVarList) {
-                    DisplayVariable tempVar = new DisplayVariable(aVar.getName(), aVar.getValue());
-                    if (!contains(myVariablesTable, tempVar)) {
-                        myVariablesTable.getItems().add(tempVar);
-                    }
-                }
-                if(myTurtle.getPen() == 1){
-                	updateLines();
-                }
+    			consoleText = output.getResult().toString();
+    			myConsoleBox.setText(consoleText);
 
-            }
-        });
+    			String myTurtleStats =
+    					"X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
+    							myTurtle.getStartYCor();
+    			myTurtleStatsBox.setText(myTurtleStats);
+
+    			List<Variable> myVarList = output.getVariables();
+    			for (Variable aVar : myVarList) {
+    				DisplayVariable tempVar = new DisplayVariable(aVar.getName(), aVar.getValue());
+    				if (!contains(myVariablesTable, tempVar)) {
+    					myVariablesTable.getItems().add(tempVar);
+    				}
+    			}
+    			if(myTurtle.getPen() == 1){
+    				updateLines();
+    			}
+    		}
+
+
+    	});
     }
     
     public void updateLines() {
@@ -197,7 +201,6 @@ public class Display {
             double YCoor = myTurtle.getEndYCor();
             double Head = myTurtle.getHeading();
             int Visib = myTurtle.getVisibility();
-            int PenDown = myTurtle.getPen();
 
             if (Visib == 1) {
                 myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);

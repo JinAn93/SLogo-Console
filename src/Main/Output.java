@@ -10,7 +10,8 @@ public class Output {
     private List<String> myResult = new ArrayList<String>();
     private Turtle myTurtle;
     private List<Variable> myVariables = new ArrayList<Variable>();
-
+    private boolean badCommand = false; 
+    
     public Output (Turtle turtle, List<Variable> variables) {
         myTurtle = turtle;
         myVariables = variables;
@@ -38,6 +39,14 @@ public class Output {
 
     public void updateVariable (List<Variable> variables) {
         this.myVariables = variables;
+    }
+    
+    public boolean isValidCommand(){
+    	return badCommand;
+    }
+    
+    public void setValidity(boolean status){
+    	badCommand = status; 
     }
 
 }
