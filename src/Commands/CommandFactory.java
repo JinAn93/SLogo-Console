@@ -6,12 +6,32 @@ import Main.Turtle;
 import MathCommands.*;
 import TurtleCommand.*;
 import TurtleQuery.*;
-import UserDefinedCommand.MakeVariable;
+import UserDefinedCommand.*;
 
 
 public class CommandFactory {
     public Command makeInstruction (String command, Turtle turtle, ResourceBundle language) {
+System.out.println(command);
+        try {
+            Class<?> clas = Class.forName(command);
+            try {
+                Command com = (Command) clas.newInstance();
+                return com;
+            }
+            catch (InstantiationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            catch (IllegalAccessException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
+        }
+        catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         if (command.matches(language.getString("Sum"))) {
             return new Sum();
         }
@@ -75,6 +95,10 @@ public class CommandFactory {
         if (command.matches(language.getString("MakeVariable"))) {
             return new MakeVariable();
         }
+
+        if (command.matches(language.getString("Repeat"))) {
+            return new Repeat();
+        }
         return null;
     }
 
@@ -103,10 +127,10 @@ public class CommandFactory {
                 return var;
             }
         }
-        
-        Variable newVar = new Variable ();
+
+        Variable newVar = new Variable();
         newVar.setName(variable);
         newVar.setVariable(true);
-        return newVar; //Throw Error
+        return newVar; // Throw Error
     }
 }

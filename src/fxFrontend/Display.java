@@ -38,7 +38,7 @@ public class Display {
     private TextArea historyBox, myConsoleBox;
     private StringBuilder commandHistory = new StringBuilder();
     private String consoleText;
-    private GraphicsContext myGraphics, myColorGraphics;
+    private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
     private Canvas myCanvas;
     private Turtle myTurtle;
     private Alert alert = new Alert(AlertType.INFORMATION);
@@ -70,6 +70,7 @@ public class Display {
         myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
+        myLineGraphics = myScreen.getLineGraphics();
         myLines = new ArrayList<Line>();
         myMenu = new MenuBar();
         createMenu = new CreateColorMenu(myColorGraphics, 600, 600);
@@ -157,6 +158,7 @@ public class Display {
 //            		updateLines(startX, startY, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
 //            	}
 //            }
+
         }
         
         public void updateLines(double beginX, double beginY, double endX, double endY){
