@@ -148,8 +148,10 @@ public class Display {
                     myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
                     myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
                     myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-                    // myTurtle.setStartXCor(XCoor);
-                    // myTurtle.setStartYCor(YCoor);
+
+
+//                    myTurtle.setStartXCor(XCoor);
+//                    myTurtle.setStartYCor(YCoor);
                 }
                 else {
                     myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
@@ -176,7 +178,6 @@ public class Display {
         for (DisplayVariable item : table.getItems())
             if (item.getVariableName().equals(obj.getVariableName()))
                 return true;
-
         return false;
     }
 
