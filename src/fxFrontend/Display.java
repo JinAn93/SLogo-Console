@@ -147,7 +147,7 @@ public class Display {
         double startY = myTurtle.getStartYCor();
         double endX = myTurtle.getEndXCor();
         double endY = myTurtle.getEndYCor();
-        System.out.print(startX +" "+startY+" "+endX+" "+endY);
+        myLineGraphics.setLineWidth(30);
         myLineGraphics.strokeLine(startX, startY, endX, endY);
         myTurtle.setStartXCor(endX);
         myTurtle.setStartYCor(endY);
