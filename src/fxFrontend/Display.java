@@ -21,9 +21,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import fxFrontend.Variable;
+import fxFrontend.DisplayVariable;
 
 import java.util.*;
+
+import Commands.Variable;
 import Main.Output;
 import Main.Turtle;
 import Main.InputObject;
@@ -54,7 +56,7 @@ public class Display {
     private Output output; 
     private TableView myVariablesTable;
     private TableColumn variableCol, valueCol;
-    private ObservableList<Variable> data;
+    private ObservableList<DisplayVariable> data;
     
     public Display () {
         myBorder = new BorderPane();
@@ -93,10 +95,10 @@ public class Display {
 
         valueCol = new TableColumn("Value");
         variableCol.setCellValueFactory(
-        	    new PropertyValueFactory<Variable,String>("variableName")
+        	    new PropertyValueFactory<DisplayVariable,String>("variableName")
         	);
         valueCol.setCellValueFactory(
-        	    new PropertyValueFactory<Variable,Double>("variableValue")
+        	    new PropertyValueFactory<DisplayVariable,Double>("variableValue")
         	);
         data = FXCollections.observableArrayList(); // create the data
         myVariablesTable.setItems(data);
@@ -123,9 +125,25 @@ public class Display {
                 
                 String myTurtleStats = "X Coordinate:"+myTurtle.getStartXCor() +"\n"+ "Y Coordinate:" + myTurtle.getStartYCor();
                 myTurtleStatsBox.setText(myTurtleStats);
-                Variable myVar = new Variable("Test",3);
+                
+                List<Variable> myVarList = output.getVariables();
+                for(Variable aVar: myVarList){
+                	DisplayVariable tempVar = new DisplayVariable(aVar.getName(),aVar.getValue());
+                	if(!contains(myVariablesTable,tempVar)){
+                    	myVariablesTable.getItems().add(tempVar);
+                    }
+                }
+               
             }
         });
+    }
+    
+    public boolean contains(TableView<DisplayVariable> table, DisplayVariable obj){
+        for(DisplayVariable item: table.getItems())
+            if (item.getVariableName().equals(obj.getVariableName()))
+                return true;
+
+        return false;
     }
 
     public Turtle getTurtle () {
@@ -173,20 +191,9 @@ public class Display {
             myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-            Variable myVar = new Variable("TEST",4);
-            if(!contains(myVariablesTable,myVar)){
-            	myVariablesTable.getItems().add(myVar);
-            };
-
 
         }
-        public boolean contains(TableView<Variable> table, Variable obj){
-            for(Variable item: table.getItems())
-                if (item.getVariableName().equals(obj.getVariableName()))
-                    return true;
-
-            return false;
-        }
+        
 
         
         public void updateLines(double beginX, double beginY, double endX, double endY){
