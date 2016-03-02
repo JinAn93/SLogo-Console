@@ -10,9 +10,9 @@ public class MakeVariable extends UserDefinedCommand {
     @Override
     public String executeCommand () {
         Variable newVar = new Variable();
-        newVar.setName(((Variable) myChildren[NAME]).getName());
-        newVar.setValue(myChildren[VALUE].getValue());
+        newVar.setName(((Variable) myChildren[FIRSTCHILD]).getName());
+        newVar.setValue(myChildren[SECONDCHILD].getValue());
         MainBackEnd.getVariables().add(newVar);
-        return myChildren[VALUE].getValue();
+        return newVar.getValue();
     }
 }

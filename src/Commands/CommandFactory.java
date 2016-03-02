@@ -9,7 +9,10 @@ import Main.Turtle;
 
 
 public class CommandFactory {
-    public Command makeInstruction (String str, Turtle turtle, ResourceBundle language) {
+    public Command makeInstruction (String str,
+                                    Turtle turtle,
+                                    ResourceBundle language,
+                                    String content) {
         Enumeration<String> keys = language.getKeys();
         String command = null;
         while (keys.hasMoreElements()) {
@@ -40,15 +43,28 @@ public class CommandFactory {
                 }
             }
             else {
-                System.out.println(constructors[0].getName());
-
-                try {
-                    com = (Command) constructors[0].newInstance(turtle);
+                Class<?>[] parameterTypes = constructors[0].getParameterTypes();
+                if (parameterTypes[0].getName().equals("Turtle")) {
+                    try {
+                        com = (Command) constructors[0].newInstance(turtle);
+                    }
+                    catch (InstantiationException | IllegalAccessException
+                            | IllegalArgumentException
+                            | InvocationTargetException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
-                catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                        | InvocationTargetException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                else {
+                    try {
+                        com = (Command) constructors[0].newInstance(content);
+                    }
+                    catch (InstantiationException | IllegalAccessException
+                            | IllegalArgumentException
+                            | InvocationTargetException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
             }
             return com;

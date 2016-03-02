@@ -185,7 +185,7 @@ public class Display {
             int PenDown = myTurtle.getPen();
 
             if (Visib == 1) {
-                myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+//                myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
                 rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
                 myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
                 myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());

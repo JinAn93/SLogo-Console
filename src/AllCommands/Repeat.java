@@ -5,15 +5,17 @@ import Commands.UserDefinedCommand;
 
 public class Repeat extends UserDefinedCommand {
 
+    public Repeat (String content){
+        myContent = content;
+    }
+    
     @Override
     public String executeCommand () {
-        int repeatTimes = Integer.parseInt(myChildren[numRepeatIndex].getValue()) - 1;
-        myChildren[numRepeatIndex].setValue(Integer.toString(repeatTimes));
-        if(repeatTimes == 0){
-            return null; //return value from last execution
+        int repNumber = Integer.parseInt(myChildren[FIRSTCHILD].getValue());
+        StringBuilder newCommand = new StringBuilder();
+        for (int i=0; i<repNumber; i++){
+            newCommand.append(myContent);
         }
-        else{
-            return this.getClass().getSimpleName();
-        }
+        return null;
     }
 }

@@ -3,9 +3,11 @@ package Commands;
 public abstract class UserDefinedCommand extends Command {
 
     protected Node[] myChildren;
-    protected static final int NAME = 0;
-    protected static final int VALUE = 1;
+    protected String myContent;
+    protected static final int FIRSTCHILD = 0;
+    protected static final int SECONDCHILD = 1;
     protected static final int numRepeatIndex = 0;
+    
     
     public String getValue () {
         return executeCommand();

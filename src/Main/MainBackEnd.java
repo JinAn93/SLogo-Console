@@ -68,10 +68,11 @@ public class MainBackEnd {
         CommandFactory cf = new CommandFactory();
         String[] commands = ListOfCommands.toArray(new String[ListOfCommands.size()]);
         int currOpenBracket = 0;
+        StringBuilder content = new StringBuilder();
         for (int i = commands.length - 1; i > -1; i--) {
-            Node command;
+            Node command = null;
             if (isCommand(commands[i])) {
-                command = cf.makeInstruction(commands[i], myTurtle, myLanguages);
+                command = cf.makeInstruction(commands[i], myTurtle, myLanguages, content.toString());
 
                 int paramNum = getParamNum(commands[i]);
                 Node[] children = new Node[paramNum];
@@ -88,16 +89,15 @@ public class MainBackEnd {
                 command = cf.makeVariable(commands[i].substring(COLON));
             }
 
-            else if (isListStart(commands[i])) {
-                command = null;
-            }
-            else { // ListEnd for now
-                currOpenBracket = searchListStart(commands, i);
-                // Stack<Node> listStack = buildExpressionTree();
-                for (int j = i + 1; j > currOpenBracket; j--) {
-                    // groupedCommands.push()
+            else if (isListEnd(commands[i])) {
+                int endListIndex = i;
+                int startListIndex = searchListStart(commands, i);
+                for (int j = startListIndex + 1; j < endListIndex; j++) {
+                    content.append(commands[j]);
+                    content.append(" ");
                 }
-                command = null;
+                i = startListIndex - 1;
+                System.out.println(content);
             }
             stack.push(command);
         }
@@ -105,8 +105,15 @@ public class MainBackEnd {
     }
 
     private int searchListStart (String[] commands, int startIndex) {
+        int bracketStatus = 0;
         for (int i = startIndex; i > -1; i--) {
             if (isListStart(commands[i])) {
+                bracketStatus -= 1;
+            }
+            if (isListEnd(commands[i])) {
+                bracketStatus += 1;
+            }
+            if (bracketStatus == 0) {
                 return i;
             }
         }
