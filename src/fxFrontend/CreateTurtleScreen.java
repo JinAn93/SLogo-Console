@@ -7,7 +7,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -18,7 +17,6 @@ public class CreateTurtleScreen {
 	
 	private VBox myScreen;
 	private Button myButton;
-	private StackPane root = new StackPane(); 
 	private TextArea codeInput; 
 	private Canvas myCanvas, myCanvas2, myLineCanvas;
 	private GraphicsContext myGraphics, myGraphics2, myLineGraphics;
@@ -104,11 +102,4 @@ public class CreateTurtleScreen {
 		return myLineGraphics;
 	}
 	
-//	public int getTurtleX(){
-//		return turtleX;
-//	}
-//	
-//	public int getTurtleY(){
-//		return turtleY;
-//	}
 }
