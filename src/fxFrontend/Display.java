@@ -26,6 +26,7 @@ import java.util.*;
 import Commands.Variable;
 import Main.Output;
 import Main.Turtle;
+import Main.ErrorObject;
 import Main.InputObject;
 import fxMenu.CreateColorMenu;
 import fxMenu.CreatePenColorMenu;
@@ -48,7 +49,7 @@ public class Display {
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
     private Canvas myCanvas;
     private Turtle myTurtle;
-    private Alert alert = new Alert(AlertType.INFORMATION);
+    private ErrorObject error; 
     private MenuBar myMenu;
     private CreateColorMenu createMenu;
     private CreateTurtleSelectionMenu myTurtleImages;
@@ -58,7 +59,7 @@ public class Display {
     private TableView myVariablesTable;
     private TableColumn variableCol, valueCol;
     private ObservableList<DisplayVariable> data;
-
+    
     public Display () {
         myBorder = new BorderPane();
         displayScreen();
@@ -88,7 +89,7 @@ public class Display {
         myMenu.getMenus().add(createMenu.getColorMenu());
         myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
         myMenu.getMenus().add(myTurtleImages.getImageMenu());
-        myPenMenu = new CreatePenColorMenu(myGraphics);
+        myPenMenu = new CreatePenColorMenu(myLineGraphics);
         myMenu.getMenus().add(myPenMenu.getPenMenu());
         myBorder.setTop(myMenu);
         // make the table
@@ -162,6 +163,7 @@ public class Display {
     }
 
     public void updateLines () {
+
         double startX = myTurtle.getStartXCor();
         double startY = myTurtle.getStartYCor();
         double endX = myTurtle.getEndXCor();
