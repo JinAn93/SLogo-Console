@@ -3,21 +3,28 @@ package Commands;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.ResourceBundle;
 import Main.MainBackEnd;
 import Main.Turtle;
 
 
 public class CommandFactory {
+    private ResourceBundle myLanguage;
+    
+    public CommandFactory (ResourceBundle lang){
+        myLanguage = lang;
+    }
+    
     public Command makeInstruction (String str,
                                     Turtle turtle,
-                                    ResourceBundle language,
-                                    String content) {
-        Enumeration<String> keys = language.getKeys();
+                                    String content,
+                                    List<Variable> variables) {
+        Enumeration<String> keys = myLanguage.getKeys();
         String command = null;
         while (keys.hasMoreElements()) {
             command = (keys.nextElement());
-            if (str.matches(language.getString(command))) {
+            if (str.matches(myLanguage.getString(command))) {
                 break;
             }
         }
@@ -42,9 +49,9 @@ public class CommandFactory {
                     e.printStackTrace();
                 }
             }
-            else {
+            else if (constructors[0].getParameterCount() == 1) {
                 Class<?>[] parameterTypes = constructors[0].getParameterTypes();
-                if (parameterTypes[0].getName().equals("Turtle")) {
+                if (parameterTypes[0].getSimpleName().equals("Turtle")) {
                     try {
                         com = (Command) constructors[0].newInstance(turtle);
                     }
@@ -55,18 +62,19 @@ public class CommandFactory {
                         e.printStackTrace();
                     }
                 }
-                else {
-                    try {
-                        com = (Command) constructors[0].newInstance(content);
-                    }
-                    catch (InstantiationException | IllegalAccessException
-                            | IllegalArgumentException
-                            | InvocationTargetException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+            }
+            else if (constructors[0].getParameterCount() == 4){
+                try {
+                    com = (Command) constructors[0].newInstance(turtle, content, myLanguage, variables);
+                }
+                catch (InstantiationException | IllegalAccessException
+                        | IllegalArgumentException
+                        | InvocationTargetException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
             }
+
             return com;
         }
 
