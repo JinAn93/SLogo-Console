@@ -98,8 +98,7 @@ public class Display {
         valueCol.setCellValueFactory(
         	    new PropertyValueFactory<Variable,Double>("variableValue")
         	);
-        data = FXCollections.observableArrayList(
-        		new Variable("test",3)); // create the data
+        data = FXCollections.observableArrayList(); // create the data
         myVariablesTable.setItems(data);
         myVariablesTable.getColumns().addAll(variableCol,valueCol);
 
@@ -170,8 +169,25 @@ public class Display {
             myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+            
+            myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+            myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+            myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+            Variable myVar = new Variable("TEST",4);
+            if(!contains(myVariablesTable,myVar)){
+            	myVariablesTable.getItems().add(myVar);
+            };
+
 
         }
+        public boolean contains(TableView<Variable> table, Variable obj){
+            for(Variable item: table.getItems())
+                if (item.getVariableName().equals(obj.getVariableName()))
+                    return true;
+
+            return false;
+        }
+
         
         public void updateLines(double beginX, double beginY, double endX, double endY){
         	Line myLine = new Line(beginX, beginY, endX, endY);
