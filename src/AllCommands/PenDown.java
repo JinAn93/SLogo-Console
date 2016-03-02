@@ -4,9 +4,9 @@ import Commands.TurtleCommand;
 import Main.Turtle;
 
 
-public class Pendown extends TurtleCommand {
+public class PenDown extends TurtleCommand {
     
-    public Pendown (Turtle turtle) {
+    public PenDown (Turtle turtle) {
         super(turtle);
     }
 
