@@ -124,10 +124,7 @@ public class Display {
                 historyBox.setText(commandHistory.toString());
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
-                System.out.println("hey output not made yet");
                 output = mb.executeCommand(parsedCommands);
-                
-                System.out.println("hey output made");
                 
                 consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
@@ -183,8 +180,8 @@ public class Display {
 
         @Override
         public void update (Observable obs, Object turtle) {
-            Double XCoor = myTurtle.getStartXCor();
-            Double YCoor = myTurtle.getStartYCor();
+            Double XCoor = myTurtle.getEndXCor();
+            Double YCoor = myTurtle.getEndYCor();
             Double Head = myTurtle.getHeading();
             int Visib = myTurtle.getVisibility();
             int PenDown = myTurtle.getPen();
@@ -202,8 +199,8 @@ public class Display {
             // Override this tomorrow when we get to lines
             //Drawing stuff 
 //            if(PenDown == 1){
-//            	double startX = output.getTurtle().getStartXCor();
-//            	double startY = output.getTurtle().getStartYCor();
+//            	Double startX = output.getTurtle().getStartXCor();
+//            	Double startY = output.getTurtle().getStartYCor();
 //            	if(myLines.isEmpty()){
 //            		updateLines(XCoor, YCoor, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
 //            	}
@@ -211,9 +208,9 @@ public class Display {
 //            		updateLines(startX, startY, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
 //            	}
 //            }
+            myTurtle.setStartXCor(XCoor);
+            myTurtle.setStartYCor(YCoor);
         }
-        
-
         
         public void updateLines(double beginX, double beginY, double endX, double endY){
         	Line myLine = new Line(beginX, beginY, endX, endY);
