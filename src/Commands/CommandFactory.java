@@ -1,6 +1,5 @@
 package Commands;
 
-import java.io.Console;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
@@ -15,23 +14,23 @@ public class CommandFactory {
         String command = null;
         while (keys.hasMoreElements()) {
             command = (keys.nextElement());
-            if (str.matches(language.getString(command))){
+            if (str.matches(language.getString(command))) {
                 break;
             }
         }
         command = "AllCommands." + command;
         try {
             Class<?> clas = Class.forName(command);
-            Constructor<?> constructors = null;
+            Constructor<?>[] constructors = null;
             try {
-                constructors = clas.getDeclaredConstructor();
+                constructors = clas.getDeclaredConstructors();
             }
-            catch (NoSuchMethodException | SecurityException e) {
+            catch (SecurityException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             Command com = null;
-            if(constructors.getParameterCount() == 0){
+            if (constructors[0].getParameterCount() == 0) {
                 try {
                     com = (Command) clas.newInstance();
                 }
@@ -40,16 +39,11 @@ public class CommandFactory {
                     e.printStackTrace();
                 }
             }
-            else{
+            else {
+                System.out.println(constructors[0].getName());
+
                 try {
-                    com = (Command) clas.newInstance();
-                }
-                catch (InstantiationException | IllegalAccessException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-                try {
-                    Console c = (Console) constructors.newInstance(turtle);
+                    com = (Command) constructors[0].newInstance(turtle);
                 }
                 catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                         | InvocationTargetException e) {
@@ -59,7 +53,7 @@ public class CommandFactory {
             }
             return com;
         }
-            
+
         catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
