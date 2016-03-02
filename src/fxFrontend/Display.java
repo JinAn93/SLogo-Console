@@ -22,10 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import fxFrontend.DisplayVariable;
-
-
 import java.util.*;
-
 import Commands.Variable;
 import Main.Output;
 import Main.Turtle;
@@ -35,6 +32,7 @@ import fxMenu.CreatePenColorMenu;
 import fxMenu.CreateTurtleSelectionMenu;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
+
 
 public class Display {
     private BorderPane myBorder;
@@ -54,13 +52,13 @@ public class Display {
     private MenuBar myMenu;
     private CreateColorMenu createMenu;
     private CreateTurtleSelectionMenu myTurtleImages;
-    private CreatePenColorMenu myPenMenu; 
+    private CreatePenColorMenu myPenMenu;
     private ArrayList<Line> myLines;
-    private Output output; 
+    private Output output;
     private TableView myVariablesTable;
     private TableColumn variableCol, valueCol;
     private ObservableList<DisplayVariable> data;
-    
+
     public Display () {
         myBorder = new BorderPane();
         displayScreen();
@@ -90,30 +88,27 @@ public class Display {
         myMenu.getMenus().add(createMenu.getColorMenu());
         myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
         myMenu.getMenus().add(myTurtleImages.getImageMenu());
-        myPenMenu = new CreatePenColorMenu(myGraphics); 
+        myPenMenu = new CreatePenColorMenu(myGraphics);
         myMenu.getMenus().add(myPenMenu.getPenMenu());
         myBorder.setTop(myMenu);
-        //make the table
-        
+        // make the table
+
         myVariablesTable = mySidebar.getTable();
         variableCol = new TableColumn("Variable");
 
         valueCol = new TableColumn("Value");
         variableCol.setCellValueFactory(
-        	    new PropertyValueFactory<DisplayVariable,String>("variableName")
-        	);
+                new PropertyValueFactory<DisplayVariable, String>("variableName")
+                );
         valueCol.setCellValueFactory(
-        	    new PropertyValueFactory<DisplayVariable,Double>("variableValue")
-        	);
+                new PropertyValueFactory<DisplayVariable, Double>("variableValue")
+                );
         data = FXCollections.observableArrayList(); // create the data
         myVariablesTable.setItems(data);
-        myVariablesTable.getColumns().addAll(variableCol,valueCol);
-
-
+        myVariablesTable.getColumns().addAll(variableCol, valueCol);
 
         updateDisplay();
     }
-        
 
     public void updateDisplay () {
         myButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -125,27 +120,29 @@ public class Display {
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
-                
+
                 consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
-                
-                String myTurtleStats = "X Coordinate:"+myTurtle.getStartXCor() +"\n"+ "Y Coordinate:" + myTurtle.getStartYCor();
+
+                String myTurtleStats =
+                        "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
+                                myTurtle.getStartYCor();
                 myTurtleStatsBox.setText(myTurtleStats);
-                
+
                 List<Variable> myVarList = output.getVariables();
-                for(Variable aVar: myVarList){
-                	DisplayVariable tempVar = new DisplayVariable(aVar.getName(),aVar.getValue());
-                	if(!contains(myVariablesTable,tempVar)){
-                    	myVariablesTable.getItems().add(tempVar);
+                for (Variable aVar : myVarList) {
+                    DisplayVariable tempVar = new DisplayVariable(aVar.getName(), aVar.getValue());
+                    if (!contains(myVariablesTable, tempVar)) {
+                        myVariablesTable.getItems().add(tempVar);
                     }
                 }
-               
+
             }
         });
     }
-    
-    public boolean contains(TableView<DisplayVariable> table, DisplayVariable obj){
-        for(DisplayVariable item: table.getItems())
+
+    public boolean contains (TableView<DisplayVariable> table, DisplayVariable obj) {
+        for (DisplayVariable item : table.getItems())
             if (item.getVariableName().equals(obj.getVariableName()))
                 return true;
 
@@ -155,8 +152,9 @@ public class Display {
     public Turtle getTurtle () {
         return myTurtle;
     }
-    public GraphicsContext getMyGraphics(){
-    	return myGraphics;
+
+    public GraphicsContext getMyGraphics () {
+        return myGraphics;
     }
 
     private double calculatePivotX (Turtle turtle) {
@@ -180,46 +178,49 @@ public class Display {
 
         @Override
         public void update (Observable obs, Object turtle) {
-            Double XCoor = myTurtle.getEndXCor();
-            Double YCoor = myTurtle.getEndYCor();
-            Double Head = myTurtle.getHeading();
+            double XCoor = myTurtle.getEndXCor();
+            double YCoor = myTurtle.getEndYCor();
+            double Head = myTurtle.getHeading();
             int Visib = myTurtle.getVisibility();
             int PenDown = myTurtle.getPen();
 
             if (Visib == 1) {
                 myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+                rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
+                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+                myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+                myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+                myTurtle.setStartXCor(XCoor);
+                myTurtle.setStartYCor(YCoor);
             }
             else {
                 myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
             }
-            rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-            myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-            myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-            myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
             // Override this tomorrow when we get to lines
-            //Drawing stuff 
-//            if(PenDown == 1){
-//            	Double startX = output.getTurtle().getStartXCor();
-//            	Double startY = output.getTurtle().getStartYCor();
-//            	if(myLines.isEmpty()){
-//            		updateLines(XCoor, YCoor, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
-//            	}
-//            	else{
-//            		updateLines(startX, startY, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
-//            	}
-//            }
-            myTurtle.setStartXCor(XCoor);
-            myTurtle.setStartYCor(YCoor);
+            // Drawing stuff
+            // if(PenDown == 1){
+            // Double startX = output.getTurtle().getStartXCor();
+            // Double startY = output.getTurtle().getStartYCor();
+            // if(myLines.isEmpty()){
+            // updateLines(XCoor, YCoor, output.getTurtle().getEndXCor(),
+            // output.getTurtle().getEndYCor());
+            // }
+            // else{
+            // updateLines(startX, startY, output.getTurtle().getEndXCor(),
+            // output.getTurtle().getEndYCor());
+            // }
+            // }
+
         }
-        
-        public void updateLines(double beginX, double beginY, double endX, double endY){
-        	Line myLine = new Line(beginX, beginY, endX, endY);
-        	myLines.add(myLine); 
-        	for(Line aline: myLines){
-        		myGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(), aline.getEndY());
-        	}	
+
+        public void updateLines (double beginX, double beginY, double endX, double endY) {
+            Line myLine = new Line(beginX, beginY, endX, endY);
+            myLines.add(myLine);
+            for (Line aline : myLines) {
+                myGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(),
+                                      aline.getEndY());
+            }
         }
-        
-    
+
     }
 }

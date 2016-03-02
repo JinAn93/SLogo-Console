@@ -17,6 +17,8 @@ public class Turtle extends Observable{
     public Turtle (int x, int y, String dir) {
     	startXCor = x;
     	startYCor = y;
+    	endXCor = x;
+    	endYCor = y;
         myVisibility = 1;
         myPen = 1;
         myTurtleImage = new Image(dir);
@@ -49,14 +51,10 @@ public class Turtle extends Observable{
     }
     public void setStartXCor (double xCor) {
     	startXCor = xCor;
-        setChanged();
-        notifyObservers();
     }
 
     public void setStartYCor (double yCor) {
     	startYCor = yCor;
-        setChanged();
-        notifyObservers();
     }
     
     public void setEndXCor (double xCor){
