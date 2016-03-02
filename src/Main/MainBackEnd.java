@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 import Commands.*;
 
+
 /**
  * MainBackEnd serves to create Expression Tree and execute commands as it reads the nodes
  * 
@@ -82,19 +83,19 @@ public class MainBackEnd {
             else if (isConstant(commands[i])) {
                 command = cf.makeOperand(commands[i]);
             }
-            
-            else if (isVariable(commands[i])){
+
+            else if (isVariable(commands[i])) {
                 command = cf.makeVariable(commands[i].substring(COLON));
             }
-            
-            else if (isListStart(commands[i])){
+
+            else if (isListStart(commands[i])) {
                 command = null;
             }
-            else{ //ListEnd for now
-                currOpenBracket = searchListStart(commands,i);
-//                Stack<Node> listStack = buildExpressionTree();
-                for(int j=i+1; j > currOpenBracket; j--){
-//                    groupedCommands.push()
+            else { // ListEnd for now
+                currOpenBracket = searchListStart(commands, i);
+                // Stack<Node> listStack = buildExpressionTree();
+                for (int j = i + 1; j > currOpenBracket; j--) {
+                    // groupedCommands.push()
                 }
                 command = null;
             }

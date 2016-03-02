@@ -14,6 +14,7 @@ public class Right extends TurtleCommand {
     public String executeCommand () {
         myTurtle.setHeading(myTurtle.getHeading() +
                             Double.parseDouble(myChildren[FIRSTCHILD].getValue()));
+        System.out.println(myChildren[FIRSTCHILD].getValue());
         return myChildren[FIRSTCHILD].getValue();
     }
 }

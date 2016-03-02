@@ -16,6 +16,6 @@ public class Forward extends TurtleCommand {
         double radian = Math.toRadians(myTurtle.getHeading());
         myTurtle.setEndXCor(myTurtle.getStartXCor() + (moveBy * (Math.cos(radian))));
         myTurtle.setEndYCor(myTurtle.getStartYCor() + (moveBy * (Math.sin(radian))));
-        return myChildren[FIRSTCHILD].getValue();
+        return Double.toString(moveBy);
     }
 }
