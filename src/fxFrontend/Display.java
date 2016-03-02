@@ -136,7 +136,25 @@ public class Display {
                         myVariablesTable.getItems().add(tempVar);
                     }
                 }
-                updateLines();
+                double XCoor = myTurtle.getEndXCor();
+                double YCoor = myTurtle.getEndYCor();
+                double Head = myTurtle.getHeading();
+                int Visib = myTurtle.getVisibility();
+                int PenDown = myTurtle.getPen();
+
+                if (Visib == 1) {
+                    myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+                    rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
+                    myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+                    myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+                    myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+//                    myTurtle.setStartXCor(XCoor);
+//                    myTurtle.setStartYCor(YCoor);
+                }
+                else {
+                    myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+                }
+
 
             }
         });
@@ -148,6 +166,7 @@ public class Display {
         double endX = myTurtle.getEndXCor();
         double endY = myTurtle.getEndYCor();
         System.out.print(startX +" "+startY+" "+endX+" "+endY);
+        myLineGraphics.setLineWidth(8.0);
         myLineGraphics.strokeLine(startX, startY, endX, endY);
         myTurtle.setStartXCor(endX);
         myTurtle.setStartYCor(endY);
@@ -191,38 +210,7 @@ public class Display {
 
         @Override
         public void update (Observable obs, Object turtle) {
-            double XCoor = myTurtle.getEndXCor();
-            double YCoor = myTurtle.getEndYCor();
-            double Head = myTurtle.getHeading();
-            int Visib = myTurtle.getVisibility();
-            int PenDown = myTurtle.getPen();
-
-            if (Visib == 1) {
-                myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-                rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-//                myTurtle.setStartXCor(XCoor);
-//                myTurtle.setStartYCor(YCoor);
-            }
-            else {
-                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-            }
-            // Override this tomorrow when we get to lines
-            // Drawing stuff
-            // if(PenDown == 1){
-            // Double startX = output.getTurtle().getStartXCor();
-            // Double startY = output.getTurtle().getStartYCor();
-            // if(myLines.isEmpty()){
-            // updateLines(XCoor, YCoor, output.getTurtle().getEndXCor(),
-            // output.getTurtle().getEndYCor());
-            // }
-            // else{
-            // updateLines(startX, startY, output.getTurtle().getEndXCor(),
-            // output.getTurtle().getEndYCor());
-            // }
-            // }
+            updateLines();
 
         }
 
