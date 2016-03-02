@@ -92,7 +92,11 @@ public class Display {
                 historyBox.setText(commandHistory.toString());
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
+                System.out.println("hey output not made yet");
                 output = mb.executeCommand(parsedCommands);
+                
+                System.out.println("hey output made");
+                
                 consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
             }
@@ -147,7 +151,6 @@ public class Display {
             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
             // Override this tomorrow when we get to lines
             //Drawing stuff 
-            updateLines(32,14, 25, 21);
 //            if(PenDown == 1){
 //            	double startX = output.getTurtle().getStartXCor();
 //            	double startY = output.getTurtle().getStartYCor();
@@ -158,6 +161,7 @@ public class Display {
 //            		updateLines(startX, startY, output.getTurtle().getEndXCor(), output.getTurtle().getEndYCor());
 //            	}
 //            }
+            System.out.println(output.getTurtle().getStartYCor()+ "hey");
 
         }
         
