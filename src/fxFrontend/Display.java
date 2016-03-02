@@ -136,11 +136,24 @@ public class Display {
                         myVariablesTable.getItems().add(tempVar);
                     }
                 }
+                updateLines();
 
             }
         });
     }
-
+    
+    public void updateLines () {
+        double startX = myTurtle.getStartXCor();
+        double startY = myTurtle.getStartYCor();
+        double endX = myTurtle.getEndXCor();
+        double endY = myTurtle.getEndYCor();
+        System.out.print(startX +" "+startY+" "+endX+" "+endY);
+        myLineGraphics.strokeLine(startX, startY, endX, endY);
+        myTurtle.setStartXCor(endX);
+        myTurtle.setStartYCor(endY);
+         
+     }
+    
     public boolean contains (TableView<DisplayVariable> table, DisplayVariable obj) {
         for (DisplayVariable item : table.getItems())
             if (item.getVariableName().equals(obj.getVariableName()))
@@ -190,8 +203,8 @@ public class Display {
                 myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
                 myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
                 myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-                myTurtle.setStartXCor(XCoor);
-                myTurtle.setStartYCor(YCoor);
+//                myTurtle.setStartXCor(XCoor);
+//                myTurtle.setStartYCor(YCoor);
             }
             else {
                 myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
@@ -213,14 +226,6 @@ public class Display {
 
         }
 
-        public void updateLines (double beginX, double beginY, double endX, double endY) {
-            Line myLine = new Line(beginX, beginY, endX, endY);
-            myLines.add(myLine);
-            for (Line aline : myLines) {
-                myGraphics.strokeLine(aline.getBeginX(), aline.getBeginY(), aline.getEndX(),
-                                      aline.getEndY());
-            }
-        }
 
     }
 }
