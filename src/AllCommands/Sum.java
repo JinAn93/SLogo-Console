@@ -1,4 +1,4 @@
-package MathCommands;
+package AllCommands;
 
 import Commands.*;
 

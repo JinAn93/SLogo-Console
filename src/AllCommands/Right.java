@@ -1,4 +1,4 @@
-package TurtleCommand;
+package AllCommands;
 
 import Commands.TurtleCommand;
 import Main.Turtle;

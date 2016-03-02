@@ -1,4 +1,4 @@
-package UserDefinedCommand;
+package AllCommands;
 
 import Commands.UserDefinedCommand;
 import Commands.Variable;

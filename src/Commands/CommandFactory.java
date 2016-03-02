@@ -1,103 +1,68 @@
 package Commands;
 
+import java.io.Console;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Enumeration;
 import java.util.ResourceBundle;
 import Main.MainBackEnd;
 import Main.Turtle;
-import MathCommands.*;
-import TurtleCommand.*;
-import TurtleQuery.*;
-import UserDefinedCommand.*;
 
 
 public class CommandFactory {
-    public Command makeInstruction (String command, Turtle turtle, ResourceBundle language) {
-System.out.println(command);
+    public Command makeInstruction (String str, Turtle turtle, ResourceBundle language) {
+        Enumeration<String> keys = language.getKeys();
+        String command = null;
+        while (keys.hasMoreElements()) {
+            command = (keys.nextElement());
+            if (str.matches(language.getString(command))){
+                break;
+            }
+        }
+        command = "AllCommands." + command;
         try {
             Class<?> clas = Class.forName(command);
+            Constructor<?> constructors = null;
             try {
-                Command com = (Command) clas.newInstance();
-                return com;
+                constructors = clas.getDeclaredConstructor();
             }
-            catch (InstantiationException e) {
+            catch (NoSuchMethodException | SecurityException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            Command com = null;
+            if(constructors.getParameterCount() == 0){
+                try {
+                    com = (Command) clas.newInstance();
+                }
+                catch (InstantiationException | IllegalAccessException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
-
+            else{
+                try {
+                    com = (Command) clas.newInstance();
+                }
+                catch (InstantiationException | IllegalAccessException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                try {
+                    Console c = (Console) constructors.newInstance(turtle);
+                }
+                catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                        | InvocationTargetException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            return com;
         }
+            
         catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
-        if (command.matches(language.getString("Sum"))) {
-            return new Sum();
-        }
-
-        if (command.matches(language.getString("Product"))) {
-            return new Product();
-        }
-
-        if (command.matches(language.getString("Difference"))) {
-            return new Difference();
-        }
-
-        if (command.matches(language.getString("Remainder"))) {
-            return new Remainder();
-        }
-
-        if (command.matches(language.getString("Quotient"))) {
-            return new Quotient();
-        }
-
-        if (command.matches(language.getString("Minus"))) {
-            return new Minus();
-        }
-
-        if (command.matches(language.getString("XCoordinate"))) {
-            return new XCoordinate(turtle);
-        }
-
-        if (command.matches(language.getString("YCoordinate"))) {
-            return new YCoordinate(turtle);
-        }
-
-        if (command.matches(language.getString("Heading"))) {
-            return new Heading(turtle);
-        }
-
-        if (command.matches(language.getString("IsPenDown"))) {
-            return new IsPenDown(turtle);
-        }
-
-        if (command.matches(language.getString("IsShowing"))) {
-            return new IsShowing(turtle);
-        }
-
-        if (command.matches(language.getString("Forward"))) {
-            return new Forward(turtle);
-        }
-
-        if (command.matches(language.getString("Right"))) {
-            return new Right(turtle);
-        }
-
-        if (command.matches(language.getString("PenUp"))) {
-            return new Penup(turtle);
-        }
-
-        if (command.matches(language.getString("PenDown"))) {
-            return new Pendown(turtle);
-        }
-
-        if (command.matches(language.getString("MakeVariable"))) {
-            return new MakeVariable();
-        }
-
-        if (command.matches(language.getString("Repeat"))) {
-            return new Repeat();
         }
         return null;
     }

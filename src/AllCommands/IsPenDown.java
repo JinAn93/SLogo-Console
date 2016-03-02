@@ -1,4 +1,4 @@
-package TurtleQuery;
+package AllCommands;
 
 import Commands.TurtleQueriesCommand;
 import Main.Turtle;

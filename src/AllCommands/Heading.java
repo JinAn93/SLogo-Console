@@ -1,11 +1,11 @@
-package TurtleQuery;
+package AllCommands;
 
 import Commands.TurtleQueriesCommand;
 import Main.Turtle;
 
 
 public class Heading extends TurtleQueriesCommand {
-    
+
     public Heading (Turtle turtle) {
         super(turtle);
     }
