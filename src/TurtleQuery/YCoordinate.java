@@ -5,11 +5,9 @@ import Main.Turtle;
 
 
 public class YCoordinate extends TurtleQueriesCommand {
-    private Turtle myTurtle;
 
     public YCoordinate (Turtle turtle) {
         super(turtle);
-        myTurtle = turtle;
     }
 
     @Override

@@ -1,12 +1,9 @@
 package MathCommands;
 
-import java.util.ResourceBundle;
 import Commands.*;
 
 
 public class Sum extends MathOpCommand {
-
-    private Node[] myChildren;
 
     @Override
     public String executeCommand () {
@@ -14,15 +11,4 @@ public class Sum extends MathOpCommand {
         double secondValue = Double.parseDouble(myChildren[SECONDCHILD].getValue());
         return Double.toString(firstValue + secondValue);
     }
-
-    @Override
-    public void setChildren (Node[] kids) {
-        myChildren = kids;
-    }
-
-    @Override
-    public Node[] getChildren () {
-        return myChildren;
-    }
-
 }

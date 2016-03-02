@@ -6,11 +6,8 @@ import Main.Turtle;
 
 public class IsShowing extends TurtleQueriesCommand {
 
-    private Turtle myTurtle;
-
     public IsShowing (Turtle turtle) {
         super(turtle);
-        myTurtle = turtle;
     }
 
     @Override
@@ -18,4 +15,3 @@ public class IsShowing extends TurtleQueriesCommand {
         return String.valueOf((myTurtle.getVisibility()));
     }
 }
-    
