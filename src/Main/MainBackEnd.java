@@ -35,6 +35,8 @@ public class MainBackEnd {
         Stack<Node> result = parser.buildExpressionTree(commands);
         Output output = new Output(myTurtle, myVariableList);
         output.setResult(parser.stringizer(result));
+        System.out.println("Let's print some output now");
+        
         return output;
     }
 

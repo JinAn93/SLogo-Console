@@ -30,11 +30,11 @@ public class Repeat extends ControlStructuredCommand {
         }
         newCommand.deleteCharAt(newCommand.length()-1);
         System.out.println("The copied Strings are : \n" + newCommand.toString() + "\n");
-        
         CommandDecoder cdecoder = new CommandDecoder();
         Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
         Stack<Node> result = parser.buildExpressionTree(cdecoder.parseCommand((newCommand.toString())));
         List<String> ret = parser.stringizer(result);
+        System.out.println("Repeat Stack is done! Repeat will return : " + ret.get(ret.size()-1));
         return ret.get(ret.size()-1);
     }
 }
