@@ -28,9 +28,9 @@ import Main.Output;
 import Main.Turtle;
 import Main.ErrorObject;
 import Main.InputObject;
-import fxMenu.CreateColorMenu;
+import fxMenu.CreateBackgroundColorMenu;
 import fxMenu.CreatePenColorMenu;
-import fxMenu.CreatePenUpMenu;
+import fxMenu.CreatePenPropertiesMenu;
 import fxMenu.CreateTurtleSelectionMenu;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
@@ -52,10 +52,10 @@ public class Display {
     private Turtle myTurtle;
     private ErrorObject error; 
     private MenuBar myMenu;
-    private CreateColorMenu createMenu;
+    private CreateBackgroundColorMenu createMenu;
     private CreateTurtleSelectionMenu myTurtleImages;
     private CreatePenColorMenu myPenMenu;
-    private CreatePenUpMenu myPenUpMenu;
+    private CreatePenPropertiesMenu myPenPropertiesMenu;
     private ArrayList<Line> myLines;
     private Output output;
     @SuppressWarnings("rawtypes")
@@ -90,14 +90,14 @@ public class Display {
         myLineGraphics = myScreen.getLineGraphics();
         myLines = new ArrayList<Line>();
         myMenu = new MenuBar();
-        createMenu = new CreateColorMenu(myColorGraphics, 600, 600);
+        createMenu = new CreateBackgroundColorMenu(myColorGraphics, 600, 600);
         myMenu.getMenus().add(createMenu.getColorMenu());
         myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
         myMenu.getMenus().add(myTurtleImages.getImageMenu());
         myPenMenu = new CreatePenColorMenu(myLineGraphics);
         myMenu.getMenus().add(myPenMenu.getPenMenu());
-        myPenUpMenu = new CreatePenUpMenu(myTurtle);
-        myMenu.getMenus().add(myPenUpMenu.getPenUpMenu());
+        myPenPropertiesMenu = new CreatePenPropertiesMenu(myTurtle);
+        myMenu.getMenus().add(myPenPropertiesMenu.getPenUpMenu());
         myBorder.setTop(myMenu);
         // make the table
 
@@ -174,7 +174,7 @@ public class Display {
         double endX = myTurtle.getEndXCor();
         double endY = myTurtle.getEndYCor();
         if(myTurtle.getPen()==1){
-        	myLineGraphics.setLineWidth(8.0);
+        	myLineGraphics.setLineWidth(myTurtle.getPenWidth());
         	myLineGraphics.strokeLine(startX, startY, endX, endY);
         }
         myTurtle.setStartXCor(endX);
