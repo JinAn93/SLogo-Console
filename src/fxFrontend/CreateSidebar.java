@@ -71,13 +71,8 @@ public class CreateSidebar {
 				//End web stuff
 			}
 		});
-//		myVariablesLabel = new Label("Variables:");
-//		myVariablesTable = new TableView();
-//		myVariablesTable.setEditable(false);
-//		createTableView(myVariablesLabel, myVariables,myVariablesTable);
 	}
 	
-	//Aren't these methods the same thing??####################
 	private void createBox(Label myLabel, ScrollPane myPane, TextArea myText){
 		myConsole.getChildren().add(myLabel);
         myPane.setContent(myText);
@@ -96,7 +91,6 @@ public class CreateSidebar {
         myPane.setPrefHeight(HEIGHT);
         myConsole.getChildren().add(myPane);
 	}
-	//######################################
 	
 	public VBox getBox(){
 		return myConsole;

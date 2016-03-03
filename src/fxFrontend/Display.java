@@ -63,6 +63,7 @@ public class Display {
     @SuppressWarnings("rawtypes")
 	private TableColumn variableCol, valueCol;
     private ObservableList<DisplayVariable> data;
+    private List<Variable> myVarList; 
     
     public Display () {
         myBorder = new BorderPane();
@@ -137,14 +138,9 @@ public class Display {
                         "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
                                 myTurtle.getStartYCor();
                 myTurtleStatsBox.setText(myTurtleStats);
-
-                List<Variable> myVarList = output.getVariables();
-                for (Variable aVar : myVarList) {
-                    DisplayVariable tempVar = new DisplayVariable(aVar.getName(), aVar.getValue());
-                    if (!contains(myVariablesTable, tempVar)) {
-                        myVariablesTable.getItems().add(tempVar);
-                    }
-                }
+                
+                iterateVar();
+                
                 double XCoor = myTurtle.getEndXCor();
                 double YCoor = myTurtle.getEndYCor();
                 double Head = myTurtle.getHeading();
@@ -165,6 +161,16 @@ public class Display {
 
             }
         });
+    }
+    
+    public void iterateVar(){
+    	myVarList = output.getVariables();
+    	for (Variable aVar : myVarList) {
+            DisplayVariable tempVar = new DisplayVariable(aVar.getName(), aVar.getValue());
+            if (!contains(myVariablesTable, tempVar)) {
+                myVariablesTable.getItems().add(tempVar);
+            }
+        }
     }
     
     public void clearScreen(){
