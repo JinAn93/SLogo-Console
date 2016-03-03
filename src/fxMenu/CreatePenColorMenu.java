@@ -29,8 +29,8 @@ public class CreatePenColorMenu {
 		item.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e){
 				Stage colorStage = new Stage();
-				colorStage.setTitle("Color palette");
-				Scene scene = new Scene(new HBox(20), 400, 100);
+				colorStage.setTitle("Pen color palette");
+				Scene scene = new Scene(new HBox(20), 200, 50);
 				HBox box = (HBox) scene.getRoot();
 				box.setPadding(new Insets(5, 5, 5, 5));          
 
