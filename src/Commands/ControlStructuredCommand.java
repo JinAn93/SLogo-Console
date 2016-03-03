@@ -14,4 +14,5 @@ public abstract class ControlStructuredCommand extends Command {
     protected static final int FIRSTCHILD = 0;
     protected static final int SECONDCHILD = 1;
     protected static final int NUMREPEATINDEX = 0;
+    protected static final String ZERO = "0";
 }

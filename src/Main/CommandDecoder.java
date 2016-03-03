@@ -10,23 +10,31 @@ import java.util.Collection;
  *
  */
 public class CommandDecoder {
+    
+    private static final String SPACE = " ";
     public Collection<?> parseCommand (String input) {
         if (input == null) {
             // throw nullpointer exception error
             return null;
         }
         else {
-            String[] CommandbyLine = input.split("\n");
-            String commentFreeInput = new String();
-            for (String line : CommandbyLine) {
-                if (!line.matches(Parser.mySyntaxes.getString("Comment"))) {
-                    commentFreeInput += line;
-                }
-                commentFreeInput += " ";
-            }
+            String commentFreeInput = commentOut(input);
             commentFreeInput.toLowerCase();
+            System.out.println("Decoding Results : " + commentFreeInput);
             String[] commands = commentFreeInput.split(" ");
             return Arrays.asList(commands);
         }
+    }
+    
+    private String commentOut (String input){
+        String[] CommandbyLine = input.split("\n");
+        String commentFreeInput = new String();
+        for (String line : CommandbyLine) {
+            if (!line.matches(Parser.mySyntaxes.getString("Comment"))) {
+                commentFreeInput += line;
+            }
+            commentFreeInput += SPACE;
+        }
+        return commentFreeInput;
     }
 }
