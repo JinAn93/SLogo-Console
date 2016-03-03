@@ -128,12 +128,9 @@ public class Display {
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
-                
                 consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
-                String myTurtleStats =
-                        "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
-                                myTurtle.getStartYCor();
+                String myTurtleStats = "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" + myTurtle.getStartYCor();
                 myTurtleStatsBox.setText(myTurtleStats);
                 iterateVar();
                 updateTurtle();
@@ -175,8 +172,7 @@ public class Display {
     	myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
     }
 
-    public void updateLines () {
-
+    public void updateLines(){
         double startX = myTurtle.getStartXCor();
         double startY = myTurtle.getStartYCor();
         double endX = myTurtle.getEndXCor();
