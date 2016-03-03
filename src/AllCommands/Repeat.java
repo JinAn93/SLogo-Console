@@ -23,6 +23,8 @@ public class Repeat extends ControlStructuredCommand {
 
     @Override
     public String executeCommand () {
+        if (myContent == null)
+            return ZERO;
         int repNumber = Integer.parseInt(myChildren[FIRSTCHILD].getValue());
         StringBuilder newCommand = new StringBuilder();
         for (int i = 0; i < repNumber; i++) {

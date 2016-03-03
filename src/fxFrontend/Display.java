@@ -90,7 +90,7 @@ public class Display {
         myLineGraphics = myScreen.getLineGraphics();
         myLines = new ArrayList<Line>();
         myMenu = new MenuBar();
-        createMenu = new CreateBackgroundColorMenu(myColorGraphics, 600, 600);
+        createMenu = new CreateBackgroundColorMenu(myColorGraphics, myLineGraphics, 600, 600);
         myMenu.getMenus().add(createMenu.getColorMenu());
         myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
         myMenu.getMenus().add(myTurtleImages.getImageMenu());
@@ -166,6 +166,13 @@ public class Display {
             }
         });
     }
+    
+    public void clearScreen(){
+    	myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+    	myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+    	myLineGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+    	myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+    }
 
     public void updateLines () {
 
@@ -215,7 +222,6 @@ public class Display {
     }
 
     public class ObserveTurtle implements Observer {
-
         @Override
         public void update (Observable obs, Object turtle) {
         	updateLines();

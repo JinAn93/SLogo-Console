@@ -15,13 +15,23 @@ public class CreateBackgroundColorMenu {
 	private ArrayList<MenuItem> myColorItems;
 	private String[] myColors = {"RED","BLUE","GREEN","YELLOW","PINK"};
 	
-	public CreateBackgroundColorMenu(GraphicsContext myChange, int w, int h){
+	public CreateBackgroundColorMenu(GraphicsContext myChange, GraphicsContext myLineGraphics, int w, int h){
         toChangeGraphics = myChange;
         width = w;
         height = h;
 		myColorMenu = new Menu("Change Background Color");
 		getColors();
-		myColorMenu.getItems().addAll(myColorItems);        
+		myColorMenu.getItems().addAll(myColorItems); 
+		MenuItem myClearItem = new MenuItem("Clear the Screen");
+        myClearItem.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+            	myChange.clearRect(0, 0, 600, 600);
+            	myChange.fillRect(0, 0, 600, 600);
+            	myLineGraphics.clearRect(0, 0, 600, 600);
+            	myLineGraphics.fillRect(0, 0, 600, 600);
+            }
+        });
+        myColorMenu.getItems().add(myClearItem);
 	}
 	
 	private void getColors(){
