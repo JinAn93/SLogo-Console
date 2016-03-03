@@ -133,7 +133,6 @@ public class Display {
 
                 consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
-
                 String myTurtleStats =
                         "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
                                 myTurtle.getStartYCor();
@@ -145,26 +144,22 @@ public class Display {
                 double YCoor = myTurtle.getEndYCor();
                 double Head = myTurtle.getHeading();
                 int Visib = myTurtle.getVisibility();
-                int PenDown = myTurtle.getPen();
-                System.out.printf("PEN IS: %s\n",PenDown);
-
-                if (Visib == 1) {
-                	updateTurtle(XCoor, YCoor, Head);
-                }
-                else {
-                    myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                }
-
+                updateTurtle(XCoor, YCoor, Head, Visib);
             }
         });
     }
     
-    public void updateTurtle(double x, double y, double head){
-    	 myGraphics.drawImage(myTurtle.getTurtleImage(), x, y);
-         rotate(myGraphics, head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-         myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-         myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-         myGraphics.drawImage(myTurtle.getTurtleImage(), x, y);
+    public void updateTurtle(double x, double y, double head, int visib){
+    	if(visib == 1){
+	    	 myGraphics.drawImage(myTurtle.getTurtleImage(), x, y);
+	         rotate(myGraphics, head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
+	         myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+	         myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+	         myGraphics.drawImage(myTurtle.getTurtleImage(), x, y);
+    	}
+    	else{
+    		myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+    	}
     }
     
     public void iterateVar(){
