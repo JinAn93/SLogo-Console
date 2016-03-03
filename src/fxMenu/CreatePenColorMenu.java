@@ -54,31 +54,4 @@ public class CreatePenColorMenu {
 	public Menu getPenMenu(){
 		return myPenMenu;
 	}
-	
-//	private void getPenColors(){
-//		myPenColors = new ArrayList<MenuItem>(); 
-//		for(String color: myColors){
-//			MenuItem item = new MenuItem(color);
-//			item.setOnAction(new EventHandler<ActionEvent>() {
-//				public void handle(ActionEvent e){
-//					gc.setStroke(Color.valueOf(color));
-//				}
-//			});
-//			myPenColors.add(item);
-//		}
-//	}
-//	
-
-	
-//	public CreatePenColorMenu(GraphicsContext graphics){
-//		gc = graphics; 
-//		HBox box = new HBox(); 
-//		myPenMenu = new Menu("Change Pen Color");
-//		final ColorPicker colorPicker = new ColorPicker(); 
-//		colorPicker.setValue(Color.BLACK);
-//		box.getChildren().add(colorPicker); 
-//		MenuItem item = new MenuItem();
-//		myPenMenu.getItems().add();
-//		
-//	}
 }

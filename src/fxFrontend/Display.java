@@ -56,7 +56,6 @@ public class Display {
     private CreateTurtleSelectionMenu myTurtleImages;
     private CreatePenColorMenu myPenMenu;
     private CreatePenPropertiesMenu myPenPropertiesMenu;
-    private ArrayList<Line> myLines;
     private Output output;
     @SuppressWarnings("rawtypes")
 	private TableView myVariablesTable;
@@ -89,7 +88,6 @@ public class Display {
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
-        myLines = new ArrayList<Line>();
         myMenu = new MenuBar();
         createMenu = new CreateBackgroundColorMenu(myColorGraphics, myLineGraphics, 600, 600);
         myMenu.getMenus().add(createMenu.getColorMenu());
@@ -130,26 +128,24 @@ public class Display {
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
-
+                
                 consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
                 String myTurtleStats =
                         "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
                                 myTurtle.getStartYCor();
                 myTurtleStatsBox.setText(myTurtleStats);
-                
                 iterateVar();
-                
-                double XCoor = myTurtle.getEndXCor();
-                double YCoor = myTurtle.getEndYCor();
-                double Head = myTurtle.getHeading();
-                int Visib = myTurtle.getVisibility();
-                updateTurtle(XCoor, YCoor, Head, Visib);
+                updateTurtle();
             }
         });
     }
     
-    public void updateTurtle(double x, double y, double head, int visib){
+    public void updateTurtle(){
+    	double x = myTurtle.getEndXCor();
+        double y = myTurtle.getEndYCor();
+        double head = myTurtle.getHeading();
+        int visib = myTurtle.getVisibility();
     	if(visib == 1){
 	    	 myGraphics.drawImage(myTurtle.getTurtleImage(), x, y);
 	         rotate(myGraphics, head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
