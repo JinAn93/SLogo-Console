@@ -47,7 +47,7 @@ public class CreateSidebar {
 		myVariables = new ScrollPane(); 
 		myVariablesLabel = new Label("Variables:");
 		myVariablesTable = new TableView();
-		createTableView(myVariablesLabel, myVariables, myVariablesTable);
+		createBox(myVariablesLabel, myVariables, myVariablesTable);
 		
 		myHelpButton = new Button("Help"); 
 		myConsole.getChildren().add(myHelpButton);
@@ -77,6 +77,7 @@ public class CreateSidebar {
 //		createTableView(myVariablesLabel, myVariables,myVariablesTable);
 	}
 	
+	//Aren't these methods the same thing??####################
 	private void createBox(Label myLabel, ScrollPane myPane, TextArea myText){
 		myConsole.getChildren().add(myLabel);
         myPane.setContent(myText);
@@ -87,7 +88,7 @@ public class CreateSidebar {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void createTableView(Label myLabel, ScrollPane myPane, TableView myText){
+	private void createBox(Label myLabel, ScrollPane myPane, TableView myText){
 		myConsole.getChildren().add(myLabel);
         myPane.setContent(myText);
         myPane.setFitToWidth(true);
@@ -95,6 +96,7 @@ public class CreateSidebar {
         myPane.setPrefHeight(HEIGHT);
         myConsole.getChildren().add(myPane);
 	}
+	//######################################
 	
 	public VBox getBox(){
 		return myConsole;
