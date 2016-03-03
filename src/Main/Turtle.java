@@ -14,6 +14,7 @@ public class Turtle extends Observable{
     private double startXCor, startYCor, endXCor, endYCor, myHeading;
     private int myVisibility, myPen;
     private Image myTurtleImage;
+    private double penWidth;
     public Turtle (int x, int y, String dir) {
     	startXCor = x;
     	startYCor = y;
@@ -23,6 +24,7 @@ public class Turtle extends Observable{
         myPen = 1;
         myTurtleImage = new Image(dir);
         myHeading = 0;
+        penWidth = 4.0;
     }
 
     public double getHeading () {
@@ -87,6 +89,14 @@ public class Turtle extends Observable{
         myPen = pen;
         setChanged();
         notifyObservers();
+    }
+    
+    public double getPenWidth(){
+    	return penWidth;
+    }
+    
+    public void setPenWidth(double width){
+    	penWidth = width;
     }
     
     public Image getTurtleImage(){
