@@ -33,19 +33,19 @@ public class Parser {
         Stack<Node> stack = new Stack<Node>();
         CommandFactory cf = new CommandFactory(myLanguage);
         String[] nodes = ListOfNodes.toArray(new String[ListOfNodes.size()]);
-        StringBuilder content = new StringBuilder();
+        ArrayList<StringBuilder> ListOfContents = new ArrayList<StringBuilder>();
         for (int i = nodes.length - 1; i > -1; i--) {
             System.out.println("We are at " + nodes[i] + " Node");
             Node command = null;
             if (isCommand(nodes[i])) {
                 command =
-                        cf.makeInstruction(nodes[i], myTurtle, content.toString(),myVariableList);
+                        cf.makeInstruction(nodes[i], myTurtle, ListOfContents, myVariableList);
 
                 int paramNum = getParamNum(nodes[i]);
                 Node[] children = new Node[paramNum];
                 for (int c = 0; c < paramNum; c++) {
                     children[c] = stack.pop();
-                    System.out.println((c+1) + " child is " + children[c].getValue());
+                    System.out.println((c + 1) + " child is " + children[c].getValue());
                 }
                 ((Command) command).setChildren(children);
             }
@@ -58,6 +58,7 @@ public class Parser {
             }
 
             else if (isListEnd(nodes[i])) {
+                StringBuilder content = new StringBuilder();
                 int endListIndex = i;
                 int startListIndex = searchListStart(nodes, i);
                 for (int j = startListIndex + 1; j < endListIndex; j++) {
@@ -65,6 +66,7 @@ public class Parser {
                     content.append(" ");
                 }
                 i = startListIndex;
+                ListOfContents.add(content);
                 System.out.println("In the List : " + content); //prints what's in the list
                 continue;
             }

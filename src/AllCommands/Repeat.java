@@ -13,10 +13,13 @@ import Main.Turtle;
 
 public class Repeat extends ControlStructuredCommand {
 
-    public Repeat (Turtle turtle, String content, ResourceBundle lang, List<Variable> variables) {
+    public Repeat (Turtle turtle,
+                   List<StringBuilder> ListOfContents,
+                   ResourceBundle lang,
+                   List<Variable> variables) {
         System.out.println("Repeat was created");
         myTurtle = turtle;
-        myContent = content;
+        myContent = ListOfContents.get(0).toString();
         myLanguage = lang;
         myVariableList = variables;
     }
@@ -30,13 +33,14 @@ public class Repeat extends ControlStructuredCommand {
         for (int i = 0; i < repNumber; i++) {
             newCommand.append(myContent);
         }
-        newCommand.deleteCharAt(newCommand.length()-1);
+        newCommand.deleteCharAt(newCommand.length() - 1);
         System.out.println("The copied Strings are : \n" + newCommand.toString() + "\n");
         CommandDecoder cdecoder = new CommandDecoder();
         Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
-        Stack<Node> result = parser.buildExpressionTree(cdecoder.parseCommand((newCommand.toString())));
+        Stack<Node> result =
+                parser.buildExpressionTree(cdecoder.parseCommand((newCommand.toString())));
         List<String> ret = parser.stringizer(result);
-        System.out.println("Repeat Stack is done! Repeat will return : " + ret.get(ret.size()-1));
-        return ret.get(ret.size()-1);
+        System.out.println("Repeat Stack is done! Repeat will return : " + ret.get(ret.size() - 1));
+        return ret.get(ret.size() - 1);
     }
 }

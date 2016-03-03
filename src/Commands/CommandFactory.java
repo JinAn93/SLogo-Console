@@ -18,7 +18,7 @@ public class CommandFactory {
 
     public Command makeInstruction (String str,
                                     Turtle turtle,
-                                    String content,
+                                    List<StringBuilder> content,
                                     List<Variable> variables) {
         Enumeration<String> keys = myLanguage.getKeys();
         String command = null;

@@ -11,19 +11,21 @@ import Main.Parser;
 import Main.Turtle;
 
 
-public class DoTimes extends ControlStructuredCommand {
+public class For extends ControlStructuredCommand {
 
     private static final int INDEX_VARIABLE = 0;
+    private static final int INDEX_START = 1;
+    private static final int INDEX_END = 2;
+    private static final int INDEX_INCREMENT = 3;
     private static final int COMMAND_INDEX = 0;
     private static final int CONTROL_INDEX = 1;
-    private static final int LIMIT_INDEX = 1;
     private String myControlContent;
 
-    public DoTimes (Turtle turtle,
-                    List<StringBuilder> ListOfContents,
-                    ResourceBundle lang,
-                    List<Variable> variables) {
-        System.out.println("DoTimes was Created");
+    public For (Turtle turtle,
+                List<StringBuilder> ListOfContents,
+                ResourceBundle lang,
+                List<Variable> variables) {
+        System.out.println("For was Created");
         myTurtle = turtle;
         myContent = ListOfContents.get(COMMAND_INDEX).toString();
         myControlContent = ListOfContents.get(CONTROL_INDEX).toString();
@@ -41,14 +43,25 @@ public class DoTimes extends ControlStructuredCommand {
     private int createIndexVariable () {
         Variable indexVar = new Variable();
         String[] controlData = myControlContent.split(SPACE);
+        int startPoint = Integer.parseInt(controlData[INDEX_START]);
+        int endPoint = Integer.parseInt(controlData[INDEX_END]);
+        int increment = Integer.parseInt(controlData[INDEX_INCREMENT]);
+        int numRepeat = countRepeat(startPoint, endPoint, increment);
         indexVar.setName(controlData[INDEX_VARIABLE]);
-        indexVar.setValue(ONE_INDEXDEFAULT);
-        indexVar.setValue(controlData[LIMIT_INDEX]);
+        indexVar.setValue(controlData[INDEX_START]);
+        indexVar.setValue(Integer.toString(startPoint + increment * (numRepeat-1)));
+        
         myVariableList.add(indexVar);
         System.out.println(controlData);
-        return Integer.parseInt(indexVar.getValue());
+        return numRepeat;
     }
 
+    private int countRepeat (int startPoint, int endPoint, int increment){
+        if ((endPoint-startPoint+1) % increment == 0)
+            return ((endPoint-startPoint+1) / increment);
+        else
+            return ((endPoint-startPoint+1) / increment)+1;
+    }
     private String executeLoop (int limit) {
         StringBuilder newCommand = new StringBuilder();
         for (int i = 0; i < limit; i++) {
@@ -60,7 +73,7 @@ public class DoTimes extends ControlStructuredCommand {
         Stack<Node> result =
                 parser.buildExpressionTree(cdecoder.parseCommand((newCommand.toString())));
         List<String> ret = parser.stringizer(result);
-        
+
         return ret.get(ret.size() - 1);
     }
 }
