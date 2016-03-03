@@ -51,6 +51,10 @@ public class CreatePenColorMenu {
 		});
 	}
 	
+	public Menu getPenMenu(){
+		return myPenMenu;
+	}
+	
 //	private void getPenColors(){
 //		myPenColors = new ArrayList<MenuItem>(); 
 //		for(String color: myColors){
@@ -64,9 +68,7 @@ public class CreatePenColorMenu {
 //		}
 //	}
 //	
-	public Menu getPenMenu(){
-		return myPenMenu;
-	}
+
 	
 //	public CreatePenColorMenu(GraphicsContext graphics){
 //		gc = graphics; 
