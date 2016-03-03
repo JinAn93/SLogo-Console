@@ -97,8 +97,6 @@ public class Turtle extends Observable{
     
     public void setPenWidth(double width){
     	penWidth = width;
-    	setChanged();
-    	notifyObservers();
     }
     
     public Image getTurtleImage(){
