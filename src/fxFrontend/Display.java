@@ -30,6 +30,7 @@ import Main.ErrorObject;
 import Main.InputObject;
 import fxMenu.CreateColorMenu;
 import fxMenu.CreatePenColorMenu;
+import fxMenu.CreatePenUpMenu;
 import fxMenu.CreateTurtleSelectionMenu;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
@@ -54,10 +55,13 @@ public class Display {
     private CreateColorMenu createMenu;
     private CreateTurtleSelectionMenu myTurtleImages;
     private CreatePenColorMenu myPenMenu;
+    private CreatePenUpMenu myPenUpMenu;
     private ArrayList<Line> myLines;
     private Output output;
-    private TableView myVariablesTable;
-    private TableColumn variableCol, valueCol;
+    @SuppressWarnings("rawtypes")
+	private TableView myVariablesTable;
+    @SuppressWarnings("rawtypes")
+	private TableColumn variableCol, valueCol;
     private ObservableList<DisplayVariable> data;
     
     public Display () {
@@ -67,7 +71,8 @@ public class Display {
         myScene = new Scene(myBorder, 1100, 800);
     }
 
-    public void displayScreen () {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void displayScreen () {
         leftBox = mySidebar.getBox();
         centerBox = myScreen.getScreen();
         consoleBox = myConsole.getConsole();
@@ -91,6 +96,8 @@ public class Display {
         myMenu.getMenus().add(myTurtleImages.getImageMenu());
         myPenMenu = new CreatePenColorMenu(myLineGraphics);
         myMenu.getMenus().add(myPenMenu.getPenMenu());
+        myPenUpMenu = new CreatePenUpMenu(myTurtle);
+        myMenu.getMenus().add(myPenUpMenu.getPenUpMenu());
         myBorder.setTop(myMenu);
         // make the table
 
@@ -113,7 +120,8 @@ public class Display {
 
     public void updateDisplay () {
         myButton.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle (ActionEvent e) {
+            @SuppressWarnings("unchecked")
+			public void handle (ActionEvent e) {
                 String myCommand = myScreen.getCodeInput().getText();
                 MainBackEnd mb = new MainBackEnd();
                 commandHistory.append(myCommand + "\n");
@@ -142,6 +150,7 @@ public class Display {
                 double Head = myTurtle.getHeading();
                 int Visib = myTurtle.getVisibility();
                 int PenDown = myTurtle.getPen();
+                System.out.printf("PEN IS: %s\n",PenDown);
 
                 if (Visib == 1) {
                     myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
@@ -149,10 +158,6 @@ public class Display {
                     myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
                     myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
                     myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-
-
-//                    myTurtle.setStartXCor(XCoor);
-//                    myTurtle.setStartYCor(YCoor);
                 }
                 else {
                     myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
@@ -168,9 +173,10 @@ public class Display {
         double startY = myTurtle.getStartYCor();
         double endX = myTurtle.getEndXCor();
         double endY = myTurtle.getEndYCor();
-        System.out.println(startX + " " + startY + " " + endX + " " + endY);
-        myLineGraphics.setLineWidth(8.0);
-        myLineGraphics.strokeLine(startX, startY, endX, endY);
+        if(myTurtle.getPen()==1){
+        	myLineGraphics.setLineWidth(8.0);
+        	myLineGraphics.strokeLine(startX, startY, endX, endY);
+        }
         myTurtle.setStartXCor(endX);
         myTurtle.setStartYCor(endY);
 
@@ -212,7 +218,7 @@ public class Display {
 
         @Override
         public void update (Observable obs, Object turtle) {
-            updateLines();
+        	updateLines();
         }
     }
 }
