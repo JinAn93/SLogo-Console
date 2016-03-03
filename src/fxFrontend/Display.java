@@ -149,11 +149,7 @@ public class Display {
                 System.out.printf("PEN IS: %s\n",PenDown);
 
                 if (Visib == 1) {
-                    myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-                    rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-                    myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                    myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                    myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+                	updateTurtle(XCoor, YCoor, Head);
                 }
                 else {
                     myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
@@ -161,6 +157,14 @@ public class Display {
 
             }
         });
+    }
+    
+    public void updateTurtle(double x, double y, double head){
+    	 myGraphics.drawImage(myTurtle.getTurtleImage(), x, y);
+         rotate(myGraphics, head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
+         myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+         myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+         myGraphics.drawImage(myTurtle.getTurtleImage(), x, y);
     }
     
     public void iterateVar(){
