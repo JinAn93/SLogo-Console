@@ -40,20 +40,14 @@ import fxFrontend.Line;
 public class Display {
     private BorderPane myBorder;
     private Scene myScene;
-    private CreateSidebar mySidebar = new CreateSidebar();
     private CreateTurtleScreen myScreen = new CreateTurtleScreen();
     private CreateConsole myConsole = new CreateConsole();
-    private Button myButton;
     private TextArea historyBox, myConsoleBox, myTurtleStatsBox;
     private StringBuilder commandHistory = new StringBuilder();
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
     private Turtle myTurtle;
-    private MenuBar myMenu;
-    private Output output;
 	private TableView<DisplayObject> myVariablesTable;
     private ObservableList<DisplayObject> data;
-    private int WIDTH = 600;
-    private int HEIGHT = 600;
     
     public Display () {
         myBorder = new BorderPane();
@@ -64,18 +58,23 @@ public class Display {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void displayScreen () {
-    	displayElements();
+        CreateSidebar mySidebar = new CreateSidebar();
+        VBox leftBox = mySidebar.getBox();
+        VBox centerBox = myScreen.getScreen();
+        VBox consoleBox = myConsole.getConsole();
+        myBorder.setLeft(leftBox);
+        myBorder.setCenter(centerBox);
+        myBorder.setRight(consoleBox);
         myTurtle = myScreen.getMyTurtle();
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
         myTurtleStatsBox = mySidebar.getArea();
-        myButton = myScreen.getButton();
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
         //create Menu
         SlogoMenuCreator menuCreator = new SlogoMenuCreator(myTurtle,myColorGraphics,myLineGraphics);
-        myMenu = menuCreator.getMenuBar();
+        MenuBar myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
 
         myVariablesTable = mySidebar.getTable();
@@ -84,18 +83,9 @@ public class Display {
 
         updateDisplay();
     }
-    
-    public void displayElements(){
-        VBox leftBox = mySidebar.getBox();
-        VBox centerBox = myScreen.getScreen();
-        VBox consoleBox = myConsole.getConsole();
-        myBorder.setLeft(leftBox);
-        myBorder.setCenter(centerBox);
-        myBorder.setRight(consoleBox);
-
-    }
 
     public void updateDisplay () {
+        Button myButton = myScreen.getButton();
         myButton.setOnAction(new EventHandler<ActionEvent>() {
             @SuppressWarnings("unchecked")
 			public void handle (ActionEvent e) {
@@ -105,7 +95,7 @@ public class Display {
                 historyBox.setText(commandHistory.toString());
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
-                output = mb.executeCommand(parsedCommands);
+                Output output = mb.executeCommand(parsedCommands);
 
                 String consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
@@ -132,12 +122,12 @@ public class Display {
                 if (Visib == 1) {
                     myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
                     rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-                    myGraphics.clearRect(0, 0, WIDTH, HEIGHT);
-                    myGraphics.fillRect(0, 0, WIDTH, HEIGHT);
+                    myGraphics.clearRect(0, 0, 600, 600);
+                    myGraphics.fillRect(0, 0, 600, 600);
                     myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
                 }
                 else {
-                    myGraphics.clearRect(0, 0, WIDTH, HEIGHT);
+                    myGraphics.clearRect(0, 0, 600, 600);
                 }
 
             }
@@ -145,10 +135,10 @@ public class Display {
     }
     
     public void clearScreen(){
-    	myGraphics.clearRect(0, 0, WIDTH, HEIGHT);
-    	myGraphics.fillRect(0, 0, WIDTH, HEIGHT);
-    	myLineGraphics.clearRect(0, 0, WIDTH, HEIGHT);
-    	myGraphics.fillRect(0, 0, WIDTH, HEIGHT);
+    	myGraphics.clearRect(0, 0, 600, 600);
+    	myGraphics.fillRect(0, 0, 600, 600);
+    	myLineGraphics.clearRect(0, 0, 600, 600);
+    	myGraphics.fillRect(0, 0, 600, 600);
     }
 
     public void updateLines () {
