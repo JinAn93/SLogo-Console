@@ -8,6 +8,7 @@ import Main.Turtle;
 public abstract class ControlStructuredCommand extends Command {
 
     protected String myContent;
+    protected String myControlContent;
     protected Turtle myTurtle;
     protected ResourceBundle myLanguage;
     protected List<Variable> myVariableList;
@@ -17,4 +18,6 @@ public abstract class ControlStructuredCommand extends Command {
     protected static final String ZERO = "0";
     protected static final String ONE_INDEXDEFAULT = "1";
     protected static final String SPACE = " ";
+    protected static final int COMMAND_INDEX = 0;
+    protected static final int CONTROL_INDEX = 1;
 }

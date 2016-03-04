@@ -14,10 +14,7 @@ import Main.Turtle;
 public class DoTimes extends ControlStructuredCommand {
 
     private static final int INDEX_VARIABLE = 0;
-    private static final int COMMAND_INDEX = 0;
-    private static final int CONTROL_INDEX = 1;
     private static final int LIMIT_INDEX = 1;
-    private String myControlContent;
 
     public DoTimes (Turtle turtle,
                     List<StringBuilder> ListOfContents,

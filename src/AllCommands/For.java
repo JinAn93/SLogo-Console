@@ -17,9 +17,7 @@ public class For extends ControlStructuredCommand {
     private static final int INDEX_START = 1;
     private static final int INDEX_END = 2;
     private static final int INDEX_INCREMENT = 3;
-    private static final int COMMAND_INDEX = 0;
-    private static final int CONTROL_INDEX = 1;
-    private String myControlContent;
+
 
     public For (Turtle turtle,
                 List<StringBuilder> ListOfContents,
