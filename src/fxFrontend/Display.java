@@ -21,7 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import fxFrontend.DisplayVariable;
+import fxFrontend.DisplayObject;
 import java.util.*;
 import Commands.Variable;
 import Main.Output;
@@ -32,6 +32,7 @@ import fxMenu.CreateBackgroundColorMenu;
 import fxMenu.CreatePenColorMenu;
 import fxMenu.CreatePenPropertiesMenu;
 import fxMenu.CreateTurtleSelectionMenu;
+import fxMenu.SlogoMenuCreator;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
 
@@ -39,30 +40,17 @@ import fxFrontend.Line;
 public class Display {
     private BorderPane myBorder;
     private Scene myScene;
-    private VBox leftBox, centerBox, consoleBox;
     private CreateSidebar mySidebar = new CreateSidebar();
     private CreateTurtleScreen myScreen = new CreateTurtleScreen();
     private CreateConsole myConsole = new CreateConsole();
-    private Button myButton;
     private TextArea historyBox, myConsoleBox, myTurtleStatsBox;
     private StringBuilder commandHistory = new StringBuilder();
-    private String consoleText;
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
-    private Canvas myCanvas;
     private Turtle myTurtle;
-    private ErrorObject error; 
-    private MenuBar myMenu;
-    private CreateBackgroundColorMenu createMenu;
-    private CreateTurtleSelectionMenu myTurtleImages;
-    private CreatePenColorMenu myPenMenu;
-    private CreatePenPropertiesMenu myPenPropertiesMenu;
-    private ArrayList<Line> myLines;
-    private Output output;
-    @SuppressWarnings("rawtypes")
-	private TableView myVariablesTable;
-    @SuppressWarnings("rawtypes")
-	private TableColumn variableCol, valueCol;
-    private ObservableList<DisplayVariable> data;
+	private TableView<DisplayObject> myVariablesTable;
+    private ObservableList<DisplayObject> data;
+    private List<Variable> myVarList;
+    private Output output; 
     
     public Display () {
         myBorder = new BorderPane();
@@ -73,9 +61,9 @@ public class Display {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void displayScreen () {
-        leftBox = mySidebar.getBox();
-        centerBox = myScreen.getScreen();
-        consoleBox = myConsole.getConsole();
+        VBox leftBox = mySidebar.getBox();
+        VBox centerBox = myScreen.getScreen();
+        VBox consoleBox = myConsole.getConsole();
         myBorder.setLeft(leftBox);
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
@@ -83,42 +71,20 @@ public class Display {
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
         myTurtleStatsBox = mySidebar.getArea();
-        myButton = myScreen.getButton();
-        myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
-        myLines = new ArrayList<Line>();
-        myMenu = new MenuBar();
-        createMenu = new CreateBackgroundColorMenu(myColorGraphics, myLineGraphics, 600, 600);
-        myMenu.getMenus().add(createMenu.getColorMenu());
-        myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
-        myMenu.getMenus().add(myTurtleImages.getImageMenu());
-        myPenMenu = new CreatePenColorMenu(myLineGraphics);
-        myMenu.getMenus().add(myPenMenu.getPenMenu());
-        myPenPropertiesMenu = new CreatePenPropertiesMenu(myTurtle);
-        myMenu.getMenus().add(myPenPropertiesMenu.getPenUpMenu());
+        SlogoMenuCreator menuCreator = new SlogoMenuCreator(myTurtle,myColorGraphics,myLineGraphics);
+        MenuBar myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
-        // make the table
-
         myVariablesTable = mySidebar.getTable();
-        variableCol = new TableColumn("Variable");
-
-        valueCol = new TableColumn("Value");
-        variableCol.setCellValueFactory(
-                new PropertyValueFactory<DisplayVariable, String>("variableName")
-                );
-        valueCol.setCellValueFactory(
-                new PropertyValueFactory<DisplayVariable, Double>("variableValue")
-                );
         data = FXCollections.observableArrayList(); // create the data
         myVariablesTable.setItems(data);
-        myVariablesTable.getColumns().addAll(variableCol, valueCol);
-
         updateDisplay();
     }
 
     public void updateDisplay () {
+        Button myButton = myScreen.getButton();
         myButton.setOnAction(new EventHandler<ActionEvent>() {
             @SuppressWarnings("unchecked")
 			public void handle (ActionEvent e) {
@@ -129,53 +95,55 @@ public class Display {
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
-
-                consoleText = output.getResult().toString();
+                String consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
-
                 String myTurtleStats =
                         "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
                                 myTurtle.getStartYCor();
                 myTurtleStatsBox.setText(myTurtleStats);
-
-                List<Variable> myVarList = output.getVariables();
-                for (Variable aVar : myVarList) {
-                    DisplayVariable tempVar = new DisplayVariable(aVar.getName(), aVar.getValue());
-                    if (!contains(myVariablesTable, tempVar)) {
-                        myVariablesTable.getItems().add(tempVar);
-                    }
-                }
-                double XCoor = myTurtle.getEndXCor();
-                double YCoor = myTurtle.getEndYCor();
-                double Head = myTurtle.getHeading();
-                int Visib = myTurtle.getVisibility();
-                int PenDown = myTurtle.getPen();
-                System.out.printf("PEN IS: %s\n",PenDown);
-
-                if (Visib == 1) {
-                    myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-                    rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-                    myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                    myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                    myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-                }
-                else {
-                    myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                }
-
+                iterateVar(); 
+                updateTurtle(); 
             }
         });
     }
     
+    public void updateTurtle(){
+    	 double XCoor = myTurtle.getEndXCor();
+         double YCoor = myTurtle.getEndYCor();
+         double Head = myTurtle.getHeading();
+         int Visib = myTurtle.getVisibility();
+
+         if (Visib == 1) {
+             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+             rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
+             myGraphics.clearRect(0, 0, 600, 600);
+             myGraphics.fillRect(0, 0, 600, 600);
+             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+         }
+         else {
+             myGraphics.clearRect(0, 0, 600, 600);
+         }
+    }
+    
+    public void iterateVar(){
+    	myVarList = output.getVariables();
+        for (Variable aVar : myVarList) {
+            DisplayObject tempVar = new DisplayObject(aVar.getName(), aVar.getValue());
+            if (!contains(myVariablesTable, tempVar)) {
+                myVariablesTable.getItems().add(tempVar);
+            }
+        }
+    }
+    
     public void clearScreen(){
-    	myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-    	myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-    	myLineGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-    	myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+    	myGraphics.clearRect(0, 0, 600, 600);
+    	myGraphics.fillRect(0, 0, 600, 600);
+    	myLineGraphics.clearRect(0, 0, 600, 600);
+    	myGraphics.fillRect(0, 0, 600, 600);
     }
 
     public void updateLines () {
-
+    	
         double startX = myTurtle.getStartXCor();
         double startY = myTurtle.getStartYCor();
         double endX = myTurtle.getEndXCor();
@@ -186,11 +154,11 @@ public class Display {
         }
         myTurtle.setStartXCor(endX);
         myTurtle.setStartYCor(endY);
-
+        
     }
 
-    public boolean contains (TableView<DisplayVariable> table, DisplayVariable obj) {
-        for (DisplayVariable item : table.getItems())
+    public boolean contains (TableView<DisplayObject> table, DisplayObject obj) {
+        for (DisplayObject item : table.getItems())
             if (item.getVariableName().equals(obj.getVariableName()))
                 return true;
         return false;

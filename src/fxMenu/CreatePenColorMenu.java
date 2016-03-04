@@ -19,12 +19,11 @@ public class CreatePenColorMenu {
 	private GraphicsContext gc; 
 	private ArrayList<MenuItem> myPenColors; 
 	private String[] myColors = {"RED","BLUE","GREEN","YELLOW","PINK"};
+	private ColorPicker colorPicker; 
 	
 	public CreatePenColorMenu(GraphicsContext graphics){
 		gc = graphics; 
 		myPenMenu = new Menu("Pen Color"); 
-//		getPenColors();
-//		myPenMenu.getItems().addAll(myPenColors);
 		MenuItem item = new MenuItem("Change color");
 		item.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e){
@@ -33,49 +32,26 @@ public class CreatePenColorMenu {
 				Scene scene = new Scene(new HBox(20), 200, 50);
 				HBox box = (HBox) scene.getRoot();
 				box.setPadding(new Insets(5, 5, 5, 5));          
-
-				final ColorPicker colorPicker = new ColorPicker();
-				colorPicker.setValue(Color.CORAL);
-				colorPicker.setOnAction(new EventHandler() {
-					public void handle(Event t) {
-						gc.setStroke(colorPicker.getValue());               
-					}
-				});
+				createPalette();
 				box.getChildren().addAll(colorPicker); 
 				colorStage.setScene(scene);
 				colorStage.show();
 			}
 		});
 		myPenMenu.getItems().addAll(item); 
-		
 	}
 	
-//	private void getPenColors(){
-//		myPenColors = new ArrayList<MenuItem>(); 
-//		for(String color: myColors){
-//			MenuItem item = new MenuItem(color);
-//			item.setOnAction(new EventHandler<ActionEvent>() {
-//				public void handle(ActionEvent e){
-//					gc.setStroke(Color.valueOf(color));
-//				}
-//			});
-//			myPenColors.add(item);
-//		}
-//	}
-//	
+	public void createPalette(){
+		colorPicker = new ColorPicker();
+		colorPicker.setValue(Color.CORAL);
+		colorPicker.setOnAction(new EventHandler() {
+			public void handle(Event t) {
+				gc.setStroke(colorPicker.getValue());               
+			}
+		});
+	}
+	
 	public Menu getPenMenu(){
 		return myPenMenu;
 	}
-	
-//	public CreatePenColorMenu(GraphicsContext graphics){
-//		gc = graphics; 
-//		HBox box = new HBox(); 
-//		myPenMenu = new Menu("Change Pen Color");
-//		final ColorPicker colorPicker = new ColorPicker(); 
-//		colorPicker.setValue(Color.BLACK);
-//		box.getChildren().add(colorPicker); 
-//		MenuItem item = new MenuItem();
-//		myPenMenu.getItems().add();
-//		
-//	}
 }
