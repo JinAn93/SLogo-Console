@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -27,6 +28,8 @@ public class CreateSidebar {
 	private int WIDTH = 200;
 	private int HEIGHT = 180;
 	private TableView myVariablesTable;
+	private TableColumn variableCol, valueCol;
+
 	
 	@SuppressWarnings("rawtypes")
 	public CreateSidebar(){
@@ -47,7 +50,18 @@ public class CreateSidebar {
 		myVariables = new ScrollPane(); 
 		myVariablesLabel = new Label("Variables:");
 		myVariablesTable = new TableView();
-		createBox(myVariablesLabel, myVariables, myVariablesTable);
+        variableCol = new TableColumn("Variable");
+
+        valueCol = new TableColumn("Value");
+        variableCol.setCellValueFactory(
+                new PropertyValueFactory<DisplayObject, String>("variableName")
+                );
+        valueCol.setCellValueFactory(
+                new PropertyValueFactory<DisplayObject, Double>("variableValue")
+                );
+        myVariablesTable.getColumns().addAll(variableCol, valueCol);
+
+		createTableView(myVariablesLabel, myVariables, myVariablesTable);
 		
 		myHelpButton = new Button("Help"); 
 		myConsole.getChildren().add(myHelpButton);
@@ -71,6 +85,10 @@ public class CreateSidebar {
 				//End web stuff
 			}
 		});
+//		myVariablesLabel = new Label("Variables:");
+//		myVariablesTable = new TableView();
+//		myVariablesTable.setEditable(false);
+//		createTableView(myVariablesLabel, myVariables,myVariablesTable);
 	}
 	
 	private void createBox(Label myLabel, ScrollPane myPane, TextArea myText){
@@ -83,7 +101,7 @@ public class CreateSidebar {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void createBox(Label myLabel, ScrollPane myPane, TableView myText){
+	private void createTableView(Label myLabel, ScrollPane myPane, TableView myText){
 		myConsole.getChildren().add(myLabel);
         myPane.setContent(myText);
         myPane.setFitToWidth(true);

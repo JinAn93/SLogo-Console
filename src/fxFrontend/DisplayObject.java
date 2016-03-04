@@ -1,10 +1,10 @@
 package fxFrontend;
 
-public class DisplayVariable {
+public class DisplayObject {
 	private String variableName;
 	private String variableValue;
 	
-	public DisplayVariable(String myName, String myValue){
+	public DisplayObject(String myName, String myValue){
 		variableName = myName;
 		variableValue = myValue;
 	}
