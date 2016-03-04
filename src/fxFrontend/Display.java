@@ -49,6 +49,8 @@ public class Display {
     private Turtle myTurtle;
 	private TableView<DisplayObject> myVariablesTable;
     private ObservableList<DisplayObject> data;
+    private List<Variable> myVarList;
+    private Output output; 
     
     public Display () {
         myBorder = new BorderPane();
@@ -72,15 +74,12 @@ public class Display {
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
-        //create Menu
         SlogoMenuCreator menuCreator = new SlogoMenuCreator(myTurtle,myColorGraphics,myLineGraphics);
         MenuBar myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
-
         myVariablesTable = mySidebar.getTable();
         data = FXCollections.observableArrayList(); // create the data
         myVariablesTable.setItems(data);
-
         updateDisplay();
     }
 
@@ -95,43 +94,45 @@ public class Display {
                 historyBox.setText(commandHistory.toString());
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
-                Output output = mb.executeCommand(parsedCommands);
-
+                output = mb.executeCommand(parsedCommands);
                 String consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
-
                 String myTurtleStats =
                         "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
                                 myTurtle.getStartYCor();
                 myTurtleStatsBox.setText(myTurtleStats);
-
-                List<Variable> myVarList = output.getVariables();
-                for (Variable aVar : myVarList) {
-                    DisplayObject tempVar = new DisplayObject(aVar.getName(), aVar.getValue());
-                    if (!contains(myVariablesTable, tempVar)) {
-                        myVariablesTable.getItems().add(tempVar);
-                    }
-                }
-                double XCoor = myTurtle.getEndXCor();
-                double YCoor = myTurtle.getEndYCor();
-                double Head = myTurtle.getHeading();
-                int Visib = myTurtle.getVisibility();
-                int PenDown = myTurtle.getPen();
-                System.out.printf("PEN IS: %s\n",PenDown);
-
-                if (Visib == 1) {
-                    myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-                    rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-                    myGraphics.clearRect(0, 0, 600, 600);
-                    myGraphics.fillRect(0, 0, 600, 600);
-                    myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-                }
-                else {
-                    myGraphics.clearRect(0, 0, 600, 600);
-                }
-
+                iterateVar(); 
+                updateTurtle(); 
             }
         });
+    }
+    
+    public void updateTurtle(){
+    	 double XCoor = myTurtle.getEndXCor();
+         double YCoor = myTurtle.getEndYCor();
+         double Head = myTurtle.getHeading();
+         int Visib = myTurtle.getVisibility();
+
+         if (Visib == 1) {
+             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+             rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
+             myGraphics.clearRect(0, 0, 600, 600);
+             myGraphics.fillRect(0, 0, 600, 600);
+             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+         }
+         else {
+             myGraphics.clearRect(0, 0, 600, 600);
+         }
+    }
+    
+    public void iterateVar(){
+    	myVarList = output.getVariables();
+        for (Variable aVar : myVarList) {
+            DisplayObject tempVar = new DisplayObject(aVar.getName(), aVar.getValue());
+            if (!contains(myVariablesTable, tempVar)) {
+                myVariablesTable.getItems().add(tempVar);
+            }
+        }
     }
     
     public void clearScreen(){
