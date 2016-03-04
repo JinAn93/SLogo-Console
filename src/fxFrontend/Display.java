@@ -105,27 +105,27 @@ public class Display {
                 myTurtleStatsBox.setText(myTurtleStats);
 
                 iterateVar(); 
-                
-                double XCoor = myTurtle.getEndXCor();
-                double YCoor = myTurtle.getEndYCor();
-                double Head = myTurtle.getHeading();
-                int Visib = myTurtle.getVisibility();
-                int PenDown = myTurtle.getPen();
-                System.out.printf("PEN IS: %s\n",PenDown);
-
-                if (Visib == 1) {
-                    myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-                    rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-                    myGraphics.clearRect(0, 0, 600, 600);
-                    myGraphics.fillRect(0, 0, 600, 600);
-                    myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-                }
-                else {
-                    myGraphics.clearRect(0, 0, 600, 600);
-                }
-
+                updateTurtle(); 
             }
         });
+    }
+    
+    public void updateTurtle(){
+    	 double XCoor = myTurtle.getEndXCor();
+         double YCoor = myTurtle.getEndYCor();
+         double Head = myTurtle.getHeading();
+         int Visib = myTurtle.getVisibility();
+
+         if (Visib == 1) {
+             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+             rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
+             myGraphics.clearRect(0, 0, 600, 600);
+             myGraphics.fillRect(0, 0, 600, 600);
+             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+         }
+         else {
+             myGraphics.clearRect(0, 0, 600, 600);
+         }
     }
     
     public void iterateVar(){
