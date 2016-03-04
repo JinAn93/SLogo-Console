@@ -49,14 +49,14 @@ public class Display {
     private StringBuilder commandHistory = new StringBuilder();
     private String consoleText;
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
-    private Canvas myCanvas;
     private Turtle myTurtle;
     private MenuBar myMenu;
     private SlogoMenuCreator menuCreator;
     private Output output;
-    @SuppressWarnings("rawtypes")
-	private TableView myVariablesTable;
+	private TableView<DisplayVariable> myVariablesTable;
     private ObservableList<DisplayVariable> data;
+    private int WIDTH = 600;
+    private int HEIGHT = 600;
     
     public Display () {
         myBorder = new BorderPane();
@@ -78,7 +78,6 @@ public class Display {
         myConsoleBox = myConsole.getConsoleText();
         myTurtleStatsBox = mySidebar.getArea();
         myButton = myScreen.getButton();
-        myCanvas = myScreen.getCanvas();
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
@@ -131,12 +130,12 @@ public class Display {
                 if (Visib == 1) {
                     myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
                     rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-                    myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                    myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+                    myGraphics.clearRect(0, 0, WIDTH, HEIGHT);
+                    myGraphics.fillRect(0, 0, WIDTH, HEIGHT);
                     myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
                 }
                 else {
-                    myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+                    myGraphics.clearRect(0, 0, WIDTH, HEIGHT);
                 }
 
             }
@@ -144,10 +143,10 @@ public class Display {
     }
     
     public void clearScreen(){
-    	myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-    	myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-    	myLineGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-    	myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+    	myGraphics.clearRect(0, 0, WIDTH, HEIGHT);
+    	myGraphics.fillRect(0, 0, WIDTH, HEIGHT);
+    	myLineGraphics.clearRect(0, 0, WIDTH, HEIGHT);
+    	myGraphics.fillRect(0, 0, WIDTH, HEIGHT);
     }
 
     public void updateLines () {
