@@ -40,6 +40,7 @@ import fxFrontend.Line;
 public class Display {
     private BorderPane myBorder;
     private Scene myScene;
+    private CreateSidebar mySidebar = new CreateSidebar();
     private CreateTurtleScreen myScreen = new CreateTurtleScreen();
     private CreateConsole myConsole = new CreateConsole();
     private TextArea historyBox, myConsoleBox, myTurtleStatsBox;
@@ -58,7 +59,6 @@ public class Display {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void displayScreen () {
-        CreateSidebar mySidebar = new CreateSidebar();
         VBox leftBox = mySidebar.getBox();
         VBox centerBox = myScreen.getScreen();
         VBox consoleBox = myConsole.getConsole();
