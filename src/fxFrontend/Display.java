@@ -21,7 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import fxFrontend.DisplayVariable;
+import fxFrontend.DisplayObject;
 import java.util.*;
 import Commands.Variable;
 import Main.Output;
@@ -51,10 +51,9 @@ public class Display {
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
     private Turtle myTurtle;
     private MenuBar myMenu;
-    private SlogoMenuCreator menuCreator;
     private Output output;
-	private TableView<DisplayVariable> myVariablesTable;
-    private ObservableList<DisplayVariable> data;
+	private TableView<DisplayObject> myVariablesTable;
+    private ObservableList<DisplayObject> data;
     private int WIDTH = 600;
     private int HEIGHT = 600;
     
@@ -82,7 +81,7 @@ public class Display {
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
         //create Menu
-        menuCreator = new SlogoMenuCreator(myTurtle,myColorGraphics,myLineGraphics);
+        SlogoMenuCreator menuCreator = new SlogoMenuCreator(myTurtle,myColorGraphics,myLineGraphics);
         myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
 
@@ -115,7 +114,7 @@ public class Display {
 
                 List<Variable> myVarList = output.getVariables();
                 for (Variable aVar : myVarList) {
-                    DisplayVariable tempVar = new DisplayVariable(aVar.getName(), aVar.getValue());
+                    DisplayObject tempVar = new DisplayObject(aVar.getName(), aVar.getValue());
                     if (!contains(myVariablesTable, tempVar)) {
                         myVariablesTable.getItems().add(tempVar);
                     }
@@ -164,8 +163,8 @@ public class Display {
         
     }
 
-    public boolean contains (TableView<DisplayVariable> table, DisplayVariable obj) {
-        for (DisplayVariable item : table.getItems())
+    public boolean contains (TableView<DisplayObject> table, DisplayObject obj) {
+        for (DisplayObject item : table.getItems())
             if (item.getVariableName().equals(obj.getVariableName()))
                 return true;
         return false;

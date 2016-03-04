@@ -54,10 +54,10 @@ public class CreateSidebar {
 
         valueCol = new TableColumn("Value");
         variableCol.setCellValueFactory(
-                new PropertyValueFactory<DisplayVariable, String>("variableName")
+                new PropertyValueFactory<DisplayObject, String>("variableName")
                 );
         valueCol.setCellValueFactory(
-                new PropertyValueFactory<DisplayVariable, Double>("variableValue")
+                new PropertyValueFactory<DisplayObject, Double>("variableValue")
                 );
         myVariablesTable.getColumns().addAll(variableCol, valueCol);
 
