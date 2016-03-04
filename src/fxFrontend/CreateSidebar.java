@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -27,6 +28,8 @@ public class CreateSidebar {
 	private int WIDTH = 200;
 	private int HEIGHT = 180;
 	private TableView myVariablesTable;
+	private TableColumn variableCol, valueCol;
+
 	
 	@SuppressWarnings("rawtypes")
 	public CreateSidebar(){
@@ -47,6 +50,17 @@ public class CreateSidebar {
 		myVariables = new ScrollPane(); 
 		myVariablesLabel = new Label("Variables:");
 		myVariablesTable = new TableView();
+        variableCol = new TableColumn("Variable");
+
+        valueCol = new TableColumn("Value");
+        variableCol.setCellValueFactory(
+                new PropertyValueFactory<DisplayVariable, String>("variableName")
+                );
+        valueCol.setCellValueFactory(
+                new PropertyValueFactory<DisplayVariable, Double>("variableValue")
+                );
+        myVariablesTable.getColumns().addAll(variableCol, valueCol);
+
 		createTableView(myVariablesLabel, myVariables, myVariablesTable);
 		
 		myHelpButton = new Button("Help"); 

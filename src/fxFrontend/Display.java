@@ -56,8 +56,6 @@ public class Display {
     private Output output;
     @SuppressWarnings("rawtypes")
 	private TableView myVariablesTable;
-    @SuppressWarnings("rawtypes")
-	private TableColumn variableCol, valueCol;
     private ObservableList<DisplayVariable> data;
     
     public Display () {
@@ -90,18 +88,8 @@ public class Display {
         myBorder.setTop(myMenu);
 
         myVariablesTable = mySidebar.getTable();
-        variableCol = new TableColumn("Variable");
-
-        valueCol = new TableColumn("Value");
-        variableCol.setCellValueFactory(
-                new PropertyValueFactory<DisplayVariable, String>("variableName")
-                );
-        valueCol.setCellValueFactory(
-                new PropertyValueFactory<DisplayVariable, Double>("variableValue")
-                );
         data = FXCollections.observableArrayList(); // create the data
         myVariablesTable.setItems(data);
-        myVariablesTable.getColumns().addAll(variableCol, valueCol);
 
         updateDisplay();
     }
