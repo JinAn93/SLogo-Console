@@ -47,6 +47,7 @@ public class For extends ControlStructuredCommand {
         int endPoint = Integer.parseInt(controlData[INDEX_END]);
         int increment = Integer.parseInt(controlData[INDEX_INCREMENT]);
         int numRepeat = countRepeat(startPoint, endPoint, increment);
+        System.out.println("Start point is : " + startPoint + " EndPoint is " + endPoint);
         indexVar.setName(controlData[INDEX_VARIABLE]);
         indexVar.setValue(controlData[INDEX_START]);
         indexVar.setValue(Integer.toString(startPoint + increment * (numRepeat-1)));
@@ -62,6 +63,7 @@ public class For extends ControlStructuredCommand {
         else
             return ((endPoint-startPoint+1) / increment)+1;
     }
+    
     private String executeLoop (int limit) {
         StringBuilder newCommand = new StringBuilder();
         for (int i = 0; i < limit; i++) {
