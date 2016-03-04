@@ -95,15 +95,12 @@ public class Display {
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
-
                 String consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
-
                 String myTurtleStats =
                         "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
                                 myTurtle.getStartYCor();
                 myTurtleStatsBox.setText(myTurtleStats);
-
                 iterateVar(); 
                 updateTurtle(); 
             }
