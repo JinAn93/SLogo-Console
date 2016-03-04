@@ -4,7 +4,7 @@ import Main.Turtle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuBar;
 
-public class SlogoMenu {
+public class SlogoMenuCreator {
 	
 	private MenuBar myMenu;
     private CreateBackgroundColorMenu createMenu;
@@ -16,7 +16,7 @@ public class SlogoMenu {
     private GraphicsContext myGraphics; // createPenColorMenu
     private GraphicsContext myLineGraphics;
     
-    public SlogoMenu(Turtle turt, GraphicsContext toChange, GraphicsContext myLines){
+    public SlogoMenuCreator(Turtle turt, GraphicsContext toChange, GraphicsContext myLines){
     	myMenu = new MenuBar();
     	myTurtle = turt;
     	myGraphics = myLines;

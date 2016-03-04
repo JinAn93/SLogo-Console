@@ -32,7 +32,7 @@ import fxMenu.CreateBackgroundColorMenu;
 import fxMenu.CreatePenColorMenu;
 import fxMenu.CreatePenPropertiesMenu;
 import fxMenu.CreateTurtleSelectionMenu;
-import fxMenu.SlogoMenu;
+import fxMenu.SlogoMenuCreator;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
 
@@ -52,7 +52,7 @@ public class Display {
     private Canvas myCanvas;
     private Turtle myTurtle;
     private MenuBar myMenu;
-    private SlogoMenu menuCreator;
+    private SlogoMenuCreator menuCreator;
     private Output output;
     @SuppressWarnings("rawtypes")
 	private TableView myVariablesTable;
@@ -85,7 +85,7 @@ public class Display {
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
         //create Menu
-        menuCreator = new SlogoMenu(myTurtle,myColorGraphics,myLineGraphics);
+        menuCreator = new SlogoMenuCreator(myTurtle,myColorGraphics,myLineGraphics);
         myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
 
