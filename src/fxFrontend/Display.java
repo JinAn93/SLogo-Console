@@ -32,6 +32,7 @@ import fxMenu.CreateBackgroundColorMenu;
 import fxMenu.CreatePenColorMenu;
 import fxMenu.CreatePenPropertiesMenu;
 import fxMenu.CreateTurtleSelectionMenu;
+import fxMenu.SlogoMenu;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
 
@@ -50,13 +51,8 @@ public class Display {
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
     private Canvas myCanvas;
     private Turtle myTurtle;
-    private ErrorObject error; 
     private MenuBar myMenu;
-    private CreateBackgroundColorMenu createMenu;
-    private CreateTurtleSelectionMenu myTurtleImages;
-    private CreatePenColorMenu myPenMenu;
-    private CreatePenPropertiesMenu myPenPropertiesMenu;
-    private ArrayList<Line> myLines;
+    private SlogoMenu menuCreator;
     private Output output;
     @SuppressWarnings("rawtypes")
 	private TableView myVariablesTable;
@@ -88,18 +84,10 @@ public class Display {
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
-        myLines = new ArrayList<Line>();
-        myMenu = new MenuBar();
-        createMenu = new CreateBackgroundColorMenu(myColorGraphics, myLineGraphics, 600, 600);
-        myMenu.getMenus().add(createMenu.getColorMenu());
-        myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
-        myMenu.getMenus().add(myTurtleImages.getImageMenu());
-        myPenMenu = new CreatePenColorMenu(myLineGraphics);
-        myMenu.getMenus().add(myPenMenu.getPenMenu());
-        myPenPropertiesMenu = new CreatePenPropertiesMenu(myTurtle);
-        myMenu.getMenus().add(myPenPropertiesMenu.getPenUpMenu());
+        //create Menu
+        menuCreator = new SlogoMenu(myTurtle,myColorGraphics,myLineGraphics);
+        myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
-        // make the table
 
         myVariablesTable = mySidebar.getTable();
         variableCol = new TableColumn("Variable");
@@ -175,7 +163,7 @@ public class Display {
     }
 
     public void updateLines () {
-
+    	
         double startX = myTurtle.getStartXCor();
         double startY = myTurtle.getStartYCor();
         double endX = myTurtle.getEndXCor();
@@ -186,7 +174,7 @@ public class Display {
         }
         myTurtle.setStartXCor(endX);
         myTurtle.setStartYCor(endY);
-
+        
     }
 
     public boolean contains (TableView<DisplayVariable> table, DisplayVariable obj) {
