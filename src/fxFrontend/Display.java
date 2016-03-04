@@ -40,14 +40,12 @@ import fxFrontend.Line;
 public class Display {
     private BorderPane myBorder;
     private Scene myScene;
-    private VBox leftBox, centerBox, consoleBox;
     private CreateSidebar mySidebar = new CreateSidebar();
     private CreateTurtleScreen myScreen = new CreateTurtleScreen();
     private CreateConsole myConsole = new CreateConsole();
     private Button myButton;
     private TextArea historyBox, myConsoleBox, myTurtleStatsBox;
     private StringBuilder commandHistory = new StringBuilder();
-    private String consoleText;
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
     private Turtle myTurtle;
     private MenuBar myMenu;
@@ -66,12 +64,7 @@ public class Display {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void displayScreen () {
-        leftBox = mySidebar.getBox();
-        centerBox = myScreen.getScreen();
-        consoleBox = myConsole.getConsole();
-        myBorder.setLeft(leftBox);
-        myBorder.setCenter(centerBox);
-        myBorder.setRight(consoleBox);
+    	displayElements();
         myTurtle = myScreen.getMyTurtle();
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
@@ -91,6 +84,16 @@ public class Display {
 
         updateDisplay();
     }
+    
+    public void displayElements(){
+        VBox leftBox = mySidebar.getBox();
+        VBox centerBox = myScreen.getScreen();
+        VBox consoleBox = myConsole.getConsole();
+        myBorder.setLeft(leftBox);
+        myBorder.setCenter(centerBox);
+        myBorder.setRight(consoleBox);
+
+    }
 
     public void updateDisplay () {
         myButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -104,7 +107,7 @@ public class Display {
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
 
-                consoleText = output.getResult().toString();
+                String consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
 
                 String myTurtleStats =
