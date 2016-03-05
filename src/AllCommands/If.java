@@ -12,7 +12,7 @@ import Main.Turtle;
 
 
 public class If extends ControlStructuredCommand {
-    
+
     public If (Turtle turtle,
                List<StringBuilder> ListOfContents,
                ResourceBundle lang,
@@ -26,19 +26,20 @@ public class If extends ControlStructuredCommand {
 
     @Override
     public String executeCommand () {
-        if(Integer.parseInt(myChildren[0].getValue()) != 0)
-            return executeStatement();
-        else
+        if (myContent == null)
             return ZERO;
+        if (Integer.parseInt(myChildren[0].getValue()) == 0)
+            return ZERO;
+        else
+            return executeStatement();
     }
-    
-    private String executeStatement() {
+
+    private String executeStatement () {
         CommandDecoder cdecoder = new CommandDecoder();
         Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
         Stack<Node> result =
                 parser.buildExpressionTree(cdecoder.parseCommand((myContent.toString())));
         List<String> ret = parser.stringizer(result);
-
         return ret.get(ret.size() - 1);
     }
 }

@@ -34,6 +34,8 @@ public class IfElse extends ControlStructuredCommand {
         CommandDecoder cdecoder = new CommandDecoder();
         Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
         boolean ifOrElse = (Integer.parseInt(myChildren[0].getValue()) == 0);
+        if((ifOrElse && myTrueCommand == null) || !(ifOrElse) && myFalseCommand == null)
+            return ZERO;
         Stack<Node> result =
                 parser.buildExpressionTree(cdecoder.parseCommand((ifOrElse?myTrueCommand:myFalseCommand).toString()));
         List<String> ret = parser.stringizer(result);
