@@ -1,5 +1,6 @@
 package fxFrontend;
 
+import fxFrontend.Display.ObserveTurtle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -24,14 +25,14 @@ public class CreateSidebar {
 	private ScrollPane myTurtleStats, myUserCommands, myVariables;
 	private Label myTurtleLabel, myUserLabel, myVariablesLabel;
 	private TextArea myTurtleText, myUserText, myVariablesText;
-	private Button myHelpButton; 
+	private Button myHelpButton, myNewWorkspaceButton; 
 	private int WIDTH = 200;
 	private int HEIGHT = 180;
 	private TableView myVariablesTable;
 	private TableColumn variableCol, valueCol;
 
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public CreateSidebar(){
 		
 		myConsole = new VBox(20); // spacing = 8
@@ -85,6 +86,21 @@ public class CreateSidebar {
 				//End web stuff
 			}
 		});
+		
+		myNewWorkspaceButton = new Button("New Turtle Screen"); 
+		myConsole.getChildren().add(myNewWorkspaceButton);
+		myNewWorkspaceButton.setOnAction(new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent event) {
+				Stage myNewStage = new Stage();
+		    	Display myDisplay = new Display();
+		    	ObserveTurtle obTurtle = myDisplay.new ObserveTurtle();
+		    	myDisplay.getTurtle().addObserver(obTurtle);
+		    	myNewStage.setScene(myDisplay.getScene());
+		    	myNewStage.show();
+			}
+			});
+		
+
 //		myVariablesLabel = new Label("Variables:");
 //		myVariablesTable = new TableView();
 //		myVariablesTable.setEditable(false);
