@@ -80,6 +80,7 @@ public class Display {
         myVariablesTable = mySidebar.getTable();
         data = FXCollections.observableArrayList(); // create the data
         myVariablesTable.setItems(data);
+        updateTurtleStats();
         updateDisplay();
     }
 
@@ -97,14 +98,28 @@ public class Display {
                 output = mb.executeCommand(parsedCommands);
                 String consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
-                String myTurtleStats =
-                        "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
-                                myTurtle.getStartYCor();
-                myTurtleStatsBox.setText(myTurtleStats);
+                updateTurtleStats();
+//                String myTurtleStats =
+//                        "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
+//                                myTurtle.getStartYCor() ;
+//                myTurtleStatsBox.setText(myTurtleStats);
                 iterateVar(); 
                 updateTurtle(); 
             }
         });
+    }
+    
+    public void updateTurtleStats(){
+    	String xCoor = "X Coordinate: " + myTurtle.getStartXCor() + "\n";
+    	String yCoor = "Y Coordinate: " + myTurtle.getStartYCor() + "\n";
+    	String pen = "Down" + "\n";
+    	if(myTurtle.getPen() == 0){
+    		pen = "Up" + "\n"; 
+    	}
+    	
+    	String myTurtleStats = xCoor + yCoor + pen;
+                
+        myTurtleStatsBox.setText(myTurtleStats);
     }
     
     public void updateTurtle(){
@@ -112,7 +127,7 @@ public class Display {
          double YCoor = myTurtle.getEndYCor();
          double Head = myTurtle.getHeading();
          int Visib = myTurtle.getVisibility();
-
+         drawRotatedImage(myGraphics, 40, 0 ,0);
          if (Visib == 1) {
              myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
              rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
@@ -180,9 +195,18 @@ public class Display {
         return (turtle.getStartYCor() + (turtle.getTurtleImage().getHeight() / 2));
     }
 
-    private void rotate (GraphicsContext gc, double angle, double px, double py) {
+    private void rotate (GraphicsContext gc, double angle, double px, double py){
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+    }
+    
+    //*Testing new stuff
+    private void drawRotatedImage(GraphicsContext gc, double angle, double tlpx, double tlpy){
+    	gc.save();
+    	Image turtleImage = myTurtle.getTurtleImage(); 
+    	rotate(gc, angle, tlpx+ turtleImage.getWidth() / 2, tlpy + turtleImage.getHeight() / 2);
+    	gc.drawImage(turtleImage, tlpx, tlpy);
+    	gc.restore(); 
     }
 
     public Scene getScene () {
