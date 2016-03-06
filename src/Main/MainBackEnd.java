@@ -21,14 +21,11 @@ public class MainBackEnd {
     private static final int DEFAULTLANG = 0;
 
     private static List<Variable> myVariableList = new ArrayList<Variable>();
-    private static final String[] possibleLanguages = { "English" };
-    private static ResourceBundle myLanguages = ResourceBundle
-            .getBundle("resources.languages/" +
-                       possibleLanguages[DEFAULTLANG]);
+    private static ResourceBundle myLanguage;
     private Turtle myTurtle;
 
     public Output executeCommand (Collection<?> commands) {
-        Parser parser = new Parser(myTurtle, myLanguages, myVariableList);
+        Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
         Stack<Node> result;
         try {
             result = parser.buildExpressionTree(commands);
@@ -47,11 +44,12 @@ public class MainBackEnd {
     public Collection<?> setup (String input, InputObject inputObject) {
         InputNormalizer iNormalizer = new InputNormalizer();
         myTurtle = inputObject.getTurtle();
+        myLanguage = inputObject.getLanguage();
         return iNormalizer.normalizeInput(input);
     }
 
     private void setLanguage (ResourceBundle bundle) {
-        myLanguages = bundle;
+        myLanguage = bundle;
     }
 
     public static List<Variable> getVariables () {
