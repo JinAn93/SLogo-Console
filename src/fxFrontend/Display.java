@@ -50,7 +50,7 @@ public class Display {
     private List<Variable> myVarList;
     private Output output;
     private LanguageReader myReader;
-    
+    private InputObject myInput;
 
     public Display () {
         myBorder = new BorderPane();
@@ -100,7 +100,7 @@ public class Display {
             public void handle (ActionEvent e) {
                 String myCommand = myScreen.getCodeInput().getText();
                 MainBackEnd mb = new MainBackEnd();
-                InputObject myInput = new InputObject(myCommand, myTurtle);
+                myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
                 if (output != null) {
@@ -227,5 +227,9 @@ public class Display {
         public void update (Observable obs, Object turtle) {
             updateLines();
         }
+    }
+    
+    public InputObject getInput(){
+    	return myInput; 
     }
 }
