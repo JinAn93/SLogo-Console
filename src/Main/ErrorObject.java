@@ -8,14 +8,14 @@ public class ErrorObject {
 	private String errorType; 
 	private Alert alert = new Alert(AlertType.INFORMATION);
 	
-	public ErrorObject(String type, String error){
-		errorType = type; 
+	public ErrorObject(String error){
+//		errorType = type; 
 		errorMessage = error; 
 	}
 	
 	public void displayError(){
 		alert.setTitle("Error Dialog");
-		alert.setHeaderText("Error processing the command: " + errorType);
+		alert.setHeaderText("Error processing the command.");
 		alert.setContentText(errorMessage);
 		alert.showAndWait();
 	}
