@@ -22,6 +22,7 @@ public class MainBackEnd {
 
     private static List<Variable> myVariableList = new ArrayList<Variable>();
     private static ResourceBundle myLanguage;
+
     private Turtle myTurtle;
 
     public Output executeCommand (Collection<?> commands) {

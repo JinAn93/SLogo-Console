@@ -22,6 +22,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import fxFrontend.DisplayObject;
+
+import java.io.IOException;
 import java.util.*;
 import Commands.Variable;
 import Main.Output;
@@ -31,7 +33,7 @@ import Main.InputObject;
 import fxMenu.SlogoMenuCreator;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
-
+import fxFrontend.LanguageReader;
 
 public class Display {
     private BorderPane myBorder;
@@ -47,9 +49,20 @@ public class Display {
     private ObservableList<DisplayObject> data;
     private List<Variable> myVarList;
     private Output output;
+    private LanguageReader myReader;
+    
 
     public Display () {
         myBorder = new BorderPane();
+		myReader = new LanguageReader();
+		try {
+			myReader.load("English");
+		} catch (IOException e) {
+			System.out.println("Wrong file");
+			System.exit(1);
+		}
+		System.out.println(myReader.getString("Forward"));
+
         displayScreen();
         myBorder.setPadding(new Insets(10, 20, 10, 20));
         myScene = new Scene(myBorder, 1100, 800);
