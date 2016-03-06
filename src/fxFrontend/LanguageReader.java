@@ -7,7 +7,7 @@ import java.util.Properties;
  * @author davidyan
  */
 public class LanguageReader {
-    public static final String folder = "resources.languages";
+    public static final String folder = "languagefiles";
     private static final String suffix = ".properties";
     Properties myProperties;
     private InputStream myFileStream;

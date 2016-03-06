@@ -11,9 +11,10 @@ public class SlogoMenuCreator {
     private CreateTurtleSelectionMenu myTurtleImages;
     private CreatePenColorMenu myPenMenu;
     private CreatePenPropertiesMenu myPenPropertiesMenu;
+    private ChooseLanguageMenu myLanguageMenu;
     
-    private Turtle myTurtle; //createturtleselectionmenu and createpenpropertiesmenu
-    private GraphicsContext myGraphics; // createPenColorMenu
+    private Turtle myTurtle; 
+    private GraphicsContext myGraphics;
     private GraphicsContext myLineGraphics;
     
     public SlogoMenuCreator(Turtle turt, GraphicsContext toChange, GraphicsContext myLines){
@@ -31,6 +32,9 @@ public class SlogoMenuCreator {
         myMenu.getMenus().add(myPenMenu.getPenMenu());
         myPenPropertiesMenu = new CreatePenPropertiesMenu(myTurtle);
         myMenu.getMenus().add(myPenPropertiesMenu.getPenUpMenu());
+        
+        myLanguageMenu = new ChooseLanguageMenu();
+        myMenu.getMenus().add(myLanguageMenu.getMenu());
 
 
     }
