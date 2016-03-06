@@ -47,7 +47,7 @@ public class MainBackEnd {
     public Collection<?> setup (String input, InputObject inputObject) {
         InputNormalizer iNormalizer = new InputNormalizer();
         myTurtle = inputObject.getTurtle();
-        return iNormalizer.parseCommand(input);
+        return iNormalizer.normalizeInput(input);
     }
 
     private void setLanguage (ResourceBundle bundle) {

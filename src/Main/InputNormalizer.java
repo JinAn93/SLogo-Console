@@ -16,7 +16,7 @@ public class InputNormalizer {
 
     private static final String SPACE = " ";
 
-    public Collection<?> parseCommand (String input) {
+    public Collection<?> normalizeInput (String input) {
         if (input == null) {
             return null;
         }

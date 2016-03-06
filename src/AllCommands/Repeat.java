@@ -1,12 +1,12 @@
 package AllCommands;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
 import Commands.ControlStructuredCommand;
 import Commands.Node;
 import Commands.Variable;
-import Error_Checking.ErrorObject;
 import Main.*;
 
 
@@ -34,18 +34,20 @@ public class Repeat extends ControlStructuredCommand {
         }
         newCommand.deleteCharAt(newCommand.length() - 1);
         System.out.println("The copied Strings are : \n" + newCommand.toString() + "\n");
-        InputNormalizer iNormalizer = new InputNormalizer();
         Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
-        
+
         Stack<Node> result;
-        try{
-            result = parser.buildExpressionTree(iNormalizer.parseCommand((newCommand.toString())));
+        try {
+            result = parser.buildExpressionTree(Arrays.asList(newCommand.toString().split(" ")));
+            if (result == null) {
+                throw new Exception();
+            }
             List<String> ret = parser.stringizer(result);
-            System.out.println("Repeat Stack is done! Repeat will return : " + ret.get(ret.size() - 1));
+            System.out.println("Repeat Stack is done! Repeat will return : " +
+                               ret.get(ret.size() - 1));
             return ret.get(ret.size() - 1);
         }
-        catch (ClassNotFoundException e) {
-            new ErrorObject(INSTRUCTION_ERROR).displayError();
+        catch (Exception e) {
             return null;
         }
     }

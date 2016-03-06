@@ -1,12 +1,13 @@
 package AllCommands;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
 import Commands.ControlStructuredCommand;
 import Commands.Node;
 import Commands.Variable;
-import Error_Checking.ErrorObject;
 import Main.*;
 
 
@@ -30,7 +31,6 @@ public class IfElse extends ControlStructuredCommand {
 
     @Override
     public String executeCommand () {
-        InputNormalizer iNormalizer = new InputNormalizer();
         Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
         boolean ifOrElse = (Integer.parseInt(myChildren[0].getValue()) == 0);
         if ((ifOrElse && myTrueCommand == null) || !(ifOrElse) && myFalseCommand == null)
@@ -38,14 +38,16 @@ public class IfElse extends ControlStructuredCommand {
 
         Stack<Node> result;
         try {
-            result = parser.buildExpressionTree(iNormalizer.parseCommand((ifOrElse ? myTrueCommand
-                                                                                  : myFalseCommand)
-                    .toString()));
+            Collection<?> contents =
+                    Arrays.asList((ifOrElse ? myTrueCommand : myFalseCommand).split(" "));
+            result = parser.buildExpressionTree(contents);
+            if (result == null) {
+                throw new Exception();
+            }
             List<String> ret = parser.stringizer(result);
             return ret.get(ret.size() - 1);
         }
-        catch (ClassNotFoundException e) {
-            new ErrorObject(INSTRUCTION_ERROR).displayError();
+        catch (Exception e) {
             return null;
         }
     }
