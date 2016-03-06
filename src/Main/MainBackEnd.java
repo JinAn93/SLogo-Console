@@ -27,24 +27,17 @@ public class MainBackEnd {
                        possibleLanguages[DEFAULTLANG]);
     private Turtle myTurtle;
 
-    public MainBackEnd () {
-    }
-
     public Output executeCommand (Collection<?> commands) {
         Parser parser = new Parser(myTurtle, myLanguages, myVariableList);
         Stack<Node> result = parser.buildExpressionTree(commands);
         Output output = new Output(myTurtle, myVariableList);
         output.setResult(parser.stringizer(result));
-        System.out.println("Let's print some output now");
-        
         return output;
     }
 
     public Collection<?> setup (String input, InputObject inputObject) {
         CommandDecoder cDecoder = new CommandDecoder();
-        InputObject io = inputObject;
-        myTurtle = io.getTurtle();
-        System.out.println(cDecoder.parseCommand(input));
+        myTurtle = inputObject.getTurtle();
         return cDecoder.parseCommand(input);
     }
 

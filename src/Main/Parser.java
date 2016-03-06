@@ -70,7 +70,6 @@ public class Parser {
                 System.out.println("In the List : " + content); //prints what's in the list
                 continue;
             }
-            
             stack.push(command);
         }
         System.out.println("Reached the end of stack");
