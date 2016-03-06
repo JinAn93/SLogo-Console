@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
  * Turtle class serves to store its properties such as visibility, xCor, yCor, and pen (up or Down)
  * 
  * @author Jin An
- *
+ * 
  */
 public class Turtle extends Observable{
 
