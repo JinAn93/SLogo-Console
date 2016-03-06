@@ -18,6 +18,7 @@ public abstract class ControlStructuredCommand extends Command {
     protected static final String ZERO = "0";
     protected static final String ONE_INDEXDEFAULT = "1";
     protected static final String SPACE = " ";
+    protected static final String INSTRUCTION_ERROR = "WRONG COMMAND.";
     protected static final int COMMAND_INDEX = 0;
     protected static final int CONTROL_INDEX = 1;
 }

@@ -29,10 +29,19 @@ public class MainBackEnd {
 
     public Output executeCommand (Collection<?> commands) {
         Parser parser = new Parser(myTurtle, myLanguages, myVariableList);
-        Stack<Node> result = parser.buildExpressionTree(commands);
-        Output output = new Output(myTurtle, myVariableList);
-        output.setResult(parser.stringizer(result));
-        return output;
+        Stack<Node> result;
+        try {
+            result = parser.buildExpressionTree(commands);
+            if (result == null) {
+                throw new Exception();
+            }
+            Output output = new Output(myTurtle, myVariableList);
+            output.setResult(parser.stringizer(result));
+            return output;
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 
     public Collection<?> setup (String input, InputObject inputObject) {

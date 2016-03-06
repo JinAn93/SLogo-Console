@@ -6,6 +6,7 @@ import java.util.Stack;
 import Commands.ControlStructuredCommand;
 import Commands.Node;
 import Commands.Variable;
+import Error_Checking.ErrorObject;
 import Main.*;
 
 
@@ -34,11 +35,18 @@ public class IfElse extends ControlStructuredCommand {
         boolean ifOrElse = (Integer.parseInt(myChildren[0].getValue()) == 0);
         if ((ifOrElse && myTrueCommand == null) || !(ifOrElse) && myFalseCommand == null)
             return ZERO;
-        Stack<Node> result =
-                parser.buildExpressionTree(iNormalizer.parseCommand((ifOrElse ? myTrueCommand
-                                                                             : myFalseCommand)
-                        .toString()));
-        List<String> ret = parser.stringizer(result);
-        return ret.get(ret.size() - 1);
+
+        Stack<Node> result;
+        try {
+            result = parser.buildExpressionTree(iNormalizer.parseCommand((ifOrElse ? myTrueCommand
+                                                                                  : myFalseCommand)
+                    .toString()));
+            List<String> ret = parser.stringizer(result);
+            return ret.get(ret.size() - 1);
+        }
+        catch (ClassNotFoundException e) {
+            new ErrorObject(INSTRUCTION_ERROR).displayError();
+            return null;
+        }
     }
 }

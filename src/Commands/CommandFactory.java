@@ -16,74 +16,54 @@ public class CommandFactory {
         myLanguage = lang;
     }
 
-    public Command makeInstruction (String str,
-                                    Turtle turtle,
-                                    List<StringBuilder> content,
-                                    List<Variable> variables) {
-        Enumeration<String> keys = myLanguage.getKeys();
-        String command = null;
-        while (keys.hasMoreElements()) {
-            command = (keys.nextElement());
-            if (str.matches(myLanguage.getString(command))) {
-                break;
-            }
-        }
-        command = "AllCommands." + command;
+    public Command makeInstruction (String commandName, Turtle turtle,
+                                    List<StringBuilder> content, List<Variable> variables) {
+
+        String commandStr = "AllCommands." + searchCommand(commandName, myLanguage.getKeys());
+        Class<?> clas = null;
+        Constructor<?>[] constructors = null;
+        Command command = null;
         try {
-            Class<?> clas = Class.forName(command);
-            Constructor<?>[] constructors = null;
-            try {
-                constructors = clas.getDeclaredConstructors();
-            }
-            catch (SecurityException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            Command com = null;
+            clas = Class.forName(commandStr);
+            constructors = clas.getDeclaredConstructors();
             if (constructors[0].getParameterCount() == 0) {
                 try {
-                    com = (Command) clas.newInstance();
+                    command = (Command) clas.newInstance();
                 }
                 catch (InstantiationException | IllegalAccessException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    return null;
                 }
             }
+
             else if (constructors[0].getParameterCount() == 1) {
-                Class<?>[] parameterTypes = constructors[0].getParameterTypes();
-                if (parameterTypes[0].getSimpleName().equals("Turtle")) {
-                    try {
-                        com = (Command) constructors[0].newInstance(turtle);
-                    }
-                    catch (InstantiationException | IllegalAccessException
-                            | IllegalArgumentException
-                            | InvocationTargetException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }
-            else if (constructors[0].getParameterCount() == 4) {
                 try {
-                    com = (Command) constructors[0].newInstance(turtle, content, myLanguage,
-                                                                variables);
+                    command = (Command) constructors[0].newInstance(turtle);
                 }
                 catch (InstantiationException | IllegalAccessException
-                        | IllegalArgumentException
-                        | InvocationTargetException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                        | IllegalArgumentException | InvocationTargetException e) {
+                    return null;
                 }
+
             }
 
-            return com;
+            else if (constructors[0].getParameterCount() == 4) {
+                try {
+                    command = (Command) constructors[0].newInstance(turtle, content, myLanguage,
+                                                                    variables);
+                }
+                catch (InstantiationException | IllegalAccessException
+                        | IllegalArgumentException | InvocationTargetException e) {
+                    return null;
+                }
+            }
         }
 
-        catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        catch (ClassNotFoundException | SecurityException e) {
+            return null;
         }
-        return null;
+
+        return command;
+
     }
 
     public Operand makeOperand (String operand) {
@@ -116,5 +96,15 @@ public class CommandFactory {
         newVar.setName(variable);
         newVar.setVariable(true);
         return newVar; // Throw Error
+    }
+
+    private String searchCommand (String str, Enumeration<String> keys) {
+        while (keys.hasMoreElements()) {
+            String command = (keys.nextElement());
+            if (str.matches(myLanguage.getString(command))) {
+                return command;
+            }
+        }
+        return null;
     }
 }

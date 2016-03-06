@@ -10,6 +10,9 @@ import Commands.Command;
 import Commands.CommandFactory;
 import Commands.Node;
 import Commands.Variable;
+import Error_Checking.ErrorObject;
+import Error_Checking.InstructionException;
+import Error_Checking.ParameterException;
 
 
 public class Parser {
@@ -19,6 +22,8 @@ public class Parser {
     protected static final ResourceBundle mySyntaxes = ResourceBundle
             .getBundle("resources.languages/Syntax");
 
+    private static final String INSTRUCTION_ERROR = "WRONG COMMAND.";
+    private static final String PARAMETER_ERROR = "WRONG PARAMETER.";
     private Turtle myTurtle;
     private ResourceBundle myLanguage;
     private List<Variable> myVariableList;
@@ -29,7 +34,8 @@ public class Parser {
         myVariableList = variables;
     }
 
-    public Stack<Node> buildExpressionTree (Collection<?> ListOfNodes) {
+    public Stack<Node> buildExpressionTree (Collection<?> ListOfNodes)
+                                                                      throws ClassNotFoundException {
         Stack<Node> stack = new Stack<Node>();
         CommandFactory cf = new CommandFactory(myLanguage);
         String[] nodes = ListOfNodes.toArray(new String[ListOfNodes.size()]);
@@ -38,16 +44,33 @@ public class Parser {
             System.out.println("We are at " + nodes[i] + " Node");
             Node command = null;
             if (isCommand(nodes[i])) {
-                command =
-                        cf.makeInstruction(nodes[i], myTurtle, ListOfContents, myVariableList);
-
-                int paramNum = getParamNum(nodes[i]);
-                Node[] children = new Node[paramNum];
-                for (int c = 0; c < paramNum; c++) {
-                    children[c] = stack.pop();
-                    System.out.println((c + 1) + " child is " + children[c].getValue());
+                try {
+                    command =
+                            cf.makeInstruction(nodes[i], myTurtle, ListOfContents, myVariableList);
+                    if (command == null) {
+                        throw new InstructionException();
+                    }
+                    int paramNum = getParamNum(nodes[i]);
+                    Node[] children = new Node[paramNum];
+                    try {
+                        if (paramNum > stack.size()) {
+                            throw new ParameterException();
+                        }
+                        for (int c = 0; c < paramNum; c++) {
+                            children[c] = stack.pop();
+                            System.out.println((c + 1) + " child is " + children[c].getValue());
+                        }
+                        ((Command) command).setChildren(children);
+                    }
+                    catch (ParameterException e) {
+                        new ErrorObject(PARAMETER_ERROR).displayError();
+                        return null;
+                    }
                 }
-                ((Command) command).setChildren(children);
+                catch (InstructionException e) {
+                    new ErrorObject(INSTRUCTION_ERROR).displayError();
+                    return null;
+                }
             }
             else if (isConstant(nodes[i])) {
                 command = cf.makeOperand(nodes[i]);
@@ -67,7 +90,7 @@ public class Parser {
                 }
                 i = startListIndex;
                 ListOfContents.add(content);
-                System.out.println("In the List : " + content); //prints what's in the list
+                System.out.println("In the List : " + content); // prints what's in the list
                 continue;
             }
             stack.push(command);
@@ -105,12 +128,12 @@ public class Parser {
 
     public List<String> stringizer (Stack<Node> input) {
         List<String> ret = new ArrayList<String>();
-        while (!input.isEmpty()){
+        while (!input.isEmpty()) {
             ret.add(input.pop().getValue());
         }
         return ret;
     }
-    
+
     private boolean isCommand (String input) {
         return input.matches(mySyntaxes.getString("Command"));
     }
@@ -138,6 +161,5 @@ public class Parser {
     private boolean isGroupEnd (String input) {
         return input.matches(mySyntaxes.getString("GroupEnd"));
     }
-    
-    
+
 }

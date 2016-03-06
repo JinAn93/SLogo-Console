@@ -26,7 +26,7 @@ import java.util.*;
 import Commands.Variable;
 import Main.Output;
 import Main.Turtle;
-import Main.ErrorObject;
+import Error_Checking.ErrorObject;
 import Main.InputObject;
 import fxMenu.SlogoMenuCreator;
 import javafx.scene.transform.Rotate;
@@ -43,11 +43,11 @@ public class Display {
     private StringBuilder commandHistory = new StringBuilder();
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
     private Turtle myTurtle;
-	private TableView<DisplayObject> myVariablesTable;
+    private TableView<DisplayObject> myVariablesTable;
     private ObservableList<DisplayObject> data;
     private List<Variable> myVarList;
-    private Output output; 
-    
+    private Output output;
+
     public Display () {
         myBorder = new BorderPane();
         displayScreen();
@@ -56,7 +56,7 @@ public class Display {
     }
 
     @SuppressWarnings({ "unchecked" })
-	public void displayScreen () {
+    public void displayScreen () {
         VBox leftBox = mySidebar.getBox();
         VBox centerBox = myScreen.getScreen();
         VBox consoleBox = myConsole.getConsole();
@@ -70,7 +70,8 @@ public class Display {
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
-        SlogoMenuCreator menuCreator = new SlogoMenuCreator(myTurtle,myColorGraphics,myLineGraphics);
+        SlogoMenuCreator menuCreator =
+                new SlogoMenuCreator(myTurtle, myColorGraphics, myLineGraphics);
         MenuBar myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
         myVariablesTable = mySidebar.getTable();
@@ -89,58 +90,54 @@ public class Display {
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
-                if(!output.isValidCommand()){
-	                String consoleText = output.getResult().toString();
-	                myConsoleBox.setText(consoleText);
-	                commandHistory.append(myCommand + "\n");
-	                historyBox.setText(commandHistory.toString());
-	                updateTurtleStats();
-	                iterateVar(); 
-	                updateTurtle(); 
-                }
-                else{
-                	ErrorObject eo = new ErrorObject(myCommand);
-                	eo.displayError();
+                if (output != null) {
+                    String consoleText = output.getResult().toString();
+                    myConsoleBox.setText(consoleText);
+                    commandHistory.append(myCommand + "\n");
+                    historyBox.setText(commandHistory.toString());
+                    updateTurtleStats();
+                    iterateVar();
+                    updateTurtle();
                 }
             }
         });
     }
-    
-    public void updateTurtleStats(){
-    	String xCoor = "X Coordinate: " + myTurtle.getStartXCor() + "\n";
-    	String yCoor = "Y Coordinate: " + myTurtle.getStartYCor() + "\n";
-    	String heading = "Heading: " + myTurtle.getHeading() + "\n";
-    	String pen = "Pen: Down" + "\n";
-    	if(myTurtle.getPen() == 0){
-    		pen = "Pen: Up" + "\n"; 
-    	}
-    	String turtleHeading = "Turtle Heading: "+myTurtle.getHeading() + "\n";
-    	
-    	String myTurtleStats = xCoor + yCoor + pen + turtleHeading;
-                
+
+    public void updateTurtleStats () {
+        String xCoor = "X Coordinate: " + myTurtle.getStartXCor() + "\n";
+        String yCoor = "Y Coordinate: " + myTurtle.getStartYCor() + "\n";
+        String heading = "Heading: " + myTurtle.getHeading() + "\n";
+        String pen = "Pen: Down" + "\n";
+        if (myTurtle.getPen() == 0) {
+            pen = "Pen: Up" + "\n";
+        }
+        String turtleHeading = "Turtle Heading: " + myTurtle.getHeading() + "\n";
+
+        String myTurtleStats = xCoor + yCoor + pen + turtleHeading;
+
         myTurtleStatsBox.setText(myTurtleStats);
     }
-    
-    public void updateTurtle(){
-    	 double xCoor = myTurtle.getEndXCor();
-         double yCoor = myTurtle.getEndYCor();
-         double head = myTurtle.getHeading();
-         int visib = myTurtle.getVisibility();
 
-         if (visib == 1) {
-             myGraphics.drawImage(myTurtle.getTurtleImage(), xCoor, yCoor);
-             rotate(myGraphics, head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-             myGraphics.clearRect(0, 0, 600, 600);
-             myGraphics.fillRect(0, 0, 600, 600);
-             myGraphics.drawImage(myTurtle.getTurtleImage(), xCoor, yCoor);
-         }
-         else {
-             myGraphics.clearRect(0, 0, 600, 600);
-         }
+    public void updateTurtle () {
+        double xCoor = myTurtle.getEndXCor();
+        double yCoor = myTurtle.getEndYCor();
+        double head = myTurtle.getHeading();
+        int visib = myTurtle.getVisibility();
+
+        if (visib == 1) {
+            myGraphics.drawImage(myTurtle.getTurtleImage(), xCoor, yCoor);
+            rotate(myGraphics, head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
+            myGraphics.clearRect(0, 0, 600, 600);
+            myGraphics.fillRect(0, 0, 600, 600);
+            myGraphics.drawImage(myTurtle.getTurtleImage(), xCoor, yCoor);
+        }
+        else {
+            myGraphics.clearRect(0, 0, 600, 600);
+        }
     }
-    
-    public void iterateVar(){
-    	myVarList = output.getVariables();
+
+    public void iterateVar () {
+        myVarList = output.getVariables();
         for (Variable aVar : myVarList) {
             DisplayObject tempVar = new DisplayObject(aVar.getName(), aVar.getValue());
             if (!contains(myVariablesTable, tempVar)) {
@@ -148,27 +145,27 @@ public class Display {
             }
         }
     }
-    
-    public void clearScreen(){
-    	myGraphics.clearRect(0, 0, 600, 600);
-    	myGraphics.fillRect(0, 0, 600, 600);
-    	myLineGraphics.clearRect(0, 0, 600, 600);
-    	myGraphics.fillRect(0, 0, 600, 600);
+
+    public void clearScreen () {
+        myGraphics.clearRect(0, 0, 600, 600);
+        myGraphics.fillRect(0, 0, 600, 600);
+        myLineGraphics.clearRect(0, 0, 600, 600);
+        myGraphics.fillRect(0, 0, 600, 600);
     }
 
     public void updateLines () {
-    	
+
         double startX = myTurtle.getStartXCor();
         double startY = myTurtle.getStartYCor();
         double endX = myTurtle.getEndXCor();
         double endY = myTurtle.getEndYCor();
-        if(myTurtle.getPen()==1){
-        	myLineGraphics.setLineWidth(myTurtle.getPenWidth());
-        	myLineGraphics.strokeLine(startX, startY, endX, endY);
+        if (myTurtle.getPen() == 1) {
+            myLineGraphics.setLineWidth(myTurtle.getPenWidth());
+            myLineGraphics.strokeLine(startX, startY, endX, endY);
         }
         myTurtle.setStartXCor(endX);
         myTurtle.setStartYCor(endY);
-        
+
     }
 
     public boolean contains (TableView<DisplayObject> table, DisplayObject obj) {
@@ -194,18 +191,18 @@ public class Display {
         return (turtle.getStartYCor() + (turtle.getTurtleImage().getHeight() / 2));
     }
 
-    private void rotate (GraphicsContext gc, double angle, double px, double py){
+    private void rotate (GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
-    
-    //*Testing new stuff
-    private void drawRotatedImage(GraphicsContext gc, double angle, double tlpx, double tlpy){
-    	gc.save();
-    	Image turtleImage = myTurtle.getTurtleImage(); 
-    	rotate(gc, angle, tlpx+ turtleImage.getWidth() / 2, tlpy + turtleImage.getHeight() / 2);
-    	gc.drawImage(turtleImage, tlpx, tlpy);
-    	gc.restore(); 
+
+    // *Testing new stuff
+    private void drawRotatedImage (GraphicsContext gc, double angle, double tlpx, double tlpy) {
+        gc.save();
+        Image turtleImage = myTurtle.getTurtleImage();
+        rotate(gc, angle, tlpx + turtleImage.getWidth() / 2, tlpy + turtleImage.getHeight() / 2);
+        gc.drawImage(turtleImage, tlpx, tlpy);
+        gc.restore();
     }
 
     public Scene getScene () {
@@ -215,7 +212,7 @@ public class Display {
     public class ObserveTurtle implements Observer {
         @Override
         public void update (Observable obs, Object turtle) {
-        	updateLines();
+            updateLines();
         }
     }
 }
