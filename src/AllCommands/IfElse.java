@@ -6,9 +6,7 @@ import java.util.Stack;
 import Commands.ControlStructuredCommand;
 import Commands.Node;
 import Commands.Variable;
-import Main.CommandDecoder;
-import Main.Parser;
-import Main.Turtle;
+import Main.*;
 
 
 public class IfElse extends ControlStructuredCommand {
@@ -31,13 +29,15 @@ public class IfElse extends ControlStructuredCommand {
 
     @Override
     public String executeCommand () {
-        CommandDecoder cdecoder = new CommandDecoder();
+        InputNormalizer iNormalizer = new InputNormalizer();
         Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
         boolean ifOrElse = (Integer.parseInt(myChildren[0].getValue()) == 0);
-        if((ifOrElse && myTrueCommand == null) || !(ifOrElse) && myFalseCommand == null)
+        if ((ifOrElse && myTrueCommand == null) || !(ifOrElse) && myFalseCommand == null)
             return ZERO;
         Stack<Node> result =
-                parser.buildExpressionTree(cdecoder.parseCommand((ifOrElse?myTrueCommand:myFalseCommand).toString()));
+                parser.buildExpressionTree(iNormalizer.parseCommand((ifOrElse ? myTrueCommand
+                                                                             : myFalseCommand)
+                        .toString()));
         List<String> ret = parser.stringizer(result);
         return ret.get(ret.size() - 1);
     }

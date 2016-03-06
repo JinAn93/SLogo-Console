@@ -6,9 +6,7 @@ import java.util.Stack;
 import Commands.ControlStructuredCommand;
 import Commands.Node;
 import Commands.Variable;
-import Main.CommandDecoder;
-import Main.Parser;
-import Main.Turtle;
+import Main.*;
 
 
 public class If extends ControlStructuredCommand {
@@ -35,10 +33,10 @@ public class If extends ControlStructuredCommand {
     }
 
     private String executeStatement () {
-        CommandDecoder cdecoder = new CommandDecoder();
+        InputNormalizer iNormalizer = new InputNormalizer();
         Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
         Stack<Node> result =
-                parser.buildExpressionTree(cdecoder.parseCommand((myContent.toString())));
+                parser.buildExpressionTree(iNormalizer.parseCommand((myContent.toString())));
         List<String> ret = parser.stringizer(result);
         return ret.get(ret.size() - 1);
     }

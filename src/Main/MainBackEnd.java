@@ -36,9 +36,9 @@ public class MainBackEnd {
     }
 
     public Collection<?> setup (String input, InputObject inputObject) {
-        CommandDecoder cDecoder = new CommandDecoder();
+        InputNormalizer iNormalizer = new InputNormalizer();
         myTurtle = inputObject.getTurtle();
-        return cDecoder.parseCommand(input);
+        return iNormalizer.parseCommand(input);
     }
 
     private void setLanguage (ResourceBundle bundle) {

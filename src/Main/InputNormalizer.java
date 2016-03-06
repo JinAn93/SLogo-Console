@@ -5,12 +5,14 @@ import java.util.Collection;
 
 
 /**
- * CommandDecoder serves to parse the input and check whether there exist any error.
+ * InputNormalizer serves to normalize input. Returns null if there is no input. It will consider
+ * taking out comments (line starts with #), changing into lower case, and replacing consecutive
+ * spaces into single space.
  * 
  * @author Jin An
  *
  */
-public class CommandDecoder {
+public class InputNormalizer {
 
     private static final String SPACE = " ";
 

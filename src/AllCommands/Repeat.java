@@ -6,9 +6,7 @@ import java.util.Stack;
 import Commands.ControlStructuredCommand;
 import Commands.Node;
 import Commands.Variable;
-import Main.CommandDecoder;
-import Main.Parser;
-import Main.Turtle;
+import Main.*;
 
 
 public class Repeat extends ControlStructuredCommand {
@@ -35,10 +33,10 @@ public class Repeat extends ControlStructuredCommand {
         }
         newCommand.deleteCharAt(newCommand.length() - 1);
         System.out.println("The copied Strings are : \n" + newCommand.toString() + "\n");
-        CommandDecoder cdecoder = new CommandDecoder();
+        InputNormalizer iNormalizer = new InputNormalizer();
         Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
         Stack<Node> result =
-                parser.buildExpressionTree(cdecoder.parseCommand((newCommand.toString())));
+                parser.buildExpressionTree(iNormalizer.parseCommand((newCommand.toString())));
         List<String> ret = parser.stringizer(result);
         System.out.println("Repeat Stack is done! Repeat will return : " + ret.get(ret.size() - 1));
         return ret.get(ret.size() - 1);
