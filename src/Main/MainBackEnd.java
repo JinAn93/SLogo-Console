@@ -23,7 +23,7 @@ public class MainBackEnd {
     private static List<Variable> myVariableList = new ArrayList<Variable>();
     private static final String[] possibleLanguages = { "English" };
     private static ResourceBundle myLanguages = ResourceBundle
-            .getBundle("resources.languages/" +
+            .getBundle("languagefiles/" +
                        possibleLanguages[DEFAULTLANG]);
     private Turtle myTurtle;
 

@@ -20,7 +20,7 @@ public class Parser {
     private static final ResourceBundle myParameters = ResourceBundle
             .getBundle("resources.ParameterList/AllParameters");
     protected static final ResourceBundle mySyntaxes = ResourceBundle
-            .getBundle("resources.languages/Syntax");
+            .getBundle("languagefiles/Syntax");
 
     private static final String INSTRUCTION_ERROR = "WRONG COMMAND.";
     private static final String PARAMETER_ERROR = "WRONG PARAMETER.";
