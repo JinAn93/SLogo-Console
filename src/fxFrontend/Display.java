@@ -22,7 +22,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import fxFrontend.DisplayObject;
-
 import java.io.IOException;
 import java.util.*;
 import Commands.Variable;
@@ -34,6 +33,7 @@ import fxMenu.SlogoMenuCreator;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
 import fxFrontend.LanguageReader;
+
 
 public class Display {
     private BorderPane myBorder;
@@ -50,18 +50,23 @@ public class Display {
     private List<Variable> myVarList;
     private Output output;
     private LanguageReader myReader;
+    private static final ResourceBundle defaultLang = ResourceBundle
+            .getBundle("languagefiles/English");
+    private ResourceBundle myLang = defaultLang;
     private InputObject myInput;
+    
 
     public Display () {
         myBorder = new BorderPane();
-		myReader = new LanguageReader();
-		try {
-			myReader.load("English");
-		} catch (IOException e) {
-			System.out.println("Wrong file");
-			System.exit(1);
-		}
-		System.out.println(myReader.getString("Forward"));
+        myReader = new LanguageReader();
+        try {
+            myReader.load("English");
+        }
+        catch (IOException e) {
+            System.out.println("Wrong file");
+            System.exit(1);
+        }
+        System.out.println(myReader.getString("Forward"));
 
         displayScreen();
         myBorder.setPadding(new Insets(10, 20, 10, 20));
@@ -84,7 +89,7 @@ public class Display {
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
         SlogoMenuCreator menuCreator =
-                new SlogoMenuCreator(myTurtle, myColorGraphics, myLineGraphics);
+                new SlogoMenuCreator(myTurtle, myColorGraphics, myLineGraphics, this);
         MenuBar myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
         myVariablesTable = mySidebar.getTable();
@@ -100,7 +105,7 @@ public class Display {
             public void handle (ActionEvent e) {
                 String myCommand = myScreen.getCodeInput().getText();
                 MainBackEnd mb = new MainBackEnd();
-                myInput = new InputObject(myCommand, myTurtle);
+                myInput = new InputObject(myCommand, myTurtle, myLang);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
                 if (output != null) {
@@ -228,8 +233,9 @@ public class Display {
             updateLines();
         }
     }
-    
-    public InputObject getInput(){
-    	return myInput; 
+
+    public void setLanguage (ResourceBundle language) {
+        myLang = language;
     }
+
 }

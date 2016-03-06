@@ -1,7 +1,7 @@
 package fxMenu;
 import java.util.*;
-
 import Main.InputObject;
+import Main.MainBackEnd;
 import fxFrontend.Display;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,9 +17,11 @@ public class ChooseLanguageMenu {
 	private String myLang;
 	private InputObject myInput;
 	private Display disp; 
+	private ResourceBundle myResource;
 	
-	public ChooseLanguageMenu(){
+	public ChooseLanguageMenu(Display useDisplay){
 		myLanguageMenu = new Menu("Choose Language");
+		disp = useDisplay;
 		getLanguages();
 		myLanguageMenu.getItems().addAll(myLanguageOptions); 
 	}
@@ -29,9 +31,8 @@ public class ChooseLanguageMenu {
 			MenuItem anItem = new MenuItem(aString);
 	        anItem.setOnAction(new EventHandler<ActionEvent>() {
 	            public void handle(ActionEvent e) {
-	            	myInput = disp.getInput();
-	            	ResourceBundle language = ResourceBundle.getBundle("languagefiles/" + aString);
-	            	myInput.setLanguage(language);
+	            	myResource = ResourceBundle.getBundle("languagefiles/" + aString);
+	            	disp.setLanguage(myResource);
 	            }
 	        });
 	        myLanguageOptions.add(anItem);

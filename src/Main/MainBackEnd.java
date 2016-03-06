@@ -18,11 +18,8 @@ import Commands.*;
 
 public class MainBackEnd {
 
-    private static final int DEFAULTLANG = 0;
-
     private static List<Variable> myVariableList = new ArrayList<Variable>();
     private static ResourceBundle myLanguage;
-
     private Turtle myTurtle;
 
     public Output executeCommand (Collection<?> commands) {
@@ -49,7 +46,7 @@ public class MainBackEnd {
         return iNormalizer.normalizeInput(input);
     }
 
-    private void setLanguage (ResourceBundle bundle) {
+    public void setLanguage (ResourceBundle bundle) {
         myLanguage = bundle;
     }
 

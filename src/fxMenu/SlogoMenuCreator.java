@@ -1,5 +1,7 @@
 package fxMenu;
 
+import java.util.ResourceBundle;
+import fxFrontend.Display;
 import Main.Turtle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuBar;
@@ -16,12 +18,14 @@ public class SlogoMenuCreator {
     private Turtle myTurtle; 
     private GraphicsContext myGraphics;
     private GraphicsContext myLineGraphics;
+    private Display myDisplay;
     
-    public SlogoMenuCreator(Turtle turt, GraphicsContext toChange, GraphicsContext myLines){
+    public SlogoMenuCreator(Turtle turt, GraphicsContext toChange, GraphicsContext myLines, Display useDisplay){
     	myMenu = new MenuBar();
     	myTurtle = turt;
     	myGraphics = myLines;
     	myLineGraphics = myLines;
+    	myDisplay = useDisplay;
     	
         createMenu = new CreateBackgroundColorMenu(myGraphics, myLineGraphics);
         myMenu.getMenus().add(createMenu.getColorMenu());
@@ -33,7 +37,7 @@ public class SlogoMenuCreator {
         myPenPropertiesMenu = new CreatePenPropertiesMenu(myTurtle);
         myMenu.getMenus().add(myPenPropertiesMenu.getPenUpMenu());
         
-        myLanguageMenu = new ChooseLanguageMenu();
+        myLanguageMenu = new ChooseLanguageMenu(myDisplay);
         myMenu.getMenus().add(myLanguageMenu.getMenu());
 
 
