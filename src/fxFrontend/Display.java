@@ -28,10 +28,6 @@ import Main.Output;
 import Main.Turtle;
 import Main.ErrorObject;
 import Main.InputObject;
-import fxMenu.CreateBackgroundColorMenu;
-import fxMenu.CreatePenColorMenu;
-import fxMenu.CreatePenPropertiesMenu;
-import fxMenu.CreateTurtleSelectionMenu;
 import fxMenu.SlogoMenuCreator;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
@@ -59,7 +55,7 @@ public class Display {
         myScene = new Scene(myBorder, 1100, 800);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "unchecked" })
 	public void displayScreen () {
         VBox leftBox = mySidebar.getBox();
         VBox centerBox = myScreen.getScreen();
@@ -87,8 +83,7 @@ public class Display {
     public void updateDisplay () {
         Button myButton = myScreen.getButton();
         myButton.setOnAction(new EventHandler<ActionEvent>() {
-            @SuppressWarnings("unchecked")
-			public void handle (ActionEvent e) {
+            public void handle (ActionEvent e) {
                 String myCommand = myScreen.getCodeInput().getText();
                 MainBackEnd mb = new MainBackEnd();
                 commandHistory.append(myCommand + "\n");
@@ -99,10 +94,6 @@ public class Display {
                 String consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
                 updateTurtleStats();
-//                String myTurtleStats =
-//                        "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
-//                                myTurtle.getStartYCor() ;
-//                myTurtleStatsBox.setText(myTurtleStats);
                 iterateVar(); 
                 updateTurtle(); 
             }
@@ -112,12 +103,13 @@ public class Display {
     public void updateTurtleStats(){
     	String xCoor = "X Coordinate: " + myTurtle.getStartXCor() + "\n";
     	String yCoor = "Y Coordinate: " + myTurtle.getStartYCor() + "\n";
-    	String pen = "Down" + "\n";
+    	String pen = "Pen: Down" + "\n";
     	if(myTurtle.getPen() == 0){
-    		pen = "Up" + "\n"; 
+    		pen = "Pen: Up" + "\n"; 
     	}
+    	String turtleHeading = "Turtle Heading: "+myTurtle.getHeading() + "\n";
     	
-    	String myTurtleStats = xCoor + yCoor + pen;
+    	String myTurtleStats = xCoor + yCoor + pen + turtleHeading;
                 
         myTurtleStatsBox.setText(myTurtleStats);
     }
