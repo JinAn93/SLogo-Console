@@ -7,6 +7,8 @@ import java.util.Stack;
 import Commands.ControlStructuredCommand;
 import Commands.Node;
 import Commands.Variable;
+import Error_Checking.ErrorObject;
+import Error_Checking.VariableException;
 import Main.*;
 
 
@@ -16,7 +18,7 @@ public class For extends ControlStructuredCommand {
     private static final int INDEX_START = 1;
     private static final int INDEX_END = 2;
     private static final int INDEX_INCREMENT = 3;
-
+    
     public For (Turtle turtle, List<StringBuilder> ListOfContents,
                 ResourceBundle lang, List<Variable> variables) {
         System.out.println("For was Created");
@@ -42,13 +44,22 @@ public class For extends ControlStructuredCommand {
         int increment = Integer.parseInt(controlData[INDEX_INCREMENT]);
         int numRepeat = countRepeat(startPoint, endPoint, increment);
         System.out.println("Start point is : " + startPoint + " EndPoint is " + endPoint);
-        indexVar.setName(controlData[INDEX_VARIABLE]);
-        indexVar.setValue(controlData[INDEX_START]);
-        indexVar.setValue(Integer.toString(startPoint + increment * (numRepeat - 1)));
-
-        myVariableList.add(indexVar);
-        System.out.println(controlData);
-        return numRepeat;
+        char firstChar = controlData[INDEX_VARIABLE].charAt(INDEX_FIRSTCHAR);
+        try {
+            if (firstChar != COLON) {
+                throw new VariableException();
+            }
+            indexVar.setName(controlData[INDEX_VARIABLE].substring(INDEX_COLON));
+            indexVar.setValue(controlData[INDEX_START]);
+            indexVar.setValue(Integer.toString(startPoint + increment * (numRepeat - 1)));
+            myVariableList.add(indexVar);
+            System.out.println(controlData);
+            return numRepeat;
+        }
+        catch (VariableException e) {
+            new ErrorObject(VARIABLE_ERROR).displayError();
+            return 0;
+        }
     }
 
     private int countRepeat (int startPoint, int endPoint, int increment) {

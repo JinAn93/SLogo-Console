@@ -11,6 +11,7 @@ import Main.Turtle;
 
 public class CommandFactory {
     private ResourceBundle myLanguage;
+    private static final int INDEX_COLON = 1;
 
     public CommandFactory (ResourceBundle lang) {
         myLanguage = lang;
@@ -93,7 +94,7 @@ public class CommandFactory {
         }
 
         Variable newVar = new Variable();
-        newVar.setName(variable);
+        newVar.setName(variable.substring(INDEX_COLON));
         newVar.setVariable(true);
         return newVar; // Throw Error
     }

@@ -16,7 +16,7 @@ import Error_Checking.ParameterException;
 
 
 public class Parser {
-    private static final int COLON = 1;
+//    private static final int COLON = 1;
     private static final ResourceBundle myParameters = ResourceBundle
             .getBundle("resources.ParameterList/AllParameters");
     protected static final ResourceBundle mySyntaxes = ResourceBundle
@@ -77,7 +77,7 @@ public class Parser {
             }
 
             else if (isVariable(nodes[i])) {
-                command = cf.makeVariable(nodes[i].substring(COLON));
+                command = cf.makeVariable(nodes[i]);
             }
 
             else if (isListEnd(nodes[i])) {

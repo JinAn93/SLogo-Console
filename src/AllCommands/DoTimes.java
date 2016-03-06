@@ -7,6 +7,8 @@ import java.util.Stack;
 import Commands.ControlStructuredCommand;
 import Commands.Node;
 import Commands.Variable;
+import Error_Checking.ErrorObject;
+import Error_Checking.VariableException;
 import Main.*;
 
 
@@ -37,12 +39,22 @@ public class DoTimes extends ControlStructuredCommand {
     private int createIndexVariable () {
         Variable indexVar = new Variable();
         String[] controlData = myControlContent.split(SPACE);
-        indexVar.setName(controlData[INDEX_VARIABLE]);
-        indexVar.setValue(ONE_INDEXDEFAULT);
-        indexVar.setValue(controlData[LIMIT_INDEX]);
-        myVariableList.add(indexVar);
-        System.out.println(controlData);
-        return Integer.parseInt(indexVar.getValue());
+        char firstChar = controlData[INDEX_VARIABLE].charAt(INDEX_FIRSTCHAR);
+        try {
+            if (firstChar != COLON) {
+                throw new VariableException();
+            }
+            indexVar.setName(controlData[INDEX_VARIABLE].substring(INDEX_COLON));
+            indexVar.setValue(ONE_INDEXDEFAULT);
+            indexVar.setValue(controlData[LIMIT_INDEX]);
+            myVariableList.add(indexVar);
+            System.out.println(controlData);
+            return Integer.parseInt(indexVar.getValue());
+        }
+        catch (VariableException e) {
+            new ErrorObject(VARIABLE_ERROR).displayError();
+            return 0;
+        }
     }
 
     private String executeLoop (int limit) {

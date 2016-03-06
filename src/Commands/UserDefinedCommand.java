@@ -1,6 +1,6 @@
 package Commands;
 
-public class UserDefinedCommand extends Command{
+public class UserDefinedCommand extends UserCommand{
 
     
     @Override
