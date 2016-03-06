@@ -98,11 +98,8 @@ public class Display {
                 output = mb.executeCommand(parsedCommands);
                 String consoleText = output.getResult().toString();
                 myConsoleBox.setText(consoleText);
+                
                 updateTurtleStats();
-//                String myTurtleStats =
-//                        "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
-//                                myTurtle.getStartYCor() ;
-//                myTurtleStatsBox.setText(myTurtleStats);
                 iterateVar(); 
                 updateTurtle(); 
             }
@@ -113,27 +110,28 @@ public class Display {
     	String xCoor = "X Coordinate: " + myTurtle.getStartXCor() + "\n";
     	String yCoor = "Y Coordinate: " + myTurtle.getStartYCor() + "\n";
     	String pen = "Down" + "\n";
+    	String heading = "Heading: " + myTurtle.getHeading() + "\n";
     	if(myTurtle.getPen() == 0){
     		pen = "Up" + "\n"; 
     	}
-    	
-    	String myTurtleStats = xCoor + yCoor + pen;
+    	//Need to insert information about turtle heading
+    	String myTurtleStats = xCoor + yCoor + heading + pen ;
                 
         myTurtleStatsBox.setText(myTurtleStats);
     }
     
     public void updateTurtle(){
-    	 double XCoor = myTurtle.getEndXCor();
-         double YCoor = myTurtle.getEndYCor();
-         double Head = myTurtle.getHeading();
-         int Visib = myTurtle.getVisibility();
-         drawRotatedImage(myGraphics, 40, 0 ,0);
-         if (Visib == 1) {
-             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-             rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
+    	 double xCoor = myTurtle.getEndXCor();
+         double yCoor = myTurtle.getEndYCor();
+         double head = myTurtle.getHeading();
+         int visib = myTurtle.getVisibility();
+
+         if (visib == 1) {
+             myGraphics.drawImage(myTurtle.getTurtleImage(), xCoor, yCoor);
+             rotate(myGraphics, head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
              myGraphics.clearRect(0, 0, 600, 600);
              myGraphics.fillRect(0, 0, 600, 600);
-             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+             myGraphics.drawImage(myTurtle.getTurtleImage(), xCoor, yCoor);
          }
          else {
              myGraphics.clearRect(0, 0, 600, 600);
