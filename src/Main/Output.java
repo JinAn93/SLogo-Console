@@ -54,10 +54,21 @@ public class Output {
     	return badCommand;
     }
     
+    public void setBadCommand(){
+    	badCommand = true; 
+    }
+    
     public void setValidity(boolean status){
     	badCommand = status; 
     }
     
+    public String getErrorMessage(){
+    	return myErrorMessage;
+    }
     
-
+    public void setErrorMessage(String error){
+    	myErrorMessage = error;
+    }
+    
+    
 }

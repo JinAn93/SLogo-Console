@@ -86,16 +86,22 @@ public class Display {
             public void handle (ActionEvent e) {
                 String myCommand = myScreen.getCodeInput().getText();
                 MainBackEnd mb = new MainBackEnd();
-                commandHistory.append(myCommand + "\n");
-                historyBox.setText(commandHistory.toString());
                 InputObject myInput = new InputObject(myCommand, myTurtle);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
-                String consoleText = output.getResult().toString();
-                myConsoleBox.setText(consoleText);
-                updateTurtleStats();
-                iterateVar(); 
-                updateTurtle(); 
+                if(!output.isValidCommand()){
+	                String consoleText = output.getResult().toString();
+	                myConsoleBox.setText(consoleText);
+	                commandHistory.append(myCommand + "\n");
+	                historyBox.setText(commandHistory.toString());
+	                updateTurtleStats();
+	                iterateVar(); 
+	                updateTurtle(); 
+                }
+                else{
+                	ErrorObject eo = new ErrorObject(myCommand);
+                	eo.displayError();
+                }
             }
         });
     }
@@ -103,6 +109,7 @@ public class Display {
     public void updateTurtleStats(){
     	String xCoor = "X Coordinate: " + myTurtle.getStartXCor() + "\n";
     	String yCoor = "Y Coordinate: " + myTurtle.getStartYCor() + "\n";
+    	String heading = "Heading: " + myTurtle.getHeading() + "\n";
     	String pen = "Pen: Down" + "\n";
     	if(myTurtle.getPen() == 0){
     		pen = "Pen: Up" + "\n"; 
@@ -115,17 +122,17 @@ public class Display {
     }
     
     public void updateTurtle(){
-    	 double XCoor = myTurtle.getEndXCor();
-         double YCoor = myTurtle.getEndYCor();
-         double Head = myTurtle.getHeading();
-         int Visib = myTurtle.getVisibility();
-         drawRotatedImage(myGraphics, 40, 0 ,0);
-         if (Visib == 1) {
-             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-             rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
+    	 double xCoor = myTurtle.getEndXCor();
+         double yCoor = myTurtle.getEndYCor();
+         double head = myTurtle.getHeading();
+         int visib = myTurtle.getVisibility();
+
+         if (visib == 1) {
+             myGraphics.drawImage(myTurtle.getTurtleImage(), xCoor, yCoor);
+             rotate(myGraphics, head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
              myGraphics.clearRect(0, 0, 600, 600);
              myGraphics.fillRect(0, 0, 600, 600);
-             myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
+             myGraphics.drawImage(myTurtle.getTurtleImage(), xCoor, yCoor);
          }
          else {
              myGraphics.clearRect(0, 0, 600, 600);
