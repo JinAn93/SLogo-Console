@@ -12,7 +12,7 @@ import Main.*;
 
 public class If extends ControlStructuredCommand {
 
-    public If (Turtle turtle,
+    public If (List<Turtle> turtle,
                List<StringBuilder> ListOfContents,
                ResourceBundle lang,
                List<Variable> variables) {

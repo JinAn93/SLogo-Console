@@ -20,17 +20,18 @@ public class MainBackEnd {
 
     private static List<Variable> myVariableList = new ArrayList<Variable>();
     private static ResourceBundle myLanguage;
-    private Turtle myTurtle;
+    private List<Turtle> myAllTurtles;
+    private List<Turtle> myCurrentTurtles;
 
     public Output executeCommand (Collection<?> commands) {
-        Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
+        Parser parser = new Parser(myAllTurtles, myLanguage, myVariableList);
         Stack<Node> result;
         try {
             result = parser.buildExpressionTree(commands);
             if (result == null) {
                 throw new Exception();
             }
-            Output output = new Output(myTurtle, myVariableList);
+            Output output = new Output(myAllTurtles, myVariableList);
             output.setResult(parser.stringizer(result));
             return output;
         }
@@ -41,7 +42,7 @@ public class MainBackEnd {
 
     public Collection<?> setup (String input, InputObject inputObject) {
         InputNormalizer iNormalizer = new InputNormalizer();
-        myTurtle = inputObject.getTurtle();
+        myAllTurtles = inputObject.getTurtle();
         myLanguage = inputObject.getLanguage();
         return iNormalizer.normalizeInput(input);
     }

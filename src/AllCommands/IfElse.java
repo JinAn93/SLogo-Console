@@ -17,7 +17,7 @@ public class IfElse extends ControlStructuredCommand {
     private static final int TRUECOMMAND = 0;
     private static final int FALSECOMMAND = 1;
 
-    public IfElse (Turtle turtle,
+    public IfElse (List<Turtle> turtle,
                    List<StringBuilder> ListOfContents,
                    ResourceBundle lang,
                    List<Variable> variables) {

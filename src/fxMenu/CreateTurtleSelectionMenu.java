@@ -6,16 +6,15 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
-
 import java.util.*;
 
 public class CreateTurtleSelectionMenu {
-	private Turtle myTurtle;
+	private List<Turtle> myTurtle;
 	private String[] imgList = {"koopa","Boat","Car","FlatTurtle","MonopolyMan","turtle","Plane"};
 	private Menu myImageMenu;
 	private ArrayList<MenuItem> myImageItems;
 	
-	public CreateTurtleSelectionMenu(Turtle useTurtle){
+	public CreateTurtleSelectionMenu(List<Turtle> useTurtle){
 		myTurtle = useTurtle;
 		myImageMenu = new Menu("Change Turtle Images");
 		createItems();
@@ -29,7 +28,8 @@ public class CreateTurtleSelectionMenu {
 			anItem.setOnAction(new EventHandler<ActionEvent>() {
 	            public void handle(ActionEvent e) {
 	            	String dir = "/resources/"+astring+".png";
-	            	myTurtle.setTurtleImage(dir);
+	            	for(Turtle aTurtle: myTurtle)
+	            	    aTurtle.setTurtleImage(dir);
 	            }
 	        });
 	        myImageItems.add(anItem);

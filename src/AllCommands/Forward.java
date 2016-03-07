@@ -1,22 +1,27 @@
 package AllCommands;
 
+import java.util.List;
 import Commands.TurtleCommand;
 import Main.Turtle;
 
 
 public class Forward extends TurtleCommand {
 
-    public Forward (Turtle turtle) {
+    public Forward (List<Turtle> turtle) {
         super(turtle);
     }
 
     @Override
     public String executeCommand () {
-        double moveBy = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
-        double radian = Math.toRadians(myTurtle.getHeading());
-        myTurtle.setEndXCor(myTurtle.getStartXCor() + (moveBy * (Math.cos(radian))));
-        myTurtle.setEndYCor(myTurtle.getStartYCor() + (moveBy * (Math.sin(radian))));
-        System.out.println("We are moving by : '" + moveBy + "'" );
+        double moveBy = 0;
+        for (Turtle aturtle : myTurtle) {
+            moveBy = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
+            double radian = Math.toRadians(aturtle.getHeading());
+            aturtle.setEndXCor(aturtle.getStartXCor() + (moveBy * (Math.cos(radian))));
+            aturtle.setEndYCor(aturtle.getStartYCor() + (moveBy * (Math.sin(radian))));
+            System.out.println("We are moving by : '" + moveBy + "'");
+            
+        }
         return Double.toString(moveBy);
     }
 }

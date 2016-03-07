@@ -44,7 +44,7 @@ public class Display {
     private TextArea historyBox, myConsoleBox, myTurtleStatsBox;
     private StringBuilder commandHistory = new StringBuilder();
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
-    private Turtle myTurtle;
+    private List<Turtle> myAllTurtles;
     private TableView<DisplayObject> myVariablesTable;
     private ObservableList<DisplayObject> data;
     private List<Variable> myVarList;
@@ -54,7 +54,6 @@ public class Display {
             .getBundle("languagefiles/English");
     private ResourceBundle myLang = defaultLang;
     private InputObject myInput;
-    
 
     public Display () {
         myBorder = new BorderPane();
@@ -81,7 +80,7 @@ public class Display {
         myBorder.setLeft(leftBox);
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
-        myTurtle = myScreen.getMyTurtle();
+        myAllTurtles = myScreen.getMyTurtle();
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
         myTurtleStatsBox = mySidebar.getArea();
@@ -89,7 +88,7 @@ public class Display {
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
         SlogoMenuCreator menuCreator =
-                new SlogoMenuCreator(myTurtle, myColorGraphics, myLineGraphics, this);
+                new SlogoMenuCreator(myAllTurtles, myColorGraphics, myLineGraphics, this);
         MenuBar myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
         myVariablesTable = mySidebar.getTable();
@@ -105,7 +104,7 @@ public class Display {
             public void handle (ActionEvent e) {
                 String myCommand = myScreen.getCodeInput().getText();
                 MainBackEnd mb = new MainBackEnd();
-                myInput = new InputObject(myCommand, myTurtle, myLang);
+                myInput = new InputObject(myCommand, myAllTurtles, myLang);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
                 if (output != null) {
@@ -122,35 +121,48 @@ public class Display {
     }
 
     public void updateTurtleStats () {
-        String xCoor = "X Coordinate: " + myTurtle.getStartXCor() + "\n";
-        String yCoor = "Y Coordinate: " + myTurtle.getStartYCor() + "\n";
-        String heading = "Heading: " + myTurtle.getHeading() + "\n";
-        String pen = "Pen: Down" + "\n";
-        if (myTurtle.getPen() == 0) {
-            pen = "Pen: Up" + "\n";
+        StringBuilder myTurtleStats = new StringBuilder();
+        int i = 0;
+        for (Turtle aTurtle : myAllTurtles) {
+            myTurtleStats.append("Turtle Number " + i + "\n");
+            myTurtleStats.append("X Coordinate: " + aTurtle.getStartXCor() + "\n");
+            myTurtleStats.append("Y Coordinate: " + aTurtle.getStartYCor() + "\n");
+            myTurtleStats.append("Heading: " + aTurtle.getHeading() + "\n");
+            if (aTurtle.getPen() == 1) {
+                myTurtleStats.append("Pen: Down" + "\n");
+            }
+            else {
+                myTurtleStats.append("Pen: Up" + "\n");
+            }
+            myTurtleStats.append("Turtle Heading:" + aTurtle.getHeading() + "\n");
         }
-        String turtleHeading = "Turtle Heading: " + myTurtle.getHeading() + "\n";
-
-        String myTurtleStats = xCoor + yCoor + pen + turtleHeading;
-
-        myTurtleStatsBox.setText(myTurtleStats);
+        myTurtleStatsBox.setText(myTurtleStats.toString());
     }
 
     public void updateTurtle () {
-        double xCoor = myTurtle.getEndXCor();
-        double yCoor = myTurtle.getEndYCor();
-        double head = myTurtle.getHeading();
-        int visib = myTurtle.getVisibility();
+        int a = 0;
+        double[] xCoor = new double[myAllTurtles.size()];
+        double[] yCoor = new double[myAllTurtles.size()];
+        double[] head = new double[myAllTurtles.size()];
+        int[] visib = new int[myAllTurtles.size()];
+        myGraphics.clearRect(0, 0, 600, 600);
+        myGraphics.fillRect(0, 0, 600, 600);
 
-        if (visib == 1) {
-            myGraphics.drawImage(myTurtle.getTurtleImage(), xCoor, yCoor);
-            rotate(myGraphics, head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-            myGraphics.clearRect(0, 0, 600, 600);
-            myGraphics.fillRect(0, 0, 600, 600);
-            myGraphics.drawImage(myTurtle.getTurtleImage(), xCoor, yCoor);
+        for (Turtle aturtle : myAllTurtles) {
+            xCoor[a] = aturtle.getEndXCor();
+            yCoor[a] = aturtle.getEndYCor();
+            head[a] = aturtle.getHeading();
+            visib[a] = aturtle.getVisibility();
+            a++;
         }
-        else {
-            myGraphics.clearRect(0, 0, 600, 600);
+        a = 0;
+        for (Turtle aturtle : myAllTurtles) {
+            System.out.println("yo");
+            if (visib[a] == 1) {
+                myGraphics.drawImage(aturtle.getTurtleImage(), xCoor[a], yCoor[a]);
+            }
+            rotate(myGraphics, head[a], calculatePivotX(aturtle), calculatePivotY(aturtle));
+            a++;
         }
     }
 
@@ -173,16 +185,18 @@ public class Display {
 
     public void updateLines () {
 
-        double startX = myTurtle.getStartXCor();
-        double startY = myTurtle.getStartYCor();
-        double endX = myTurtle.getEndXCor();
-        double endY = myTurtle.getEndYCor();
-        if (myTurtle.getPen() == 1) {
-            myLineGraphics.setLineWidth(myTurtle.getPenWidth());
-            myLineGraphics.strokeLine(startX, startY, endX, endY);
+        for (Turtle aturtle : myAllTurtles) {
+            double startX = aturtle.getStartXCor();
+            double startY = aturtle.getStartYCor();
+            double endX = aturtle.getEndXCor();
+            double endY = aturtle.getEndYCor();
+            if (aturtle.getPen() == 1) {
+                myLineGraphics.setLineWidth(aturtle.getPenWidth());
+                myLineGraphics.strokeLine(startX, startY, endX, endY);
+            }
+            aturtle.setStartXCor(endX);
+            aturtle.setStartYCor(endY);
         }
-        myTurtle.setStartXCor(endX);
-        myTurtle.setStartYCor(endY);
 
     }
 
@@ -193,8 +207,8 @@ public class Display {
         return false;
     }
 
-    public Turtle getTurtle () {
-        return myTurtle;
+    public List<Turtle> getTurtle () {
+        return myAllTurtles;
     }
 
     public GraphicsContext getMyGraphics () {
@@ -217,10 +231,12 @@ public class Display {
     // *Testing new stuff
     private void drawRotatedImage (GraphicsContext gc, double angle, double tlpx, double tlpy) {
         gc.save();
-        Image turtleImage = myTurtle.getTurtleImage();
-        rotate(gc, angle, tlpx + turtleImage.getWidth() / 2, tlpy + turtleImage.getHeight() / 2);
-        gc.drawImage(turtleImage, tlpx, tlpy);
-        gc.restore();
+        for (Turtle aturtle : myAllTurtles) {
+            Image turtleImage = aturtle.getTurtleImage();
+            rotate(gc, angle, tlpx + turtleImage.getWidth() / 2, tlpy + turtleImage.getHeight() / 2);
+            gc.drawImage(turtleImage, tlpx, tlpy);
+            gc.restore();
+        }
     }
 
     public Scene getScene () {

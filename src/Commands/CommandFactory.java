@@ -17,7 +17,7 @@ public class CommandFactory {
         myLanguage = lang;
     }
 
-    public Command makeInstruction (String commandName, Turtle turtle,
+    public Command makeInstruction (String commandName, List<Turtle> turtle,
                                     List<StringBuilder> content, List<Variable> variables) {
 
         String commandStr = "AllCommands." + searchCommand(commandName, myLanguage.getKeys());

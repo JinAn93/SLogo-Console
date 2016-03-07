@@ -9,7 +9,7 @@ public abstract class ControlStructuredCommand extends Command {
 
     protected String myContent;
     protected String myControlContent;
-    protected Turtle myTurtle;
+    protected List<Turtle> myTurtle;
     protected ResourceBundle myLanguage;
     protected List<Variable> myVariableList;
     protected static final int FIRSTCHILD = 0;

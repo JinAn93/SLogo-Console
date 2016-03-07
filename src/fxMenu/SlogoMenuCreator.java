@@ -1,5 +1,6 @@
 package fxMenu;
 
+import java.util.List;
 import java.util.ResourceBundle;
 import fxFrontend.Display;
 import Main.Turtle;
@@ -15,12 +16,12 @@ public class SlogoMenuCreator {
     private CreatePenPropertiesMenu myPenPropertiesMenu;
     private ChooseLanguageMenu myLanguageMenu;
     
-    private Turtle myTurtle; 
+    private List<Turtle> myTurtle; 
     private GraphicsContext myGraphics;
     private GraphicsContext myLineGraphics;
     private Display myDisplay;
     
-    public SlogoMenuCreator(Turtle turt, GraphicsContext toChange, GraphicsContext myLines, Display useDisplay){
+    public SlogoMenuCreator(List<Turtle> turt, GraphicsContext toChange, GraphicsContext myLines, Display useDisplay){
     	myMenu = new MenuBar();
     	myTurtle = turt;
     	myGraphics = myLines;

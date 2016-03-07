@@ -1,18 +1,18 @@
 package Main;
 
+import java.util.List;
 import java.util.ResourceBundle;
-
 import Main.Turtle;
 
 
 public class InputObject {
     private String myCommand;
-    private Turtle myTurtle;
+    private List<Turtle> myAllTurtles;
     private ResourceBundle myLanguage;
     
-    public InputObject (String command, Turtle turtle, ResourceBundle language) {
+    public InputObject (String command, List<Turtle> turtle, ResourceBundle language) {
         myCommand = command;
-        myTurtle = turtle;
+        myAllTurtles = turtle;
         myLanguage = language;
     }
     
@@ -24,16 +24,16 @@ public class InputObject {
         myCommand = command;
     }
     
-    public void setTurtle(Turtle turtle){
-        myTurtle = turtle; 
+    public void setTurtle(List<Turtle> turtle){
+        myAllTurtles = turtle; 
     }
     
     public String getCommand () {
         return myCommand;
     }
 
-    public Turtle getTurtle () {
-        return myTurtle;
+    public List<Turtle> getTurtle () {
+        return myAllTurtles;
     }
     
     public void setLanguage(ResourceBundle bundle){
