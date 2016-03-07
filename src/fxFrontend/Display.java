@@ -117,6 +117,7 @@ public class Display {
                     updateTurtleStats();
                     iterateVar();
                     updateTurtle();
+
                 }
             }
         });
@@ -137,6 +138,8 @@ public class Display {
                 myTurtleStats.append("Pen: Up" + "\n");
             }
             myTurtleStats.append("Turtle Heading:" + aTurtle.getHeading() + "\n");
+            myTurtleStats.append("Turtle active:"+aTurtle.getActive() + "\n");
+            myTurtleStats.append("\n");
             i++;
         }
         myTurtleStatsBox.setText(myTurtleStats.toString());
