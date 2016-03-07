@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 /**
  * Turtle class serves to store its properties such as visibility, xCor, yCor, and pen (up or Down)
  * 
- * @author Jin An
+ * @author Jin An and David Yan
  * 
  */
 public class Turtle extends Observable{
@@ -15,6 +15,7 @@ public class Turtle extends Observable{
     private int myVisibility, myPen;
     private Image myTurtleImage;
     private double penWidth;
+    private boolean isActive = true;
     public Turtle (int x, int y, String dir) {
     	startXCor = x;
     	startYCor = y;
@@ -25,6 +26,14 @@ public class Turtle extends Observable{
         myTurtleImage = new Image(dir);
         myHeading = 0;
         penWidth = 4.0;
+    }
+    public boolean getActive(){
+    	return isActive;
+    }
+    public void setActive(boolean active){
+    	isActive = active;
+    	setChanged();
+    	notifyObservers();
     }
 
     public double getHeading () {

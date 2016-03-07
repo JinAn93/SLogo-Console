@@ -94,7 +94,8 @@ public class CreateSidebar {
 				Stage myNewStage = new Stage();
 		    	Display myDisplay = new Display();
 		    	ObserveTurtle obTurtle = myDisplay.new ObserveTurtle();
-		    	myDisplay.getTurtle().addObserver(obTurtle);
+		    	myDisplay.getTurtle().get(0).addObserver(obTurtle);
+		    	myDisplay.getTurtle().get(1).addObserver(obTurtle);
 		    	myNewStage.setScene(myDisplay.getScene());
 		    	myNewStage.show();
 			}

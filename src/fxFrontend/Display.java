@@ -50,11 +50,11 @@ public class Display {
     private List<Variable> myVarList;
     private Output output;
     private LanguageReader myReader;
-    private static final ResourceBundle defaultLang = ResourceBundle
-            .getBundle("languagefiles/English");
+    private static final ResourceBundle defaultLang = ResourceBundle.getBundle("languagefiles/English");
     private ResourceBundle myLang = defaultLang;
     private InputObject myInput;
-
+    private List<Integer> myInactiveList = new ArrayList<Integer>();
+    
     public Display () {
         myBorder = new BorderPane();
         myReader = new LanguageReader();
@@ -66,12 +66,12 @@ public class Display {
             System.exit(1);
         }
         System.out.println(myReader.getString("Forward"));
-
+        
         displayScreen();
         myBorder.setPadding(new Insets(10, 20, 10, 20));
         myScene = new Scene(myBorder, 1100, 800);
     }
-
+    
     @SuppressWarnings({ "unchecked" })
     public void displayScreen () {
         VBox leftBox = mySidebar.getBox();
@@ -88,7 +88,7 @@ public class Display {
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
         SlogoMenuCreator menuCreator =
-                new SlogoMenuCreator(myAllTurtles, myColorGraphics, myLineGraphics, this);
+        new SlogoMenuCreator(myAllTurtles, myColorGraphics, myLineGraphics, this, myInactiveList, myAllTurtles);
         MenuBar myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
         myVariablesTable = mySidebar.getTable();
@@ -97,11 +97,13 @@ public class Display {
         updateTurtleStats();
         updateDisplay();
     }
-
+    
     public void updateDisplay () {
         Button myButton = myScreen.getButton();
         myButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent e) {
+                System.out.println(myInactiveList);
+                
                 String myCommand = myScreen.getCodeInput().getText();
                 MainBackEnd mb = new MainBackEnd();
                 myInput = new InputObject(myCommand, myAllTurtles, myLang);
@@ -119,7 +121,7 @@ public class Display {
             }
         });
     }
-
+    
     public void updateTurtleStats () {
         StringBuilder myTurtleStats = new StringBuilder();
         int i = 0;
@@ -135,10 +137,11 @@ public class Display {
                 myTurtleStats.append("Pen: Up" + "\n");
             }
             myTurtleStats.append("Turtle Heading:" + aTurtle.getHeading() + "\n");
+            i++;
         }
         myTurtleStatsBox.setText(myTurtleStats.toString());
     }
-
+    
     public void updateTurtle () {
         int a = 0;
         double[] xCoor = new double[myAllTurtles.size()];
@@ -147,7 +150,7 @@ public class Display {
         int[] visib = new int[myAllTurtles.size()];
         myGraphics.clearRect(0, 0, 600, 600);
         myGraphics.fillRect(0, 0, 600, 600);
-
+        
         for (Turtle aturtle : myAllTurtles) {
             xCoor[a] = aturtle.getEndXCor();
             yCoor[a] = aturtle.getEndYCor();
@@ -157,7 +160,6 @@ public class Display {
         }
         a = 0;
         for (Turtle aturtle : myAllTurtles) {
-            System.out.println("yo");
             if (visib[a] == 1) {
                 myGraphics.drawImage(aturtle.getTurtleImage(), xCoor[a], yCoor[a]);
             }
@@ -165,7 +167,7 @@ public class Display {
             a++;
         }
     }
-
+    
     public void iterateVar () {
         myVarList = output.getVariables();
         for (Variable aVar : myVarList) {
@@ -175,17 +177,18 @@ public class Display {
             }
         }
     }
-
+    
     public void clearScreen () {
         myGraphics.clearRect(0, 0, 600, 600);
         myGraphics.fillRect(0, 0, 600, 600);
         myLineGraphics.clearRect(0, 0, 600, 600);
         myGraphics.fillRect(0, 0, 600, 600);
     }
-
+    
     public void updateLines () {
-
+        
         for (Turtle aturtle : myAllTurtles) {
+        	if(aturtle.getActive()==true){
             double startX = aturtle.getStartXCor();
             double startY = aturtle.getStartYCor();
             double endX = aturtle.getEndXCor();
@@ -196,38 +199,39 @@ public class Display {
             }
             aturtle.setStartXCor(endX);
             aturtle.setStartYCor(endY);
+        	}
         }
-
+        
     }
-
+    
     public boolean contains (TableView<DisplayObject> table, DisplayObject obj) {
         for (DisplayObject item : table.getItems())
             if (item.getVariableName().equals(obj.getVariableName()))
                 return true;
         return false;
     }
-
+    
     public List<Turtle> getTurtle () {
         return myAllTurtles;
     }
-
+    
     public GraphicsContext getMyGraphics () {
         return myGraphics;
     }
-
+    
     private double calculatePivotX (Turtle turtle) {
         return (turtle.getStartXCor() + (turtle.getTurtleImage().getWidth() / 2));
     }
-
+    
     private double calculatePivotY (Turtle turtle) {
         return (turtle.getStartYCor() + (turtle.getTurtleImage().getHeight() / 2));
     }
-
+    
     private void rotate (GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
-
+    
     // *Testing new stuff
     private void drawRotatedImage (GraphicsContext gc, double angle, double tlpx, double tlpy) {
         gc.save();
@@ -238,20 +242,20 @@ public class Display {
             gc.restore();
         }
     }
-
+    
     public Scene getScene () {
         return myScene;
     }
-
+    
     public class ObserveTurtle implements Observer {
         @Override
         public void update (Observable obs, Object turtle) {
             updateLines();
         }
     }
-
+    
     public void setLanguage (ResourceBundle language) {
         myLang = language;
     }
-
+    
 }
