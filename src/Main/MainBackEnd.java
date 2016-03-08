@@ -19,6 +19,7 @@ import Commands.*;
 public class MainBackEnd {
 
     private static List<Variable> myVariableList = new ArrayList<Variable>();
+    private static List<UserCommand> myUserCommandList = new ArrayList<UserCommand>();
     private static ResourceBundle myLanguage;
     private List<Turtle> myAllTurtles;
     private List<Turtle> myCurrentTurtles;
@@ -53,5 +54,9 @@ public class MainBackEnd {
 
     public static List<Variable> getVariables () {
         return myVariableList;
+    }
+    
+    public static List<UserCommand> getUserCommands () {
+        return myUserCommandList;
     }
 }

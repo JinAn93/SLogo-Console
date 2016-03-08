@@ -22,8 +22,6 @@ public abstract class ControlStructuredCommand extends Command {
     protected static final int COMMAND_INDEX = 0;
     protected static final int CONTROL_INDEX = 1;
     protected static final char COLON = ':';
-    protected static final String PARAMETER_ERROR = "WRONG PARAMETER.";
-    protected static final String VARIABLE_ERROR = "WRONG VARIABLE SYNTAX.";
     protected static final int INDEX_COLON = 1;
     protected static final int INDEX_FIRSTCHAR = 0;
 }

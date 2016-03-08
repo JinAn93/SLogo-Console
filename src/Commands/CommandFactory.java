@@ -47,6 +47,16 @@ public class CommandFactory {
 
             }
 
+            else if (constructors[0].getParameterCount() == 2) {
+                try {
+                    command = (Command) constructors[0].newInstance(content, variables);
+                }
+                catch (InstantiationException | IllegalAccessException
+                        | IllegalArgumentException | InvocationTargetException e) {
+                    return null;
+                }
+            }
+            
             else if (constructors[0].getParameterCount() == 4) {
                 try {
                     command = (Command) constructors[0].newInstance(turtle, content, myLanguage,

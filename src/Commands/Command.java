@@ -1,6 +1,10 @@
 package Commands;
 
 public abstract class Command implements Node {
+
+    protected static final String PARAMETER_ERROR = "WRONG PARAMETER.";
+    protected static final String VARIABLE_ERROR = "WRONG VARIABLE SYNTAX.";
+
     protected Node[] myChildren;
     protected String myStrValue;
     protected boolean isChildOperand;

@@ -4,7 +4,7 @@ public class Variable implements Node {
 
     private String myValue, myName;
     private boolean IsVariable;
-        
+
     public void setName (String str) {
         myName = str;
     }
@@ -12,12 +12,12 @@ public class Variable implements Node {
     public String getName () {
         return myName;
     }
-    
+
     public boolean isVariable () {
         return IsVariable;
     }
-    
-    public boolean setVariable (boolean bool){
+
+    public boolean setVariable (boolean bool) {
         IsVariable = bool;
         return IsVariable;
     }

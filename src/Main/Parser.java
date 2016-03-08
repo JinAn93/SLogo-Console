@@ -16,7 +16,7 @@ import Error_Checking.ParameterException;
 
 
 public class Parser {
-//    private static final int COLON = 1;
+    // private static final int COLON = 1;
     private static final ResourceBundle myParameters = ResourceBundle
             .getBundle("resources.ParameterList/AllParameters");
     protected static final ResourceBundle mySyntaxes = ResourceBundle
@@ -43,10 +43,13 @@ public class Parser {
         for (int i = nodes.length - 1; i > -1; i--) {
             System.out.println("We are at " + nodes[i] + " Node");
             Node command = null;
+
             if (isCommand(nodes[i])) {
                 try {
                     command =
-                            cf.makeInstruction(nodes[i], myAllTurtles, ListOfContents, myVariableList);
+                            cf.makeInstruction(nodes[i], myAllTurtles, ListOfContents,
+                                               myVariableList);
+
                     if (command == null) {
                         throw new InstructionException();
                     }
