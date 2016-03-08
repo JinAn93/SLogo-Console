@@ -1,5 +1,6 @@
 package fxMenu;
 
+import Main.SingleTurtle;
 import Main.Turtle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,12 +10,12 @@ import javafx.scene.paint.Color;
 import java.util.*;
 
 public class CreateTurtleSelectionMenu {
-	private List<Turtle> myTurtle;
+	private List<SingleTurtle> myTurtle;
 	private String[] imgList = {"koopa","Boat","Car","FlatTurtle","MonopolyMan","turtle","Plane"};
 	private Menu myImageMenu;
 	private ArrayList<MenuItem> myImageItems;
 	
-	public CreateTurtleSelectionMenu(List<Turtle> useTurtle){
+	public CreateTurtleSelectionMenu(List<SingleTurtle> useTurtle){
 		myTurtle = useTurtle;
 		myImageMenu = new Menu("Change Turtle Images");
 		createItems();

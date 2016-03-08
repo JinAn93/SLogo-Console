@@ -2,6 +2,7 @@ package Commands;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import Main.SingleTurtle;
 import Main.Turtle;
 
 
@@ -9,7 +10,7 @@ public abstract class ControlStructuredCommand extends Command {
 
     protected String myContent;
     protected String myControlContent;
-    protected List<Turtle> myTurtle;
+    protected List<SingleTurtle> myTurtle;
     protected ResourceBundle myLanguage;
     protected List<Variable> myVariableList;
     protected static final int FIRSTCHILD = 0;

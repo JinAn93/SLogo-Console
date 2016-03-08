@@ -17,7 +17,7 @@ public class DoTimes extends ControlStructuredCommand {
     private static final int INDEX_VARIABLE = 0;
     private static final int LIMIT_INDEX = 1;
 
-    public DoTimes (List<Turtle> turtle,
+    public DoTimes (List<SingleTurtle> turtle,
                     List<StringBuilder> ListOfContents,
                     ResourceBundle lang,
                     List<Variable> variables) {

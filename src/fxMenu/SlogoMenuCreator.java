@@ -3,6 +3,7 @@ package fxMenu;
 import java.util.List;
 import java.util.ResourceBundle;
 import fxFrontend.Display;
+import Main.SingleTurtle;
 import Main.Turtle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuBar;
@@ -17,14 +18,14 @@ public class SlogoMenuCreator {
     private ChooseLanguageMenu myLanguageMenu;
     private ChooseInactiveTurtles myInactiveTurtles;
     
-    private List<Turtle> myTurtle; 
+    private List<SingleTurtle> myTurtle; 
     private GraphicsContext myGraphics;
     private GraphicsContext myLineGraphics;
     private Display myDisplay;
     private List<Integer> myInactiveList;
-    private List<Turtle> myNumTurtles;
+    private List<SingleTurtle> myNumTurtles;
     
-    public SlogoMenuCreator(List<Turtle> turt, GraphicsContext toChange, GraphicsContext myLines, Display useDisplay, List<Integer> myInactives, List<Turtle> myTurtles){
+    public SlogoMenuCreator(List<SingleTurtle> turt, GraphicsContext toChange, GraphicsContext myLines, Display useDisplay, List<Integer> myInactives, List<SingleTurtle> myTurtles){
     	myMenu = new MenuBar();
     	myTurtle = turt;
     	myGraphics = myLines;

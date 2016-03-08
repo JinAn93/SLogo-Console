@@ -21,8 +21,8 @@ public class MainBackEnd {
     private static List<Variable> myVariableList = new ArrayList<Variable>();
     private static List<UserCommand> myUserCommandList = new ArrayList<UserCommand>();
     private static ResourceBundle myLanguage;
-    private List<Turtle> myAllTurtles;
-    private List<Turtle> myCurrentTurtles;
+    private List<SingleTurtle> myAllTurtles;
+    private List<SingleTurtle> myCurrentTurtles;
 
     public Output executeCommand (Collection<?> commands) {
         Parser parser = new Parser(myAllTurtles, myLanguage, myVariableList);

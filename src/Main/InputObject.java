@@ -7,10 +7,10 @@ import Main.Turtle;
 
 public class InputObject {
     private String myCommand;
-    private List<Turtle> myAllTurtles;
+    private List<SingleTurtle> myAllTurtles;
     private ResourceBundle myLanguage;
     
-    public InputObject (String command, List<Turtle> turtle, ResourceBundle language) {
+    public InputObject (String command, List<SingleTurtle> turtle, ResourceBundle language) {
         myCommand = command;
         myAllTurtles = turtle;
         myLanguage = language;
@@ -24,7 +24,7 @@ public class InputObject {
         myCommand = command;
     }
     
-    public void setTurtle(List<Turtle> turtle){
+    public void setTurtle(List<SingleTurtle> turtle){
         myAllTurtles = turtle; 
     }
     
@@ -32,7 +32,7 @@ public class InputObject {
         return myCommand;
     }
 
-    public List<Turtle> getTurtle () {
+    public List<SingleTurtle> getTurtle () {
         return myAllTurtles;
     }
     

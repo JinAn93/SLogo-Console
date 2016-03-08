@@ -12,7 +12,7 @@ import Main.*;
 
 public class Repeat extends ControlStructuredCommand {
 
-    public Repeat (List<Turtle> turtle,
+    public Repeat (List<SingleTurtle> turtle,
                    List<StringBuilder> ListOfContents,
                    ResourceBundle lang,
                    List<Variable> variables) {

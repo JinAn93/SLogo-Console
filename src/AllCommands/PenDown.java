@@ -7,7 +7,7 @@ import Main.Turtle;
 
 public class PenDown extends TurtleCommand {
     
-    public PenDown (List<Turtle> turtle) {
+    public PenDown (List<SingleTurtle> turtle) {
         super(turtle);
     }
 

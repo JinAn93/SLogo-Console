@@ -2,12 +2,13 @@ package AllCommands;
 
 import java.util.List;
 import Commands.TurtleCommand;
+import Main.SingleTurtle;
 import Main.Turtle;
 
 
 public class Forward extends TurtleCommand {
 
-    public Forward (List<Turtle> turtle) {
+    public Forward (List<SingleTurtle> turtle) {
         super(turtle);
     }
 

@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.*;
 import Commands.Variable;
 import Main.Output;
+import Main.SingleTurtle;
 import Main.Turtle;
 import Error_Checking.ErrorObject;
 import Main.InputObject;
@@ -44,7 +45,7 @@ public class Display {
     private TextArea historyBox, myConsoleBox, myTurtleStatsBox;
     private StringBuilder commandHistory = new StringBuilder();
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
-    private List<Turtle> myAllTurtles;
+    private List<SingleTurtle> myAllTurtles;
     private TableView<DisplayObject> myVariablesTable;
     private ObservableList<DisplayObject> data;
     private List<Variable> myVarList;
@@ -214,7 +215,7 @@ public class Display {
         return false;
     }
     
-    public List<Turtle> getTurtle () {
+    public List<SingleTurtle> getTurtle () {
         return myAllTurtles;
     }
     

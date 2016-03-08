@@ -1,6 +1,7 @@
 package fxMenu;
 
 import java.util.List;
+import Main.SingleTurtle;
 import Main.Turtle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,10 +12,10 @@ import javafx.scene.paint.Color;
 
 
 public class CreatePenPropertiesMenu {
-    private List<Turtle> myTurtle;
+    private List<SingleTurtle> myTurtle;
     private Menu myPenUpMenu;
 
-    public CreatePenPropertiesMenu (List<Turtle> turt) {
+    public CreatePenPropertiesMenu (List<SingleTurtle> turt) {
         myTurtle = turt;
         myPenUpMenu = new Menu("Set Pen Up/Down");
         MenuItem setPenDown = new MenuItem("Set Pen Down");

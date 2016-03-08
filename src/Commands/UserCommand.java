@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
 import Main.Parser;
+import Main.SingleTurtle;
 import Main.Turtle;
 
 
@@ -13,7 +14,7 @@ public class UserCommand extends Command {
     private String myCommandName;
     private String mySavedCommand;
     private List<String> myParameters;
-    private List<Turtle> myTurtle;
+    private List<SingleTurtle> myTurtle;
     private ResourceBundle myLanguage;
     private List<Variable> myVariableList;
 

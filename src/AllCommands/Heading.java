@@ -2,12 +2,13 @@ package AllCommands;
 
 import java.util.List;
 import Commands.TurtleCommand;
+import Main.SingleTurtle;
 import Main.Turtle;
 
 
 public class Heading extends TurtleCommand {
 
-    public Heading (List<Turtle> turtle) {
+    public Heading (List<SingleTurtle> turtle) {
         super(turtle);
     }
 

@@ -1,5 +1,6 @@
 package fxFrontend;
 
+import Main.SingleTurtle;
 import Main.Turtle;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
@@ -22,7 +23,7 @@ public class CreateTurtleScreen {
 	private GraphicsContext myGraphics, myGraphics2, myLineGraphics;
 	private Image myTurtleImage;
 //	private int turtleX,turtleY;
-	private List<Turtle> myTurtle = new ArrayList<Turtle>(); 
+	private List<SingleTurtle> myTurtle = new ArrayList<SingleTurtle>(); 
 	private StackPane myPane;
 //	private HashMap<>
 	
@@ -37,8 +38,8 @@ public class CreateTurtleScreen {
 		myGraphics.setFill(Color.TRANSPARENT);
 		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
 		        
-        myTurtle.add(new Turtle(180, 210, "/resources/koopa.png"));
-        myTurtle.add(new Turtle(100, 100, "/resources/Plane.png"));
+        myTurtle.add(new SingleTurtle(180, 210, "/resources/koopa.png"));
+        myTurtle.add(new SingleTurtle(100, 100, "/resources/Plane.png"));
         for(Turtle aTurtle: myTurtle){
         myGraphics.drawImage(aTurtle.getTurtleImage(), aTurtle.getStartXCor(), aTurtle.getStartYCor());
         }
@@ -96,7 +97,7 @@ public class CreateTurtleScreen {
 		return myTurtleImage;
 	}
 	
-	public List<Turtle> getMyTurtle(){
+	public List<SingleTurtle> getMyTurtle(){
 		return myTurtle;
 	}
 	

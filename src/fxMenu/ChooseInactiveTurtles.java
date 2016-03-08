@@ -1,6 +1,6 @@
 package fxMenu;
 import java.util.*;
-
+import Main.SingleTurtle;
 import Main.Turtle;
 import fxFrontend.Display;
 import fxFrontend.Display.ObserveTurtle;
@@ -21,11 +21,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 public class ChooseInactiveTurtles {
 	private List<Integer> myInactiveList;
-	private List<Turtle> myTurtleList;
+	private List<SingleTurtle> myTurtleList;
 	private Menu myTurtleInactiveMenu;
 	private MenuItem myChoose;
 
-	public ChooseInactiveTurtles(List<Integer> mynumlist, List<Turtle> myturts){
+	public ChooseInactiveTurtles(List<Integer> mynumlist, List<SingleTurtle> myturts){
 		myTurtleInactiveMenu = new Menu("Choose Inactive Turtles");
 		myTurtleList = myturts;
 		myInactiveList = mynumlist;

@@ -7,7 +7,7 @@ import Main.Turtle;
 
 public class IsShowing extends TurtleCommand {
 
-    public IsShowing (List<Turtle> turtle) {
+    public IsShowing (List<SingleTurtle> turtle) {
         super(turtle);
     }
 

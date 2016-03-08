@@ -6,6 +6,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 import Main.MainBackEnd;
+import Main.SingleTurtle;
 import Main.Turtle;
 
 
@@ -17,7 +18,7 @@ public class CommandFactory {
         myLanguage = lang;
     }
 
-    public Command makeInstruction (String commandName, List<Turtle> turtle,
+    public Command makeInstruction (String commandName, List<SingleTurtle> turtle,
                                     List<StringBuilder> content, List<Variable> variables) {
 
         String commandStr = "AllCommands." + searchCommand(commandName, myLanguage.getKeys());

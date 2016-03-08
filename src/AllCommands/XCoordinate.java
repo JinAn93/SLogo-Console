@@ -2,12 +2,13 @@ package AllCommands;
 
 import java.util.List;
 import Commands.TurtleCommand;
+import Main.SingleTurtle;
 import Main.Turtle;
 
 
 public class XCoordinate extends TurtleCommand {
 
-    public XCoordinate (List<Turtle> turtle) {
+    public XCoordinate (List<SingleTurtle> turtle) {
         super(turtle);
     }
 

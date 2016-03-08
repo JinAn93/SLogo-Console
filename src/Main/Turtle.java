@@ -3,119 +3,52 @@ package Main;
 import java.util.Observable;
 import javafx.scene.image.Image;
 
+
 /**
  * Turtle class serves to store its properties such as visibility, xCor, yCor, and pen (up or Down)
  * 
  * @author Jin An and David Yan
  * 
  */
-public class Turtle extends Observable{
+public interface Turtle {
 
-    private double startXCor, startYCor, endXCor, endYCor, myHeading;
-    private int myVisibility, myPen;
-    private Image myTurtleImage;
-    private double penWidth;
-    private boolean isActive = true;
-    public Turtle (int x, int y, String dir) {
-    	startXCor = x;
-    	startYCor = y;
-    	endXCor = x;
-    	endYCor = y;
-        myVisibility = 1;
-        myPen = 1;
-        myTurtleImage = new Image(dir);
-        myHeading = 0;
-        penWidth = 4.0;
-    }
-    public boolean getActive(){
-    	return isActive;
-    }
-    public void setActive(boolean active){
-    	isActive = active;
-    	setChanged();
-    	notifyObservers();
-    }
+    public boolean getActive ();
 
-    public double getHeading () {
-        return myHeading;
-    }
-    public double getStartXCor () {
-        return startXCor;
-    }
+    public double getHeading ();
 
-    public double getStartYCor () {
-        return startYCor;
-    }
-    
-    public double getEndYCor(){
-    	return endYCor;
-    }
-    
-    public double getEndXCor(){
-    	return endXCor;
-    }
+    public double getStartXCor ();
 
-    public void setHeading (double heading){
-        myHeading = heading % 360;
-        setChanged();
-        notifyObservers();
-    }
-    public void setStartXCor (double xCor) {
-    	startXCor = xCor;
-    }
+    public double getStartYCor ();
 
-    public void setStartYCor (double yCor) {
-    	startYCor = yCor;
-    }
-    
-    public void setEndXCor (double xCor){
-    	endXCor = xCor;
-    	setChanged();
-    	notifyObservers();
-    }
-    
-    public void setEndYCor (double yCor){
-    	endYCor = yCor;
-    	setChanged();
-    	notifyObservers();
-    }
+    public double getEndYCor ();
 
-    public int getVisibility () {
-        return myVisibility;
-    }
+    public double getEndXCor ();
 
-    public void setVisibility (int visibility) {
-        myVisibility = visibility;
-        setChanged();
-        notifyObservers();
-    }
+    public int getVisibility ();
 
-    public int getPen () {
-        return myPen;
-    }
+    public int getPen ();
 
-    public void setPen (int pen) {
-        myPen = pen;
-        setChanged();
-        notifyObservers();
-    }
-    
-    public double getPenWidth(){
-    	return penWidth;
-    }
-    
-    public void setPenWidth(double width){
-    	penWidth = width;
-    }
-    
-    public Image getTurtleImage(){
-    	return myTurtleImage; 
-    }
-    
-    public void setTurtleImage(String dir){
-    	this.myTurtleImage = new Image(dir);
-        setChanged();
-        notifyObservers();
-    }
-    
+    public double getPenWidth ();
+
+    public Image getTurtleImage ();
+
+    public void setActive (boolean active);
+
+    public void setHeading (double heading);
+
+    public void setStartXCor (double xCor);
+
+    public void setStartYCor (double yCor);
+
+    public void setEndXCor (double xCor);
+
+    public void setEndYCor (double yCor);
+
+    public void setVisibility (int visibility);
+
+    public void setPen (int pen);
+
+    public void setPenWidth (double width);
+
+    public void setTurtleImage (String dir);
 }

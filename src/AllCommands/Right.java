@@ -7,7 +7,7 @@ import Main.Turtle;
 
 public class Right extends TurtleCommand {
 
-    public Right (List<Turtle> turtle) {
+    public Right (List<SingleTurtle> turtle) {
         super(turtle);
     }
 

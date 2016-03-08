@@ -19,7 +19,7 @@ public class For extends ControlStructuredCommand {
     private static final int INDEX_END = 2;
     private static final int INDEX_INCREMENT = 3;
     
-    public For (List<Turtle> turtle, List<StringBuilder> ListOfContents,
+    public For (List<SingleTurtle> turtle, List<StringBuilder> ListOfContents,
                 ResourceBundle lang, List<Variable> variables) {
         System.out.println("For was Created");
         myTurtle = turtle;

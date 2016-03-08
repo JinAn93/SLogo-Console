@@ -24,11 +24,11 @@ public class Parser {
 
     private static final String INSTRUCTION_ERROR = "WRONG COMMAND.";
     private static final String PARAMETER_ERROR = "WRONG PARAMETER.";
-    private List<Turtle> myAllTurtles;
+    private List<SingleTurtle> myAllTurtles;
     private ResourceBundle myLanguage;
     private List<Variable> myVariableList;
 
-    public Parser (List<Turtle> turtle, ResourceBundle lang, List<Variable> variables) {
+    public Parser (List<SingleTurtle> turtle, ResourceBundle lang, List<Variable> variables) {
         myAllTurtles = turtle;
         myLanguage = lang;
         myVariableList = variables;
@@ -45,6 +45,7 @@ public class Parser {
             Node command = null;
 
             if (isCommand(nodes[i])) {
+                
                 try {
                     command =
                             cf.makeInstruction(nodes[i], myAllTurtles, ListOfContents,

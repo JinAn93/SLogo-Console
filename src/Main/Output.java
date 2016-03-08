@@ -8,18 +8,18 @@ import Commands.Variable;
 public class Output {
 
     private List<String> myResult = new ArrayList<String>();
-    private List<Turtle> myTurtle;
+    private List<SingleTurtle> myTurtle;
     private List<Variable> myVariables = new ArrayList<Variable>();
     private boolean badCommand = false; 
     private String myErrorType; 
     private String myErrorMessage; 
     
-    public Output (List<Turtle> turtle, List<Variable> variables) {
+    public Output (List<SingleTurtle> turtle, List<Variable> variables) {
         myTurtle = turtle;
         myVariables = variables;
     }
     
-    public Output(List<Turtle> turtle, List<Variable> variables, String errorType, String errorMessage){
+    public Output(List<SingleTurtle> turtle, List<Variable> variables, String errorType, String errorMessage){
         myTurtle = turtle;
     	myVariables = variables;
     	myErrorType = errorType; 
@@ -34,11 +34,11 @@ public class Output {
         this.myResult = result;
     }
 
-    public List<Turtle> getTurtle () {
+    public List<SingleTurtle> getTurtle () {
         return myTurtle;
     }
 
-    public void updateTurtle (List<Turtle> turtle) {
+    public void updateTurtle (List<SingleTurtle> turtle) {
         this.myTurtle = turtle;
     }
 

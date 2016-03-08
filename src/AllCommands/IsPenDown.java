@@ -7,7 +7,7 @@ import Main.Turtle;
 
 public class IsPenDown extends TurtleCommand {
 
-    public IsPenDown (List<Turtle> turtle) {
+    public IsPenDown (List<SingleTurtle> turtle) {
         super(turtle);
     }
 
