@@ -9,6 +9,7 @@ public abstract class Command implements Node {
     protected String myStrValue;
     protected boolean isChildOperand;
     protected boolean isChildVariable;
+    protected boolean isChildUserCommand;
 
     public abstract String executeCommand ();
 
@@ -30,6 +31,15 @@ public abstract class Command implements Node {
         return isChildVariable;
     }
 
+    public boolean setUserCommand (boolean bool){
+        isChildUserCommand = bool;
+        return isChildUserCommand;
+    }
+    
+    public boolean isUserCommand () {
+        return isChildUserCommand;
+    }
+    
     public void setChildren (Node[] kids) {
         myChildren = kids;
     }
@@ -50,6 +60,8 @@ public abstract class Command implements Node {
             return getValue();
         if (isVariable())
             return getValue();
+        if (isUserCommand())
+            return this.executeCommand();
         return executeCommand();
     }
 

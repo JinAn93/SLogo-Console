@@ -6,21 +6,21 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 import Commands.ControlStructuredCommand;
 import Commands.Node;
+import Commands.UserCommand;
 import Commands.Variable;
 import Main.*;
 
 
 public class If extends ControlStructuredCommand {
 
-    public If (List<SingleTurtle> turtle,
-               List<StringBuilder> ListOfContents,
-               ResourceBundle lang,
-               List<Variable> variables) {
+    public If (List<SingleTurtle> turtle, List<StringBuilder> ListOfContents,
+               ResourceBundle lang, List<Variable> variables, List<UserCommand> commands) {
         System.out.println("If was Created");
         myTurtle = turtle;
         myContent = ListOfContents.get(COMMAND_INDEX).toString();
         myLanguage = lang;
         myVariableList = variables;
+        myUserCommandList = commands;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class If extends ControlStructuredCommand {
     }
 
     private String executeStatement () {
-        Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
+        Parser parser = new Parser(myTurtle, myLanguage, myVariableList, myUserCommandList);
         Stack<Node> result;
         try {
             result = parser.buildExpressionTree(Arrays.asList(myContent.split(" ")));

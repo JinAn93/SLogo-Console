@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 import Commands.ControlStructuredCommand;
 import Commands.Node;
+import Commands.UserCommand;
 import Commands.Variable;
 import Error_Checking.ErrorObject;
 import Error_Checking.VariableException;
@@ -20,13 +21,14 @@ public class For extends ControlStructuredCommand {
     private static final int INDEX_INCREMENT = 3;
     
     public For (List<SingleTurtle> turtle, List<StringBuilder> ListOfContents,
-                ResourceBundle lang, List<Variable> variables) {
+                ResourceBundle lang, List<Variable> variables, List<UserCommand> commands) {
         System.out.println("For was Created");
         myTurtle = turtle;
         myContent = ListOfContents.get(COMMAND_INDEX).toString();
         myControlContent = ListOfContents.get(CONTROL_INDEX).toString();
         myLanguage = lang;
         myVariableList = variables;
+        myUserCommandList = commands;
     }
 
     @Override
@@ -75,7 +77,7 @@ public class For extends ControlStructuredCommand {
             newCommand.append(myContent);
         }
         newCommand.deleteCharAt(newCommand.length() - 1);
-        Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
+        Parser parser = new Parser(myTurtle, myLanguage, myVariableList, myUserCommandList);
         Stack<Node> result;
         try {
             result = parser.buildExpressionTree(Arrays.asList((newCommand.toString().split(" "))));

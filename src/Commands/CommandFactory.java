@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import Main.MainBackEnd;
 import Main.SingleTurtle;
-import Main.Turtle;
 
 
 public class CommandFactory {
@@ -18,10 +17,10 @@ public class CommandFactory {
         myLanguage = lang;
     }
 
-    public Command makeInstruction (String commandName, List<SingleTurtle> turtle,
-                                    List<StringBuilder> content, List<Variable> variables) {
+    public Command makeInstr (String commandName, List<SingleTurtle> turtle,
+                              List<StringBuilder> content, List<Variable> variables, List<UserCommand> commands) {
 
-        String commandStr = "AllCommands." + searchCommand(commandName, myLanguage.getKeys());
+        String commandStr = "AllCommands." + searchCommand(commandName, myLanguage.getKeys()); // String
         Class<?> clas = null;
         Constructor<?>[] constructors = null;
         Command command = null;
@@ -48,9 +47,9 @@ public class CommandFactory {
 
             }
 
-            else if (constructors[0].getParameterCount() == 2) {
+            else if (constructors[0].getParameterCount() == 3) {
                 try {
-                    command = (Command) constructors[0].newInstance(content, variables);
+                    command = (Command) constructors[0].newInstance(content, variables, commands);
                 }
                 catch (InstantiationException | IllegalAccessException
                         | IllegalArgumentException | InvocationTargetException e) {
@@ -58,10 +57,10 @@ public class CommandFactory {
                 }
             }
             
-            else if (constructors[0].getParameterCount() == 4) {
+            else if (constructors[0].getParameterCount() == 5) {
                 try {
                     command = (Command) constructors[0].newInstance(turtle, content, myLanguage,
-                                                                    variables);
+                                                                    variables, commands);
                 }
                 catch (InstantiationException | IllegalAccessException
                         | IllegalArgumentException | InvocationTargetException e) {
@@ -109,8 +108,25 @@ public class CommandFactory {
         newVar.setVariable(true);
         return newVar; // Throw Error
     }
+    
+    public UserCommand makeCommand (String command) {
+        if (command == null){
+            return null;
+        }
+        
+        for (UserCommand ucommand : MainBackEnd.getUserCommands()){
+            if(ucommand.getUserCommandName().equals(command)){
+                System.out.println(command + "was created");
+                return ucommand;
+            }
+        }
+        UserCommand ucom = new UserCommand();
+        ucom.setUserCommandName(command);
+        ucom.setUserCommand(true);
+        return ucom;        
+    }
 
-    private String searchCommand (String str, Enumeration<String> keys) {
+    public String searchCommand (String str, Enumeration<String> keys) {
         while (keys.hasMoreElements()) {
             String command = (keys.nextElement());
             if (str.matches(myLanguage.getString(command))) {

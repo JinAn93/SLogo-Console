@@ -1,5 +1,6 @@
 package Main;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -9,6 +10,7 @@ import java.util.Stack;
 import Commands.Command;
 import Commands.CommandFactory;
 import Commands.Node;
+import Commands.UserCommand;
 import Commands.Variable;
 import Error_Checking.ErrorObject;
 import Error_Checking.InstructionException;
@@ -16,7 +18,6 @@ import Error_Checking.ParameterException;
 
 
 public class Parser {
-    // private static final int COLON = 1;
     private static final ResourceBundle myParameters = ResourceBundle
             .getBundle("resources.ParameterList/AllParameters");
     protected static final ResourceBundle mySyntaxes = ResourceBundle
@@ -27,11 +28,13 @@ public class Parser {
     private List<SingleTurtle> myAllTurtles;
     private ResourceBundle myLanguage;
     private List<Variable> myVariableList;
+    private List<UserCommand> myUserCommandList;
 
-    public Parser (List<SingleTurtle> turtle, ResourceBundle lang, List<Variable> variables) {
+    public Parser (List<SingleTurtle> turtle, ResourceBundle lang, List<Variable> variables, List<UserCommand> commands) {
         myAllTurtles = turtle;
         myLanguage = lang;
         myVariableList = variables;
+        myUserCommandList = commands;
     }
 
     public Stack<Node> buildExpressionTree (Collection<?> ListOfNodes)
@@ -44,38 +47,45 @@ public class Parser {
             System.out.println("We are at " + nodes[i] + " Node");
             Node command = null;
 
-            if (isCommand(nodes[i])) {
-                
-                try {
-                    command =
-                            cf.makeInstruction(nodes[i], myAllTurtles, ListOfContents,
-                                               myVariableList);
-
-                    if (command == null) {
-                        throw new InstructionException();
-                    }
-                    int paramNum = getParamNum(nodes[i]);
-                    Node[] children = new Node[paramNum];
+            if (isUserCommand(nodes[i])){
+                   System.out.println("This is userdefined command!");
+            }
+            
+            else if (isCommand(nodes[i])) {
+                if (isAddNewCommand(nodes, i - 1, cf)) {
+                    command = cf.makeCommand(nodes[i]);
+                }
+                else {
                     try {
-                        if (paramNum > stack.size()) {
-                            throw new ParameterException();
+                        command =
+                                cf.makeInstr(nodes[i], myAllTurtles, ListOfContents, myVariableList, myUserCommandList);
+                        if (command == null) {
+                            throw new InstructionException();
                         }
-                        for (int c = 0; c < paramNum; c++) {
-                            children[c] = stack.pop();
-                            System.out.println((c + 1) + " child is " + children[c].getValue());
+                        int paramNum = getParamNum(nodes[i]);
+                        Node[] children = new Node[paramNum];
+                        try {
+                            if (paramNum > stack.size()) {
+                                throw new ParameterException();
+                            }
+                            for (int c = 0; c < paramNum; c++) {
+                                children[c] = stack.pop();
+                                System.out.println((c + 1) + " child is " + children[c].getValue());
+                            }
+                            ((Command) command).setChildren(children);
                         }
-                        ((Command) command).setChildren(children);
+                        catch (ParameterException e) {
+                            new ErrorObject(PARAMETER_ERROR).displayError();
+                            return null;
+                        }
                     }
-                    catch (ParameterException e) {
-                        new ErrorObject(PARAMETER_ERROR).displayError();
+                    catch (InstructionException e) {
+                        new ErrorObject(INSTRUCTION_ERROR).displayError();
                         return null;
                     }
                 }
-                catch (InstructionException e) {
-                    new ErrorObject(INSTRUCTION_ERROR).displayError();
-                    return null;
-                }
             }
+
             else if (isConstant(nodes[i])) {
                 command = cf.makeOperand(nodes[i]);
             }
@@ -101,6 +111,15 @@ public class Parser {
         }
         System.out.println("Reached the end of stack");
         return stack;
+    }
+
+    private boolean isAddNewCommand (String[] nodes, int index, CommandFactory cf) {
+        if (index < 0)
+            return false;
+        String nextCommand = cf.searchCommand(nodes[index], myLanguage.getKeys());
+        if (nextCommand.equals("MakeUserInstruction")) // String
+            return true;
+        return false;
     }
 
     private int searchListStart (String[] commands, int startIndex) {
@@ -136,6 +155,16 @@ public class Parser {
             ret.add(input.pop().getValue());
         }
         return ret;
+    }
+    
+    private boolean isUserCommand (String input) {
+        if(myUserCommandList == null)
+            return false;
+        for(UserCommand ucommand : myUserCommandList){
+            if(ucommand.getUserCommandName().equals(input))
+                return true;
+        }
+        return false;
     }
 
     private boolean isCommand (String input) {

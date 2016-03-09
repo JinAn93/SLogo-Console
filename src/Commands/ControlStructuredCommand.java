@@ -13,6 +13,7 @@ public abstract class ControlStructuredCommand extends Command {
     protected List<SingleTurtle> myTurtle;
     protected ResourceBundle myLanguage;
     protected List<Variable> myVariableList;
+    protected List<UserCommand> myUserCommandList;
     protected static final int FIRSTCHILD = 0;
     protected static final int SECONDCHILD = 1;
     protected static final int NUMREPEATINDEX = 0;

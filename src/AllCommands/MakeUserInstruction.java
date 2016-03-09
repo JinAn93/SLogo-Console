@@ -11,24 +11,23 @@ import Main.*;
 
 public class MakeUserInstruction extends Command {
 
-    private String myNewCommandName;
     private String myNewCommand;
     private List<String> myParameters;
     private List<Variable> myVariableList;
+    private List<UserCommand> myUserCommandList;
     private static final String DEFINE_SUCCESS = "1";
     private static final String DEFINE_FAIL = "0";
     private static final String SPACE = " ";
     private static final int COMMAND_NAME = 0;
-    private static final int PARAMETERS_INDEX = 0;
-    private static final int COMMAND_INDEX = 1;
+    private static final int PARAMETERS_INDEX = 1;
+    private static final int COMMAND_INDEX = 0;
     private static final int COLON_INDEX = 1;
 
-    public MakeUserInstruction (List<StringBuilder> ListOfContents, List<Variable> variables) {
-        System.out.println("To was Created");
-        myNewCommandName = myChildren[COMMAND_NAME].getValue();
+    public MakeUserInstruction (List<StringBuilder> ListOfContents, List<Variable> variables, List<UserCommand> commands) {
         myNewCommand = ListOfContents.get(COMMAND_INDEX).toString();
         myParameters = Arrays.asList(ListOfContents.get(PARAMETERS_INDEX).toString().split(SPACE));
         myVariableList = variables;
+        myUserCommandList = commands;
     }
 
     @Override
@@ -37,7 +36,8 @@ public class MakeUserInstruction extends Command {
             if (parameterCheck(myParameters)) {
                 throw new VariableException();
             }
-            UserCommand newCom = new UserCommand(myNewCommandName, myNewCommand, myParameters);
+            String commandName = ((UserCommand) myChildren[COMMAND_NAME]).getUserCommandName();
+            UserCommand newCom = new UserCommand(commandName, myNewCommand, myParameters, myUserCommandList);
             UserCommand existCheck = isAlreadyExist(newCom);
             if (existCheck != null) {
                 existCheck.setCommand(myNewCommand, myParameters);
@@ -65,12 +65,12 @@ public class MakeUserInstruction extends Command {
         int countValidParameter = 0;
         for (int i = 0; i < parameters.size(); i++) {
             for (Variable var : MainBackEnd.getVariables()) {
-                if (var.getName().equals(parameters.get(i).substring(COLON_INDEX))){
-                    countValidParameter++;                    
+                if (var.getName().equals(parameters.get(i).substring(COLON_INDEX))) {
+                    countValidParameter++;
                 }
             }
         }
-        if(countValidParameter == parameters.size())
+        if (countValidParameter == parameters.size())
             return true;
         else
             return false;

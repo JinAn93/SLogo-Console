@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 import Main.Parser;
 import Main.SingleTurtle;
-import Main.Turtle;
 
 
 public class UserCommand extends Command {
@@ -17,16 +16,21 @@ public class UserCommand extends Command {
     private List<SingleTurtle> myTurtle;
     private ResourceBundle myLanguage;
     private List<Variable> myVariableList;
+    private List<UserCommand> myUserCommandList;
 
-    public UserCommand (String name, String command, List<String> parameters) {
+    public UserCommand (String name, String command, List<String> parameters, List<UserCommand> commands) {
         myCommandName = name;
         mySavedCommand = command;
         myParameters = parameters;
+        myUserCommandList = commands;
+    }
+
+    public UserCommand () {
     }
 
     @Override
     public String executeCommand () {
-        Parser parser = new Parser(myTurtle, myLanguage, myVariableList);
+        Parser parser = new Parser(myTurtle, myLanguage, myVariableList, myUserCommandList);
         Stack<Node> result;
         try {
             result = parser.buildExpressionTree(Arrays.asList(mySavedCommand.split(" ")));
@@ -40,12 +44,24 @@ public class UserCommand extends Command {
             return null;
         }
     }
-    
-    public String getUserCommandName(){
+
+    public String getUserCommandName () {
         return myCommandName;
     }
-    
-    public void setCommand (String command, List<String> parameter){
+
+    public String getCommand () {
+        return mySavedCommand;
+    }
+
+    public List<String> getParameters () {
+        return myParameters;
+    }
+
+    public void setUserCommandName (String name) {
+        myCommandName = name;
+    }
+
+    public void setCommand (String command, List<String> parameter) {
         mySavedCommand = command;
         myParameters = parameter;
     }
