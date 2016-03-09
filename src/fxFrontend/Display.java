@@ -206,9 +206,16 @@ public class Display {
     }
     
     public boolean contains (TableView<DisplayObject> table, DisplayObject obj) {
-        for (DisplayObject item : table.getItems())
-            if (item.getVariableName().equals(obj.getVariableName()))
-                return true;
+        for (DisplayObject item : table.getItems()){
+            if (item.getVariableName().equals(obj.getVariableName()) && item.getVariableValue().equals(obj.getVariableValue())){
+            	return true;
+            }
+            else{
+            	table.getItems().remove(item);
+            	return false;	
+            }
+            
+        }
         return false;
     }
     
