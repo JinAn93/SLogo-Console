@@ -210,7 +210,7 @@ public class Display {
             if (item.getVariableName().equals(obj.getVariableName()) && item.getVariableValue().equals(obj.getVariableValue())){
             	return true;
             }
-            else{
+            else if(item.getVariableName().equals(obj.getVariableName()) && !item.getVariableValue().equals(obj.getVariableValue())){
             	table.getItems().remove(item);
             	return false;	
             }
