@@ -1,8 +1,7 @@
 package fxMenu;
 
 import java.util.List;
-import Main.SingleTurtle;
-import Main.Turtle;
+import Turtle.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;

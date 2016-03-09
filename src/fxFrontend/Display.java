@@ -1,6 +1,6 @@
 package fxFrontend;
 
-import Main.MainBackEnd;
+import BackEndMain.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,12 +24,9 @@ import javafx.scene.paint.Color;
 import fxFrontend.DisplayObject;
 import java.io.IOException;
 import java.util.*;
-import Commands.Variable;
-import Main.Output;
-import Main.SingleTurtle;
-import Main.Turtle;
+import NodeTypes.Variable;
+import Turtle.*;
 import Error_Checking.ErrorObject;
-import Main.InputObject;
 import fxMenu.SlogoMenuCreator;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;

@@ -1,4 +1,4 @@
-package Commands;
+package NodeTypes;
 
 public class Operand implements Node {
     private String myStrValue;

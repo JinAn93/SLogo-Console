@@ -1,6 +1,5 @@
-package Main;
+package Turtle;
 
-import java.util.Observable;
 import javafx.scene.image.Image;
 
 

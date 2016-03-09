@@ -1,15 +1,10 @@
 package AllCommands;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Stack;
-import Commands.ControlStructuredCommand;
-import Commands.Node;
-import Commands.UserCommand;
-import Commands.Variable;
-import Main.*;
+import java.util.*;
+import CommandTypes.*;
+import BackEndMain.*;
+import NodeTypes.*;
+import Turtle.*;
 
 
 public class IfElse extends ControlStructuredCommand {

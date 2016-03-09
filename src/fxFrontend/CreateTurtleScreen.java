@@ -1,7 +1,6 @@
 package fxFrontend;
 
-import Main.SingleTurtle;
-import Main.Turtle;
+import Turtle.*;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

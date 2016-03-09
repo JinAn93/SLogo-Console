@@ -1,12 +1,12 @@
-package Commands;
+package BackEndMain;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
-import Main.MainBackEnd;
-import Main.SingleTurtle;
+import NodeTypes.*;
+import Turtle.*;
 
 
 public class CommandFactory {
@@ -17,8 +17,11 @@ public class CommandFactory {
         myLanguage = lang;
     }
 
-    public Command makeInstr (String commandName, List<SingleTurtle> turtle,
-                              List<StringBuilder> content, List<Variable> variables, List<UserCommand> commands) {
+    public Command makeInstr (String commandName,
+                              List<SingleTurtle> turtle,
+                              List<StringBuilder> content,
+                              List<Variable> variables,
+                              List<UserCommand> commands) {
 
         String commandStr = "AllCommands." + searchCommand(commandName, myLanguage.getKeys()); // String
         Class<?> clas = null;
@@ -56,7 +59,7 @@ public class CommandFactory {
                     return null;
                 }
             }
-            
+
             else if (constructors[0].getParameterCount() == 5) {
                 try {
                     command = (Command) constructors[0].newInstance(turtle, content, myLanguage,
@@ -108,14 +111,14 @@ public class CommandFactory {
         newVar.setVariable(true);
         return newVar; // Throw Error
     }
-    
+
     public UserCommand makeCommand (String command) {
-        if (command == null){
+        if (command == null) {
             return null;
         }
-        
-        for (UserCommand ucommand : MainBackEnd.getUserCommands()){
-            if(ucommand.getUserCommandName().equals(command)){
+
+        for (UserCommand ucommand : MainBackEnd.getUserCommands()) {
+            if (ucommand.getUserCommandName().equals(command)) {
                 System.out.println(command + "was created");
                 return ucommand;
             }
@@ -123,7 +126,7 @@ public class CommandFactory {
         UserCommand ucom = new UserCommand();
         ucom.setUserCommandName(command);
         ucom.setUserCommand(true);
-        return ucom;        
+        return ucom;
     }
 
     public String searchCommand (String str, Enumeration<String> keys) {

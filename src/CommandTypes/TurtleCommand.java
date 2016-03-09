@@ -1,8 +1,8 @@
-package Commands;
+package CommandTypes;
 
 import java.util.List;
-import Main.SingleTurtle;
-import Main.Turtle;
+import NodeTypes.*;
+import Turtle.*;
 
 
 public abstract class TurtleCommand extends Command {

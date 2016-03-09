@@ -1,4 +1,6 @@
-package Commands;
+package CommandTypes;
+
+import NodeTypes.*;
 
 public abstract class MathOpCommand extends Command {
 

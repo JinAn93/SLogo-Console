@@ -1,9 +1,8 @@
 package AllCommands;
 
 import java.util.List;
-import Commands.TurtleCommand;
-import Main.SingleTurtle;
-import Main.Turtle;
+import CommandTypes.TurtleCommand;
+import Turtle.*;
 
 
 public class Forward extends TurtleCommand {
@@ -21,7 +20,7 @@ public class Forward extends TurtleCommand {
             aturtle.setEndXCor(aturtle.getStartXCor() + (moveBy * (Math.cos(radian))));
             aturtle.setEndYCor(aturtle.getStartYCor() + (moveBy * (Math.sin(radian))));
             System.out.println("We are moving by : '" + moveBy + "'");
-            
+
         }
         return Double.toString(moveBy);
     }

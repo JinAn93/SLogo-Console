@@ -1,9 +1,8 @@
 package AllCommands;
 
 import java.util.List;
-import Commands.TurtleCommand;
-import Main.SingleTurtle;
-import Main.Turtle;
+import CommandTypes.TurtleCommand;
+import Turtle.*;
 
 
 public class YCoordinate extends TurtleCommand {
@@ -15,8 +14,8 @@ public class YCoordinate extends TurtleCommand {
     @Override
     public String executeCommand () {
         String ret = null;
-        for(Turtle aturtle:myTurtle){
-        ret = String.valueOf((aturtle.getStartYCor()));
+        for (Turtle aturtle : myTurtle) {
+            ret = String.valueOf((aturtle.getStartYCor()));
         }
         return ret;
     }

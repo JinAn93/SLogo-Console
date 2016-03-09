@@ -1,6 +1,6 @@
 package AllCommands;
 
-import Commands.MathOpCommand;
+import CommandTypes.MathOpCommand;
 
 
 public class Difference extends MathOpCommand {

@@ -3,8 +3,7 @@ package fxMenu;
 import java.util.List;
 import java.util.ResourceBundle;
 import fxFrontend.Display;
-import Main.SingleTurtle;
-import Main.Turtle;
+import Turtle.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuBar;
 

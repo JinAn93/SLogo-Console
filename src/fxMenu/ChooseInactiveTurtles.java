@@ -1,7 +1,6 @@
 package fxMenu;
 import java.util.*;
-import Main.SingleTurtle;
-import Main.Turtle;
+import Turtle.*;
 import fxFrontend.Display;
 import fxFrontend.Display.ObserveTurtle;
 import javafx.collections.FXCollections;

@@ -1,7 +1,6 @@
 package fxMenu;
 import java.util.*;
-import Main.InputObject;
-import Main.MainBackEnd;
+import BackEndMain.*;
 import fxFrontend.Display;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

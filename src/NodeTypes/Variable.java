@@ -1,4 +1,4 @@
-package Commands;
+package NodeTypes;
 
 public class Variable implements Node {
 

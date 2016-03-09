@@ -1,4 +1,4 @@
-package Commands;
+package NodeTypes;
 
 public abstract class Command implements Node {
 

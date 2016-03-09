@@ -1,4 +1,4 @@
-package Commands;
+package NodeTypes;
 
 public interface Node {
     public String setValue(String str);

@@ -1,8 +1,9 @@
-package Main;
+package BackEndMain;
 
 import java.util.ArrayList;
 import java.util.List;
-import Commands.Variable;
+import NodeTypes.*;
+import Turtle.*;
 
 
 public class Output {
@@ -10,20 +11,23 @@ public class Output {
     private List<String> myResult = new ArrayList<String>();
     private List<SingleTurtle> myTurtle;
     private List<Variable> myVariables = new ArrayList<Variable>();
-    private boolean badCommand = false; 
-    private String myErrorType; 
-    private String myErrorMessage; 
-    
+    private boolean badCommand = false;
+    private String myErrorType;
+    private String myErrorMessage;
+
     public Output (List<SingleTurtle> turtle, List<Variable> variables) {
         myTurtle = turtle;
         myVariables = variables;
     }
-    
-    public Output(List<SingleTurtle> turtle, List<Variable> variables, String errorType, String errorMessage){
+
+    public Output (List<SingleTurtle> turtle,
+                   List<Variable> variables,
+                   String errorType,
+                   String errorMessage) {
         myTurtle = turtle;
-    	myVariables = variables;
-    	myErrorType = errorType; 
-    	myErrorMessage = errorMessage; 
+        myVariables = variables;
+        myErrorType = errorType;
+        myErrorMessage = errorMessage;
     }
 
     public List<String> getResult () {
@@ -49,26 +53,25 @@ public class Output {
     public void updateVariable (List<Variable> variables) {
         this.myVariables = variables;
     }
-    
-    public boolean isValidCommand(){
-    	return badCommand;
+
+    public boolean isValidCommand () {
+        return badCommand;
     }
-    
-    public void setBadCommand(){
-    	badCommand = true; 
+
+    public void setBadCommand () {
+        badCommand = true;
     }
-    
-    public void setValidity(boolean status){
-    	badCommand = status; 
+
+    public void setValidity (boolean status) {
+        badCommand = status;
     }
-    
-    public String getErrorMessage(){
-    	return myErrorMessage;
+
+    public String getErrorMessage () {
+        return myErrorMessage;
     }
-    
-    public void setErrorMessage(String error){
-    	myErrorMessage = error;
+
+    public void setErrorMessage (String error) {
+        myErrorMessage = error;
     }
-    
-    
+
 }

@@ -1,9 +1,8 @@
 package AllCommands;
 
 import java.util.List;
-import Commands.TurtleCommand;
-import Main.SingleTurtle;
-import Main.Turtle;
+import CommandTypes.TurtleCommand;
+import Turtle.*;
 
 
 public class IsPenDown extends TurtleCommand {

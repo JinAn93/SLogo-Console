@@ -1,8 +1,7 @@
 package AllCommands;
 
-import Commands.Command;
-import Commands.Variable;
-import Main.MainBackEnd;
+import NodeTypes.*;
+import BackEndMain.*;
 
 
 public class MakeVariable extends Command {

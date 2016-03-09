@@ -4,13 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
-import Commands.ControlStructuredCommand;
-import Commands.Node;
-import Commands.UserCommand;
-import Commands.Variable;
+import CommandTypes.*;
+import NodeTypes.*;
 import Error_Checking.ErrorObject;
 import Error_Checking.VariableException;
-import Main.*;
+import BackEndMain.*;
+import Turtle.*;
 
 
 public class For extends ControlStructuredCommand {

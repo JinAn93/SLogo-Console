@@ -1,9 +1,9 @@
-package Commands;
+package CommandTypes;
 
 import java.util.List;
 import java.util.ResourceBundle;
-import Main.SingleTurtle;
-import Main.Turtle;
+import Turtle.*;
+import NodeTypes.*;
 
 
 public abstract class ControlStructuredCommand extends Command {

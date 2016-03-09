@@ -1,33 +1,33 @@
-package Main;
+package BackEndMain;
 
 import java.util.List;
 import java.util.ResourceBundle;
-import Main.Turtle;
+import Turtle.*;
 
 
 public class InputObject {
     private String myCommand;
     private List<SingleTurtle> myAllTurtles;
     private ResourceBundle myLanguage;
-    
+
     public InputObject (String command, List<SingleTurtle> turtle, ResourceBundle language) {
         myCommand = command;
         myAllTurtles = turtle;
         myLanguage = language;
     }
-    
-    public InputObject(ResourceBundle language){
+
+    public InputObject (ResourceBundle language) {
         myLanguage = language;
     }
-    
-    public void setCommand(String command){
+
+    public void setCommand (String command) {
         myCommand = command;
     }
-    
-    public void setTurtle(List<SingleTurtle> turtle){
-        myAllTurtles = turtle; 
+
+    public void setTurtle (List<SingleTurtle> turtle) {
+        myAllTurtles = turtle;
     }
-    
+
     public String getCommand () {
         return myCommand;
     }
@@ -35,13 +35,13 @@ public class InputObject {
     public List<SingleTurtle> getTurtle () {
         return myAllTurtles;
     }
-    
-    public void setLanguage(ResourceBundle bundle){
-    	myLanguage = bundle; 
+
+    public void setLanguage (ResourceBundle bundle) {
+        myLanguage = bundle;
     }
-    
-    public ResourceBundle getLanguage(){
-    	return myLanguage; 
+
+    public ResourceBundle getLanguage () {
+        return myLanguage;
     }
 
 }

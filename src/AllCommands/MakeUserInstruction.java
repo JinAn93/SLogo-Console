@@ -2,11 +2,10 @@ package AllCommands;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.ResourceBundle;
-import Commands.*;
 import Error_Checking.ErrorObject;
+import NodeTypes.*;
 import Error_Checking.VariableException;
-import Main.*;
+import BackEndMain.*;
 
 
 public class MakeUserInstruction extends Command {
