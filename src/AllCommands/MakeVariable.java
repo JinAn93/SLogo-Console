@@ -14,6 +14,7 @@ public class MakeVariable extends Command {
         Variable newVar = new Variable();
         newVar.setName(((Variable) myChildren[NAMEINDEX]).getName());
         newVar.setValue(myChildren[VALUEINDEX].getValue());
+        System.out.println("Variable Name is " + newVar.getName() + " Variable value is " + newVar.getValue());
         Variable existCheck = isAlreadyExist(newVar);
         if (existCheck != null) {
             existCheck.setValue(newVar.getValue());
@@ -25,6 +26,8 @@ public class MakeVariable extends Command {
     }
 
     private Variable isAlreadyExist (Variable newVar) {
+        if(MainBackEnd.getVariables() == null)
+            return null;
         for (Variable var : MainBackEnd.getVariables()) {
             if ((var.getName().equals(newVar.getName())))
                 return var;

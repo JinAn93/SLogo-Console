@@ -1,6 +1,5 @@
 package NodeTypes;
 
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,11 +18,18 @@ public class UserCommand extends Command {
     private List<Variable> myVariableList;
     private List<UserCommand> myUserCommandList;
 
-    public UserCommand (String name, String command, List<String> parameters, List<UserCommand> commands) {
+    public UserCommand (List<SingleTurtle> turtles,
+                        String name,
+                        String command,
+                        ResourceBundle lang,
+                        List<String> parameters,
+                        List<UserCommand> commands) {
         myCommandName = name;
+        myTurtle = turtles;
         mySavedCommand = command;
         myParameters = parameters;
         myUserCommandList = commands;
+        myLanguage = lang;
     }
 
     public UserCommand () {

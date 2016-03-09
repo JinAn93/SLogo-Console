@@ -31,6 +31,8 @@ public class MainBackEnd {
             }
             Output output = new Output(myAllTurtles, myVariableList);
             output.setResult(parser.stringizer(result));
+            System.out.println("Here is the Variable List: " + myVariableList);
+            System.out.println("Here is the User Command List: " + myUserCommandList);
             return output;
         }
         catch (Exception e) {

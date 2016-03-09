@@ -38,13 +38,10 @@ public class Parser {
             System.out.println("We are at " + nodes[i] + " Node");
             Node command = null;
 
-            if (isUserCommand(nodes[i])){
-                   System.out.println("This is userdefined command!");
-            }
-            
-            else if (isCommand(nodes[i])) {
-                if (isAddNewCommand(nodes, i - 1, cf)) {
-                    command = cf.makeCommand(nodes[i]);
+            if (isCommand(nodes[i])) {
+                if (isAddNewCommand(nodes, i - 1, cf) || isUserCommand(nodes[i])) {
+                    System.out.println("Oh you will either add new command or this is usercomand");
+                    command = cf.makeCommand(nodes[i],myUserCommandList);
                 }
                 else {
                     try {
@@ -82,7 +79,8 @@ public class Parser {
             }
 
             else if (isVariable(nodes[i])) {
-                command = cf.makeVariable(nodes[i]);
+                System.out.println(nodes[i] + " is a variable");
+                command = cf.makeVariable(nodes[i],myVariableList);
             }
 
             else if (isListEnd(nodes[i])) {
@@ -104,6 +102,14 @@ public class Parser {
         return stack;
     }
 
+    public List<Variable> updateVariableList(){
+        return myVariableList;
+    }
+    
+    public List<UserCommand> updateUserCommandList(){
+        return myUserCommandList;
+    }
+    
     private boolean isAddNewCommand (String[] nodes, int index, CommandFactory cf) {
         if (index < 0)
             return false;

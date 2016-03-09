@@ -22,8 +22,9 @@ public class CommandFactory {
                               List<StringBuilder> content,
                               List<Variable> variables,
                               List<UserCommand> commands) {
-
+        System.out.println("Hmm..");
         String commandStr = "AllCommands." + searchCommand(commandName, myLanguage.getKeys()); // String
+        System.out.println("I will be creating: " + commandStr);
         Class<?> clas = null;
         Constructor<?>[] constructors = null;
         Command command = null;
@@ -48,16 +49,6 @@ public class CommandFactory {
                     return null;
                 }
 
-            }
-
-            else if (constructors[0].getParameterCount() == 3) {
-                try {
-                    command = (Command) constructors[0].newInstance(content, variables, commands);
-                }
-                catch (InstantiationException | IllegalAccessException
-                        | IllegalArgumentException | InvocationTargetException e) {
-                    return null;
-                }
             }
 
             else if (constructors[0].getParameterCount() == 5) {
@@ -93,36 +84,39 @@ public class CommandFactory {
         return op;
     }
 
-    public Variable makeVariable (String variable) {
+    public Variable makeVariable (String variable, List<Variable> variables) {
         if (variable == null) {
             System.out.println(variable + " is not created");
             return null;
         }
 
-        for (Variable var : MainBackEnd.getVariables()) {
-            if (var.getName().equals(variable)) {
-                System.out.println(variable + " was created");
-                return var;
+        if (variables != null) {
+            for (Variable var : variables) {
+                if (var.getName().equals(variable.substring(INDEX_COLON))) {
+                    return var;
+                }
             }
         }
-
+        System.out.println(variable + " was created");
         Variable newVar = new Variable();
         newVar.setName(variable.substring(INDEX_COLON));
         newVar.setVariable(true);
-        return newVar; // Throw Error
+        return newVar;
     }
 
-    public UserCommand makeCommand (String command) {
+    public UserCommand makeCommand (String command, List<UserCommand> commands) {
         if (command == null) {
             return null;
         }
 
-        for (UserCommand ucommand : MainBackEnd.getUserCommands()) {
-            if (ucommand.getUserCommandName().equals(command)) {
-                System.out.println(command + "was created");
-                return ucommand;
+        if (commands != null) {
+            for (UserCommand ucommand : commands) {
+                if (ucommand.getUserCommandName().equals(command)) {
+                    return ucommand;
+                }
             }
         }
+        System.out.println(command + "was created");
         UserCommand ucom = new UserCommand();
         ucom.setUserCommandName(command);
         ucom.setUserCommand(true);
