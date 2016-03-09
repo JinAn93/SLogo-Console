@@ -13,7 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import java.util.*;
-public class CreateTurtleScreen {
+public class TurtleScreen {
 	
 	private VBox myScreen;
 	private Button myButton;
@@ -26,7 +26,7 @@ public class CreateTurtleScreen {
 	private StackPane myPane;
 //	private HashMap<>
 	
-	public CreateTurtleScreen(){
+	public TurtleScreen(){
 		myScreen = new VBox(20);
 		myScreen.setPadding(new Insets(0, 20, 10, 20)); 
 		

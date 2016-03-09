@@ -36,9 +36,9 @@ import fxFrontend.LanguageReader;
 public class Display {
     private BorderPane myBorder;
     private Scene myScene;
-    private CreateSidebar mySidebar = new CreateSidebar();
-    private CreateTurtleScreen myScreen = new CreateTurtleScreen();
-    private CreateConsole myConsole = new CreateConsole();
+    private ScreenSidebar mySidebar = new ScreenSidebar();
+    private TurtleScreen myScreen = new TurtleScreen();
+    private ScreenConsole myConsole = new ScreenConsole();
     private TextArea historyBox, myConsoleBox, myTurtleStatsBox;
     private StringBuilder commandHistory = new StringBuilder();
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;

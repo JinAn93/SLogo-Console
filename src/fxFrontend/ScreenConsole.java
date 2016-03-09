@@ -6,7 +6,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
-public class CreateConsole {
+public class ScreenConsole {
 	private VBox myConsolePane;
 	private ScrollPane myHistory, myConsole;
 	private Label myConsoleLabel, myHistoryLabel;
@@ -14,7 +14,7 @@ public class CreateConsole {
 	private int WIDTH = 200;
 	private int HEIGHT = 150;
 	
-	public CreateConsole(){
+	public ScreenConsole(){
 		myConsolePane = new VBox(20); // spacing = 8
 		myConsolePane.setPadding(new Insets(0, 20, 10, 20)); 
 		

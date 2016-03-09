@@ -20,7 +20,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-public class CreateSidebar {
+public class ScreenSidebar {
 	private VBox myConsole;
 	private ScrollPane myTurtleStats, myUserCommands, myVariables;
 	private Label myTurtleLabel, myUserLabel, myVariablesLabel;
@@ -33,7 +33,7 @@ public class CreateSidebar {
 
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public CreateSidebar(){
+	public ScreenSidebar(){
 		
 		myConsole = new VBox(20); // spacing = 8
 		myTurtleStats = new ScrollPane();
