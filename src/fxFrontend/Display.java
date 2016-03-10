@@ -83,9 +83,7 @@ public class Display{
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
-        SlogoMenuCreator menuCreator =
-                new SlogoMenuCreator(myAllTurtles, myColorGraphics, myLineGraphics, this,
-                                     myInactiveList, myAllTurtles);
+        SlogoMenuCreator menuCreator = new SlogoMenuCreator(myAllTurtles, myColorGraphics, myLineGraphics, this, myInactiveList, myAllTurtles);
         MenuBar myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
         myVariablesTable = mySidebar.getTable();
