@@ -24,6 +24,8 @@ import javafx.scene.paint.Color;
 import fxFrontend.DisplayObject;
 import java.io.IOException;
 import java.util.*;
+
+import NodeTypes.UserCommand;
 import NodeTypes.Variable;
 import Turtle.*;
 import Error_Checking.ErrorObject;
@@ -39,8 +41,8 @@ public class Display {
     private ScreenSidebar mySidebar = new ScreenSidebar();
     private TurtleScreen myScreen = new TurtleScreen();
     private ScreenConsole myConsole = new ScreenConsole();
-    private TextArea historyBox, myConsoleBox, myTurtleStatsBox;
-    private StringBuilder commandHistory = new StringBuilder();
+    private TextArea historyBox, myConsoleBox, myTurtleStatsBox, myUserCommandsBox;
+    private StringBuilder commandHistory, userCommandHistory;
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
     private List<SingleTurtle> myAllTurtles;
     private TableView<DisplayObject> myVariablesTable;
@@ -55,16 +57,9 @@ public class Display {
     private List<Integer> myInactiveList = new ArrayList<Integer>();
 
     public Display () {
+    	commandHistory = new StringBuilder();
+    	userCommandHistory = new StringBuilder();
         myBorder = new BorderPane();
-        myReader = new LanguageReader();
-        try {
-            myReader.load("English");
-        }
-        catch (IOException e) {
-            System.out.println("Wrong file");
-            System.exit(1);
-        }
-        System.out.println(myReader.getString("Forward"));
 
         displayScreen();
         myBorder.setPadding(new Insets(10, 20, 10, 20));
@@ -83,6 +78,7 @@ public class Display {
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
         myTurtleStatsBox = mySidebar.getArea();
+        myUserCommandsBox = mySidebar.getUserCommandArea();
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
@@ -113,6 +109,10 @@ public class Display {
                     String consoleText = output.getResult().toString();
                     myConsoleBox.setText(consoleText);
                     commandHistory.append(myCommand + "\n");
+                    for(UserCommand myUserCommand: output.getUserCommands()){
+                        userCommandHistory.append(myUserCommand.getUserCommandName());
+                    }
+                    myUserCommandsBox.setText(userCommandHistory.toString());
                     historyBox.setText(commandHistory.toString());
                     updateTurtleStats();
                     iterateVar();
