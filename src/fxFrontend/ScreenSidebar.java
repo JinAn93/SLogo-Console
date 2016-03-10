@@ -82,28 +82,8 @@ public class ScreenSidebar {
 		myNewWorkspaceButton.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event) {
 				Stage myNewStage = new Stage();
-				List<String> choices = new ArrayList<>();
-		    	choices.add("1");
-		    	choices.add("2");
-		    	choices.add("3");
-
-		    	ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);
-		    	dialog.setTitle("Slogo");
-		    	dialog.setHeaderText("Turtle Options");
-		    	dialog.setContentText("Choose your Number of Turtles:");
-
-		    	// Traditional way to get the response value.
-		    	Optional<String> result = dialog.showAndWait();
-		    	String toUse = result.get();
-		    	Integer useNum = Integer.parseInt(toUse);
-		    	Display myDisplay = new Display(useNum);
-		    	ObserveTurtle obTurtle = myDisplay.new ObserveTurtle();
-		    	for(int i=0;i<useNum;i++){
-		    		myDisplay.getTurtle().get(i).addObserver(obTurtle);
-		    	}
-		    	myNewStage.setScene(myDisplay.getScene());
-		    	myNewStage.show();
-		    	myNewStage.show();
+				FxMain fx = new FxMain();
+				fx.start(myNewStage);
 			}
 			});
 	}
@@ -113,7 +93,6 @@ public class ScreenSidebar {
 		myStage.setTitle("Help");
 		myStage.setWidth(500);
 		myStage.setHeight(500);
-		//Web stuff
 		Scene scene = new Scene(new Group());
 		VBox root = new VBox();
 		final WebView browser = new WebView();
