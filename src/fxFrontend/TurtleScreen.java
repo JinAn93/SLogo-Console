@@ -37,12 +37,12 @@ public class TurtleScreen {
 		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
 		myTurtle = new ArrayList<SingleTurtle>();
 		int y = 100;
-//		for(int i=0;i<myNumTurtles;i++){
-//			myTurtle.add(new SingleTurtle(180,y,"/resources/koopa.png"));
-//			y+=100;
-//		}
-        myTurtle.add(new SingleTurtle(180, 210, "/resources/koopa.png"));
-        myTurtle.add(new SingleTurtle(100, 100, "/resources/Plane.png"));
+		for(int i=0;i<myNumTurtles;i++){
+			myTurtle.add(new SingleTurtle(180,y,"/resources/koopa.png"));
+			y+=100;
+		}
+//        myTurtle.add(new SingleTurtle(180, 210, "/resources/koopa.png"));
+//        myTurtle.add(new SingleTurtle(100, 100, "/resources/Plane.png"));
         for(Turtle aTurtle: myTurtle){
         	myGraphics.drawImage(aTurtle.getTurtleImage(), aTurtle.getStartXCor(), aTurtle.getStartYCor());
         }
