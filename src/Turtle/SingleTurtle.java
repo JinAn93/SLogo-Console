@@ -11,7 +11,8 @@ public class SingleTurtle extends Observable implements Turtle {
     private Image myTurtleImage;
     private double penWidth;
     private boolean isActive = true;
-
+    private boolean dashedLine = false; 
+    
     public SingleTurtle (int x, int y, String dir) {
         startXCor = x;
         startYCor = y;
@@ -135,5 +136,18 @@ public class SingleTurtle extends Observable implements Turtle {
         setChanged();
         notifyObservers();
     }
+
+	@Override
+	public void setPenDashed() {
+		// TODO Auto-generated method stub
+		dashedLine = !dashedLine; 
+	}
+	
+	public boolean getPenDashed(){
+		return dashedLine; 
+	}
+    
+
+
 
 }

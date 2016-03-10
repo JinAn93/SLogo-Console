@@ -20,7 +20,15 @@ public class CreatePenPropertiesMenu {
         MenuItem setPenDown = new MenuItem("Set Pen Down");
         MenuItem setPenUp = new MenuItem("Set Pen Up");
         MenuItem setPenWidth = new MenuItem("Set Pen Width");
+        MenuItem setDashedLines = new MenuItem("Enable Dashed Lines");
 
+        setDashedLines.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle (ActionEvent e) {
+                for (Turtle aturtle : myTurtle)
+                    aturtle.setPenDashed();
+            }
+        });
+        
         setPenDown.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent e) {
                 for (Turtle aturtle : myTurtle)
@@ -45,6 +53,7 @@ public class CreatePenPropertiesMenu {
         myPenUpMenu.getItems().add(setPenDown);
         myPenUpMenu.getItems().add(setPenUp);
         myPenUpMenu.getItems().add(setPenWidth);
+        myPenUpMenu.getItems().add(setDashedLines);
     }
 
     public Menu getPenUpMenu () {
