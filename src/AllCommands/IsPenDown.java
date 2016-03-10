@@ -1,17 +1,22 @@
 package AllCommands;
 
-import Commands.TurtleQueriesCommand;
-import Main.Turtle;
+import java.util.List;
+import CommandTypes.TurtleCommand;
+import Turtle.*;
 
 
-public class IsPenDown extends TurtleQueriesCommand {
+public class IsPenDown extends TurtleCommand {
 
-    public IsPenDown (Turtle turtle) {
+    public IsPenDown (List<SingleTurtle> turtle) {
         super(turtle);
     }
 
     @Override
     public String executeCommand () {
-        return String.valueOf((myTurtle.getPen()));
+        String ret = null;
+        for(Turtle aturtle:myTurtle){
+        ret = String.valueOf((aturtle.getPen()));
+        }
+        return ret;
     }
 }

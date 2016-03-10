@@ -13,7 +13,8 @@ public class FxMain extends Application {
     public void start(Stage primaryStage) {
     	Display myDisplay = new Display();
     	ObserveTurtle obTurtle = myDisplay.new ObserveTurtle();
-    	myDisplay.getTurtle().addObserver(obTurtle);
+    	myDisplay.getTurtle().get(0).addObserver(obTurtle);
+    	myDisplay.getTurtle().get(1).addObserver(obTurtle);
         primaryStage.setScene(myDisplay.getScene());
         primaryStage.show();
     }

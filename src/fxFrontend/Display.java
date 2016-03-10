@@ -1,6 +1,6 @@
 package fxFrontend;
 
-import Main.MainBackEnd;
+import BackEndMain.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,149 +21,209 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import fxFrontend.DisplayVariable;
+import fxFrontend.DisplayObject;
+import java.io.IOException;
 import java.util.*;
-import Commands.Variable;
-import Main.Output;
-import Main.Turtle;
-import Main.InputObject;
-import fxMenu.CreateColorMenu;
-import fxMenu.CreatePenColorMenu;
-import fxMenu.CreateTurtleSelectionMenu;
+
+import NodeTypes.UserCommand;
+import NodeTypes.Variable;
+import Turtle.*;
+import Error_Checking.ErrorObject;
+import fxMenu.SlogoMenuCreator;
 import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
+import fxFrontend.LanguageReader;
 
 
 public class Display {
     private BorderPane myBorder;
     private Scene myScene;
-    private VBox leftBox, centerBox, consoleBox;
-    private CreateSidebar mySidebar = new CreateSidebar();
-    private CreateTurtleScreen myScreen = new CreateTurtleScreen();
-    private CreateConsole myConsole = new CreateConsole();
-    private Button myButton;
-    private TextArea historyBox, myConsoleBox, myTurtleStatsBox;
-    private StringBuilder commandHistory = new StringBuilder();
-    private String consoleText;
+    private ScreenSidebar mySidebar = new ScreenSidebar();
+    private TurtleScreen myScreen = new TurtleScreen();
+    private ScreenConsole myConsole = new ScreenConsole();
+    private TextArea historyBox, myConsoleBox, myTurtleStatsBox, myUserCommandsBox;
+    private StringBuilder commandHistory, userCommandHistory;
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
-    private Canvas myCanvas;
-    private Turtle myTurtle;
-    private Alert alert = new Alert(AlertType.INFORMATION);
-    private MenuBar myMenu;
-    private CreateColorMenu createMenu;
-    private CreateTurtleSelectionMenu myTurtleImages;
-    private CreatePenColorMenu myPenMenu;
-    private ArrayList<Line> myLines;
+    private List<SingleTurtle> myAllTurtles;
+    private TableView<DisplayObject> myVariablesTable;
+    private ObservableList<DisplayObject> data;
+    private List<Variable> myVarList;
     private Output output;
-    private TableView myVariablesTable;
-    private TableColumn variableCol, valueCol;
-    private ObservableList<DisplayVariable> data;
+    private LanguageReader myReader;
+    private static final ResourceBundle defaultLang = ResourceBundle
+            .getBundle("languagefiles/English");
+    private ResourceBundle myLang = defaultLang;
+    private InputObject myInput;
+    private List<Integer> myInactiveList = new ArrayList<Integer>();
 
     public Display () {
+    	commandHistory = new StringBuilder();
+    	userCommandHistory = new StringBuilder();
         myBorder = new BorderPane();
+
         displayScreen();
         myBorder.setPadding(new Insets(10, 20, 10, 20));
         myScene = new Scene(myBorder, 1100, 800);
     }
 
+    @SuppressWarnings({ "unchecked" })
     public void displayScreen () {
-        leftBox = mySidebar.getBox();
-        centerBox = myScreen.getScreen();
-        consoleBox = myConsole.getConsole();
+        VBox leftBox = mySidebar.getBox();
+        VBox centerBox = myScreen.getScreen();
+        VBox consoleBox = myConsole.getConsole();
         myBorder.setLeft(leftBox);
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
-        myTurtle = myScreen.getMyTurtle();
+        myAllTurtles = myScreen.getMyTurtle();
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
         myTurtleStatsBox = mySidebar.getArea();
-        myButton = myScreen.getButton();
-        myCanvas = myScreen.getCanvas();
+        myUserCommandsBox = mySidebar.getUserCommandArea();
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
-        myLines = new ArrayList<Line>();
-        myMenu = new MenuBar();
-        createMenu = new CreateColorMenu(myColorGraphics, 600, 600);
-        myMenu.getMenus().add(createMenu.getColorMenu());
-        myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
-        myMenu.getMenus().add(myTurtleImages.getImageMenu());
-        myPenMenu = new CreatePenColorMenu(myGraphics);
-        myMenu.getMenus().add(myPenMenu.getPenMenu());
+        SlogoMenuCreator menuCreator =
+                new SlogoMenuCreator(myAllTurtles, myColorGraphics, myLineGraphics, this,
+                                     myInactiveList, myAllTurtles);
+        MenuBar myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
-        // make the table
-
         myVariablesTable = mySidebar.getTable();
-        variableCol = new TableColumn("Variable");
-
-        valueCol = new TableColumn("Value");
-        variableCol.setCellValueFactory(
-                new PropertyValueFactory<DisplayVariable, String>("variableName")
-                );
-        valueCol.setCellValueFactory(
-                new PropertyValueFactory<DisplayVariable, Double>("variableValue")
-                );
         data = FXCollections.observableArrayList(); // create the data
         myVariablesTable.setItems(data);
-        myVariablesTable.getColumns().addAll(variableCol, valueCol);
-
+        updateTurtleStats();
         updateDisplay();
     }
 
     public void updateDisplay () {
+        Button myButton = myScreen.getButton();
         myButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent e) {
+                System.out.println(myInactiveList);
+
                 String myCommand = myScreen.getCodeInput().getText();
                 MainBackEnd mb = new MainBackEnd();
-                commandHistory.append(myCommand + "\n");
-                historyBox.setText(commandHistory.toString());
-                InputObject myInput = new InputObject(myCommand, myTurtle);
+                myInput = new InputObject(myCommand, myAllTurtles, myLang);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
                 output = mb.executeCommand(parsedCommands);
-
-                consoleText = output.getResult().toString();
-                myConsoleBox.setText(consoleText);
-
-                String myTurtleStats =
-                        "X Coordinate:" + myTurtle.getStartXCor() + "\n" + "Y Coordinate:" +
-                                myTurtle.getStartYCor();
-                myTurtleStatsBox.setText(myTurtleStats);
-
-                List<Variable> myVarList = output.getVariables();
-                for (Variable aVar : myVarList) {
-                    DisplayVariable tempVar = new DisplayVariable(aVar.getName(), aVar.getValue());
-                    if (!contains(myVariablesTable, tempVar)) {
-                        myVariablesTable.getItems().add(tempVar);
+                if (output != null) {
+                    String consoleText = output.getResult().toString();
+                    myConsoleBox.setText(consoleText);
+                    commandHistory.append(myCommand + "\n");
+                    for(UserCommand myUserCommand: output.getUserCommands()){
+                        userCommandHistory.append(myUserCommand.getUserCommandName());
                     }
-                }
-                updateLines();
+                    myUserCommandsBox.setText(userCommandHistory.toString());
+                    historyBox.setText(commandHistory.toString());
+                    updateTurtleStats();
+                    iterateVar();
+                    updateTurtle();
 
+                }
             }
         });
     }
-    
-    public void updateLines () {
-        double startX = myTurtle.getStartXCor();
-        double startY = myTurtle.getStartYCor();
-        double endX = myTurtle.getEndXCor();
-        double endY = myTurtle.getEndYCor();
-        System.out.print(startX +" "+startY+" "+endX+" "+endY);
-        myLineGraphics.strokeLine(startX, startY, endX, endY);
-        myTurtle.setStartXCor(endX);
-        myTurtle.setStartYCor(endY);
-         
-     }
-    
-    public boolean contains (TableView<DisplayVariable> table, DisplayVariable obj) {
-        for (DisplayVariable item : table.getItems())
-            if (item.getVariableName().equals(obj.getVariableName()))
-                return true;
 
+    public void updateTurtleStats () {
+        StringBuilder myTurtleStats = new StringBuilder();
+        int i = 0;
+        for (Turtle aTurtle : myAllTurtles) {
+            myTurtleStats.append("Turtle Number " + i + "\n");
+            myTurtleStats.append("X Coordinate: " + aTurtle.getStartXCor() + "\n");
+            myTurtleStats.append("Y Coordinate: " + aTurtle.getStartYCor() + "\n");
+            myTurtleStats.append("Heading: " + aTurtle.getHeading() + "\n");
+            if (aTurtle.getPen() == 1) {
+                myTurtleStats.append("Pen: Down" + "\n");
+            }
+            else {
+                myTurtleStats.append("Pen: Up" + "\n");
+            }
+            myTurtleStats.append("Turtle Heading:" + aTurtle.getHeading() + "\n");
+            myTurtleStats.append("Turtle active:" + aTurtle.getActive() + "\n");
+            myTurtleStats.append("\n");
+            i++;
+        }
+        myTurtleStatsBox.setText(myTurtleStats.toString());
+    }
+
+    public void updateTurtle () {
+        int a = 0;
+        double[] xCoor = new double[myAllTurtles.size()];
+        double[] yCoor = new double[myAllTurtles.size()];
+        double[] head = new double[myAllTurtles.size()];
+        int[] visib = new int[myAllTurtles.size()];
+        myGraphics.clearRect(0, 0, 600, 600);
+        myGraphics.fillRect(0, 0, 600, 600);
+
+        for (Turtle aturtle : myAllTurtles) {
+            xCoor[a] = aturtle.getEndXCor();
+            yCoor[a] = aturtle.getEndYCor();
+            head[a] = aturtle.getHeading();
+            visib[a] = aturtle.getVisibility();
+            a++;
+        }
+        a = 0;
+        for (Turtle aturtle : myAllTurtles) {
+            if (visib[a] == 1) {
+                myGraphics.drawImage(aturtle.getTurtleImage(), xCoor[a], yCoor[a]);
+            }
+            rotate(myGraphics, head[a], calculatePivotX(aturtle), calculatePivotY(aturtle));
+            a++;
+        }
+    }
+
+    public void iterateVar () {
+        myVarList = output.getVariables();
+        for (Variable aVar : myVarList) {
+            DisplayObject tempVar = new DisplayObject(aVar.getName(), aVar.getValue());
+            if (!contains(myVariablesTable, tempVar)) {
+                myVariablesTable.getItems().add(tempVar);
+            }
+        }
+    }
+
+    public void clearScreen () {
+        myGraphics.clearRect(0, 0, 600, 600);
+        myGraphics.fillRect(0, 0, 600, 600);
+        myLineGraphics.clearRect(0, 0, 600, 600);
+        myGraphics.fillRect(0, 0, 600, 600);
+    }
+
+    public void updateLines () {
+
+        for (Turtle aturtle : myAllTurtles) {
+            if (aturtle.getActive() == true) {
+                double startX = aturtle.getStartXCor();
+                double startY = aturtle.getStartYCor();
+                double endX = aturtle.getEndXCor();
+                double endY = aturtle.getEndYCor();
+                if (aturtle.getPen() == 1) {
+                    myLineGraphics.setLineWidth(aturtle.getPenWidth());
+                    myLineGraphics.strokeLine(startX, startY, endX, endY);
+                    System.out.println("Drawn");
+                }
+                aturtle.setStartXCor(endX);
+                aturtle.setStartYCor(endY);
+            }
+        }
+
+    }
+
+    public boolean contains (TableView<DisplayObject> table, DisplayObject obj) {
+        for (DisplayObject item : table.getItems()){
+            if (item.getVariableName().equals(obj.getVariableName()) && item.getVariableValue().equals(obj.getVariableValue())){
+            	return true;
+            }
+            else if(item.getVariableName().equals(obj.getVariableName()) && !item.getVariableValue().equals(obj.getVariableValue())){
+            	table.getItems().remove(item);
+            	return false;	
+            }
+            
+        }
         return false;
     }
 
-    public Turtle getTurtle () {
-        return myTurtle;
+    public List<SingleTurtle> getTurtle () {
+        return myAllTurtles;
     }
 
     public GraphicsContext getMyGraphics () {
@@ -183,49 +243,30 @@ public class Display {
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 
+    // *Testing new stuff
+    private void drawRotatedImage (GraphicsContext gc, double angle, double tlpx, double tlpy) {
+        gc.save();
+        for (Turtle aturtle : myAllTurtles) {
+            Image turtleImage = aturtle.getTurtleImage();
+            rotate(gc, angle, tlpx + turtleImage.getWidth() / 2, tlpy + turtleImage.getHeight() / 2);
+            gc.drawImage(turtleImage, tlpx, tlpy);
+            gc.restore();
+        }
+    }
+
     public Scene getScene () {
         return myScene;
     }
 
     public class ObserveTurtle implements Observer {
-
         @Override
         public void update (Observable obs, Object turtle) {
-            double XCoor = myTurtle.getEndXCor();
-            double YCoor = myTurtle.getEndYCor();
-            double Head = myTurtle.getHeading();
-            int Visib = myTurtle.getVisibility();
-            int PenDown = myTurtle.getPen();
-
-            if (Visib == 1) {
-                myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-                rotate(myGraphics, Head, calculatePivotX(myTurtle), calculatePivotY(myTurtle));
-                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                myGraphics.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-                myGraphics.drawImage(myTurtle.getTurtleImage(), XCoor, YCoor);
-//                myTurtle.setStartXCor(XCoor);
-//                myTurtle.setStartYCor(YCoor);
-            }
-            else {
-                myGraphics.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-            }
-            // Override this tomorrow when we get to lines
-            // Drawing stuff
-            // if(PenDown == 1){
-            // Double startX = output.getTurtle().getStartXCor();
-            // Double startY = output.getTurtle().getStartYCor();
-            // if(myLines.isEmpty()){
-            // updateLines(XCoor, YCoor, output.getTurtle().getEndXCor(),
-            // output.getTurtle().getEndYCor());
-            // }
-            // else{
-            // updateLines(startX, startY, output.getTurtle().getEndXCor(),
-            // output.getTurtle().getEndYCor());
-            // }
-            // }
-
+            updateLines();
         }
-
-
     }
+
+    public void setLanguage (ResourceBundle language) {
+        myLang = language;
+    }
+
 }

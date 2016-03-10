@@ -1,19 +1,23 @@
 package AllCommands;
 
-import Commands.TurtleCommand;
-import Main.Turtle;
+import java.util.List;
+import CommandTypes.TurtleCommand;
+import Turtle.*;
 
 
 public class Right extends TurtleCommand {
 
-    public Right (Turtle turtle) {
+    public Right (List<SingleTurtle> turtle) {
         super(turtle);
     }
 
     @Override
     public String executeCommand () {
-        myTurtle.setHeading(myTurtle.getHeading() +
-                            Double.parseDouble(myChildren[FIRSTCHILD].getValue()));
+        for (Turtle aturtle : myTurtle) {
+            aturtle.setHeading(aturtle.getHeading() +
+                               Double.parseDouble(myChildren[FIRSTCHILD].getValue()));
+        }
+
         System.out.println(myChildren[FIRSTCHILD].getValue());
         return myChildren[FIRSTCHILD].getValue();
     }

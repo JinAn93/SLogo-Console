@@ -1,11 +1,9 @@
 package AllCommands;
 
-import Commands.MathOpCommand;
-import Commands.Node;
+import CommandTypes.MathOpCommand;
 
 
 public class Minus extends MathOpCommand {
-    private Node[] myChildren;
 
     @Override
     public String executeCommand () {

@@ -1,17 +1,22 @@
 package AllCommands;
 
-import Commands.TurtleQueriesCommand;
-import Main.Turtle;
+import java.util.List;
+import CommandTypes.TurtleCommand;
+import Turtle.*;
 
 
-public class Heading extends TurtleQueriesCommand {
+public class Heading extends TurtleCommand {
 
-    public Heading (Turtle turtle) {
+    public Heading (List<SingleTurtle> turtle) {
         super(turtle);
     }
 
     @Override
     public String executeCommand () {
-        return String.valueOf((myTurtle.getHeading()));
+        String ret = null;
+        for (Turtle aturtle : myTurtle) {
+            ret = String.valueOf((aturtle.getHeading()));
+        }
+        return ret;
     }
 }

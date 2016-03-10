@@ -1,17 +1,22 @@
 package AllCommands;
 
-import Commands.TurtleQueriesCommand;
-import Main.Turtle;
+import java.util.List;
+import CommandTypes.TurtleCommand;
+import Turtle.*;
 
 
-public class YCoordinate extends TurtleQueriesCommand {
+public class YCoordinate extends TurtleCommand {
 
-    public YCoordinate (Turtle turtle) {
+    public YCoordinate (List<SingleTurtle> turtle) {
         super(turtle);
     }
 
     @Override
     public String executeCommand () {
-        return String.valueOf((myTurtle.getStartYCor()));
+        String ret = null;
+        for (Turtle aturtle : myTurtle) {
+            ret = String.valueOf((aturtle.getStartYCor()));
+        }
+        return ret;
     }
 }
