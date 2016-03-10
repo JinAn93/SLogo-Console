@@ -40,36 +40,23 @@ public class ScreenSidebar {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ScreenSidebar(){
 		myConsole = new VBox(20); // spacing = 8
-		
 		myTurtleStats = new ScrollPane();
 		myTurtleLabel = new Label("Turtle Stats:");
 		myTurtleText = new TextArea();
 		myTurtleText.setEditable(false);
 		createBox(myTurtleLabel, myTurtleStats,myTurtleText);
-		
 		myUserCommands = new ScrollPane();
 		myUserLabel = new Label("User Commands:");
 		myUserText = new TextArea();
 		myUserText.setEditable(false);
 		createBox(myUserLabel, myUserCommands,myUserText);
-		
-//		createSideBarBox(myTurtleStats, myTurtleLabel, myTurtleText, "Turtle Stats: ");
-//		createBox(myTurtleLabel, myTurtleStats,myTurtleText);
-//		createSideBarBox(myUserCommands, myUserLabel, myUserText, "User Commands: ");
-//		createBox(myUserLabel, myUserCommands,myUserText);
-		
 		createVarTable();
-
 		createTableView(myVariablesLabel, myVariables, myVariablesTable);
-		
-		myHelpButton = new Button("Help"); 
-		myConsole.getChildren().add(myHelpButton);
-		myHelpButton.setOnAction(new EventHandler<ActionEvent>(){
-			public void handle(ActionEvent event) {
-				createResourceLink();
-			}
-		});
-		
+		createHelpButton();
+		createWorkSpaceButton();
+	}
+
+	private void createWorkSpaceButton() {
 		myNewWorkspaceButton = new Button("New Turtle Screen"); 
 		myConsole.getChildren().add(myNewWorkspaceButton);
 		myNewWorkspaceButton.setOnAction(new EventHandler<ActionEvent>(){
@@ -78,7 +65,17 @@ public class ScreenSidebar {
 				FxMain fx = new FxMain();
 				fx.start(myNewStage);
 			}
-			});
+		});
+	}
+
+	private void createHelpButton() {
+		myHelpButton = new Button("Help"); 
+		myConsole.getChildren().add(myHelpButton);
+		myHelpButton.setOnAction(new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent event) {
+				createResourceLink();
+			}
+		});
 	}
 
 	private void createVarTable() {
@@ -96,13 +93,6 @@ public class ScreenSidebar {
                 );
         myVariablesTable.getColumns().addAll(variableCol, valueCol);
 	}
-	
-//	private void createSideBarBox(ScrollPane myPane, Label myLabel, TextArea myText, String myLabelName){
-//		myPane = new ScrollPane();
-//		myLabel = new Label(myLabelName);
-//		myText = new TextArea();
-//		myText.setEditable(false);
-//	}
 	
 	private void createResourceLink(){
 		Stage myStage = new Stage();
