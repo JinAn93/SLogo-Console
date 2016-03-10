@@ -189,7 +189,6 @@ public class Display{
     }
 
     public void updateLines () {
-
         for (Turtle aturtle : myAllTurtles) {
             if (aturtle.getActive() == true) {
                 double startX = aturtle.getStartXCor();

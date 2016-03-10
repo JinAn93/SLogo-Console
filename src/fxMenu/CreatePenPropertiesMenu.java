@@ -16,7 +16,7 @@ public class CreatePenPropertiesMenu {
 
     public CreatePenPropertiesMenu (List<SingleTurtle> turt) {
         myTurtle = turt;
-        myPenUpMenu = new Menu("Set Pen Up/Down");
+        myPenUpMenu = new Menu("Pen Properties");
         MenuItem setPenDown = new MenuItem("Set Pen Down");
         MenuItem setPenUp = new MenuItem("Set Pen Up");
         MenuItem setPenWidth = new MenuItem("Set Pen Width");
