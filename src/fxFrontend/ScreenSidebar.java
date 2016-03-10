@@ -39,8 +39,8 @@ public class ScreenSidebar {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ScreenSidebar(){
-		
 		myConsole = new VBox(20); // spacing = 8
+		
 		myTurtleStats = new ScrollPane();
 		myTurtleLabel = new Label("Turtle Stats:");
 		myTurtleText = new TextArea();
@@ -53,19 +53,12 @@ public class ScreenSidebar {
 		myUserText.setEditable(false);
 		createBox(myUserLabel, myUserCommands,myUserText);
 		
-		myVariables = new ScrollPane(); 
-		myVariablesLabel = new Label("Variables:");
-		myVariablesTable = new TableView();
-        variableCol = new TableColumn("Variable");
-
-        valueCol = new TableColumn("Value");
-        variableCol.setCellValueFactory(
-                new PropertyValueFactory<DisplayObject, String>("variableName")
-                );
-        valueCol.setCellValueFactory(
-                new PropertyValueFactory<DisplayObject, Double>("variableValue")
-                );
-        myVariablesTable.getColumns().addAll(variableCol, valueCol);
+//		createSideBarBox(myTurtleStats, myTurtleLabel, myTurtleText, "Turtle Stats: ");
+//		createBox(myTurtleLabel, myTurtleStats,myTurtleText);
+//		createSideBarBox(myUserCommands, myUserLabel, myUserText, "User Commands: ");
+//		createBox(myUserLabel, myUserCommands,myUserText);
+		
+		createVarTable();
 
 		createTableView(myVariablesLabel, myVariables, myVariablesTable);
 		
@@ -87,6 +80,29 @@ public class ScreenSidebar {
 			}
 			});
 	}
+
+	private void createVarTable() {
+		myVariables = new ScrollPane(); 
+		myVariablesLabel = new Label("Variables:");
+		myVariablesTable = new TableView();
+        variableCol = new TableColumn("Variable");
+
+        valueCol = new TableColumn("Value");
+        variableCol.setCellValueFactory(
+                new PropertyValueFactory<DisplayObject, String>("variableName")
+                );
+        valueCol.setCellValueFactory(
+                new PropertyValueFactory<DisplayObject, Double>("variableValue")
+                );
+        myVariablesTable.getColumns().addAll(variableCol, valueCol);
+	}
+	
+//	private void createSideBarBox(ScrollPane myPane, Label myLabel, TextArea myText, String myLabelName){
+//		myPane = new ScrollPane();
+//		myLabel = new Label(myLabelName);
+//		myText = new TextArea();
+//		myText.setEditable(false);
+//	}
 	
 	private void createResourceLink(){
 		Stage myStage = new Stage();
