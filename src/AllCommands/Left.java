@@ -1,20 +1,21 @@
 package AllCommands;
 
 import java.util.List;
+import Turtle.SingleTurtle;
+import Turtle.Turtle;
 import CommandTypes.TurtleCommand;
-import Turtle.*;
 
+public class Left extends TurtleCommand {
 
-public class Right extends TurtleCommand {
-
-    public Right (List<SingleTurtle> turtle) {
+    public Left (List<SingleTurtle> turtle) {
         super(turtle);
+        // TODO Auto-generated constructor stub
     }
 
     @Override
     public String executeCommand () {
         for (Turtle aturtle : myTurtle) {
-            aturtle.setHeading(aturtle.getHeading() +
+            aturtle.setHeading(aturtle.getHeading() -
                                Double.parseDouble(myChildren[FIRSTCHILD].getValue()));
         }
         return myChildren[FIRSTCHILD].getValue();
