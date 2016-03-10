@@ -43,54 +43,31 @@ public class MakeUserInstruction extends Command {
     @Override
     public String executeCommand () {
         System.out.println("Executing MakeUserINstruction!");
-        try {
-            if (parameterCheck(myParameters)) {
-                throw new VariableException();
-            }
-            String commandName = ((UserCommand) myChildren[COMMAND_NAME]).getUserCommandName();
-            UserCommand newCom =
-                    new UserCommand(myTurtle, commandName, myNewCommand, myLanguage, myParameters,
-                                    myUserCommandList);
-            UserCommand existCheck = isAlreadyExist(newCom);
-            if (existCheck != null) {
-                existCheck.setCommand(myNewCommand, myParameters);
-            }
-            else {
-                MainBackEnd.getUserCommands().add(newCom);
-            }
-            return DEFINE_SUCCESS;
+
+        String commandName = ((UserCommand) myChildren[COMMAND_NAME]).getUserCommandName();
+        UserCommand newCom =
+                new UserCommand(myTurtle, commandName, myNewCommand, myLanguage, myParameters,
+                                myUserCommandList);
+        UserCommand existCheck = isAlreadyExist(newCom);
+        if (existCheck != null) {
+            existCheck.setCommand(myNewCommand, myParameters);
         }
-        catch (VariableException e) {
-            new ErrorObject(VARIABLE_ERROR).displayError();
-            return DEFINE_FAIL;
+        else {
+            MainBackEnd.getUserCommands().add(newCom);
         }
+        return DEFINE_SUCCESS;
+
     }
 
     private UserCommand isAlreadyExist (UserCommand newCom) {
-        if(MainBackEnd.getUserCommands() == null)
+        if (myUserCommandList.isEmpty())
             return null;
-        for (UserCommand command : MainBackEnd.getUserCommands()) {
-            if ((command.getUserCommandName().equals(newCom.getUserCommandName()))){
+        for (UserCommand command : myUserCommandList) {
+            if ((command.getUserCommandName().equals(newCom.getUserCommandName()))) {
                 System.out.println("Found it!");
                 return command;
             }
-               
         }
         return null;
-    }
-
-    private boolean parameterCheck (List<String> parameters) {
-        int countValidParameter = 0;
-        for (int i = 0; i < parameters.size(); i++) {
-            for (Variable var : MainBackEnd.getVariables()) {
-                if (var.getName().equals(parameters.get(i).substring(COLON_INDEX))) {
-                    countValidParameter++;
-                }
-            }
-        }
-        if (countValidParameter == parameters.size())
-            return true;
-        else
-            return false;
     }
 }

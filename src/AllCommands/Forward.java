@@ -18,8 +18,9 @@ public class Forward extends TurtleCommand {
         for (SingleTurtle aturtle : myTurtle) {
             moveBy = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
             double radian = Math.toRadians(aturtle.getHeading());
-            aturtle.setEndXCor(aturtle.getStartXCor() + (moveBy * (Math.cos(radian))));
-            aturtle.setEndYCor(aturtle.getStartYCor() + (moveBy * (Math.sin(radian))));
+            double xCorMovement = aturtle.getStartXCor() + (moveBy * (Math.cos(radian)));
+            double yCorMovement = aturtle.getStartYCor() + (moveBy * (Math.sin(radian)));
+            aturtle.setEndXYCor(xCorMovement,yCorMovement);
             System.out.println("We are moving by : '" + moveBy + "'");
 
         }

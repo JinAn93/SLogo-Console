@@ -11,7 +11,6 @@ import Turtle.*;
 
 public class CommandFactory {
     private ResourceBundle myLanguage;
-    private static final int INDEX_COLON = 1;
 
     public CommandFactory (ResourceBundle lang) {
         myLanguage = lang;
@@ -72,11 +71,6 @@ public class CommandFactory {
     }
 
     public Operand makeOperand (String operand) {
-        if (operand == null) {
-            System.out.println(operand + " was not created");
-            return null;
-        }
-
         Operand op = new Operand();
         op.setValue(operand);
         op.setOperand(true);
@@ -84,22 +78,10 @@ public class CommandFactory {
         return op;
     }
 
-    public Variable makeVariable (String variable, List<Variable> variables) {
-        if (variable == null) {
-            System.out.println(variable + " is not created");
-            return null;
-        }
-
-        if (variables != null) {
-            for (Variable var : variables) {
-                if (var.getName().equals(variable.substring(INDEX_COLON))) {
-                    return var;
-                }
-            }
-        }
+    public Variable makeVar (String variable, List<Variable> variables) {
         System.out.println(variable + " was created");
         Variable newVar = new Variable();
-        newVar.setName(variable.substring(INDEX_COLON));
+        newVar.setName(variable);
         newVar.setVariable(true);
         return newVar;
     }
@@ -109,14 +91,14 @@ public class CommandFactory {
             return null;
         }
 
-        if (commands != null) {
+        if (!commands.isEmpty()) {
             for (UserCommand ucommand : commands) {
                 if (ucommand.getUserCommandName().equals(command)) {
                     return ucommand;
                 }
             }
         }
-        System.out.println(command + "was created");
+        System.out.println(command + " was created");
         UserCommand ucom = new UserCommand();
         ucom.setUserCommandName(command);
         ucom.setUserCommand(true);

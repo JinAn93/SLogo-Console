@@ -29,7 +29,7 @@ public class MainBackEnd {
             if (result == null) {
                 throw new Exception();
             }
-            Output output = new Output(myAllTurtles, myVariableList);
+            Output output = new Output(myAllTurtles, myVariableList, myUserCommandList);
             output.setResult(parser.stringizer(result));
             System.out.println("Here is the Variable List: " + myVariableList);
             System.out.println("Here is the User Command List: " + myUserCommandList);

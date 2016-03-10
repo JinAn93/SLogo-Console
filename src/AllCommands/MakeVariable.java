@@ -26,7 +26,7 @@ public class MakeVariable extends Command {
     }
 
     private Variable isAlreadyExist (Variable newVar) {
-        if(MainBackEnd.getVariables() == null)
+        if(MainBackEnd.getVariables().isEmpty())
             return null;
         for (Variable var : MainBackEnd.getVariables()) {
             if ((var.getName().equals(newVar.getName())))

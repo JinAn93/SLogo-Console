@@ -8,12 +8,13 @@ import Turtle.*;
 public class PenDown extends TurtleCommand {
 
     public PenDown (List<SingleTurtle> turtle) {
-        super(turtle);
+        super(turtle);   
     }
 
     @Override
     public String executeCommand () {
-        for (Turtle aturtle : myTurtle) {
+        System.out.println("Put your pen down!");
+        for (SingleTurtle aturtle : myTurtle) {
             aturtle.setPen(PENDOWN);
         }
         return Integer.toString(PENDOWN);

@@ -11,13 +11,15 @@ public class Output {
     private List<String> myResult = new ArrayList<String>();
     private List<SingleTurtle> myTurtle;
     private List<Variable> myVariables = new ArrayList<Variable>();
+    private List<UserCommand> myUserCommands = new ArrayList<UserCommand>();
     private boolean badCommand = false;
     private String myErrorType;
     private String myErrorMessage;
 
-    public Output (List<SingleTurtle> turtle, List<Variable> variables) {
+    public Output (List<SingleTurtle> turtle, List<Variable> variables, List<UserCommand> commands) {
         myTurtle = turtle;
         myVariables = variables;
+        myUserCommands = commands;
     }
 
     public Output (List<SingleTurtle> turtle,

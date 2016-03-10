@@ -13,7 +13,7 @@ public class PenUp extends TurtleCommand {
 
     @Override
     public String executeCommand () {
-        for (Turtle aturtle : myTurtle) {
+        for (SingleTurtle aturtle : myTurtle) {
             aturtle.setPen(PENUP);
         }
         return Integer.toString(PENUP);

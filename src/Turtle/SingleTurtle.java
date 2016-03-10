@@ -81,18 +81,12 @@ public class SingleTurtle extends Observable implements Turtle {
     }
 
     @Override
-    public void setEndXCor (double xCor) {
+    public void setEndXYCor (double xCor, double yCor) {
         endXCor = xCor;
-        setChanged();
-        notifyObservers();
-
-    }
-
-    @Override
-    public void setEndYCor (double yCor) {
         endYCor = yCor;
         setChanged();
         notifyObservers();
+
     }
 
     @Override

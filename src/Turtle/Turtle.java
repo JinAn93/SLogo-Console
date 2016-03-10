@@ -39,9 +39,7 @@ public interface Turtle {
 
     public void setStartYCor (double yCor);
 
-    public void setEndXCor (double xCor);
-
-    public void setEndYCor (double yCor);
+    public void setEndXYCor (double xCor, double yCor);
 
     public void setVisibility (int visibility);
 
