@@ -31,26 +31,37 @@ public class SlogoMenuCreator {
     	myLineGraphics = myLines;
     	myDisplay = useDisplay;
     	myInactiveList = myInactives;
-    	myNumTurtles = myTurtles;
-    	
-        createMenu = new CreateBackgroundColorMenu(myGraphics, myLineGraphics);
-        myMenu.getMenus().add(createMenu.getColorMenu());
-        myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
-        myMenu.getMenus().add(myTurtleImages.getImageMenu());
-        
-        myPenMenu = new CreatePenColorMenu(myLineGraphics);
+    	myNumTurtles = myTurtles;   	
+        colorBackGroundMenu();        
+        penColorMenu();
+        languageMenu();
+        turtleMenu();
+    }
+    
+	private void turtleMenu() {
+		myInactiveTurtles = new ChooseInactiveTurtles(myInactiveList, myNumTurtles);
+        myMenu.getMenus().add(myInactiveTurtles.getMenu());
+	}
+	
+	private void languageMenu() {
+		myLanguageMenu = new ChooseLanguageMenu(myDisplay);
+        myMenu.getMenus().add(myLanguageMenu.getMenu());
+	}
+	
+	private void penColorMenu() {
+		myPenMenu = new CreatePenColorMenu(myLineGraphics);
         myMenu.getMenus().add(myPenMenu.getPenMenu());
         myPenPropertiesMenu = new CreatePenPropertiesMenu(myTurtle);
         myMenu.getMenus().add(myPenPropertiesMenu.getPenUpMenu());
-        
-        myLanguageMenu = new ChooseLanguageMenu(myDisplay);
-        myMenu.getMenus().add(myLanguageMenu.getMenu());
-        
-        myInactiveTurtles = new ChooseInactiveTurtles(myInactiveList, myNumTurtles);
-        myMenu.getMenus().add(myInactiveTurtles.getMenu());
-
-
-    }
+	}
+	
+	private void colorBackGroundMenu() {
+		createMenu = new CreateBackgroundColorMenu(myGraphics, myLineGraphics);
+        myMenu.getMenus().add(createMenu.getColorMenu());
+        myTurtleImages = new CreateTurtleSelectionMenu(myTurtle);
+        myMenu.getMenus().add(myTurtleImages.getImageMenu());
+	}
+	
     public MenuBar getMenuBar(){
     	return myMenu;
     }
