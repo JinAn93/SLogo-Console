@@ -143,11 +143,8 @@ public class SingleTurtle extends Observable implements Turtle {
 		dashedLine = !dashedLine; 
 	}
 	
+	@Override
 	public boolean getPenDashed(){
 		return dashedLine; 
 	}
-    
-
-
-
 }

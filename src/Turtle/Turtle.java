@@ -50,4 +50,6 @@ public interface Turtle {
     public void setTurtleImage (String dir);
 
 	public void setPenDashed();
+	
+	public boolean getPenDashed(); 
 }
