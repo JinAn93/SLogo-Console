@@ -6,8 +6,7 @@ public class Random extends MathOpCommand{
 
     @Override
     public String executeCommand () {
-        // TODO Auto-generated method stub
-        return null;
+        double max = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
+        return Double.toString(Math.random() * max);
     }
-
 }

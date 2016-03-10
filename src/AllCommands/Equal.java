@@ -2,12 +2,14 @@ package AllCommands;
 
 import CommandTypes.BoolOpCommand;
 
+
 public class Equal extends BoolOpCommand {
 
     @Override
     public String executeCommand () {
-        // TODO Auto-generated method stub
-        return null;
+        if (myChildren[FIRSTCHILD].getValue().equals(myChildren[SECONDCHILD].getValue()))
+            return TRUE;
+        else
+            return FALSE;
     }
-
 }

@@ -8,13 +8,18 @@ public class SetPosition extends TurtleCommand{
 
     public SetPosition (List<SingleTurtle> turtle) {
         super(turtle);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public String executeCommand () {
+        double EndX = 0, EndY = 0;
+        for(SingleTurtle aturtle : myTurtle){
+            EndX = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
+            EndY = Double.parseDouble(myChildren[SECONDCHILD].getValue());
+            aturtle.setEndXYCor(EndX, EndY);
+        }
         // TODO Auto-generated method stub
-        return null;
+        return Double.toString(Math.sqrt(Math.pow(EndX, 2) + Math.pow(EndY,2)));
     }
 
 }
