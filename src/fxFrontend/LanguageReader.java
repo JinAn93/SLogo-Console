@@ -13,7 +13,6 @@ public class LanguageReader {
     private InputStream myFileStream;
 
     public void load(String language) throws IOException {
-
         String filename = folder + "/" + language + suffix;
         myFileStream = getClass().getClassLoader().getResourceAsStream(filename);
         if (myFileStream == null) {
