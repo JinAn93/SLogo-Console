@@ -48,4 +48,8 @@ public interface Turtle {
     public void setPenWidth (double width);
 
     public void setTurtleImage (String dir);
+
+	public void setPenDashed();
+	
+	public boolean getPenDashed(); 
 }

@@ -187,7 +187,6 @@ public class Display{
     }
 
     public void updateLines () {
-
         for (Turtle aturtle : myAllTurtles) {
             if (aturtle.getActive() == true) {
                 double startX = aturtle.getStartXCor();
@@ -195,6 +194,12 @@ public class Display{
                 double endX = aturtle.getEndXCor();
                 double endY = aturtle.getEndYCor();
                 if (aturtle.getPen() == 1) {
+                	if(aturtle.getPenDashed()){
+                		myLineGraphics.setLineDashes(5);
+                	}
+                	else{
+                		myLineGraphics.setLineDashes(0);
+                	}
                     myLineGraphics.setLineWidth(aturtle.getPenWidth());
                     myLineGraphics.strokeLine(startX, startY, endX, endY);
                     System.out.println("Drawn");
