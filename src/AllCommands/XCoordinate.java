@@ -13,10 +13,6 @@ public class XCoordinate extends TurtleCommand {
 
     @Override
     public String executeCommand () {
-        String ret = null;
-        for (Turtle aturtle : myTurtle) {
-            ret = String.valueOf((aturtle.getStartXCor()));
-        }
-        return ret;
+        return String.valueOf((aturtle.getStartXCor()));
     }
 }

@@ -13,16 +13,16 @@ public class Forward extends TurtleCommand {
 
     @Override
     public String executeCommand () {
+        return aTurtle.runCommand(Forward::helper);
+    }
+    
+    public String helper (Turtle t) {
         double moveBy = 0;
-        System.out.println("execute forward");
-        for (SingleTurtle aturtle : myTurtle) {
-            moveBy = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
-            double radian = Math.toRadians(aturtle.getHeading());
-            double xCorMovement = aturtle.getStartXCor() + (moveBy * (Math.cos(radian)));
-            double yCorMovement = aturtle.getStartYCor() + (moveBy * (Math.sin(radian)));
-            aturtle.setEndXYCor(xCorMovement,yCorMovement);
-            System.out.println("We are moving by : '" + moveBy + "'");
-        }
+        moveBy = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
+        double radian = Math.toRadians(t.getHeading());
+        double xCorMovement = t.getStartXCor() + (moveBy * (Math.cos(radian)));
+        double yCorMovement = t.getStartYCor() + (moveBy * (Math.sin(radian)));
+        t.setEndXYCor(xCorMovement, yCorMovement);
         return Double.toString(moveBy);
     }
 }

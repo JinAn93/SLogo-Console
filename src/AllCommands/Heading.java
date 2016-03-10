@@ -13,10 +13,6 @@ public class Heading extends TurtleCommand {
 
     @Override
     public String executeCommand () {
-        String ret = null;
-        for (Turtle aturtle : myTurtle) {
-            ret = String.valueOf((aturtle.getHeading()));
-        }
-        return ret;
+        return String.valueOf((aturtle.getHeading()));
     }
 }

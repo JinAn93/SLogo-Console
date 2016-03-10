@@ -40,6 +40,16 @@ public class MainBackEnd {
         }
     }
 
+    public String searchCommand (String str, Enumeration<String> keys) {
+        while (keys.hasMoreElements()) {
+            String command = (keys.nextElement());
+            if (str.matches(myLanguage.getString(command))) {
+                return command;
+            }
+        }
+        return null;
+    }
+    
     public Collection<?> setup (String input, InputObject inputObject) {
         InputNormalizer iNormalizer = new InputNormalizer();
         myAllTurtles = inputObject.getTurtle();

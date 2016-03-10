@@ -1,4 +1,4 @@
-package BackEndMain;
+package Factory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -9,19 +9,15 @@ import NodeTypes.*;
 import Turtle.*;
 
 
-public class CommandFactory {
-    private ResourceBundle myLanguage;
-
+public class CommandFactory extends AbstractFactory {
+    
     public CommandFactory (ResourceBundle lang) {
-        myLanguage = lang;
+        super(lang);
     }
 
-    public Command makeInstr (String commandName,
-                              List<SingleTurtle> turtle,
-                              List<StringBuilder> content,
-                              List<Variable> variables,
-                              List<UserCommand> commands) {
-        System.out.println("Hmm..");
+    public Command makeCommand (String commandName, List<SingleTurtle> turtle,
+                                List<StringBuilder> content, List<Variable> variables,
+                                List<UserCommand> commands) {
         String commandStr = "AllCommands." + searchCommand(commandName, myLanguage.getKeys()); // String
         System.out.println("I will be creating: " + commandStr);
         Class<?> clas = null;
@@ -65,44 +61,7 @@ public class CommandFactory {
         catch (ClassNotFoundException | SecurityException e) {
             return null;
         }
-
         return command;
-
-    }
-
-    public Operand makeOperand (String operand) {
-        Operand op = new Operand();
-        op.setValue(operand);
-        op.setOperand(true);
-        System.out.println(operand + " was created");
-        return op;
-    }
-
-    public Variable makeVar (String variable, List<Variable> variables) {
-        System.out.println(variable + " was created");
-        Variable newVar = new Variable();
-        newVar.setName(variable);
-        newVar.setVariable(true);
-        return newVar;
-    }
-
-    public UserCommand makeCommand (String command, List<UserCommand> commands) {
-        if (command == null) {
-            return null;
-        }
-
-        if (!commands.isEmpty()) {
-            for (UserCommand ucommand : commands) {
-                if (ucommand.getUserCommandName().equals(command)) {
-                    return ucommand;
-                }
-            }
-        }
-        System.out.println(command + " was created");
-        UserCommand ucom = new UserCommand();
-        ucom.setUserCommandName(command);
-        ucom.setUserCommand(true);
-        return ucom;
     }
 
     public String searchCommand (String str, Enumeration<String> keys) {
@@ -112,6 +71,21 @@ public class CommandFactory {
                 return command;
             }
         }
+        return null;
+    }
+    
+    @Override
+    public Operand makeOperand (String operand) {
+        return null;
+    }
+
+    @Override
+    public Variable makeVar (String variable, List<Variable> variables) {
+        return null;
+    }
+
+    @Override
+    public UserCommand makeUserCommand (String command, List<UserCommand> commands) {
         return null;
     }
 }

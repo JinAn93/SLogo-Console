@@ -8,6 +8,7 @@ import Error_Checking.ErrorObject;
 import Error_Checking.InstructionException;
 import Error_Checking.ParameterException;
 import Error_Checking.VariableException;
+import Factory.CommandFactory;
 
 
 public class Parser {
@@ -51,13 +52,13 @@ public class Parser {
             if (isCommand(nodes[i])) {
                 if (isAddNewCommand(nodes, i - 1) || isUserCommand(nodes[i])) {
                     System.out.println("Is there?");
-                    command = myFactory.makeCommand(nodes[i], MainBackEnd.getUserCommands());
+                    command = myFactory.makeUserCommand(nodes[i], MainBackEnd.getUserCommands());
                 }
                 else {
                     System.out.println("Here");
                     try {
                         command =
-                                myFactory.makeInstr(nodes[i], myAllTurtles, ListOfContents,
+                                myFactory.makeCommand(nodes[i], myAllTurtles, ListOfContents,
                                                     MainBackEnd.getVariables(),
                                                     MainBackEnd.getUserCommands());
                         if (command == null) {

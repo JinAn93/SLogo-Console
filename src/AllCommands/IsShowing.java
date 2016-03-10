@@ -13,10 +13,6 @@ public class IsShowing extends TurtleCommand {
 
     @Override
     public String executeCommand () {
-        String ret = null;
-        for (Turtle aturtle : myTurtle) {
-            ret = String.valueOf((aturtle.getVisibility()));
-        }
-        return ret;
+        return String.valueOf((aturtle.getVisibility()));
     }
 }

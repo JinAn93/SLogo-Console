@@ -13,10 +13,7 @@ public class PenDown extends TurtleCommand {
 
     @Override
     public String executeCommand () {
-        System.out.println("Put your pen down!");
-        for (SingleTurtle aturtle : myTurtle) {
-            aturtle.setPen(PENDOWN);
-        }
+        aturtle.setPen(PENDOWN);
         return Integer.toString(PENDOWN);
     }
 }

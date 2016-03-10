@@ -13,10 +13,6 @@ public class IsPenDown extends TurtleCommand {
 
     @Override
     public String executeCommand () {
-        String ret = null;
-        for(Turtle aturtle:myTurtle){
-        ret = String.valueOf((aturtle.getPen()));
-        }
-        return ret;
+        return String.valueOf((aturtle.getPen()));
     }
 }

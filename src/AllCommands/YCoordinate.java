@@ -13,10 +13,6 @@ public class YCoordinate extends TurtleCommand {
 
     @Override
     public String executeCommand () {
-        String ret = null;
-        for (Turtle aturtle : myTurtle) {
-            ret = String.valueOf((aturtle.getStartYCor()));
-        }
-        return ret;
+        return String.valueOf((aturtle.getStartYCor()));
     }
 }
