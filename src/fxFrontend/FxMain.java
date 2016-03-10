@@ -12,16 +12,11 @@ public class FxMain extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-    	List<String> choices = new ArrayList<>();
-    	choices.add("1");
-    	choices.add("2");
-    	choices.add("3");
-
+    	String[] choices = {"1","2", "3", "4"};
     	ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);
     	dialog.setTitle("Slogo");
     	dialog.setHeaderText("Turtle Options");
     	dialog.setContentText("Choose your Number of Turtles:");
-
     	Optional<String> result = dialog.showAndWait();
     	String toUse = result.get();
     	Integer useNum = Integer.parseInt(toUse);
@@ -30,8 +25,6 @@ public class FxMain extends Application {
     	for(int i=0;i<useNum;i++){
     		myDisplay.getTurtle().get(i).addObserver(obTurtle);
     	}
-//    	myDisplay.getTurtle().get(0).addObserver(obTurtle);
-//    	myDisplay.getTurtle().get(1).addObserver(obTurtle);
         primaryStage.setScene(myDisplay.getScene());
         primaryStage.show();
     }
