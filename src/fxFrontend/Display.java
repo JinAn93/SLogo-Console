@@ -36,9 +36,9 @@ import fxFrontend.LanguageReader;
 public class Display {
     private BorderPane myBorder;
     private Scene myScene;
-    private CreateSidebar mySidebar = new CreateSidebar();
-    private CreateTurtleScreen myScreen = new CreateTurtleScreen();
-    private CreateConsole myConsole = new CreateConsole();
+    private ScreenSidebar mySidebar = new ScreenSidebar();
+    private TurtleScreen myScreen = new TurtleScreen();
+    private ScreenConsole myConsole = new ScreenConsole();
     private TextArea historyBox, myConsoleBox, myTurtleStatsBox;
     private StringBuilder commandHistory = new StringBuilder();
     private GraphicsContext myGraphics, myColorGraphics, myLineGraphics;
@@ -209,9 +209,16 @@ public class Display {
     }
 
     public boolean contains (TableView<DisplayObject> table, DisplayObject obj) {
-        for (DisplayObject item : table.getItems())
-            if (item.getVariableName().equals(obj.getVariableName()))
-                return true;
+        for (DisplayObject item : table.getItems()){
+            if (item.getVariableName().equals(obj.getVariableName()) && item.getVariableValue().equals(obj.getVariableValue())){
+            	return true;
+            }
+            else if(item.getVariableName().equals(obj.getVariableName()) && !item.getVariableValue().equals(obj.getVariableValue())){
+            	table.getItems().remove(item);
+            	return false;	
+            }
+            
+        }
         return false;
     }
 
