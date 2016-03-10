@@ -36,7 +36,9 @@ import fxFrontend.LanguageReader;
 
 
 public class Display{
-    private BorderPane myBorder;
+
+
+	private BorderPane myBorder;
     private Scene myScene;
     private ScreenSidebar mySidebar = new ScreenSidebar();
     private TurtleScreen myScreen;
@@ -69,12 +71,8 @@ public class Display{
 
     @SuppressWarnings({ "unchecked" })
     public void displayScreen () {
-        VBox leftBox = mySidebar.getBox();
-        VBox centerBox = myScreen.getScreen();
-        VBox consoleBox = myConsole.getConsole();
-        myBorder.setLeft(leftBox);
-        myBorder.setCenter(centerBox);
-        myBorder.setRight(consoleBox);
+        alignBorder();
+        
         myAllTurtles = myScreen.getMyTurtle();
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
@@ -92,6 +90,16 @@ public class Display{
         updateTurtleStats();
         updateDisplay();
     }
+
+	private void alignBorder() {
+		VBox leftBox = mySidebar.getBox();
+        VBox centerBox = myScreen.getScreen();
+        VBox consoleBox = myConsole.getConsole();
+        
+        myBorder.setLeft(leftBox);
+        myBorder.setCenter(centerBox);
+        myBorder.setRight(consoleBox);
+	}
 
     public void updateDisplay () {
         Button myButton = myScreen.getButton();
@@ -115,7 +123,6 @@ public class Display{
                     updateTurtleStats();
                     iterateVar();
                     updateTurtle();
-
                 }
             }
         });
@@ -197,18 +204,14 @@ public class Display{
                 	if(aturtle.getPenDashed()){
                 		myLineGraphics.setLineDashes(5);
                 	}
-                	else{
-                		myLineGraphics.setLineDashes(0);
-                	}
+                	else myLineGraphics.setLineDashes(0);
                     myLineGraphics.setLineWidth(aturtle.getPenWidth());
                     myLineGraphics.strokeLine(startX, startY, endX, endY);
-                    System.out.println("Drawn");
                 }
                 aturtle.setStartXCor(endX);
                 aturtle.setStartYCor(endY);
             }
         }
-
     }
 
     public boolean contains (TableView<DisplayObject> table, DisplayObject obj) {
@@ -220,7 +223,6 @@ public class Display{
             	table.getItems().remove(item);
             	return false;	
             }
-            
         }
         return false;
     }
