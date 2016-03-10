@@ -139,6 +139,10 @@ public class ScreenSidebar {
 		return myVariablesTable;
 	}
 	
+	public TextArea getUserCommandArea(){
+		return myUserText;
+	}
+	
 	
 
 }
