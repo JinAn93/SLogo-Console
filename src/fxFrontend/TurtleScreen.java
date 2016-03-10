@@ -21,26 +21,30 @@ public class TurtleScreen {
 	private Canvas myCanvas, myCanvas2, myLineCanvas;
 	private GraphicsContext myGraphics, myGraphics2, myLineGraphics;
 	private Image myTurtleImage;
-//	private int turtleX,turtleY;
-	private List<SingleTurtle> myTurtle = new ArrayList<SingleTurtle>(); 
+	private List<SingleTurtle> myTurtle; 
 	private StackPane myPane;
-//	private HashMap<>
+	private int myNumTurtles;
 	
-	public TurtleScreen(){
+	public TurtleScreen(int nummy){
 		myScreen = new VBox(20);
 		myScreen.setPadding(new Insets(0, 20, 10, 20)); 
-		
+		myNumTurtles = nummy;
 		myPane = new StackPane();
 		
 		myCanvas = new Canvas(600,600);
 		myGraphics = myCanvas.getGraphicsContext2D();
 		myGraphics.setFill(Color.TRANSPARENT);
 		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
-		        
-        myTurtle.add(new SingleTurtle(180, 210, "/resources/koopa.png"));
-        myTurtle.add(new SingleTurtle(100, 100, "/resources/Plane.png"));
+		myTurtle = new ArrayList<SingleTurtle>();
+		int y = 100;
+		for(int i=0;i<myNumTurtles;i++){
+			myTurtle.add(new SingleTurtle(180,y,"/resources/koopa.png"));
+			y+=100;
+		}
+//        myTurtle.add(new SingleTurtle(180, 210, "/resources/koopa.png"));
+//        myTurtle.add(new SingleTurtle(100, 100, "/resources/Plane.png"));
         for(Turtle aTurtle: myTurtle){
-        myGraphics.drawImage(aTurtle.getTurtleImage(), aTurtle.getStartXCor(), aTurtle.getStartYCor());
+        	myGraphics.drawImage(aTurtle.getTurtleImage(), aTurtle.getStartXCor(), aTurtle.getStartYCor());
         }
 		myCanvas2 = new Canvas(600,600);
 		myGraphics2 = myCanvas2.getGraphicsContext2D();
