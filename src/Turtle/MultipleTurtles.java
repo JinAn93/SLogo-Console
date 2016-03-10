@@ -66,17 +66,11 @@ public class MultipleTurtles extends Observable implements Turtle {
     }
 
     @Override
-    public void setEndXCor (double xCor) {
+    public void setEndXYCor (double xCor, double yCor) {
         // TODO Auto-generated method stub
         
     }
-
-    @Override
-    public void setEndYCor (double yCor) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    
     @Override
     public int getVisibility () {
         // TODO Auto-generated method stub

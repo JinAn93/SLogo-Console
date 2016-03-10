@@ -22,7 +22,6 @@ public class Forward extends TurtleCommand {
             double yCorMovement = aturtle.getStartYCor() + (moveBy * (Math.sin(radian)));
             aturtle.setEndXYCor(xCorMovement,yCorMovement);
             System.out.println("We are moving by : '" + moveBy + "'");
-
         }
         return Double.toString(moveBy);
     }

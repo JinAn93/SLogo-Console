@@ -3,6 +3,7 @@ package BackEndMain;
 import java.util.*;
 import NodeTypes.*;
 import Turtle.*;
+import Error_Checking.BracketException;
 import Error_Checking.ErrorObject;
 import Error_Checking.InstructionException;
 import Error_Checking.ParameterException;
@@ -19,6 +20,7 @@ public class Parser {
     private static final String INSTRUCTION_ERROR = "WRONG COMMAND.";
     private static final String PARAMETER_ERROR = "WRONG PARAMETER.";
     private static final String VARIABLE_ERROR = "WRONG VARIABLE.";
+    private static final String BRACKET_ERROR = "WRONG BRACKET.";
     private List<SingleTurtle> myAllTurtles;
     private ResourceBundle myLanguage;
     private List<Variable> myVariableList;
@@ -39,7 +41,7 @@ public class Parser {
                                                                       throws ClassNotFoundException {
         Stack<Node> stack = new Stack<Node>();
         myFactory = new CommandFactory(myLanguage);
-        
+
         String[] nodes = ListOfNodes.toArray(new String[ListOfNodes.size()]);
         ArrayList<StringBuilder> ListOfContents = new ArrayList<StringBuilder>();
         for (int i = nodes.length - 1; i > -1; i--) {
@@ -47,7 +49,7 @@ public class Parser {
             Node command = null;
 
             if (isCommand(nodes[i])) {
-                if (isAddNewCommand(nodes,i-1) || isUserCommand(nodes[i])) {
+                if (isAddNewCommand(nodes, i - 1) || isUserCommand(nodes[i])) {
                     System.out.println("Is there?");
                     command = myFactory.makeCommand(nodes[i], MainBackEnd.getUserCommands());
                 }
@@ -56,7 +58,8 @@ public class Parser {
                     try {
                         command =
                                 myFactory.makeInstr(nodes[i], myAllTurtles, ListOfContents,
-                                             MainBackEnd.getVariables(), MainBackEnd.getUserCommands());
+                                                    MainBackEnd.getVariables(),
+                                                    MainBackEnd.getUserCommands());
                         if (command == null) {
                             throw new InstructionException();
                         }
@@ -94,7 +97,8 @@ public class Parser {
                     try {
                         if (!isAddNewVariable(nodes, i - 1, myFactory))
                             throw new VariableException();
-                        command = myFactory.makeVar(nodes[i].substring(INDEX_COLON), myVariableList);
+                        command =
+                                myFactory.makeVar(nodes[i].substring(INDEX_COLON), myVariableList);
                     }
                     catch (VariableException e) {
                         new ErrorObject(VARIABLE_ERROR).displayError();
@@ -105,15 +109,23 @@ public class Parser {
             else if (isListEnd(nodes[i])) {
                 StringBuilder content = new StringBuilder();
                 int endListIndex = i;
-                int startListIndex = searchListStart(nodes, i);
-                for (int j = startListIndex + 1; j < endListIndex; j++) {
-                    content.append(nodes[j]);
-                    content.append(" ");
+                try {
+                    int startListIndex = searchListStart(nodes, i);
+                    if (startListIndex == -1)
+                        throw new BracketException();
+
+                    for (int j = startListIndex + 1; j < endListIndex; j++) {
+                        content.append(nodes[j]);
+                        content.append(" ");
+                    }
+                    i = startListIndex;
+                    ListOfContents.add(content);
+                    System.out.println("In the List : " + content); // prints what's in the list
+                    continue;
                 }
-                i = startListIndex;
-                ListOfContents.add(content);
-                System.out.println("In the List : " + content); // prints what's in the list
-                continue;
+                catch (BracketException e) {
+                    new ErrorObject(BRACKET_ERROR).displayError();
+                }
             }
             stack.push(command);
         }
@@ -131,11 +143,11 @@ public class Parser {
         return null;
     }
 
-    private boolean isAddNewCommand (String[] nodes, int index){
-        if (index < 0 )
+    private boolean isAddNewCommand (String[] nodes, int index) {
+        if (index < 0)
             return false;
         String nextCommand = myFactory.searchCommand(nodes[index], myLanguage.getKeys());
-        if(nextCommand == null)
+        if (nextCommand == null)
             return false;
         else if (nextCommand.equals("MakeUserInstruction"))
             return true;
@@ -165,7 +177,7 @@ public class Parser {
                 return i;
             }
         }
-        return 0; // no bracket, throw error
+        return 0;
     }
 
     private int getParamNum (String command) {
@@ -176,7 +188,7 @@ public class Parser {
                 return Integer.parseInt(myParameters.getString(whichCommand));
             }
         }
-        return 0;
+        return -1;
     }
 
     public List<String> stringizer (Stack<Node> input) {
