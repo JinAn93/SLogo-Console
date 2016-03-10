@@ -52,6 +52,10 @@ public class Output {
         return myVariables;
     }
 
+    public List<UserCommand> getUserCommands() {
+        return myUserCommands;
+    }
+    
     public void updateVariable (List<Variable> variables) {
         this.myVariables = variables;
     }
