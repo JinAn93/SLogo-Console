@@ -23,8 +23,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import fxFrontend.DisplayObject;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
-
 import NodeTypes.UserCommand;
 import NodeTypes.Variable;
 import Turtle.*;
@@ -35,11 +35,11 @@ import fxFrontend.Line;
 import fxFrontend.LanguageReader;
 
 
-public class Display {
+public class Display{
     private BorderPane myBorder;
     private Scene myScene;
     private ScreenSidebar mySidebar = new ScreenSidebar();
-    private TurtleScreen myScreen = new TurtleScreen();
+    private TurtleScreen myScreen;
     private ScreenConsole myConsole = new ScreenConsole();
     private TextArea historyBox, myConsoleBox, myTurtleStatsBox, myUserCommandsBox;
     private StringBuilder commandHistory, userCommandHistory;
@@ -49,18 +49,19 @@ public class Display {
     private ObservableList<DisplayObject> data;
     private List<Variable> myVarList;
     private Output output;
-    private LanguageReader myReader;
     private static final ResourceBundle defaultLang = ResourceBundle
             .getBundle("languagefiles/English");
     private ResourceBundle myLang = defaultLang;
     private InputObject myInput;
     private List<Integer> myInactiveList = new ArrayList<Integer>();
-
-    public Display () {
+    private int myNumberUseTurtles;
+    
+    public Display (int numb) {
+        myNumberUseTurtles = numb;
+        myScreen = new TurtleScreen(myNumberUseTurtles);
     	commandHistory = new StringBuilder();
     	userCommandHistory = new StringBuilder();
         myBorder = new BorderPane();
-
         displayScreen();
         myBorder.setPadding(new Insets(10, 20, 10, 20));
         myScene = new Scene(myBorder, 1100, 800);
@@ -75,6 +76,7 @@ public class Display {
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
         myAllTurtles = myScreen.getMyTurtle();
+        System.out.println("MY ALL TURTLES SIZE :"+myAllTurtles.size());
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
         myTurtleStatsBox = mySidebar.getArea();
@@ -98,9 +100,8 @@ public class Display {
         Button myButton = myScreen.getButton();
         myButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent e) {
-                System.out.println(myInactiveList);
-
                 String myCommand = myScreen.getCodeInput().getText();
+                System.out.println(myCommand);
                 MainBackEnd mb = new MainBackEnd();
                 myInput = new InputObject(myCommand, myAllTurtles, myLang);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
