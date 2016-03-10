@@ -22,7 +22,6 @@ public class FxMain extends Application {
     	dialog.setHeaderText("Turtle Options");
     	dialog.setContentText("Choose your Number of Turtles:");
 
-    	// Traditional way to get the response value.
     	Optional<String> result = dialog.showAndWait();
     	String toUse = result.get();
     	Integer useNum = Integer.parseInt(toUse);

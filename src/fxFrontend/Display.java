@@ -76,7 +76,6 @@ public class Display{
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
         myAllTurtles = myScreen.getMyTurtle();
-        System.out.println("MY ALL TURTLES SIZE :"+myAllTurtles.size());
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
         myTurtleStatsBox = mySidebar.getArea();
