@@ -101,17 +101,18 @@ public class Parser {
                 }
             }
 
-            else if (isListEnd(nodes[i])) {
+            else if (isListEnd(nodes[i]) || isGroupEnd(nodes[i])) {
+                boolean ListorGroup = isListEnd(nodes[i]);
                 StringBuilder content = new StringBuilder();
+                StringBuilder group = new StringBuilder();
                 int endListIndex = i;
                 try {
-                    int startListIndex = searchListStart(nodes, i);
+                    int startListIndex = searchListStart(nodes, i, ListorGroup); // true for list
                     if (startListIndex == -1)
                         throw new BracketException();
-
+                    
                     for (int j = startListIndex + 1; j < endListIndex; j++) {
-                        content.append(nodes[j]);
-                        content.append(StrConstant.SPACE);
+                        (ListorGroup? content:group).append(nodes[j] + StrConstant.SPACE);
                     }
                     i = startListIndex;
                     ListOfContents.add(content);
@@ -121,6 +122,7 @@ public class Parser {
                     new ErrorObject(StrConstant.BRACKET_ERROR).displayError();
                 }
             }
+
             stack.push(command);
         }
         System.out.println("Reached the end of stack");
@@ -158,15 +160,18 @@ public class Parser {
         return false;
     }
 
-    private int searchListStart (String[] commands, int startIndex) {
+    private int searchListStart (String[] commands, int startIndex, boolean listOrGroup) {
         int bracketStatus = 0;
         for (int i = startIndex; i > -1; i--) {
-            if (isListStart(commands[i])) {
+            if ((isListStart(commands[i]) && listOrGroup) ||
+                isGroupStart(commands[i]) && !(listOrGroup)) {
                 bracketStatus -= 1;
             }
-            if (isListEnd(commands[i])) {
+            if ((isListEnd(commands[i]) && listOrGroup) ||
+                isGroupEnd(commands[i]) && !(listOrGroup)) {
                 bracketStatus += 1;
             }
+
             if (bracketStatus == 0) {
                 return i;
             }
