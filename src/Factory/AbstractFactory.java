@@ -10,6 +10,15 @@ import NodeTypes.Variable;
 import Turtle.SingleTurtle;
 
 
+/**
+ * Utilized Abstract Factory Design Pattern to create different nodes. (Operand, Variable,
+ * UserCommand, and Built-in Commands). It also contains searchCommand method which goes through the
+ * names of commands and return the appropriate command name (in resourcebundle) that matches the
+ * input
+ * 
+ * @author Jin An
+ *
+ */
 public abstract class AbstractFactory {
 
     protected ResourceBundle myLanguage;

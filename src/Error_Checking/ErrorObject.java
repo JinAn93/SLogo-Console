@@ -4,6 +4,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 
+/**
+ * Serves to create error message dialog. 
+ * 
+ * @author Cody Li
+ *
+ */
 public class ErrorObject {
     private String errorMessage;
     private Alert alert = new Alert(AlertType.INFORMATION);
