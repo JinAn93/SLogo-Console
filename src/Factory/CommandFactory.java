@@ -15,7 +15,7 @@ import Turtle.*;
  * @author Jin An
  *
  */
-public class CommandFactory extends AbstractFactory { //work on this
+public class CommandFactory extends AbstractFactory { // work on this
 
     public CommandFactory (ResourceBundle lang) {
         super(lang);
@@ -27,10 +27,12 @@ public class CommandFactory extends AbstractFactory { //work on this
         Class<?> clas = null;
         Constructor<?>[] constructors = null;
         Command command = null;
+        int numParam;
         try {
             clas = Class.forName(commandStr);
             constructors = clas.getDeclaredConstructors();
-            if (constructors[0].getParameterCount() == 0) {
+            numParam = constructors[0].getParameterCount();
+            if (numParam == 0) {
                 try {
                     command = (Command) clas.newInstance();
                 }
@@ -39,7 +41,7 @@ public class CommandFactory extends AbstractFactory { //work on this
                 }
             }
 
-            else if (constructors[0].getParameterCount() == 1) {
+            else if (numParam == 1) {
                 try {
                     command = (Command) constructors[0].newInstance(turtle);
                 }
@@ -50,7 +52,7 @@ public class CommandFactory extends AbstractFactory { //work on this
 
             }
 
-            else if (constructors[0].getParameterCount() == 5) {
+            else if (numParam == 3) {
                 try {
                     command = (Command) constructors[0].newInstance(turtle, content, myLanguage);
                 }
