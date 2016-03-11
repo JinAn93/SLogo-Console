@@ -87,7 +87,7 @@ public class Display{
         data = FXCollections.observableArrayList(); // create the data
         myVariablesTable.setItems(data);
         
-        DisplayUpdater dispUpdate = new DisplayUpdater(myAllTurtles);
+        DisplayUpdater dispUpdate = new DisplayUpdater(myAllTurtles, myGraphics);
         myTurtleStatsBox.setText(dispUpdate.updateTurtleStats());
         
         updateDisplay();
@@ -123,41 +123,42 @@ public class Display{
                     myUserCommandsBox.setText(userCommandHistory.toString());
                     historyBox.setText(commandHistory.toString());
                     
-                    DisplayUpdater dispUpdate = new DisplayUpdater(myAllTurtles);
+                    DisplayUpdater dispUpdate = new DisplayUpdater(myAllTurtles, myGraphics);
                     myTurtleStatsBox.setText(dispUpdate.updateTurtleStats());
                     
                     iterateVar();
-                    updateTurtle();
+//                    updateTurtle();
+                    dispUpdate.updateTurtle();
                 }
             }
         });
     }
 
-    public void updateTurtle () {
-        int a = 0;
-        double[] xCoor = new double[myAllTurtles.size()];
-        double[] yCoor = new double[myAllTurtles.size()];
-        double[] head = new double[myAllTurtles.size()];
-        int[] visib = new int[myAllTurtles.size()];
-        myGraphics.clearRect(0, 0, 600, 600);
-        myGraphics.fillRect(0, 0, 600, 600);
-
-        for (Turtle aturtle : myAllTurtles) {
-            xCoor[a] = aturtle.getEndXCor();
-            yCoor[a] = aturtle.getEndYCor();
-            head[a] = aturtle.getHeading();
-            visib[a] = aturtle.getVisibility();
-            a++;
-        }
-        a = 0;
-        for (Turtle aturtle : myAllTurtles) {
-            if (visib[a] == 1) {
-                myGraphics.drawImage(aturtle.getTurtleImage(), xCoor[a], yCoor[a]);
-            }
-            rotate(myGraphics, head[a], calculatePivotX(aturtle), calculatePivotY(aturtle));
-            a++;
-        }
-    }
+//    public void updateTurtle () {
+//        int a = 0;
+//        double[] xCoor = new double[myAllTurtles.size()];
+//        double[] yCoor = new double[myAllTurtles.size()];
+//        double[] head = new double[myAllTurtles.size()];
+//        int[] visib = new int[myAllTurtles.size()];
+//        myGraphics.clearRect(0, 0, 600, 600);
+//        myGraphics.fillRect(0, 0, 600, 600);
+//
+//        for (Turtle aturtle : myAllTurtles) {
+//            xCoor[a] = aturtle.getEndXCor();
+//            yCoor[a] = aturtle.getEndYCor();
+//            head[a] = aturtle.getHeading();
+//            visib[a] = aturtle.getVisibility();
+//            a++;
+//        }
+//        a = 0;
+//        for (Turtle aturtle : myAllTurtles) {
+//            if (visib[a] == 1) {
+//                myGraphics.drawImage(aturtle.getTurtleImage(), xCoor[a], yCoor[a]);
+//            }
+//            rotate(myGraphics, head[a], calculatePivotX(aturtle), calculatePivotY(aturtle));
+//            a++;
+//        }
+//    }
 
     public void iterateVar () {
         myVarList = output.getVariables();
@@ -218,29 +219,29 @@ public class Display{
         return myGraphics;
     }
 
-    private double calculatePivotX (Turtle turtle) {
-        return (turtle.getStartXCor() + (turtle.getTurtleImage().getWidth() / 2));
-    }
-
-    private double calculatePivotY (Turtle turtle) {
-        return (turtle.getStartYCor() + (turtle.getTurtleImage().getHeight() / 2));
-    }
-
-    private void rotate (GraphicsContext gc, double angle, double px, double py) {
-        Rotate r = new Rotate(angle, px, py);
-        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-    }
-
-    // *Testing new stuff
-    private void drawRotatedImage (GraphicsContext gc, double angle, double tlpx, double tlpy) {
-        gc.save();
-        for (Turtle aturtle : myAllTurtles) {
-            Image turtleImage = aturtle.getTurtleImage();
-            rotate(gc, angle, tlpx + turtleImage.getWidth() / 2, tlpy + turtleImage.getHeight() / 2);
-            gc.drawImage(turtleImage, tlpx, tlpy);
-            gc.restore();
-        }
-    }
+//    private double calculatePivotX (Turtle turtle) {
+//        return (turtle.getStartXCor() + (turtle.getTurtleImage().getWidth() / 2));
+//    }
+//
+//    private double calculatePivotY (Turtle turtle) {
+//        return (turtle.getStartYCor() + (turtle.getTurtleImage().getHeight() / 2));
+//    }
+//
+//    private void rotate (GraphicsContext gc, double angle, double px, double py) {
+//        Rotate r = new Rotate(angle, px, py);
+//        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+//    }
+//
+//    // *Testing new stuff
+//    private void drawRotatedImage (GraphicsContext gc, double angle, double tlpx, double tlpy) {
+//        gc.save();
+//        for (Turtle aturtle : myAllTurtles) {
+//            Image turtleImage = aturtle.getTurtleImage();
+//            rotate(gc, angle, tlpx + turtleImage.getWidth() / 2, tlpy + turtleImage.getHeight() / 2);
+//            gc.drawImage(turtleImage, tlpx, tlpy);
+//            gc.restore();
+//        }
+//    }
 
     public Scene getScene () {
         return myScene;

@@ -35,9 +35,11 @@ import fxFrontend.LanguageReader;
 
 public class DisplayUpdater {
 	private List<SingleTurtle> myTurtleList; 
+	private GraphicsContext graphics; 
 	
-	public DisplayUpdater(List<SingleTurtle> myTurts){
+	public DisplayUpdater(List<SingleTurtle> myTurts, GraphicsContext gc){
 		myTurtleList = myTurts;
+		graphics = gc; 
 	}
 	
 	public String updateTurtleStats(){
@@ -61,4 +63,43 @@ public class DisplayUpdater {
         }
         return myTurtleStats.toString(); 
 	}
+	
+	public void updateTurtle(){
+		 int a = 0;
+	        double[] xCoor = new double[myTurtleList.size()];
+	        double[] yCoor = new double[myTurtleList.size()];
+	        double[] head = new double[myTurtleList.size()];
+	        int[] visib = new int[myTurtleList.size()];
+	        graphics.clearRect(0, 0, 600, 600);
+	        graphics.fillRect(0, 0, 600, 600);
+
+	        for (Turtle aturtle : myTurtleList) {
+	            xCoor[a] = aturtle.getEndXCor();
+	            yCoor[a] = aturtle.getEndYCor();
+	            head[a] = aturtle.getHeading();
+	            visib[a] = aturtle.getVisibility();
+	            a++;
+	        }
+	        a = 0;
+	        for (Turtle aturtle : myTurtleList) {
+	            if (visib[a] == 1) {
+	            	 graphics.drawImage(aturtle.getTurtleImage(), xCoor[a], yCoor[a]);
+	            }
+	            rotate(graphics, head[a], calculatePivotX(aturtle), calculatePivotY(aturtle));
+	            a++;
+	        }
+	}
+	
+	private void rotate (GraphicsContext gc, double angle, double px, double py) {
+        Rotate r = new Rotate(angle, px, py);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+    }
+	
+	private double calculatePivotX (Turtle turtle) {
+        return (turtle.getStartXCor() + (turtle.getTurtleImage().getWidth() / 2));
+    }
+
+    private double calculatePivotY (Turtle turtle) {
+        return (turtle.getStartYCor() + (turtle.getTurtleImage().getHeight() / 2));
+    }
 }
