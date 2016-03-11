@@ -18,7 +18,7 @@ import Turtle.*;
 public class UserCommand extends Command {
 
     private String myCommandName;
-    private String mySavedCommand;
+    private String myCommand;
     private List<String> myParameters;
     private List<SingleTurtle> myTurtle;
     private ResourceBundle myLanguage;
@@ -30,7 +30,7 @@ public class UserCommand extends Command {
                         List<String> parameters) {
         myCommandName = name;
         myTurtle = turtles;
-        mySavedCommand = command;
+        myCommand = command;
         myParameters = parameters;
         myLanguage = lang;
     }
@@ -43,7 +43,7 @@ public class UserCommand extends Command {
         Parser parser = new Parser(myTurtle, myLanguage);
         Stack<Node> result;
         try {
-            result = parser.buildExpressionTree(Arrays.asList(mySavedCommand.split(" "))); //space
+            result = parser.buildExpressionTree(Arrays.asList(myCommand.split(StrConstant.SPACE)));
             if (result == null) {
                 throw new Exception();
             }
@@ -60,7 +60,7 @@ public class UserCommand extends Command {
     }
 
     public String getCommand () {
-        return mySavedCommand;
+        return myCommand;
     }
 
     public List<String> getParameters () {
@@ -72,7 +72,7 @@ public class UserCommand extends Command {
     }
 
     public void setCommand (String command, List<String> parameter) {
-        mySavedCommand = command;
+        myCommand = command;
         myParameters = parameter;
     }
 }

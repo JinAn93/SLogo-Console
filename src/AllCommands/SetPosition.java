@@ -13,6 +13,8 @@ import CommandTypes.TurtleCommand;
  */
 public class SetPosition extends TurtleCommand {
 
+    private static final int SQUARE = 2;
+
     public SetPosition (List<SingleTurtle> turtle) {
         super(turtle);
     }
@@ -22,7 +24,7 @@ public class SetPosition extends TurtleCommand {
         double EndX = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
         double EndY = Double.parseDouble(myChildren[SECONDCHILD].getValue());
         t.setEndXYCor(EndX, EndY);
-        return Double.toString(Math.sqrt(Math.pow(EndX, 2) + Math.pow(EndY, 2)));
+        return Double.toString(Math.sqrt(Math.pow(EndX, SQUARE) + Math.pow(EndY, SQUARE)));
     }
 
 }

@@ -29,9 +29,9 @@ public class If extends ControlStructuredCommand {
     @Override
     public String executeCommand () {
         if (myContent == null)
-            return ZERO;
-        if (Integer.parseInt(myChildren[0].getValue()) == 0)
-            return ZERO;
+            return StrConstant.ZERO;
+        if (Integer.parseInt(myChildren[0].getValue()) == FALSE)
+            return StrConstant.ZERO;
         else
             return executeStatement();
     }
@@ -40,7 +40,7 @@ public class If extends ControlStructuredCommand {
         Parser parser = new Parser(myTurtle, myLanguage);
         Stack<Node> result;
         try {
-            result = parser.buildExpressionTree(Arrays.asList(myContent.split(" ")));
+            result = parser.buildExpressionTree(Arrays.asList(myContent.split(StrConstant.SPACE)));
             if (result == null) {
                 throw new Exception();
             }

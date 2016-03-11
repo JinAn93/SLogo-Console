@@ -32,7 +32,6 @@ public class UserCommandFactory extends AbstractFactory {
                 }
             }
         }
-        System.out.println(command + " was created");
         UserCommand ucom = new UserCommand();
         ucom.setUserCommandName(command);
         ucom.setUserCommand(true);

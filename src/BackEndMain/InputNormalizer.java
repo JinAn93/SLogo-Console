@@ -15,6 +15,7 @@ import java.util.Collection;
 public class InputNormalizer {
 
     private static final String SPACE = " ";
+    private static final String NEW_LINE = "\n";
     private static final String MULTIPLE_SPACE = " +";
     private static final String COMMENT = "Comment";
 
@@ -24,12 +25,12 @@ public class InputNormalizer {
         }
         else {
             String NormalizedInput = commentOut(input).toLowerCase().trim().replaceAll(MULTIPLE_SPACE, SPACE);
-            return Arrays.asList(NormalizedInput.split(" "));
+            return Arrays.asList(NormalizedInput.split(SPACE));
         }
     }
 
     private String commentOut (String input) {
-        String[] CommandbyLine = input.split("\n");
+        String[] CommandbyLine = input.split(NEW_LINE);
         String commentFreeInput = new String();
         for (String line : CommandbyLine) {
             if (!line.matches(Parser.mySyntaxes.getString(COMMENT))) {

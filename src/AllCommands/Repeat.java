@@ -31,25 +31,22 @@ public class Repeat extends ControlStructuredCommand {
     @Override
     public String executeCommand () {
         if (myContent == null)
-            return ZERO;
+            return StrConstant.ZERO;
         int repNumber = Integer.parseInt(myChildren[FIRSTCHILD].getValue());
         StringBuilder newCommand = new StringBuilder();
         for (int i = 0; i < repNumber; i++) {
             newCommand.append(myContent);
         }
         newCommand.deleteCharAt(newCommand.length() - 1);
-        System.out.println("The copied Strings are : \n" + newCommand.toString() + "\n");
         Parser parser = new Parser(myTurtle, myLanguage);
-
         Stack<Node> result;
         try {
-            result = parser.buildExpressionTree(Arrays.asList(newCommand.toString().split(" ")));
+            result = parser.buildExpressionTree(Arrays.asList(newCommand.toString()
+                    .split(StrConstant.SPACE)));
             if (result == null) {
                 throw new Exception();
             }
             List<String> ret = parser.stringizer(result);
-            System.out.println("Repeat Stack is done! Repeat will return : " +
-                               ret.get(ret.size() - 1));
             return ret.get(ret.size() - 1);
         }
         catch (Exception e) {

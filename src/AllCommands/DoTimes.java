@@ -35,32 +35,34 @@ public class DoTimes extends ControlStructuredCommand {
     @Override
     public String executeCommand () {
         if (myContent == null)
-            return ZERO;
+            return StrConstant.ZERO;
         return executeLoop(createIndexVariable());
     }
 
     private int createIndexVariable () {
         Variable indexVar = new Variable();
-        String[] controlData = myControlContent.split(SPACE);
+        String[] controlData = myControlContent.split(StrConstant.SPACE);
         char firstChar = controlData[INDEX_VARIABLE].charAt(INDEX_FIRSTCHAR);
         try {
             if (firstChar != COLON) {
                 throw new VariableException();
             }
             indexVar.setName(controlData[INDEX_VARIABLE].substring(INDEX_COLON));
-            indexVar.setValue(ONE_INDEXDEFAULT);
+            indexVar.setValue(StrConstant.ONE_INDEX_DEFAULT);
             indexVar.setValue(controlData[LIMIT_INDEX]);
             myVariableList.add(indexVar);
             System.out.println(controlData);
             return Integer.parseInt(indexVar.getValue());
         }
         catch (VariableException e) {
-            new ErrorObject(VARIABLE_ERROR).displayError();
-            return 0;
+            new ErrorObject(StrConstant.VARIABLE_ERROR).displayError();
+            return ERROR;
         }
     }
 
     private String executeLoop (int limit) {
+        if(limit == ERROR)
+            return null;
         StringBuilder newCommand = new StringBuilder();
         for (int i = 0; i < limit; i++) {
             newCommand.append(myContent);
@@ -71,7 +73,7 @@ public class DoTimes extends ControlStructuredCommand {
         try {
             result = parser.buildExpressionTree(Arrays.asList(newCommand.toString().split(" ")));
             if (result == null) {
-                throw new Exception();
+                throw new Exception(); //if parameter/instruction/variable error occurs, throws new general exception.
             }
             List<String> ret = parser.stringizer(result);
             return ret.get(ret.size() - 1);

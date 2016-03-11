@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.ResourceBundle;
+import BackEndMain.StrConstant;
 import NodeTypes.*;
 import Turtle.*;
 
@@ -15,15 +16,14 @@ import Turtle.*;
  * @author Jin An
  *
  */
-public class CommandFactory extends AbstractFactory { // work on this
+public class CommandFactory extends AbstractFactory {
 
     public CommandFactory (ResourceBundle lang) {
         super(lang);
     }
 
     public Command makeCommand (String Name, List<SingleTurtle> turtle, List<StringBuilder> content) {
-        String commandStr = "AllCommands." + searchCommand(Name, myLanguage.getKeys()); // String
-        System.out.println("I will be creating: " + commandStr);
+        String commandStr = StrConstant.ALLCOMMANDS + searchCommand(Name, myLanguage.getKeys());
         Class<?> clas = null;
         Constructor<?>[] constructors = null;
         Command command = null;

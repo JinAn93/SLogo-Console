@@ -21,20 +21,16 @@ import Factory.*;
  *
  */
 public class Parser {
-    private static final ResourceBundle myParameters = ResourceBundle
-            .getBundle("resources.ParameterList/AllParameters");
-    protected static final ResourceBundle mySyntaxes = ResourceBundle
-            .getBundle("languagefiles/Syntax");
-
-    private static final int INDEX_COLON = 1;
-    private static final String INSTRUCTION_ERROR = "WRONG COMMAND.";
-    private static final String PARAMETER_ERROR = "WRONG PARAMETER.";
-    private static final String VARIABLE_ERROR = "WRONG VARIABLE.";
-    private static final String BRACKET_ERROR = "WRONG BRACKET.";
     private List<SingleTurtle> myAllTurtles;
     private ResourceBundle myLanguage;
     private FactoryProducer myFactoryProducer = new FactoryProducer();
     private AbstractFactory myFactory;
+    private static final int INDEX_COLON = 1;
+
+    private static final ResourceBundle myParameters = ResourceBundle
+            .getBundle(StrConstant.ALLPARAMETERS);
+    protected static final ResourceBundle mySyntaxes = ResourceBundle
+            .getBundle(StrConstant.LANGUAGES);
 
     public Parser (List<SingleTurtle> turtle, ResourceBundle lang) {
         myAllTurtles = turtle;
@@ -47,17 +43,15 @@ public class Parser {
         String[] nodes = ListOfNodes.toArray(new String[ListOfNodes.size()]);
         ArrayList<StringBuilder> ListOfContents = new ArrayList<StringBuilder>();
         for (int i = nodes.length - 1; i > -1; i--) {
-            System.out.println("We are at " + nodes[i] + " Node");
             Node command = null;
-
             if (isCommand(nodes[i])) {
                 if (isAddNewCommand(nodes, i - 1) || isUserCommand(nodes[i])) {
-                    myFactory = myFactoryProducer.getFactory("UserCommand", myLanguage);
+                    myFactory = myFactoryProducer.getFactory(StrConstant.USERCOMMAND, myLanguage);
                     command = myFactory.makeUserCommand(nodes[i]);
                 }
                 else {
                     try {
-                        myFactory = myFactoryProducer.getFactory("Command", myLanguage);
+                        myFactory = myFactoryProducer.getFactory(StrConstant.COMMAND, myLanguage);
                         command =
                                 myFactory.makeCommand(nodes[i], myAllTurtles, ListOfContents);
                         if (command == null) {
@@ -71,24 +65,23 @@ public class Parser {
                             }
                             for (int c = 0; c < paramNum; c++) {
                                 children[c] = stack.pop();
-                                System.out.println((c + 1) + " child is " + children[c].getValue());
                             }
                             ((Command) command).setChildren(children);
                         }
                         catch (ParameterException e) {
-                            new ErrorObject(PARAMETER_ERROR).displayError();
+                            new ErrorObject(StrConstant.PARAMETER_ERROR).displayError();
                             return null;
                         }
                     }
                     catch (InstructionException e) {
-                        new ErrorObject(INSTRUCTION_ERROR).displayError();
+                        new ErrorObject(StrConstant.INSTRUCTION_ERROR).displayError();
                         return null;
                     }
                 }
             }
 
             else if (isConstant(nodes[i])) {
-                myFactory = myFactoryProducer.getFactory("Operand", myLanguage);
+                myFactory = myFactoryProducer.getFactory(StrConstant.OPERAND, myLanguage);
                 command = myFactory.makeOperand(nodes[i]);
             }
 
@@ -98,12 +91,12 @@ public class Parser {
                     try {
                         if (!isAddNewVariable(nodes, i - 1))
                             throw new VariableException();
-                        myFactory = myFactoryProducer.getFactory("Variable", myLanguage);
+                        myFactory = myFactoryProducer.getFactory(StrConstant.VARIABLE, myLanguage);
                         command =
                                 myFactory.makeVar(nodes[i].substring(INDEX_COLON));
                     }
                     catch (VariableException e) {
-                        new ErrorObject(VARIABLE_ERROR).displayError();
+                        new ErrorObject(StrConstant.VARIABLE_ERROR).displayError();
                     }
                 }
             }
@@ -118,15 +111,14 @@ public class Parser {
 
                     for (int j = startListIndex + 1; j < endListIndex; j++) {
                         content.append(nodes[j]);
-                        content.append(" ");
+                        content.append(StrConstant.SPACE);
                     }
                     i = startListIndex;
                     ListOfContents.add(content);
-                    System.out.println("In the List : " + content); // prints what's in the list
                     continue;
                 }
                 catch (BracketException e) {
-                    new ErrorObject(BRACKET_ERROR).displayError();
+                    new ErrorObject(StrConstant.BRACKET_ERROR).displayError();
                 }
             }
             stack.push(command);
@@ -151,7 +143,7 @@ public class Parser {
         String nextCommand = myFactory.searchCommand(nodes[index], myLanguage.getKeys());
         if (nextCommand == null)
             return false;
-        else if (nextCommand.equals("MakeUserInstruction"))
+        else if (nextCommand.equals(StrConstant.MAKEUSERCOMMAND))
             return true;
         return false;
     }
@@ -161,7 +153,7 @@ public class Parser {
         if (index < 0)
             return false;
         String nextCommand = myFactory.searchCommand(nodes[index], myLanguage.getKeys());
-        if (nextCommand.equals("MakeVariable"))
+        if (nextCommand.equals(StrConstant.MAKEVARIABLE))
             return true;
         return false;
     }
@@ -194,7 +186,6 @@ public class Parser {
     }
 
     public List<String> stringizer (Stack<Node> input) {
-        System.out.println("Stringizer");
         List<String> ret = new ArrayList<String>();
         while (!input.isEmpty()) {
             ret.add(input.pop().getValue());

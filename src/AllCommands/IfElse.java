@@ -32,14 +32,14 @@ public class IfElse extends ControlStructuredCommand {
     @Override
     public String executeCommand () {
         Parser parser = new Parser(myTurtle, myLanguage);
-        boolean ifOrElse = (Integer.parseInt(myChildren[0].getValue()) == 0);
+        boolean ifOrElse = (Integer.parseInt(myChildren[0].getValue()) == FALSE);
         if ((ifOrElse && myTrueCommand == null) || !(ifOrElse) && myFalseCommand == null)
-            return ZERO;
+            return StrConstant.ZERO;
 
         Stack<Node> result;
         try {
-            Collection<?> contents =
-                    Arrays.asList((ifOrElse ? myTrueCommand : myFalseCommand).split(" "));
+            Collection<?> contents = Arrays.asList((ifOrElse ? myTrueCommand : myFalseCommand)
+                    .split(StrConstant.SPACE));
             result = parser.buildExpressionTree(contents);
             if (result == null) {
                 throw new Exception();

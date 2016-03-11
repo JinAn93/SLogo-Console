@@ -10,14 +10,13 @@ package NodeTypes;
  */
 public abstract class Command implements Node {
 
-    protected static final String PARAMETER_ERROR = "WRONG PARAMETER.";
-    protected static final String VARIABLE_ERROR = "WRONG VARIABLE SYNTAX.";
-
     protected Node[] myChildren;
     protected String myStrValue;
     protected boolean isChildOperand;
     protected boolean isChildVariable;
     protected boolean isChildUserCommand;
+    protected static final int FIRSTCHILD = 0;
+    protected static final int SECONDCHILD = 1;
 
     public abstract String executeCommand ();
 

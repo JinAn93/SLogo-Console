@@ -3,10 +3,8 @@ package AllCommands;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import Error_Checking.ErrorObject;
 import NodeTypes.*;
 import Turtle.SingleTurtle;
-import Error_Checking.VariableException;
 import BackEndMain.*;
 
 
@@ -63,7 +61,6 @@ public class MakeUserInstruction extends Command {
             return null;
         for (UserCommand command : MainBackEnd.getUserCommands()) {
             if ((command.getUserCommandName().equals(newCom.getUserCommandName()))) {
-                System.out.println("Found it!");
                 return command;
             }
         }

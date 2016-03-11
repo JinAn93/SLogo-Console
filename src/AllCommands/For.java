@@ -36,18 +36,17 @@ public class For extends ControlStructuredCommand {
     @Override
     public String executeCommand () {
         if (myContent == null)
-            return ZERO;
+            return StrConstant.ZERO;
         return executeLoop(createIndexVariable());
     }
 
     private int createIndexVariable () {
         Variable indexVar = new Variable();
-        String[] controlData = myControlContent.split(SPACE);
+        String[] controlData = myControlContent.split(StrConstant.SPACE);
         int startPoint = Integer.parseInt(controlData[INDEX_START]);
         int endPoint = Integer.parseInt(controlData[INDEX_END]);
         int increment = Integer.parseInt(controlData[INDEX_INCREMENT]);
         int numRepeat = countRepeat(startPoint, endPoint, increment);
-        System.out.println("Start point is : " + startPoint + " EndPoint is " + endPoint);
         char firstChar = controlData[INDEX_VARIABLE].charAt(INDEX_FIRSTCHAR);
         try {
             if (firstChar != COLON) {
@@ -61,7 +60,7 @@ public class For extends ControlStructuredCommand {
             return numRepeat;
         }
         catch (VariableException e) {
-            new ErrorObject(VARIABLE_ERROR).displayError();
+            new ErrorObject(StrConstant.VARIABLE_ERROR).displayError();
             return 0;
         }
     }
@@ -74,15 +73,16 @@ public class For extends ControlStructuredCommand {
     }
 
     private String executeLoop (int limit) {
-        StringBuilder newCommand = new StringBuilder();
+        StringBuilder newCom = new StringBuilder();
         for (int i = 0; i < limit; i++) {
-            newCommand.append(myContent);
+            newCom.append(myContent);
         }
-        newCommand.deleteCharAt(newCommand.length() - 1);
+        newCom.deleteCharAt(newCom.length() - 1);
         Parser parser = new Parser(myTurtle, myLanguage);
         Stack<Node> result;
         try {
-            result = parser.buildExpressionTree(Arrays.asList((newCommand.toString().split(" "))));
+            result = parser.buildExpressionTree(Arrays.asList((newCom.toString()
+                    .split(StrConstant.SPACE))));
             if (result == null) {
                 throw new Exception();
             }
