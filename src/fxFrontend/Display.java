@@ -36,8 +36,6 @@ import fxFrontend.LanguageReader;
 
 
 public class Display{
-
-
 	private BorderPane myBorder;
     private Scene myScene;
     private ScreenSidebar mySidebar = new ScreenSidebar();
@@ -57,6 +55,7 @@ public class Display{
     private InputObject myInput;
     private List<Integer> myInactiveList = new ArrayList<Integer>();
     private int myNumberUseTurtles;
+//    private DisplayUpdater dispUpdate;
     
     public Display (int numb) {
         myNumberUseTurtles = numb;
@@ -87,7 +86,10 @@ public class Display{
         myVariablesTable = mySidebar.getTable();
         data = FXCollections.observableArrayList(); // create the data
         myVariablesTable.setItems(data);
-        updateTurtleStats();
+        
+        DisplayUpdater dispUpdate = new DisplayUpdater(myAllTurtles);
+        myTurtleStatsBox.setText(dispUpdate.updateTurtleStats());
+        
         updateDisplay();
     }
 
@@ -120,34 +122,15 @@ public class Display{
                     }
                     myUserCommandsBox.setText(userCommandHistory.toString());
                     historyBox.setText(commandHistory.toString());
-                    updateTurtleStats();
+                    
+                    DisplayUpdater dispUpdate = new DisplayUpdater(myAllTurtles);
+                    myTurtleStatsBox.setText(dispUpdate.updateTurtleStats());
+                    
                     iterateVar();
                     updateTurtle();
                 }
             }
         });
-    }
-
-    public void updateTurtleStats () {
-        StringBuilder myTurtleStats = new StringBuilder();
-        int i = 0;
-        for (Turtle aTurtle : myAllTurtles) {
-            myTurtleStats.append("Turtle Number " + i + "\n");
-            myTurtleStats.append("X Coordinate: " + aTurtle.getStartXCor() + "\n");
-            myTurtleStats.append("Y Coordinate: " + aTurtle.getStartYCor() + "\n");
-            myTurtleStats.append("Heading: " + aTurtle.getHeading() + "\n");
-            if (aTurtle.getPen() == 1) {
-                myTurtleStats.append("Pen: Down" + "\n");
-            }
-            else {
-                myTurtleStats.append("Pen: Up" + "\n");
-            }
-            myTurtleStats.append("Turtle Heading:" + aTurtle.getHeading() + "\n");
-            myTurtleStats.append("Turtle active:" + aTurtle.getActive() + "\n");
-            myTurtleStats.append("\n");
-            i++;
-        }
-        myTurtleStatsBox.setText(myTurtleStats.toString());
     }
 
     public void updateTurtle () {
