@@ -69,14 +69,7 @@ public class Display{
     @SuppressWarnings({ "unchecked" })
     public void displayScreen () {
         alignBorder();  
-        myAllTurtles = myScreen.getMyTurtle();
-        historyBox = myConsole.getHistoryTextArea();
-        myConsoleBox = myConsole.getConsoleText();
-        myTurtleStatsBox = mySidebar.getArea();
-        myUserCommandsBox = mySidebar.getUserCommandArea();
-        myGraphics = myScreen.getGraphics();
-        myColorGraphics = myScreen.getColorGraphics();
-        myLineGraphics = myScreen.getLineGraphics();
+        setUpDisplay();
         SlogoMenuCreator menuCreator = new SlogoMenuCreator(myAllTurtles, myColorGraphics, myLineGraphics, this, myInactiveList, myAllTurtles);
         MenuBar myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
@@ -87,6 +80,17 @@ public class Display{
         myTurtleStatsBox.setText(dispUpdate.updateTurtleStats());       
         updateDisplay();
     }
+
+	private void setUpDisplay() {
+		myAllTurtles = myScreen.getMyTurtle();
+        historyBox = myConsole.getHistoryTextArea();
+        myConsoleBox = myConsole.getConsoleText();
+        myTurtleStatsBox = mySidebar.getArea();
+        myUserCommandsBox = mySidebar.getUserCommandArea();
+        myGraphics = myScreen.getGraphics();
+        myColorGraphics = myScreen.getColorGraphics();
+        myLineGraphics = myScreen.getLineGraphics();
+	}
 
 	private void alignBorder() {
 		VBox leftBox = mySidebar.getBox();
