@@ -12,22 +12,25 @@ import BackEndMain.*;
 import Turtle.*;
 
 
+/**
+ * subclass of controlstructuredcommand: creates index variable, counts how many times it repeats,
+ * and execute the loop.
+ * 
+ * @author Jin An
+ *
+ */
 public class For extends ControlStructuredCommand {
 
     private static final int INDEX_VARIABLE = 0;
     private static final int INDEX_START = 1;
     private static final int INDEX_END = 2;
     private static final int INDEX_INCREMENT = 3;
-    
-    public For (List<SingleTurtle> turtle, List<StringBuilder> ListOfContents,
-                ResourceBundle lang, List<Variable> variables, List<UserCommand> commands) {
-        System.out.println("For was Created");
+
+    public For (List<SingleTurtle> turtle, List<StringBuilder> ListOfContents, ResourceBundle lang) {
         myTurtle = turtle;
         myContent = ListOfContents.get(COMMAND_INDEX).toString();
         myControlContent = ListOfContents.get(CONTROL_INDEX).toString();
         myLanguage = lang;
-        myVariableList = variables;
-        myUserCommandList = commands;
     }
 
     @Override
@@ -76,7 +79,7 @@ public class For extends ControlStructuredCommand {
             newCommand.append(myContent);
         }
         newCommand.deleteCharAt(newCommand.length() - 1);
-        Parser parser = new Parser(myTurtle, myLanguage, myVariableList, myUserCommandList);
+        Parser parser = new Parser(myTurtle, myLanguage);
         Stack<Node> result;
         try {
             result = parser.buildExpressionTree(Arrays.asList((newCommand.toString().split(" "))));

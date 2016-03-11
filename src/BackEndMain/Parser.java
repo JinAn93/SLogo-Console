@@ -24,19 +24,12 @@ public class Parser {
     private static final String BRACKET_ERROR = "WRONG BRACKET.";
     private List<SingleTurtle> myAllTurtles;
     private ResourceBundle myLanguage;
-    private List<Variable> myVariableList;
-    private List<UserCommand> myUserCommandList;
     private FactoryProducer myFactoryProducer = new FactoryProducer();
     private AbstractFactory myFactory;
 
-    public Parser (List<SingleTurtle> turtle,
-                   ResourceBundle lang,
-                   List<Variable> variables,
-                   List<UserCommand> commands) {
+    public Parser (List<SingleTurtle> turtle, ResourceBundle lang) {
         myAllTurtles = turtle;
         myLanguage = lang;
-        myVariableList = variables;
-        myUserCommandList = commands;
     }
 
     public Stack<Node> buildExpressionTree (Collection<?> ListOfNodes)
@@ -51,15 +44,13 @@ public class Parser {
             if (isCommand(nodes[i])) {
                 if (isAddNewCommand(nodes, i - 1) || isUserCommand(nodes[i])) {
                     myFactory = myFactoryProducer.getFactory("UserCommand", myLanguage);
-                    command = myFactory.makeUserCommand(nodes[i], MainBackEnd.getUserCommands());
+                    command = myFactory.makeUserCommand(nodes[i]);
                 }
                 else {
                     try {
                         myFactory = myFactoryProducer.getFactory("Command", myLanguage);
                         command =
-                                myFactory.makeCommand(nodes[i], myAllTurtles, ListOfContents,
-                                                    MainBackEnd.getVariables(),
-                                                    MainBackEnd.getUserCommands());
+                                myFactory.makeCommand(nodes[i], myAllTurtles, ListOfContents);
                         if (command == null) {
                             throw new InstructionException();
                         }
@@ -99,7 +90,8 @@ public class Parser {
                         if (!isAddNewVariable(nodes, i - 1))
                             throw new VariableException();
                         myFactory = myFactoryProducer.getFactory("Variable", myLanguage);
-                        command = myFactory.makeVar(nodes[i].substring(INDEX_COLON), myVariableList);
+                        command =
+                                myFactory.makeVar(nodes[i].substring(INDEX_COLON));
                     }
                     catch (VariableException e) {
                         new ErrorObject(VARIABLE_ERROR).displayError();
@@ -202,9 +194,9 @@ public class Parser {
     }
 
     private boolean isUserCommand (String input) {
-        if (myUserCommandList == null)
+        if (MainBackEnd.getUserCommands() == null)
             return false;
-        for (UserCommand ucommand : myUserCommandList) {
+        for (UserCommand ucommand : MainBackEnd.getUserCommands()) {
             if (ucommand.getUserCommandName().equals(input))
                 return true;
         }

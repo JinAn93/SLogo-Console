@@ -10,16 +10,22 @@ import Turtle.*;
 import BackEndMain.*;
 
 
+/**
+ * subclass of control structured command: serves to repeat the instruction as much as the
+ * parameter's value. We replicate the commands and execute it by building another expression tree.
+ * 
+ * @author Jin An
+ * @author Sarp Uner
+ *
+ */
 public class Repeat extends ControlStructuredCommand {
 
     public Repeat (List<SingleTurtle> turtle, List<StringBuilder> ListOfContents,
-                   ResourceBundle lang, List<Variable> variables, List<UserCommand> commands) {
+                   ResourceBundle lang) {
         System.out.println("Repeat was created");
         myTurtle = turtle;
         myContent = ListOfContents.get(0).toString();
         myLanguage = lang;
-        myVariableList = variables;
-        myUserCommandList = commands;
     }
 
     @Override
@@ -33,7 +39,7 @@ public class Repeat extends ControlStructuredCommand {
         }
         newCommand.deleteCharAt(newCommand.length() - 1);
         System.out.println("The copied Strings are : \n" + newCommand.toString() + "\n");
-        Parser parser = new Parser(myTurtle, myLanguage, myVariableList, myUserCommandList);
+        Parser parser = new Parser(myTurtle, myLanguage);
 
         Stack<Node> result;
         try {

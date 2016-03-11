@@ -10,15 +10,13 @@ import Turtle.*;
 
 
 public class CommandFactory extends AbstractFactory {
-    
+
     public CommandFactory (ResourceBundle lang) {
         super(lang);
     }
 
-    public Command makeCommand (String commandName, List<SingleTurtle> turtle,
-                                List<StringBuilder> content, List<Variable> variables,
-                                List<UserCommand> commands) {
-        String commandStr = "AllCommands." + searchCommand(commandName, myLanguage.getKeys()); // String
+    public Command makeCommand (String Name, List<SingleTurtle> turtle, List<StringBuilder> content) {
+        String commandStr = "AllCommands." + searchCommand(Name, myLanguage.getKeys()); // String
         System.out.println("I will be creating: " + commandStr);
         Class<?> clas = null;
         Constructor<?>[] constructors = null;
@@ -48,8 +46,7 @@ public class CommandFactory extends AbstractFactory {
 
             else if (constructors[0].getParameterCount() == 5) {
                 try {
-                    command = (Command) constructors[0].newInstance(turtle, content, myLanguage,
-                                                                    variables, commands);
+                    command = (Command) constructors[0].newInstance(turtle, content, myLanguage);
                 }
                 catch (InstantiationException | IllegalAccessException
                         | IllegalArgumentException | InvocationTargetException e) {
@@ -63,19 +60,19 @@ public class CommandFactory extends AbstractFactory {
         }
         return command;
     }
-    
+
     @Override
     public Operand makeOperand (String operand) {
         return null;
     }
 
     @Override
-    public Variable makeVar (String variable, List<Variable> variables) {
+    public Variable makeVar (String variable) {
         return null;
     }
 
     @Override
-    public UserCommand makeUserCommand (String command, List<UserCommand> commands) {
+    public UserCommand makeUserCommand (String command) {
         return null;
     }
 }

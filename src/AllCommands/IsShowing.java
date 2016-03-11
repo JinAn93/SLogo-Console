@@ -5,6 +5,12 @@ import CommandTypes.TurtleCommand;
 import Turtle.*;
 
 
+/**
+ * subclass of turtlecommand. return visibility
+ * 
+ * @author Jin An
+ *
+ */
 public class IsShowing extends TurtleCommand {
 
     public IsShowing (List<SingleTurtle> turtle) {

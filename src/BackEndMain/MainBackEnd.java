@@ -22,7 +22,7 @@ public class MainBackEnd {
     private List<SingleTurtle> myCurrentTurtles;
 
     public Output executeCommand (Collection<?> commands) {
-        Parser parser = new Parser(myAllTurtles, myLanguage, myVariableList, myUserCommandList);
+        Parser parser = new Parser(myAllTurtles, myLanguage);
         Stack<Node> result;
         try {
             result = parser.buildExpressionTree(commands);

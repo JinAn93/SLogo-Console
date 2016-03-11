@@ -24,19 +24,17 @@ public class OperandFactory extends AbstractFactory {
     }
 
     @Override
-    public Variable makeVar (String variable, List<Variable> variables) {
+    public Variable makeVar (String variable) {
         return null;
     }
 
     @Override
-    public UserCommand makeUserCommand (String command, List<UserCommand> commands) {
+    public UserCommand makeUserCommand (String command) {
         return null;
     }
 
     @Override
-    public Command makeCommand (String commandName, List<SingleTurtle> turtle,
-                         List<StringBuilder> content, List<Variable> variables,
-                         List<UserCommand> userCommands) {
+    public Command makeCommand (String Name, List<SingleTurtle> turtle, List<StringBuilder> content) {
         return null;
     }
 }

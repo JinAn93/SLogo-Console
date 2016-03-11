@@ -7,26 +7,31 @@ import NodeTypes.*;
 import Turtle.*;
 
 
+/**
+ * subclass of control structured command: if parameter is nonzero, execute the first bracket, if
+ * not execute the next bracket.
+ * 
+ * @author Jin An
+ *
+ */
 public class IfElse extends ControlStructuredCommand {
 
     private String myTrueCommand, myFalseCommand;
     private static final int TRUECOMMAND = 0;
     private static final int FALSECOMMAND = 1;
 
-    public IfElse (List<SingleTurtle> turtle, List<StringBuilder> ListOfContents,
-                   ResourceBundle lang, List<Variable> variables, List<UserCommand> commands) {
-        System.out.println("If was Created");
+    public IfElse (List<SingleTurtle> turtle,
+                   List<StringBuilder> ListOfContents,
+                   ResourceBundle lang) {
         myTurtle = turtle;
         myTrueCommand = ListOfContents.get(TRUECOMMAND).toString();
         myFalseCommand = ListOfContents.get(FALSECOMMAND).toString();
         myLanguage = lang;
-        myVariableList = variables;
-        myUserCommandList = commands;
     }
 
     @Override
     public String executeCommand () {
-        Parser parser = new Parser(myTurtle, myLanguage, myVariableList, myUserCommandList);
+        Parser parser = new Parser(myTurtle, myLanguage);
         boolean ifOrElse = (Integer.parseInt(myChildren[0].getValue()) == 0);
         if ((ifOrElse && myTrueCommand == null) || !(ifOrElse) && myFalseCommand == null)
             return ZERO;

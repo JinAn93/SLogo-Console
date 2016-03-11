@@ -2,26 +2,28 @@ package Factory;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import BackEndMain.MainBackEnd;
 import NodeTypes.Command;
 import NodeTypes.Operand;
 import NodeTypes.UserCommand;
 import NodeTypes.Variable;
 import Turtle.SingleTurtle;
 
-public class UserCommandFactory extends AbstractFactory{
+
+public class UserCommandFactory extends AbstractFactory {
 
     public UserCommandFactory (ResourceBundle lang) {
         super(lang);
     }
 
     @Override
-    public UserCommand makeUserCommand (String command, List<UserCommand> commands) {
+    public UserCommand makeUserCommand (String command) {
         if (command == null) {
             return null;
         }
 
-        if (!commands.isEmpty()) {
-            for (UserCommand ucommand : commands) {
+        if (!MainBackEnd.getUserCommands().isEmpty()) {
+            for (UserCommand ucommand : MainBackEnd.getUserCommands()) {
                 if (ucommand.getUserCommandName().equals(command)) {
                     return ucommand;
                 }
@@ -35,11 +37,7 @@ public class UserCommandFactory extends AbstractFactory{
     }
 
     @Override
-    public Command makeCommand (String commandName,
-                         List<SingleTurtle> turtle,
-                         List<StringBuilder> content,
-                         List<Variable> variables,
-                         List<UserCommand> userCommands) {
+    public Command makeCommand (String Name, List<SingleTurtle> turtle, List<StringBuilder> content) {
         return null;
     }
 
@@ -49,7 +47,7 @@ public class UserCommandFactory extends AbstractFactory{
     }
 
     @Override
-    public Variable makeVar (String variable, List<Variable> variables) {
+    public Variable makeVar (String variable) {
         return null;
     }
 }

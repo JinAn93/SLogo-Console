@@ -10,16 +10,20 @@ import NodeTypes.*;
 import Turtle.*;
 
 
+/**
+ * subclass of controlstructuredcommand : execute command by creating another expression tree only
+ * if the parameter is not zero
+ * 
+ * @author Jin An
+ *
+ */
 public class If extends ControlStructuredCommand {
 
-    public If (List<SingleTurtle> turtle, List<StringBuilder> ListOfContents,
-               ResourceBundle lang, List<Variable> variables, List<UserCommand> commands) {
+    public If (List<SingleTurtle> turtle, List<StringBuilder> ListOfContents, ResourceBundle lang) {
         System.out.println("If was Created");
         myTurtle = turtle;
         myContent = ListOfContents.get(COMMAND_INDEX).toString();
         myLanguage = lang;
-        myVariableList = variables;
-        myUserCommandList = commands;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class If extends ControlStructuredCommand {
     }
 
     private String executeStatement () {
-        Parser parser = new Parser(myTurtle, myLanguage, myVariableList, myUserCommandList);
+        Parser parser = new Parser(myTurtle, myLanguage);
         Stack<Node> result;
         try {
             result = parser.buildExpressionTree(Arrays.asList(myContent.split(" ")));

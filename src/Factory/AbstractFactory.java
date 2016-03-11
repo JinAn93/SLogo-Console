@@ -11,24 +11,22 @@ import Turtle.SingleTurtle;
 
 
 public abstract class AbstractFactory {
-    
+
     protected ResourceBundle myLanguage;
-    
+
     public AbstractFactory (ResourceBundle lang) {
         myLanguage = lang;
     }
 
-    
     public abstract Operand makeOperand (String operand);
 
-    public abstract Variable makeVar (String variable, List<Variable> variables);
+    public abstract Variable makeVar (String variable);
 
-    public abstract UserCommand makeUserCommand (String command, List<UserCommand> commands);
+    public abstract UserCommand makeUserCommand (String command);
 
-    public abstract Command makeCommand (String commandName, List<SingleTurtle> turtle,
-                                  List<StringBuilder> content, List<Variable> variables,
-                                  List<UserCommand> userCommands);
-    
+    public abstract Command makeCommand (String Name, List<SingleTurtle> turtle,
+                                         List<StringBuilder> content);
+
     public String searchCommand (String str, Enumeration<String> keys) {
         while (keys.hasMoreElements()) {
             String command = (keys.nextElement());

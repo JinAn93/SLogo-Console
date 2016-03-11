@@ -5,6 +5,12 @@ import CommandTypes.TurtleCommand;
 import Turtle.*;
 
 
+/**
+ * subclass of turtlecommand: returns heading of particular turtle
+ * 
+ * @author Jin An
+ *
+ */
 public class Heading extends TurtleCommand {
 
     public Heading (List<SingleTurtle> turtle) {

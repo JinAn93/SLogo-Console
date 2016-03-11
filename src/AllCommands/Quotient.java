@@ -3,6 +3,13 @@ package AllCommands;
 import CommandTypes.MathOpCommand;
 
 
+/**
+ * Subclass of MathOpCommand: serves to return the quotient from firstchild dividing by secondchild.
+ * 
+ * @author Jin An
+ * @author Sarp Uner
+ *
+ */
 public class Quotient extends MathOpCommand {
 
     @Override

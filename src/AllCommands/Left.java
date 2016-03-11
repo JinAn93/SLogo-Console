@@ -5,6 +5,12 @@ import Turtle.SingleTurtle;
 import CommandTypes.TurtleCommand;
 
 
+/**
+ * subclass of TurtleCommand: for each turtle, rotate turtle based on heading
+ * 
+ * @author Jin An
+ *
+ */
 public class Left extends TurtleCommand {
 
     public Left (List<SingleTurtle> turtle) {

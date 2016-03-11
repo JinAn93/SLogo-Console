@@ -5,6 +5,13 @@ import CommandTypes.TurtleCommand;
 import Turtle.*;
 
 
+/**
+ * subclass of turtlecommand: serves to rotate each turtle to the right by input (heading).
+ * 
+ * @author Jin An
+ * @author Sarp Uner
+ *
+ */
 public class Right extends TurtleCommand {
 
     public Right (List<SingleTurtle> turtle) {

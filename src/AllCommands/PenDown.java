@@ -5,10 +5,16 @@ import CommandTypes.TurtleCommand;
 import Turtle.*;
 
 
+/**
+ * subclass of turtleCommand: serves to set pendown for each turtle. return 1 (pendown).
+ * 
+ * @author Jin An
+ *
+ */
 public class PenDown extends TurtleCommand {
 
     public PenDown (List<SingleTurtle> turtle) {
-        super(turtle);   
+        super(turtle);
     }
 
     @Override

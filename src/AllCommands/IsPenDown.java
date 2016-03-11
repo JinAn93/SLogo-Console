@@ -5,6 +5,12 @@ import CommandTypes.TurtleCommand;
 import Turtle.*;
 
 
+/**
+ * subclass of turtlecommand: returns 1 if pen down 0 if pen up
+ * 
+ * @author Jin An
+ *
+ */
 public class IsPenDown extends TurtleCommand {
 
     public IsPenDown (List<SingleTurtle> turtle) {

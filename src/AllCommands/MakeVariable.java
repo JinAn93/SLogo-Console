@@ -4,6 +4,13 @@ import NodeTypes.*;
 import BackEndMain.*;
 
 
+/**
+ * MakeVariable serves to create user-defined variable. If the variable already exists, it replaces
+ * the pre-existing variable.
+ * 
+ * @author Jin An
+ *
+ */
 public class MakeVariable extends Command {
 
     protected static final int NAMEINDEX = 0;
@@ -14,7 +21,6 @@ public class MakeVariable extends Command {
         Variable newVar = new Variable();
         newVar.setName(((Variable) myChildren[NAMEINDEX]).getName());
         newVar.setValue(myChildren[VALUEINDEX].getValue());
-        System.out.println("Variable Name is " + newVar.getName() + " Variable value is " + newVar.getValue());
         Variable existCheck = isAlreadyExist(newVar);
         if (existCheck != null) {
             existCheck.setValue(newVar.getValue());
@@ -26,7 +32,7 @@ public class MakeVariable extends Command {
     }
 
     private Variable isAlreadyExist (Variable newVar) {
-        if(MainBackEnd.getVariables().isEmpty())
+        if (MainBackEnd.getVariables().isEmpty())
             return null;
         for (Variable var : MainBackEnd.getVariables()) {
             if ((var.getName().equals(newVar.getName())))

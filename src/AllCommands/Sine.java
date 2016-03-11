@@ -3,6 +3,12 @@ package AllCommands;
 import CommandTypes.MathOpCommand;
 
 
+/**
+ * Subclass of mathopcommand: serves to return sine value of an angle (first child)
+ * 
+ * @author Jin An
+ *
+ */
 public class Sine extends MathOpCommand {
 
     @Override

@@ -5,6 +5,12 @@ import Turtle.SingleTurtle;
 import CommandTypes.TurtleCommand;
 
 
+/**
+ * subclass of turtlecommand: serves to set each turtle's position.
+ * 
+ * @author Jin An
+ *
+ */
 public class SetPosition extends TurtleCommand {
 
     public SetPosition (List<SingleTurtle> turtle) {

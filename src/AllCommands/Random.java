@@ -2,7 +2,14 @@ package AllCommands;
 
 import CommandTypes.MathOpCommand;
 
-public class Random extends MathOpCommand{
+
+/**
+ * subclass of mathopcommand: serves to return random number less than the max (first child) value.
+ * 
+ * @author Jin An
+ *
+ */
+public class Random extends MathOpCommand {
 
     @Override
     public String executeCommand () {

@@ -3,6 +3,12 @@ package AllCommands;
 import CommandTypes.BoolOpCommand;
 
 
+/**
+ * Subclass of BoolOpCommand: compares two children and return true if equal.
+ * 
+ * @author Jin An
+ *
+ */
 public class Equal extends BoolOpCommand {
 
     @Override

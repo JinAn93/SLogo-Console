@@ -3,6 +3,13 @@ package AllCommands;
 import CommandTypes.MathOpCommand;
 
 
+/**
+ * subclass of MathOpCommand: returns the product of two children
+ * 
+ * @author Jin An
+ * @author Sarp Uner
+ *
+ */
 public class Product extends MathOpCommand {
 
     @Override

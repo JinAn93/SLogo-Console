@@ -5,6 +5,12 @@ import CommandTypes.TurtleCommand;
 import Turtle.*;
 
 
+/**
+ * subclass of TurtleCommand: serves to set each turtle's pen property to up and return 0 (penup).
+ * 
+ * @author Jin An
+ *
+ */
 public class PenUp extends TurtleCommand {
 
     public PenUp (List<SingleTurtle> turtle) {

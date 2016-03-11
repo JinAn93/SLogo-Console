@@ -16,7 +16,7 @@ public class VariableFactory extends AbstractFactory {
     }
 
     @Override
-    public Variable makeVar (String variable, List<Variable> variables) {
+    public Variable makeVar (String variable) {
         System.out.println(variable + " was created");
         Variable newVar = new Variable();
         newVar.setName(variable);
@@ -30,14 +30,12 @@ public class VariableFactory extends AbstractFactory {
     }
 
     @Override
-    public UserCommand makeUserCommand (String command, List<UserCommand> commands) {
+    public UserCommand makeUserCommand (String command) {
         return null;
     }
 
     @Override
-    public Command makeCommand (String commandName, List<SingleTurtle> turtle,
-                         List<StringBuilder> content, List<Variable> variables,
-                         List<UserCommand> userCommands) {
+    public Command makeCommand (String Name, List<SingleTurtle> turtle, List<StringBuilder> content) {
         return null;
     }
 

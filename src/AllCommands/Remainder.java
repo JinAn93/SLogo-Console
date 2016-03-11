@@ -3,6 +3,13 @@ package AllCommands;
 import CommandTypes.MathOpCommand;
 
 
+/**
+ * subclass of mathopcommand: serves to return remainder from dividing first child by second child
+ * 
+ * @author Jin An
+ * @author Sarp Uner
+ *
+ */
 public class Remainder extends MathOpCommand {
 
     @Override

@@ -3,6 +3,13 @@ package AllCommands;
 import CommandTypes.MathOpCommand;
 
 
+/**
+ * Subclass of MathOpCommand: executes subtraction
+ * 
+ * @author Jin An
+ * @author Sarp Uner
+ *
+ */
 public class Difference extends MathOpCommand {
 
     @Override
