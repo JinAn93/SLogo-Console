@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-public class ChooseInactiveTurtles {
+public class CreateInactiveTurtles {
 	private List<Integer> myInactiveList;
 	private List<SingleTurtle> myTurtleList;
 	private Menu myTurtleInactiveMenu;
@@ -28,7 +28,7 @@ public class ChooseInactiveTurtles {
 	private ArrayList<Integer> myIndices; 
 	private String myCommand; 
 	
-	public ChooseInactiveTurtles(List<Integer> mynumlist, List<SingleTurtle> myturts){
+	public CreateInactiveTurtles(List<Integer> mynumlist, List<SingleTurtle> myturts){
 		myTurtleInactiveMenu = new Menu("Choose Inactive Turtles");
 		myTurtleList = myturts;
 		myInactiveList = mynumlist;
