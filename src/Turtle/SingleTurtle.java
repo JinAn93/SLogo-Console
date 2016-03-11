@@ -4,6 +4,12 @@ import java.util.Observable;
 import javafx.scene.image.Image;
 
 
+/**
+ * SingleTurtle implements Turtle and it serves to deal with single turtle command (penup/heading..)
+ * 
+ * @author Jin An
+ *
+ */
 public class SingleTurtle extends Observable implements Turtle {
 
     private double startXCor, startYCor, endXCor, endYCor, myHeading;
@@ -11,8 +17,8 @@ public class SingleTurtle extends Observable implements Turtle {
     private Image myTurtleImage;
     private double penWidth;
     private boolean isActive = true;
-    private boolean dashedLine = false; 
-    
+    private boolean dashedLine = false;
+
     public SingleTurtle (int x, int y, String dir) {
         startXCor = x;
         startYCor = y;
@@ -137,14 +143,14 @@ public class SingleTurtle extends Observable implements Turtle {
         notifyObservers();
     }
 
-	@Override
-	public void setPenDashed() {
-		// TODO Auto-generated method stub
-		dashedLine = !dashedLine; 
-	}
-	
-	@Override
-	public boolean getPenDashed(){
-		return dashedLine; 
-	}
+    @Override
+    public void setPenDashed () {
+        // TODO Auto-generated method stub
+        dashedLine = !dashedLine;
+    }
+
+    @Override
+    public boolean getPenDashed () {
+        return dashedLine;
+    }
 }

@@ -6,7 +6,8 @@ import javafx.scene.image.Image;
 /**
  * Turtle class serves to store its properties such as visibility, xCor, yCor, and pen (up or Down)
  * 
- * @author Jin An and David Yan
+ * @author Jin An
+ * @author David Yan
  * 
  */
 public interface Turtle {
@@ -49,7 +50,7 @@ public interface Turtle {
 
     public void setTurtleImage (String dir);
 
-	public void setPenDashed();
-	
-	public boolean getPenDashed(); 
+    public void setPenDashed ();
+
+    public boolean getPenDashed ();
 }

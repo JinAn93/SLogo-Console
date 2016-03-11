@@ -4,6 +4,12 @@ import java.util.Observable;
 import javafx.scene.image.Image;
 
 
+/**
+ * MultipleTurtles implements turtle and serves to perform multiple Turtle commands
+ * 
+ * @author Jin An
+ *
+ */
 public class MultipleTurtles extends Observable implements Turtle {
 
     @Override
@@ -90,5 +96,14 @@ public class MultipleTurtles extends Observable implements Turtle {
 
     @Override
     public void setTurtleImage (String dir) {
+    }
+
+    @Override
+    public void setPenDashed () {
+    }
+
+    @Override
+    public boolean getPenDashed () {
+        return false;
     }
 }
