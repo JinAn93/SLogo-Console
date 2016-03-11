@@ -106,7 +106,6 @@ public class Display{
         myButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent e) {
                 String myCommand = myScreen.getCodeInput().getText();
-                System.out.println(myCommand);
                 MainBackEnd mb = new MainBackEnd();
                 myInput = new InputObject(myCommand, myAllTurtles, myLang);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
@@ -147,9 +146,7 @@ public class Display{
                 double endX = aturtle.getEndXCor();
                 double endY = aturtle.getEndYCor();
                 if (aturtle.getPen() == 1) {
-                	if(aturtle.getPenDashed()){
-                		myLineGraphics.setLineDashes(5);
-                	}
+                	if(aturtle.getPenDashed()) myLineGraphics.setLineDashes(5);
                 	else myLineGraphics.setLineDashes(0);
                     myLineGraphics.setLineWidth(aturtle.getPenWidth());
                     myLineGraphics.strokeLine(startX, startY, endX, endY);

@@ -36,6 +36,8 @@ import fxFrontend.LanguageReader;
 public class DisplayUpdater {
 	private List<SingleTurtle> myTurtleList; 
 	private GraphicsContext graphics; 
+	private double[] xCoor, yCoor, head;
+	private int[] visib;
 	
 	public DisplayUpdater(List<SingleTurtle> myTurts, GraphicsContext gc){
 		myTurtleList = myTurts;
@@ -52,10 +54,7 @@ public class DisplayUpdater {
             myTurtleStats.append("Heading: " + aTurtle.getHeading() + "\n");
             if (aTurtle.getPen() == 1) {
                 myTurtleStats.append("Pen: Down" + "\n");
-            }
-            else {
-                myTurtleStats.append("Pen: Up" + "\n");
-            }
+            } else myTurtleStats.append("Pen: Up" + "\n");
             myTurtleStats.append("Turtle Heading:" + aTurtle.getHeading() + "\n");
             myTurtleStats.append("Turtle active:" + aTurtle.getActive() + "\n");
             myTurtleStats.append("\n");
@@ -65,29 +64,30 @@ public class DisplayUpdater {
 	}
 	
 	public void updateTurtle(){
-		 int a = 0;
-	        double[] xCoor = new double[myTurtleList.size()];
-	        double[] yCoor = new double[myTurtleList.size()];
-	        double[] head = new double[myTurtleList.size()];
-	        int[] visib = new int[myTurtleList.size()];
-	        graphics.clearRect(0, 0, 600, 600);
-	        graphics.fillRect(0, 0, 600, 600);
+		int a = 0;
+		setupValues();
+		graphics.clearRect(0, 0, 600, 600);
+		graphics.fillRect(0, 0, 600, 600);
+		for (Turtle aturtle : myTurtleList) {
+			xCoor[a] = aturtle.getEndXCor();
+			yCoor[a] = aturtle.getEndYCor();
+			head[a] = aturtle.getHeading();
+			visib[a] = aturtle.getVisibility();
+			a++;
+		}
+		a = 0;
+		for (Turtle aturtle : myTurtleList) {
+			if (visib[a] == 1) graphics.drawImage(aturtle.getTurtleImage(), xCoor[a], yCoor[a]);
+			rotate(graphics, head[a], calculatePivotX(aturtle), calculatePivotY(aturtle));
+			a++;
+		}
+	}
 
-	        for (Turtle aturtle : myTurtleList) {
-	            xCoor[a] = aturtle.getEndXCor();
-	            yCoor[a] = aturtle.getEndYCor();
-	            head[a] = aturtle.getHeading();
-	            visib[a] = aturtle.getVisibility();
-	            a++;
-	        }
-	        a = 0;
-	        for (Turtle aturtle : myTurtleList) {
-	            if (visib[a] == 1) {
-	            	 graphics.drawImage(aturtle.getTurtleImage(), xCoor[a], yCoor[a]);
-	            }
-	            rotate(graphics, head[a], calculatePivotX(aturtle), calculatePivotY(aturtle));
-	            a++;
-	        }
+	private void setupValues() {
+		xCoor = new double[myTurtleList.size()];
+		yCoor = new double[myTurtleList.size()];
+		head = new double[myTurtleList.size()];
+		visib = new int[myTurtleList.size()];
 	}
 	
 	private void rotate (GraphicsContext gc, double angle, double px, double py) {
