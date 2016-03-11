@@ -6,15 +6,22 @@ import NodeTypes.*;
 import Turtle.*;
 
 
+/**
+ * Output class serves to contain all the information needed for front end to display the result. It
+ * contains list of printable string (console), list of turtles, list of variables, and list of
+ * user-defined commands.
+ * 
+ * @author Jin An
+ * @author David Yan
+ * @author Cody Li
+ * @author Sarp Uner
+ */
 public class Output {
 
     private List<String> myResult = new ArrayList<String>();
     private List<SingleTurtle> myTurtle;
     private List<Variable> myVariables = new ArrayList<Variable>();
     private List<UserCommand> myUserCommands = new ArrayList<UserCommand>();
-    private boolean badCommand = false;
-    private String myErrorType;
-    private String myErrorMessage;
 
     public Output (List<SingleTurtle> turtle, List<Variable> variables, List<UserCommand> commands) {
         myTurtle = turtle;
@@ -22,14 +29,9 @@ public class Output {
         myUserCommands = commands;
     }
 
-    public Output (List<SingleTurtle> turtle,
-                   List<Variable> variables,
-                   String errorType,
-                   String errorMessage) {
+    public Output (List<SingleTurtle> turtle, List<Variable> variables) {
         myTurtle = turtle;
         myVariables = variables;
-        myErrorType = errorType;
-        myErrorMessage = errorMessage;
     }
 
     public List<String> getResult () {
@@ -52,32 +54,11 @@ public class Output {
         return myVariables;
     }
 
-    public List<UserCommand> getUserCommands() {
+    public List<UserCommand> getUserCommands () {
         return myUserCommands;
     }
-    
+
     public void updateVariable (List<Variable> variables) {
         this.myVariables = variables;
     }
-
-    public boolean isValidCommand () {
-        return badCommand;
-    }
-
-    public void setBadCommand () {
-        badCommand = true;
-    }
-
-    public void setValidity (boolean status) {
-        badCommand = status;
-    }
-
-    public String getErrorMessage () {
-        return myErrorMessage;
-    }
-
-    public void setErrorMessage (String error) {
-        myErrorMessage = error;
-    }
-
 }

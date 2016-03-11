@@ -15,13 +15,15 @@ import java.util.Collection;
 public class InputNormalizer {
 
     private static final String SPACE = " ";
+    private static final String MULTIPLE_SPACE = " +";
+    private static final String COMMENT = "Comment";
 
     public Collection<?> normalizeInput (String input) {
         if (input == null) {
             return null;
         }
         else {
-            String NormalizedInput = commentOut(input).toLowerCase().trim().replaceAll(" +", " ");
+            String NormalizedInput = commentOut(input).toLowerCase().trim().replaceAll(MULTIPLE_SPACE, SPACE);
             return Arrays.asList(NormalizedInput.split(" "));
         }
     }
@@ -30,7 +32,7 @@ public class InputNormalizer {
         String[] CommandbyLine = input.split("\n");
         String commentFreeInput = new String();
         for (String line : CommandbyLine) {
-            if (!line.matches(Parser.mySyntaxes.getString("Comment"))) {
+            if (!line.matches(Parser.mySyntaxes.getString(COMMENT))) {
                 commentFreeInput += line;
             }
             commentFreeInput += SPACE;

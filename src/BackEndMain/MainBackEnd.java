@@ -6,7 +6,7 @@ import Turtle.*;
 
 
 /**
- * MainBackEnd serves to create Expression Tree and execute commands as it reads the nodes
+ * MainBackEnd serves to create Expression Tree and execute commands as it reads the nodes. It takes in Input Object
  * 
  * @author Jin An
  * @author Sarp Uner
@@ -19,8 +19,7 @@ public class MainBackEnd {
     private static List<UserCommand> myUserCommandList = new ArrayList<UserCommand>();
     private static ResourceBundle myLanguage;
     private List<SingleTurtle> myAllTurtles;
-    private List<SingleTurtle> myCurrentTurtles;
-
+    
     public Output executeCommand (Collection<?> commands) {
         Parser parser = new Parser(myAllTurtles, myLanguage);
         Stack<Node> result;
@@ -31,8 +30,6 @@ public class MainBackEnd {
             }
             Output output = new Output(myAllTurtles, myVariableList, myUserCommandList);
             output.setResult(parser.stringizer(result));
-            System.out.println("Here is the Variable List: " + myVariableList);
-            System.out.println("Here is the User Command List: " + myUserCommandList);
             return output;
         }
         catch (Exception e) {
@@ -40,11 +37,11 @@ public class MainBackEnd {
         }
     }
 
-    public Collection<?> setup (String input, InputObject inputObject) {
+    public Collection<?> setup (InputObject inputObject) {
         InputNormalizer iNormalizer = new InputNormalizer();
         myAllTurtles = inputObject.getTurtle();
         myLanguage = inputObject.getLanguage();
-        return iNormalizer.normalizeInput(input);
+        return iNormalizer.normalizeInput(inputObject.getCommand());
     }
 
     public void setLanguage (ResourceBundle bundle) {

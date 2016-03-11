@@ -11,6 +11,15 @@ import Error_Checking.VariableException;
 import Factory.*;
 
 
+/**
+ * Parser class serves to receive the collection of nodes, build expression tree, and return the
+ * stack of node to be executed. It uses recursive tree to execute command when the parameter is not
+ * operand (E.g. sum sum 10 20 30 -> sum 30 30 -> 60)
+ * 
+ * @author Jin An
+ * @author Sarp Uner
+ *
+ */
 public class Parser {
     private static final ResourceBundle myParameters = ResourceBundle
             .getBundle("resources.ParameterList/AllParameters");

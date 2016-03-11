@@ -108,7 +108,7 @@ public class Display{
                 String myCommand = myScreen.getCodeInput().getText();
                 MainBackEnd mb = new MainBackEnd();
                 myInput = new InputObject(myCommand, myAllTurtles, myLang);
-                Collection<?> parsedCommands = mb.setup(myCommand, myInput);
+                Collection<?> parsedCommands = mb.setup(myInput);
                 output = mb.executeCommand(parsedCommands);   
                 if (output != null) {
                     statUpdater(myCommand);
