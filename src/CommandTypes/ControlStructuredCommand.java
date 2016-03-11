@@ -6,6 +6,13 @@ import Turtle.*;
 import NodeTypes.*;
 
 
+/**
+ * ControlStructuredCommand class is a subclass of command and super class of specific commands (If,
+ * repeat..). It has protected variables that are used multiple times in subclass.
+ * 
+ * @author Jin An
+ *
+ */
 public abstract class ControlStructuredCommand extends Command {
 
     protected String myContent;
