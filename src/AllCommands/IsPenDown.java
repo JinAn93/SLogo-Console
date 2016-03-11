@@ -12,7 +12,7 @@ public class IsPenDown extends TurtleCommand {
     }
 
     @Override
-    public String executeCommand () {
-        return String.valueOf((aturtle.getPen()));
+    public String executeOnSingleTurtle (SingleTurtle t) {
+        return String.valueOf((t.getPen()));
     }
 }

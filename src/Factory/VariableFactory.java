@@ -25,22 +25,19 @@ public class VariableFactory extends AbstractFactory {
     }
 
     @Override
-    Operand makeOperand (String operand) {
-        // TODO Auto-generated method stub
+    public Operand makeOperand (String operand) {
         return null;
     }
 
     @Override
-    UserCommand makeUserCommand (String command, List<UserCommand> commands) {
-        // TODO Auto-generated method stub
+    public UserCommand makeUserCommand (String command, List<UserCommand> commands) {
         return null;
     }
 
     @Override
-    Command makeCommand (String commandName, List<SingleTurtle> turtle,
+    public Command makeCommand (String commandName, List<SingleTurtle> turtle,
                          List<StringBuilder> content, List<Variable> variables,
                          List<UserCommand> userCommands) {
-        // TODO Auto-generated method stub
         return null;
     }
 

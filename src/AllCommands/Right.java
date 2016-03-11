@@ -12,9 +12,9 @@ public class Right extends TurtleCommand {
     }
 
     @Override
-    public String executeCommand () {
+    public String executeOnSingleTurtle (SingleTurtle t) {
         double changeinHeading = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
-        aturtle.setHeading(aturtle.getHeading() + changeinHeading);
+        t.setHeading(t.getHeading() + changeinHeading);
         return myChildren[FIRSTCHILD].getValue();
     }
 }

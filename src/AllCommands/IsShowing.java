@@ -12,7 +12,7 @@ public class IsShowing extends TurtleCommand {
     }
 
     @Override
-    public String executeCommand () {
-        return String.valueOf((aturtle.getVisibility()));
+    public String executeOnSingleTurtle (SingleTurtle t) {
+        return String.valueOf((t.getVisibility()));
     }
 }

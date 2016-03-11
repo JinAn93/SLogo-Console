@@ -8,7 +8,7 @@ import Error_Checking.ErrorObject;
 import Error_Checking.InstructionException;
 import Error_Checking.ParameterException;
 import Error_Checking.VariableException;
-import Factory.CommandFactory;
+import Factory.*;
 
 
 public class Parser {
@@ -26,7 +26,8 @@ public class Parser {
     private ResourceBundle myLanguage;
     private List<Variable> myVariableList;
     private List<UserCommand> myUserCommandList;
-    private CommandFactory myFactory;
+    private FactoryProducer myFactoryProducer = new FactoryProducer();
+    private AbstractFactory myFactory;
 
     public Parser (List<SingleTurtle> turtle,
                    ResourceBundle lang,
@@ -41,8 +42,6 @@ public class Parser {
     public Stack<Node> buildExpressionTree (Collection<?> ListOfNodes)
                                                                       throws ClassNotFoundException {
         Stack<Node> stack = new Stack<Node>();
-        myFactory = new CommandFactory(myLanguage);
-
         String[] nodes = ListOfNodes.toArray(new String[ListOfNodes.size()]);
         ArrayList<StringBuilder> ListOfContents = new ArrayList<StringBuilder>();
         for (int i = nodes.length - 1; i > -1; i--) {
@@ -51,12 +50,12 @@ public class Parser {
 
             if (isCommand(nodes[i])) {
                 if (isAddNewCommand(nodes, i - 1) || isUserCommand(nodes[i])) {
-                    System.out.println("Is there?");
+                    myFactory = myFactoryProducer.getFactory("UserCommand", myLanguage);
                     command = myFactory.makeUserCommand(nodes[i], MainBackEnd.getUserCommands());
                 }
                 else {
-                    System.out.println("Here");
                     try {
+                        myFactory = myFactoryProducer.getFactory("Command", myLanguage);
                         command =
                                 myFactory.makeCommand(nodes[i], myAllTurtles, ListOfContents,
                                                     MainBackEnd.getVariables(),
@@ -89,6 +88,7 @@ public class Parser {
             }
 
             else if (isConstant(nodes[i])) {
+                myFactory = myFactoryProducer.getFactory("Operand", myLanguage);
                 command = myFactory.makeOperand(nodes[i]);
             }
 
@@ -96,10 +96,10 @@ public class Parser {
                 command = ExistVariable(nodes[i].substring(INDEX_COLON));
                 if (command == null) {
                     try {
-                        if (!isAddNewVariable(nodes, i - 1, myFactory))
+                        if (!isAddNewVariable(nodes, i - 1))
                             throw new VariableException();
-                        command =
-                                myFactory.makeVar(nodes[i].substring(INDEX_COLON), myVariableList);
+                        myFactory = myFactoryProducer.getFactory("Variable", myLanguage);
+                        command = myFactory.makeVar(nodes[i].substring(INDEX_COLON), myVariableList);
                     }
                     catch (VariableException e) {
                         new ErrorObject(VARIABLE_ERROR).displayError();
@@ -155,11 +155,11 @@ public class Parser {
         return false;
     }
 
-    private boolean isAddNewVariable (String[] nodes, int index, CommandFactory cf) {
+    private boolean isAddNewVariable (String[] nodes, int index) {
         System.out.println("Here");
         if (index < 0)
             return false;
-        String nextCommand = cf.searchCommand(nodes[index], myLanguage.getKeys());
+        String nextCommand = myFactory.searchCommand(nodes[index], myLanguage.getKeys());
         if (nextCommand.equals("MakeVariable"))
             return true;
         return false;
@@ -193,6 +193,7 @@ public class Parser {
     }
 
     public List<String> stringizer (Stack<Node> input) {
+        System.out.println("Stringizer");
         List<String> ret = new ArrayList<String>();
         while (!input.isEmpty()) {
             ret.add(input.pop().getValue());

@@ -12,8 +12,8 @@ public class PenDown extends TurtleCommand {
     }
 
     @Override
-    public String executeCommand () {
-        aturtle.setPen(PENDOWN);
+    public String executeOnSingleTurtle (SingleTurtle t) {
+        t.setPen(PENDOWN);
         return Integer.toString(PENDOWN);
     }
 }

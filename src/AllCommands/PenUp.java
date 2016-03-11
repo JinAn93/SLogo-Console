@@ -12,8 +12,8 @@ public class PenUp extends TurtleCommand {
     }
 
     @Override
-    public String executeCommand () {
-        aturtle.setPen(PENUP);
+    public String executeOnSingleTurtle (SingleTurtle t) {
+        t.setPen(PENUP);
         return Integer.toString(PENUP);
     }
 }

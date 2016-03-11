@@ -15,7 +15,7 @@ public class UserCommandFactory extends AbstractFactory{
     }
 
     @Override
-    UserCommand makeUserCommand (String command, List<UserCommand> commands) {
+    public UserCommand makeUserCommand (String command, List<UserCommand> commands) {
         if (command == null) {
             return null;
         }
@@ -35,7 +35,7 @@ public class UserCommandFactory extends AbstractFactory{
     }
 
     @Override
-    Command makeCommand (String commandName,
+    public Command makeCommand (String commandName,
                          List<SingleTurtle> turtle,
                          List<StringBuilder> content,
                          List<Variable> variables,
@@ -44,12 +44,12 @@ public class UserCommandFactory extends AbstractFactory{
     }
 
     @Override
-    Operand makeOperand (String operand) {
+    public Operand makeOperand (String operand) {
         return null;
     }
 
     @Override
-    Variable makeVar (String variable, List<Variable> variables) {
+    public Variable makeVar (String variable, List<Variable> variables) {
         return null;
     }
 }

@@ -12,7 +12,7 @@ public class YCoordinate extends TurtleCommand {
     }
 
     @Override
-    public String executeCommand () {
-        return String.valueOf((aturtle.getStartYCor()));
+    public String executeOnSingleTurtle (SingleTurtle t) {
+        return String.valueOf((t.getStartYCor()));
     }
 }

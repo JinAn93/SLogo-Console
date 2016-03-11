@@ -1,5 +1,6 @@
 package Factory;
 
+import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 import NodeTypes.Command;
@@ -17,13 +18,24 @@ public abstract class AbstractFactory {
         myLanguage = lang;
     }
 
-    abstract Operand makeOperand (String operand);
+    
+    public abstract Operand makeOperand (String operand);
 
-    abstract Variable makeVar (String variable, List<Variable> variables);
+    public abstract Variable makeVar (String variable, List<Variable> variables);
 
-    abstract UserCommand makeUserCommand (String command, List<UserCommand> commands);
+    public abstract UserCommand makeUserCommand (String command, List<UserCommand> commands);
 
-    abstract Command makeCommand (String commandName, List<SingleTurtle> turtle,
+    public abstract Command makeCommand (String commandName, List<SingleTurtle> turtle,
                                   List<StringBuilder> content, List<Variable> variables,
                                   List<UserCommand> userCommands);
+    
+    public String searchCommand (String str, Enumeration<String> keys) {
+        while (keys.hasMoreElements()) {
+            String command = (keys.nextElement());
+            if (str.matches(myLanguage.getString(command))) {
+                return command;
+            }
+        }
+        return null;
+    }
 }

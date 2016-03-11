@@ -12,7 +12,7 @@ public class Heading extends TurtleCommand {
     }
 
     @Override
-    public String executeCommand () {
-        return String.valueOf((aturtle.getHeading()));
+    public String executeOnSingleTurtle (SingleTurtle t) {
+        return String.valueOf((t.getHeading()));
     }
 }

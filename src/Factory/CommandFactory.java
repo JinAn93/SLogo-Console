@@ -63,16 +63,6 @@ public class CommandFactory extends AbstractFactory {
         }
         return command;
     }
-
-    public String searchCommand (String str, Enumeration<String> keys) {
-        while (keys.hasMoreElements()) {
-            String command = (keys.nextElement());
-            if (str.matches(myLanguage.getString(command))) {
-                return command;
-            }
-        }
-        return null;
-    }
     
     @Override
     public Operand makeOperand (String operand) {

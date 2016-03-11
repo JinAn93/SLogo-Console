@@ -12,11 +12,7 @@ public class Forward extends TurtleCommand {
     }
 
     @Override
-    public String executeCommand () {
-        return aTurtle.runCommand(Forward::helper);
-    }
-    
-    public String helper (Turtle t) {
+    public String executeOnSingleTurtle(SingleTurtle t) {
         double moveBy = 0;
         moveBy = Double.parseDouble(myChildren[FIRSTCHILD].getValue());
         double radian = Math.toRadians(t.getHeading());
