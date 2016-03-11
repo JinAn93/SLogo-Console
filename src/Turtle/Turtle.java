@@ -27,6 +27,8 @@ public interface Turtle {
     public int getVisibility ();
 
     public int getPen ();
+    
+    public TurtlePen getTurtlePen ();
 
     public double getPenWidth ();
 
@@ -45,6 +47,8 @@ public interface Turtle {
     public void setVisibility (int visibility);
 
     public void setPen (int pen);
+    
+    public void setTurtlePen(TurtlePen turtlePen);
 
     public void setPenWidth (double width);
 

@@ -1,11 +1,16 @@
 package Turtle;
 
 import java.util.Observable;
+import BackEndMain.StrConstant;
 import javafx.scene.image.Image;
 
 
 /**
- * SingleTurtle implements Turtle and it serves to deal with single turtle command (penup/heading..)
+ * SingleTurtle implements Turtle and it serves to deal with single turtle command
+ * (penup/heading..). Turtle Object has TurtlePen object which contains all the information relevant
+ * to pen properties such as pen width, pen up or down, pen coloar and etc. Because we did not have
+ * enough time to implement it, it is definitely possible by having TurtlePen class which contains
+ * all the information that each Turtle can access to.
  * 
  * @author Jin An
  *
@@ -15,20 +20,24 @@ public class SingleTurtle extends Observable implements Turtle {
     private double startXCor, startYCor, endXCor, endYCor, myHeading;
     private int myVisibility, myPen;
     private Image myTurtleImage;
+    private TurtlePen myTurtlePen;
     private double penWidth;
     private boolean isActive = true;
     private boolean dashedLine = false;
+    private static final double DEFAULT_WIDTH = 4.0;
+    private static final int TRUE = 1;
 
     public SingleTurtle (int x, int y, String dir) {
         startXCor = x;
         startYCor = y;
         endXCor = x;
         endYCor = y;
-        myVisibility = 1;
-        myPen = 1;
+        myVisibility = TRUE;
+        myPen = TRUE;
         myTurtleImage = new Image(dir);
         myHeading = 0;
-        penWidth = 4.0;
+        penWidth = DEFAULT_WIDTH;
+        myTurtlePen = new TurtlePen(StrConstant.DEFAULT_COLOR, DEFAULT_WIDTH, TRUE);
     }
 
     @Override
@@ -145,12 +154,21 @@ public class SingleTurtle extends Observable implements Turtle {
 
     @Override
     public void setPenDashed () {
-        // TODO Auto-generated method stub
         dashedLine = !dashedLine;
     }
 
     @Override
     public boolean getPenDashed () {
         return dashedLine;
+    }
+
+    @Override
+    public TurtlePen getTurtlePen () {
+        return myTurtlePen;
+    }
+
+    @Override
+    public void setTurtlePen (TurtlePen turtlePen) {
+        myTurtlePen = turtlePen;
     }
 }

@@ -106,4 +106,13 @@ public class MultipleTurtles extends Observable implements Turtle {
     public boolean getPenDashed () {
         return false;
     }
+
+    @Override
+    public TurtlePen getTurtlePen () {
+        return null;
+    }
+
+    @Override
+    public void setTurtlePen (TurtlePen turtlePen) {  
+    }
 }

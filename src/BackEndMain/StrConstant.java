@@ -11,7 +11,9 @@ public class StrConstant {
     }
 
     public static final String SPACE = " ";
+    public static final String NEW_LINE = "\n";
     public static final String COMMAND = "Command";
+    public static final String COMMENT = "Comment";
     public static final String OPERAND = "Operand";
     public static final String VARIABLE = "Variable";
     public static final String USERCOMMAND = "UserCommand";
@@ -26,4 +28,5 @@ public class StrConstant {
     public static final String ALLCOMMANDS = "AllCommands.";
     public static final String ONE_INDEX_DEFAULT = "1";
     public static final String ZERO = "0";
+    public static final String DEFAULT_COLOR = "Black";
 }
