@@ -47,7 +47,6 @@ public class CreateBackgroundColorMenu {
 		}
 	}
 	
-	
 	public Menu getColorMenu(){
 		return myColorMenu;
 	}

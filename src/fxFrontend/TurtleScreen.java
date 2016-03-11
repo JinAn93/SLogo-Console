@@ -2,6 +2,7 @@ package fxFrontend;
 
 import Turtle.*;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -18,57 +19,67 @@ public class TurtleScreen {
 	private VBox myScreen;
 	private Button myButton;
 	private TextArea codeInput; 
-	private Canvas myCanvas, myCanvas2, myLineCanvas;
+	private Canvas myCanvas = new Canvas(600, 600);
+	private Canvas myCanvas2 = new Canvas(600, 600);
+	private Canvas myLineCanvas = new Canvas(600, 600);;
 	private GraphicsContext myGraphics, myGraphics2, myLineGraphics;
 	private Image myTurtleImage;
-//	private int turtleX,turtleY;
-	private List<SingleTurtle> myTurtle = new ArrayList<SingleTurtle>(); 
+	private List<SingleTurtle> myTurtle; 
 	private StackPane myPane;
-//	private HashMap<>
+	private int myNumTurtles;
+	private int yVal = 100;
+	private HBox hb; 
 	
-	public TurtleScreen(){
+	public TurtleScreen(int nummy){
 		myScreen = new VBox(20);
 		myScreen.setPadding(new Insets(0, 20, 10, 20)); 
-		
+		myNumTurtles = nummy;
 		myPane = new StackPane();
-		
-		myCanvas = new Canvas(600,600);
 		myGraphics = myCanvas.getGraphicsContext2D();
-		myGraphics.setFill(Color.TRANSPARENT);
-		myGraphics.fillRect(0,0,myCanvas.getWidth(),myCanvas.getHeight());
-		        
-        myTurtle.add(new SingleTurtle(180, 210, "/resources/koopa.png"));
-        myTurtle.add(new SingleTurtle(100, 100, "/resources/Plane.png"));
-        for(Turtle aTurtle: myTurtle){
-        myGraphics.drawImage(aTurtle.getTurtleImage(), aTurtle.getStartXCor(), aTurtle.getStartYCor());
-        }
-		myCanvas2 = new Canvas(600,600);
 		myGraphics2 = myCanvas2.getGraphicsContext2D();
-		myGraphics2.setFill(Color.WHITE);
-		myGraphics2.fillRect(0,0,myCanvas2.getWidth(),myCanvas2.getHeight());
-		
-		myLineCanvas = new Canvas(600,600);
-		myLineGraphics = myLineCanvas.getGraphicsContext2D();
-		myLineGraphics.setFill(Color.TRANSPARENT);
-		myLineGraphics.fillRect(0,0,myLineCanvas.getWidth(),myLineCanvas.getHeight());
+		myLineGraphics = myLineCanvas.getGraphicsContext2D();		
+		drawTurtle();		
+		createDisplayLayer(myCanvas, myGraphics, Color.TRANSPARENT);
+		createDisplayLayer(myCanvas2, myGraphics2, Color.WHITE);
+		createDisplayLayer(myLineCanvas, myLineGraphics, Color.TRANSPARENT);		
+		createPane();
+        Label label1 = new Label("Code:");
+        codeInput = new TextArea ();
+        hb = new HBox();
+        hb.getChildren().addAll(label1, codeInput);
+        hb.setSpacing(10);
+        addToDisplay();
+	}
 
-		
+	private void addToDisplay() {
+		myScreen.getChildren().add(hb);     
+        myButton = new Button("Submit");
+        myScreen.getChildren().add(myButton);
+	}
+	
+	private void createDisplayLayer(Canvas canvas, GraphicsContext graphics, Color color){
+		graphics.setFill(color);
+		graphics.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+	}
+	
+	private void createPane() {
 		myPane.getChildren().add(myCanvas2);
 		myPane.getChildren().add(myLineCanvas);
 		myPane.getChildren().add(myCanvas);
 		myScreen.getChildren().add(myPane);
-
-        
-        Label label1 = new Label("Code:");
-        codeInput = new TextArea ();
-        HBox hb = new HBox();
-        hb.getChildren().addAll(label1, codeInput);
-        hb.setSpacing(10);
-        myScreen.getChildren().add(hb);
-        
-        myButton = new Button("Submit");
-        myScreen.getChildren().add(myButton);
 	}
+	
+	private void drawTurtle() {
+		myTurtle = new ArrayList<SingleTurtle>();
+		for(int i=0;i<myNumTurtles;i++){
+			myTurtle.add(new SingleTurtle(180,yVal,"/resources/koopa.png"));
+			yVal +=100;
+		}
+        for(Turtle aTurtle: myTurtle){
+        	myGraphics.drawImage(aTurtle.getTurtleImage(), aTurtle.getStartXCor(), aTurtle.getStartYCor());
+        }
+	}
+	
 	public Canvas getCanvas(){
 		return myCanvas2;
 	}
