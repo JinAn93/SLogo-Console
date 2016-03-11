@@ -9,6 +9,12 @@ import NodeTypes.Variable;
 import Turtle.SingleTurtle;
 
 
+/**
+ * subclass of abstractFactory. It creates Operand object which extends Node.
+ * 
+ * @author Jin An
+ *
+ */
 public class OperandFactory extends AbstractFactory {
     public OperandFactory (ResourceBundle lang) {
         super(lang);
@@ -19,7 +25,6 @@ public class OperandFactory extends AbstractFactory {
         Operand op = new Operand();
         op.setValue(operand);
         op.setOperand(true);
-        System.out.println(operand + " was created");
         return op;
     }
 

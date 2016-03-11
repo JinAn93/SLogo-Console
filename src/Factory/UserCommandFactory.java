@@ -10,6 +10,13 @@ import NodeTypes.Variable;
 import Turtle.SingleTurtle;
 
 
+/**
+ * subclass of abstractfactory: It checks whether the command is already defined. If not, it creates
+ * new user-defined command
+ * 
+ * @author Jin An
+ *
+ */
 public class UserCommandFactory extends AbstractFactory {
 
     public UserCommandFactory (ResourceBundle lang) {
@@ -18,10 +25,6 @@ public class UserCommandFactory extends AbstractFactory {
 
     @Override
     public UserCommand makeUserCommand (String command) {
-        if (command == null) {
-            return null;
-        }
-
         if (!MainBackEnd.getUserCommands().isEmpty()) {
             for (UserCommand ucommand : MainBackEnd.getUserCommands()) {
                 if (ucommand.getUserCommandName().equals(command)) {

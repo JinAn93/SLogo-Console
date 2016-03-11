@@ -2,14 +2,20 @@ package Factory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 import NodeTypes.*;
 import Turtle.*;
 
 
-public class CommandFactory extends AbstractFactory {
+/**
+ * CommandFactory is subclass of abstractFactory. It returns the command object that matches the
+ * name. It returns null if no match.
+ * 
+ * @author Jin An
+ *
+ */
+public class CommandFactory extends AbstractFactory { //work on this
 
     public CommandFactory (ResourceBundle lang) {
         super(lang);

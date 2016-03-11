@@ -9,6 +9,12 @@ import NodeTypes.Variable;
 import Turtle.SingleTurtle;
 
 
+/**
+ * Subclass of abstractfactory. It creates variable node.
+ * 
+ * @author Jin An
+ *
+ */
 public class VariableFactory extends AbstractFactory {
 
     public VariableFactory (ResourceBundle lang) {
@@ -17,7 +23,6 @@ public class VariableFactory extends AbstractFactory {
 
     @Override
     public Variable makeVar (String variable) {
-        System.out.println(variable + " was created");
         Variable newVar = new Variable();
         newVar.setName(variable);
         newVar.setVariable(true);
