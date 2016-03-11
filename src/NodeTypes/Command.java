@@ -1,5 +1,13 @@
 package NodeTypes;
 
+/**
+ * Command is a subclass of Node and it serves to store the built-in commands, its parameter
+ * children, and values. Once it is executed in getValue method, it will contain string value.
+ * 
+ * @author Jin An
+ * @author Sarp Uner
+ *
+ */
 public abstract class Command implements Node {
 
     protected static final String PARAMETER_ERROR = "WRONG PARAMETER.";
@@ -31,15 +39,15 @@ public abstract class Command implements Node {
         return isChildVariable;
     }
 
-    public boolean setUserCommand (boolean bool){
+    public boolean setUserCommand (boolean bool) {
         isChildUserCommand = bool;
         return isChildUserCommand;
     }
-    
+
     public boolean isUserCommand () {
         return isChildUserCommand;
     }
-    
+
     public void setChildren (Node[] kids) {
         myChildren = kids;
     }

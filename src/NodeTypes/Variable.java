@@ -1,5 +1,11 @@
 package NodeTypes;
 
+/**
+ * Variable is a type of node that contains variable name string and its value.
+ * 
+ * @author Jin An
+ *
+ */
 public class Variable implements Node {
 
     private String myValue, myName;

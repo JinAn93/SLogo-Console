@@ -8,6 +8,13 @@ import BackEndMain.*;
 import Turtle.*;
 
 
+/**
+ * UserCommand serves to store its user-defined command name, command details, and parameters. It
+ * also has executeCommand method that creates expression tree and return appropriate value.
+ * 
+ * @author Jin An
+ *
+ */
 public class UserCommand extends Command {
 
     private String myCommandName;
@@ -15,20 +22,16 @@ public class UserCommand extends Command {
     private List<String> myParameters;
     private List<SingleTurtle> myTurtle;
     private ResourceBundle myLanguage;
-    private List<Variable> myVariableList;
-    private List<UserCommand> myUserCommandList;
 
     public UserCommand (List<SingleTurtle> turtles,
                         String name,
                         String command,
                         ResourceBundle lang,
-                        List<String> parameters,
-                        List<UserCommand> commands) {
+                        List<String> parameters) {
         myCommandName = name;
         myTurtle = turtles;
         mySavedCommand = command;
         myParameters = parameters;
-        myUserCommandList = commands;
         myLanguage = lang;
     }
 
@@ -37,15 +40,15 @@ public class UserCommand extends Command {
 
     @Override
     public String executeCommand () {
-        Parser parser = new Parser(myTurtle, myLanguage, myVariableList, myUserCommandList);
+        Parser parser = new Parser(myTurtle, myLanguage);
         Stack<Node> result;
         try {
-            result = parser.buildExpressionTree(Arrays.asList(mySavedCommand.split(" ")));
+            result = parser.buildExpressionTree(Arrays.asList(mySavedCommand.split(" "))); //space
             if (result == null) {
                 throw new Exception();
             }
             List<String> ret = parser.stringizer(result);
-            return ret.get(ret.size() - 1);
+            return ret.get(ret.size() - 1); // return the result from last command
         }
         catch (Exception e) {
             return null;

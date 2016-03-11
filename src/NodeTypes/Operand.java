@@ -1,5 +1,11 @@
 package NodeTypes;
 
+/**
+ * Operand serves to contain its string value.
+ * 
+ * @author Sarp Uner
+ *
+ */
 public class Operand implements Node {
     private String myStrValue;
     private boolean myOperand;
