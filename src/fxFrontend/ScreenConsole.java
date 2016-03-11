@@ -21,7 +21,7 @@ public class ScreenConsole {
 		myHistoryLabel = new Label("History:");
 		myHistoryText = new TextArea();
 		myHistoryText.setEditable(false);
-		createBox(myHistoryLabel, myHistory,myHistoryText, 350+HEIGHT);
+		createBox(myHistoryLabel, myHistory,myHistoryText, HEIGHT+350);
 		myConsole = new ScrollPane();
 		myConsoleLabel = new Label("Console:");
 		myConsoleText = new TextArea();

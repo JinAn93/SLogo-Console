@@ -78,6 +78,7 @@ public class ScreenSidebar {
 		});
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void createVarTable() {
 		myVariables = new ScrollPane(); 
 		myVariablesLabel = new Label("Variables:");
