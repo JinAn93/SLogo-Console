@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
-public class ChooseLanguageMenu {
+public class CreateLanguageMenu {
 	
 	private String[] myLanguages = {"Chinese","English","French","German","Italian",
 			"Portuguese","Russian","Spanish","Syntax"};
@@ -18,7 +18,7 @@ public class ChooseLanguageMenu {
 	private Display disp; 
 	private ResourceBundle myResource;
 	
-	public ChooseLanguageMenu(Display useDisplay){
+	public CreateLanguageMenu(Display useDisplay){
 		myLanguageMenu = new Menu("Choose Language");
 		disp = useDisplay;
 		getLanguages();

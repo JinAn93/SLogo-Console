@@ -34,10 +34,7 @@ import javafx.scene.transform.Rotate;
 import fxFrontend.Line;
 import fxFrontend.LanguageReader;
 
-
 public class Display{
-
-
 	private BorderPane myBorder;
     private Scene myScene;
     private ScreenSidebar mySidebar = new ScreenSidebar();
@@ -71,9 +68,21 @@ public class Display{
 
     @SuppressWarnings({ "unchecked" })
     public void displayScreen () {
-        alignBorder();
-        
-        myAllTurtles = myScreen.getMyTurtle();
+        alignBorder();  
+        setUpDisplay();
+        SlogoMenuCreator menuCreator = new SlogoMenuCreator(myAllTurtles, myColorGraphics, myLineGraphics, this, myInactiveList, myAllTurtles);
+        MenuBar myMenu = menuCreator.getMenuBar();
+        myBorder.setTop(myMenu);
+        myVariablesTable = mySidebar.getTable();
+        data = FXCollections.observableArrayList(); // create the data
+        myVariablesTable.setItems(data);       
+        DisplayUpdater dispUpdate = new DisplayUpdater(myAllTurtles, myGraphics);
+        myTurtleStatsBox.setText(dispUpdate.updateTurtleStats());       
+        updateDisplay();
+    }
+
+	private void setUpDisplay() {
+		myAllTurtles = myScreen.getMyTurtle();
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
         myTurtleStatsBox = mySidebar.getArea();
@@ -81,21 +90,12 @@ public class Display{
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
-        SlogoMenuCreator menuCreator = new SlogoMenuCreator(myAllTurtles, myColorGraphics, myLineGraphics, this, myInactiveList, myAllTurtles);
-        MenuBar myMenu = menuCreator.getMenuBar();
-        myBorder.setTop(myMenu);
-        myVariablesTable = mySidebar.getTable();
-        data = FXCollections.observableArrayList(); // create the data
-        myVariablesTable.setItems(data);
-        updateTurtleStats();
-        updateDisplay();
-    }
+	}
 
 	private void alignBorder() {
 		VBox leftBox = mySidebar.getBox();
         VBox centerBox = myScreen.getScreen();
-        VBox consoleBox = myConsole.getConsole();
-        
+        VBox consoleBox = myConsole.getConsole(); 
         myBorder.setLeft(leftBox);
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
@@ -106,76 +106,21 @@ public class Display{
         myButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent e) {
                 String myCommand = myScreen.getCodeInput().getText();
-                System.out.println(myCommand);
                 MainBackEnd mb = new MainBackEnd();
                 myInput = new InputObject(myCommand, myAllTurtles, myLang);
                 Collection<?> parsedCommands = mb.setup(myCommand, myInput);
-                output = mb.executeCommand(parsedCommands);
+                output = mb.executeCommand(parsedCommands);   
                 if (output != null) {
-                    String consoleText = output.getResult().toString();
-                    myConsoleBox.setText(consoleText);
-                    commandHistory.append(myCommand + "\n");
-                    for(UserCommand myUserCommand: output.getUserCommands()){
-                        userCommandHistory.append(myUserCommand.getUserCommandName());
-                    }
-                    myUserCommandsBox.setText(userCommandHistory.toString());
-                    historyBox.setText(commandHistory.toString());
-                    updateTurtleStats();
+                    statUpdater(myCommand);
+                    DisplayUpdater dispUpdate = new DisplayUpdater(myAllTurtles, myGraphics);
+                    myTurtleStatsBox.setText(dispUpdate.updateTurtleStats());
                     iterateVar();
-                    updateTurtle();
+                    dispUpdate.updateTurtle();
                 }
             }
         });
     }
-
-    public void updateTurtleStats () {
-        StringBuilder myTurtleStats = new StringBuilder();
-        int i = 0;
-        for (Turtle aTurtle : myAllTurtles) {
-            myTurtleStats.append("Turtle Number " + i + "\n");
-            myTurtleStats.append("X Coordinate: " + aTurtle.getStartXCor() + "\n");
-            myTurtleStats.append("Y Coordinate: " + aTurtle.getStartYCor() + "\n");
-            myTurtleStats.append("Heading: " + aTurtle.getHeading() + "\n");
-            if (aTurtle.getPen() == 1) {
-                myTurtleStats.append("Pen: Down" + "\n");
-            }
-            else {
-                myTurtleStats.append("Pen: Up" + "\n");
-            }
-            myTurtleStats.append("Turtle Heading:" + aTurtle.getHeading() + "\n");
-            myTurtleStats.append("Turtle active:" + aTurtle.getActive() + "\n");
-            myTurtleStats.append("\n");
-            i++;
-        }
-        myTurtleStatsBox.setText(myTurtleStats.toString());
-    }
-
-    public void updateTurtle () {
-        int a = 0;
-        double[] xCoor = new double[myAllTurtles.size()];
-        double[] yCoor = new double[myAllTurtles.size()];
-        double[] head = new double[myAllTurtles.size()];
-        int[] visib = new int[myAllTurtles.size()];
-        myGraphics.clearRect(0, 0, 600, 600);
-        myGraphics.fillRect(0, 0, 600, 600);
-
-        for (Turtle aturtle : myAllTurtles) {
-            xCoor[a] = aturtle.getEndXCor();
-            yCoor[a] = aturtle.getEndYCor();
-            head[a] = aturtle.getHeading();
-            visib[a] = aturtle.getVisibility();
-            a++;
-        }
-        a = 0;
-        for (Turtle aturtle : myAllTurtles) {
-            if (visib[a] == 1) {
-                myGraphics.drawImage(aturtle.getTurtleImage(), xCoor[a], yCoor[a]);
-            }
-            rotate(myGraphics, head[a], calculatePivotX(aturtle), calculatePivotY(aturtle));
-            a++;
-        }
-    }
-
+    
     public void iterateVar () {
         myVarList = output.getVariables();
         for (Variable aVar : myVarList) {
@@ -201,9 +146,7 @@ public class Display{
                 double endX = aturtle.getEndXCor();
                 double endY = aturtle.getEndYCor();
                 if (aturtle.getPen() == 1) {
-                	if(aturtle.getPenDashed()){
-                		myLineGraphics.setLineDashes(5);
-                	}
+                	if(aturtle.getPenDashed()) myLineGraphics.setLineDashes(5);
                 	else myLineGraphics.setLineDashes(0);
                     myLineGraphics.setLineWidth(aturtle.getPenWidth());
                     myLineGraphics.strokeLine(startX, startY, endX, endY);
@@ -235,30 +178,6 @@ public class Display{
         return myGraphics;
     }
 
-    private double calculatePivotX (Turtle turtle) {
-        return (turtle.getStartXCor() + (turtle.getTurtleImage().getWidth() / 2));
-    }
-
-    private double calculatePivotY (Turtle turtle) {
-        return (turtle.getStartYCor() + (turtle.getTurtleImage().getHeight() / 2));
-    }
-
-    private void rotate (GraphicsContext gc, double angle, double px, double py) {
-        Rotate r = new Rotate(angle, px, py);
-        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-    }
-
-    // *Testing new stuff
-    private void drawRotatedImage (GraphicsContext gc, double angle, double tlpx, double tlpy) {
-        gc.save();
-        for (Turtle aturtle : myAllTurtles) {
-            Image turtleImage = aturtle.getTurtleImage();
-            rotate(gc, angle, tlpx + turtleImage.getWidth() / 2, tlpy + turtleImage.getHeight() / 2);
-            gc.drawImage(turtleImage, tlpx, tlpy);
-            gc.restore();
-        }
-    }
-
     public Scene getScene () {
         return myScene;
     }
@@ -274,4 +193,14 @@ public class Display{
         myLang = language;
     }
 
+	private void statUpdater(String myCommand) {
+		String consoleText = output.getResult().toString();
+		myConsoleBox.setText(consoleText);
+		commandHistory.append(myCommand + "\n");
+		for(UserCommand myUserCommand: output.getUserCommands()){
+		    userCommandHistory.append(myUserCommand.getUserCommandName());
+		}
+		myUserCommandsBox.setText(userCommandHistory.toString());
+		historyBox.setText(commandHistory.toString());
+	}
 }

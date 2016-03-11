@@ -14,8 +14,8 @@ public class SlogoMenuCreator {
     private CreateTurtleSelectionMenu myTurtleImages;
     private CreatePenColorMenu myPenMenu;
     private CreatePenPropertiesMenu myPenPropertiesMenu;
-    private ChooseLanguageMenu myLanguageMenu;
-    private ChooseInactiveTurtles myInactiveTurtles;
+    private CreateLanguageMenu myLanguageMenu;
+    private CreateInactiveTurtles myInactiveTurtles;
     
     private List<SingleTurtle> myTurtle; 
     private GraphicsContext myGraphics;
@@ -39,12 +39,12 @@ public class SlogoMenuCreator {
     }
     
 	private void turtleMenu() {
-		myInactiveTurtles = new ChooseInactiveTurtles(myInactiveList, myNumTurtles);
+		myInactiveTurtles = new CreateInactiveTurtles(myInactiveList, myNumTurtles);
         myMenu.getMenus().add(myInactiveTurtles.getMenu());
 	}
 	
 	private void languageMenu() {
-		myLanguageMenu = new ChooseLanguageMenu(myDisplay);
+		myLanguageMenu = new CreateLanguageMenu(myDisplay);
         myMenu.getMenus().add(myLanguageMenu.getMenu());
 	}
 	
