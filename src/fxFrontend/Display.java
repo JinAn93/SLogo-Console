@@ -1,41 +1,37 @@
 package fxFrontend;
 
-import BackEndMain.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import fxFrontend.DisplayObject;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.*;
+import BackEndMain.InputObject;
+import BackEndMain.MainBackEnd;
+import BackEndMain.Output;
+import BackEndMain.StrConstant;
 import NodeTypes.UserCommand;
 import NodeTypes.Variable;
-import Turtle.*;
-import Error_Checking.ErrorObject;
+import Turtle.SingleTurtle;
+import Turtle.Turtle;
 import fxMenu.SlogoMenuCreator;
-import javafx.scene.transform.Rotate;
-import fxFrontend.Line;
-import fxFrontend.LanguageReader;
 
-public class Display{
-	private BorderPane myBorder;
+
+public class Display {
+    private BorderPane myBorder;
     private Scene myScene;
     private ScreenSidebar mySidebar = new ScreenSidebar();
     private TurtleScreen myScreen;
@@ -49,40 +45,46 @@ public class Display{
     private List<Variable> myVarList;
     private Output output;
     private static final ResourceBundle defaultLang = ResourceBundle
-            .getBundle("languagefiles/English");
+            .getBundle(StrConstant.DEFAULTLANG);
     private ResourceBundle myLang = defaultLang;
     private InputObject myInput;
     private List<Integer> myInactiveList = new ArrayList<Integer>();
     private int myNumberUseTurtles;
-    
+    private static final int BORDER_WIDTH = 10;
+    private static final int BORDER_HEIGHT = 20;
+    private static final int SCENE_WIDTH = 1100;
+    private static final int SCENE_HEIGHT = 800;
+
     public Display (int numb) {
         myNumberUseTurtles = numb;
         myScreen = new TurtleScreen(myNumberUseTurtles);
-    	commandHistory = new StringBuilder();
-    	userCommandHistory = new StringBuilder();
+        commandHistory = new StringBuilder();
+        userCommandHistory = new StringBuilder();
         myBorder = new BorderPane();
         displayScreen();
-        myBorder.setPadding(new Insets(10, 20, 10, 20));
-        myScene = new Scene(myBorder, 1100, 800);
+        myBorder.setPadding(new Insets(BORDER_WIDTH, BORDER_HEIGHT, BORDER_WIDTH, BORDER_HEIGHT));
+        myScene = new Scene(myBorder, SCENE_WIDTH, SCENE_HEIGHT);
     }
 
     @SuppressWarnings({ "unchecked" })
     public void displayScreen () {
-        alignBorder();  
+        alignBorder();
         setUpDisplay();
-        SlogoMenuCreator menuCreator = new SlogoMenuCreator(myAllTurtles, myColorGraphics, myLineGraphics, this, myInactiveList, myAllTurtles);
+        SlogoMenuCreator menuCreator =
+                new SlogoMenuCreator(myAllTurtles, myColorGraphics, myLineGraphics, this,
+                                     myInactiveList, myAllTurtles);
         MenuBar myMenu = menuCreator.getMenuBar();
         myBorder.setTop(myMenu);
         myVariablesTable = mySidebar.getTable();
         data = FXCollections.observableArrayList(); // create the data
-        myVariablesTable.setItems(data);       
+        myVariablesTable.setItems(data);
         DisplayUpdater dispUpdate = new DisplayUpdater(myAllTurtles, myGraphics);
-        myTurtleStatsBox.setText(dispUpdate.updateTurtleStats());       
+        myTurtleStatsBox.setText(dispUpdate.updateTurtleStats());
         updateDisplay();
     }
 
-	private void setUpDisplay() {
-		myAllTurtles = myScreen.getMyTurtle();
+    private void setUpDisplay () {
+        myAllTurtles = myScreen.getMyTurtle();
         historyBox = myConsole.getHistoryTextArea();
         myConsoleBox = myConsole.getConsoleText();
         myTurtleStatsBox = mySidebar.getArea();
@@ -90,26 +92,27 @@ public class Display{
         myGraphics = myScreen.getGraphics();
         myColorGraphics = myScreen.getColorGraphics();
         myLineGraphics = myScreen.getLineGraphics();
-	}
+    }
 
-	private void alignBorder() {
-		VBox leftBox = mySidebar.getBox();
+    private void alignBorder () {
+        VBox leftBox = mySidebar.getBox();
         VBox centerBox = myScreen.getScreen();
-        VBox consoleBox = myConsole.getConsole(); 
+        VBox consoleBox = myConsole.getConsole();
         myBorder.setLeft(leftBox);
         myBorder.setCenter(centerBox);
         myBorder.setRight(consoleBox);
-	}
+    }
 
     public void updateDisplay () {
         Button myButton = myScreen.getButton();
         myButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
             public void handle (ActionEvent e) {
                 String myCommand = myScreen.getCodeInput().getText();
                 MainBackEnd mb = new MainBackEnd();
                 myInput = new InputObject(myCommand, myAllTurtles, myLang);
                 Collection<?> parsedCommands = mb.setup(myInput);
-                output = mb.executeCommand(parsedCommands);   
+                output = mb.executeCommand(parsedCommands);
                 if (output != null) {
                     statUpdater(myCommand);
                     DisplayUpdater dispUpdate = new DisplayUpdater(myAllTurtles, myGraphics);
@@ -120,7 +123,7 @@ public class Display{
             }
         });
     }
-    
+
     public void iterateVar () {
         myVarList = output.getVariables();
         for (Variable aVar : myVarList) {
@@ -146,8 +149,12 @@ public class Display{
                 double endX = aturtle.getEndXCor();
                 double endY = aturtle.getEndYCor();
                 if (aturtle.getPen() == 1) {
-                	if(aturtle.getPenDashed()) myLineGraphics.setLineDashes(5);
-                	else myLineGraphics.setLineDashes(0);
+                    if (aturtle.getPenDashed()) {
+                        myLineGraphics.setLineDashes(5);
+                    }
+                    else {
+                        myLineGraphics.setLineDashes(0);
+                    }
                     myLineGraphics.setLineWidth(aturtle.getPenWidth());
                     myLineGraphics.strokeLine(startX, startY, endX, endY);
                 }
@@ -158,13 +165,15 @@ public class Display{
     }
 
     public boolean contains (TableView<DisplayObject> table, DisplayObject obj) {
-        for (DisplayObject item : table.getItems()){
-            if (item.getVariableName().equals(obj.getVariableName()) && item.getVariableValue().equals(obj.getVariableValue())){
-            	return true;
+        for (DisplayObject item : table.getItems()) {
+            if (item.getVariableName().equals(obj.getVariableName()) &&
+                item.getVariableValue().equals(obj.getVariableValue())) {
+                return true;
             }
-            else if(item.getVariableName().equals(obj.getVariableName()) && !item.getVariableValue().equals(obj.getVariableValue())){
-            	table.getItems().remove(item);
-            	return false;	
+            else if (item.getVariableName().equals(obj.getVariableName()) &&
+                     !item.getVariableValue().equals(obj.getVariableValue())) {
+                table.getItems().remove(item);
+                return false;
             }
         }
         return false;
@@ -193,14 +202,14 @@ public class Display{
         myLang = language;
     }
 
-	private void statUpdater(String myCommand) {
-		String consoleText = output.getResult().toString();
-		myConsoleBox.setText(consoleText);
-		commandHistory.append(myCommand + "\n");
-		for(UserCommand myUserCommand: output.getUserCommands()){
-		    userCommandHistory.append(myUserCommand.getUserCommandName());
-		}
-		myUserCommandsBox.setText(userCommandHistory.toString());
-		historyBox.setText(commandHistory.toString());
-	}
+    private void statUpdater (String myCommand) {
+        String consoleText = output.getResult().toString();
+        myConsoleBox.setText(consoleText);
+        commandHistory.append(myCommand + "\n");
+        for (UserCommand myUserCommand : output.getUserCommands()) {
+            userCommandHistory.append(myUserCommand.getUserCommandName());
+        }
+        myUserCommandsBox.setText(userCommandHistory.toString());
+        historyBox.setText(commandHistory.toString());
+    }
 }

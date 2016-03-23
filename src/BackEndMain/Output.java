@@ -2,15 +2,16 @@ package BackEndMain;
 
 import java.util.ArrayList;
 import java.util.List;
-import NodeTypes.*;
-import Turtle.*;
+import NodeTypes.UserCommand;
+import NodeTypes.Variable;
+import Turtle.SingleTurtle;
 
 
 /**
  * Output class serves to contain all the information needed for front end to display the result. It
  * contains list of printable string (console), list of turtles, list of variables, and list of
  * user-defined commands.
- * 
+ *
  * @author Jin An
  * @author David Yan
  * @author Cody Li
@@ -39,7 +40,7 @@ public class Output {
     }
 
     public void setResult (List<String> result) {
-        this.myResult = result;
+        myResult = result;
     }
 
     public List<SingleTurtle> getTurtle () {
@@ -47,7 +48,7 @@ public class Output {
     }
 
     public void updateTurtle (List<SingleTurtle> turtle) {
-        this.myTurtle = turtle;
+        myTurtle = turtle;
     }
 
     public List<Variable> getVariables () {
@@ -59,6 +60,6 @@ public class Output {
     }
 
     public void updateVariable (List<Variable> variables) {
-        this.myVariables = variables;
+        myVariables = variables;
     }
 }

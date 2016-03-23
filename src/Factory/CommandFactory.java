@@ -5,14 +5,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.ResourceBundle;
 import BackEndMain.StrConstant;
-import NodeTypes.*;
-import Turtle.*;
+import NodeTypes.Command;
+import NodeTypes.Operand;
+import NodeTypes.UserCommand;
+import NodeTypes.Variable;
+import Turtle.SingleTurtle;
 
 
 /**
  * CommandFactory is subclass of abstractFactory. It returns the command object that matches the
  * name. It returns null if no match.
- * 
+ *
  * @author Jin An
  *
  */
@@ -22,6 +25,7 @@ public class CommandFactory extends AbstractFactory {
         super(lang);
     }
 
+    @Override
     public Command makeCommand (String Name, List<SingleTurtle> turtle, List<StringBuilder> content) {
         String commandStr = StrConstant.ALLCOMMANDS + searchCommand(Name, myLanguage.getKeys());
         Class<?> clas = null;

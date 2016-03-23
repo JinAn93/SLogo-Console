@@ -2,7 +2,7 @@ package BackEndMain;
 
 import java.util.List;
 import java.util.ResourceBundle;
-import Turtle.*;
+import Turtle.SingleTurtle;
 
 
 /**
@@ -10,7 +10,7 @@ import Turtle.*;
  * created in Frontend and it is passed to backend. It contains input command, list of Single Turtle
  * Objects, and language ResourceBundle. All variables are private and getter and setter methods are
  * used to access each object.
- * 
+ *
  * @author Jin An
  * @author David Yan
  * @author Cody Li

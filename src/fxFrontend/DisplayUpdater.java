@@ -1,101 +1,91 @@
 package fxFrontend;
-import BackEndMain.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
+
+import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import fxFrontend.DisplayObject;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.*;
-import NodeTypes.UserCommand;
-import NodeTypes.Variable;
-import Turtle.*;
-import Error_Checking.ErrorObject;
-import fxMenu.SlogoMenuCreator;
 import javafx.scene.transform.Rotate;
-import fxFrontend.Line;
-import fxFrontend.LanguageReader;
+import BackEndMain.StrConstant;
+import Turtle.SingleTurtle;
+import Turtle.Turtle;
+
 
 public class DisplayUpdater {
-	private List<SingleTurtle> myTurtleList; 
-	private GraphicsContext graphics; 
-	private double[] xCoor, yCoor, head;
-	private int[] visib;
-	
-	public DisplayUpdater(List<SingleTurtle> myTurts, GraphicsContext gc){
-		myTurtleList = myTurts;
-		graphics = gc; 
-	}
-	
-	public String updateTurtleStats(){
-		StringBuilder myTurtleStats = new StringBuilder();
-        int i = 0;
-        for (Turtle aTurtle : myTurtleList) {
-            myTurtleStats.append("Turtle Number " + i + "\n");
-            myTurtleStats.append("X Coordinate: " + aTurtle.getStartXCor() + "\n");
-            myTurtleStats.append("Y Coordinate: " + aTurtle.getStartYCor() + "\n");
-            myTurtleStats.append("Heading: " + aTurtle.getHeading() + "\n");
-            if (aTurtle.getPen() == 1) {
-                myTurtleStats.append("Pen: Down" + "\n");
-            } else myTurtleStats.append("Pen: Up" + "\n");
-            myTurtleStats.append("Turtle Heading:" + aTurtle.getHeading() + "\n");
-            myTurtleStats.append("Turtle active:" + aTurtle.getActive() + "\n");
-            myTurtleStats.append("\n");
-            i++;
-        }
-        return myTurtleStats.toString(); 
-	}
-	
-	public void updateTurtle(){
-		int a = 0;
-		setupValues();
-		graphics.clearRect(0, 0, 600, 600);
-		graphics.fillRect(0, 0, 600, 600);
-		for (Turtle aturtle : myTurtleList) {
-			xCoor[a] = aturtle.getEndXCor();
-			yCoor[a] = aturtle.getEndYCor();
-			head[a] = aturtle.getHeading();
-			visib[a] = aturtle.getVisibility();
-			a++;
-		}
-		a = 0;
-		for (Turtle aturtle : myTurtleList) {
-			if (visib[a] == 1) graphics.drawImage(aturtle.getTurtleImage(), xCoor[a], yCoor[a]);
-			rotate(graphics, head[a], calculatePivotX(aturtle), calculatePivotY(aturtle));
-			a++;
-		}
-	}
+    private List<SingleTurtle> myTurtleList;
+    private GraphicsContext graphics;
+    private double[] xCoor, yCoor, head;
+    private int[] visib;
+    private static final String TURTLE_NUMBER = "Turtle Number ";
+    private static final String X_COOR = "X Coordinate: ";
+    private static final String Y_COOR = "Y Coordinate: ";
+    private static final String HEAD = "Heading: ";
+    private static final String PENDOWN = "Pen: Down";
+    private static final String PENUP = "Pen: Up";
+    private static final String TUR_HEAD = "Turtle Heading:";
+    private static final String TUR_ACTIVE = "Turtle active:";
+    private static final int GRAPHIC_START = 0;
+    private static final int GRAPHIC_END = 600;
 
-	private void setupValues() {
-		xCoor = new double[myTurtleList.size()];
-		yCoor = new double[myTurtleList.size()];
-		head = new double[myTurtleList.size()];
-		visib = new int[myTurtleList.size()];
-	}
-	
-	private void rotate (GraphicsContext gc, double angle, double px, double py) {
+    public DisplayUpdater (List<SingleTurtle> myTurts, GraphicsContext gc) {
+        myTurtleList = myTurts;
+        graphics = gc;
+    }
+
+    public String updateTurtleStats () {
+        StringBuilder myTurtleStats = new StringBuilder();
+        int turtleID = 0;
+        for (Turtle aTurtle : myTurtleList) {
+            myTurtleStats.append(TURTLE_NUMBER + turtleID + StrConstant.NEWLINE);
+            myTurtleStats.append(X_COOR + aTurtle.getStartXCor() + StrConstant.NEWLINE);
+            myTurtleStats.append(Y_COOR + aTurtle.getStartYCor() + StrConstant.NEWLINE);
+            myTurtleStats.append(HEAD + aTurtle.getHeading() + StrConstant.NEWLINE);
+            if (aTurtle.getPen() == 1) {
+                myTurtleStats.append(PENDOWN + StrConstant.NEWLINE);
+            }
+            else {
+                myTurtleStats.append(PENUP + StrConstant.NEWLINE);
+            }
+            myTurtleStats.append(TUR_HEAD + aTurtle.getHeading() + StrConstant.NEWLINE);
+            myTurtleStats.append(TUR_ACTIVE + aTurtle.getActive() + StrConstant.NEWLINE);
+            myTurtleStats.append(StrConstant.NEWLINE);
+            turtleID++;
+        }
+        return myTurtleStats.toString();
+    }
+
+    public void updateTurtle () {
+        int turtleID = 0;
+        setupValues();
+        graphics.clearRect(GRAPHIC_START, GRAPHIC_START, GRAPHIC_END, GRAPHIC_END);
+        graphics.fillRect(GRAPHIC_START, GRAPHIC_START, GRAPHIC_END, GRAPHIC_END);
+        for (Turtle aturtle : myTurtleList) {
+            xCoor[turtleID] = aturtle.getEndXCor();
+            yCoor[turtleID] = aturtle.getEndYCor();
+            head[turtleID] = aturtle.getHeading();
+            visib[turtleID] = aturtle.getVisibility();
+            turtleID++;
+        }
+        turtleID = 0;
+        for (Turtle aturtle : myTurtleList) {
+            if (visib[turtleID] == 1) {
+                graphics.drawImage(aturtle.getTurtleImage(), xCoor[turtleID], yCoor[turtleID]);
+            }
+            rotate(graphics, head[turtleID], calculatePivotX(aturtle), calculatePivotY(aturtle));
+            turtleID++;
+        }
+    }
+
+    private void setupValues () {
+        xCoor = new double[myTurtleList.size()];
+        yCoor = new double[myTurtleList.size()];
+        head = new double[myTurtleList.size()];
+        visib = new int[myTurtleList.size()];
+    }
+
+    private void rotate (GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
-	
-	private double calculatePivotX (Turtle turtle) {
+
+    private double calculatePivotX (Turtle turtle) {
         return (turtle.getStartXCor() + (turtle.getTurtleImage().getWidth() / 2));
     }
 

@@ -2,12 +2,14 @@ package AllCommands;
 
 import java.util.List;
 import CommandTypes.TurtleCommand;
-import Turtle.*;
+import Turtle.SingleTurtle;
+
 
 /**
  * subclass of turtlecommand: serves to return xcoordinate of each turtle.
- * @author Jin An
  * 
+ * @author Jin An
+ *
  */
 public class XCoordinate extends TurtleCommand {
 

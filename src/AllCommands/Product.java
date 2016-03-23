@@ -5,7 +5,7 @@ import CommandTypes.MathOpCommand;
 
 /**
  * subclass of MathOpCommand: returns the product of two children
- * 
+ *
  * @author Jin An
  * @author Sarp Uner
  *

@@ -4,16 +4,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
-import BackEndMain.*;
-import CommandTypes.*;
-import NodeTypes.*;
-import Turtle.*;
+import BackEndMain.Parser;
+import BackEndMain.StrConstant;
+import CommandTypes.ControlStructuredCommand;
+import NodeTypes.Node;
+import Turtle.SingleTurtle;
 
 
 /**
  * subclass of controlstructuredcommand : execute command by creating another expression tree only
  * if the parameter is not zero
- * 
+ *
  * @author Jin An
  *
  */
@@ -28,12 +29,15 @@ public class If extends ControlStructuredCommand {
 
     @Override
     public String executeCommand () {
-        if (myContent == null)
+        if (myContent == null) {
             return StrConstant.ZERO;
-        if (Integer.parseInt(myChildren[0].getValue()) == FALSE)
+        }
+        if (Integer.parseInt(myChildren[0].getValue()) == FALSE) {
             return StrConstant.ZERO;
-        else
+        }
+        else {
             return executeStatement();
+        }
     }
 
     private String executeStatement () {

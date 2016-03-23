@@ -4,17 +4,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
+import BackEndMain.Parser;
+import BackEndMain.StrConstant;
 import CommandTypes.ControlStructuredCommand;
 import Error_Checking.ErrorObject;
 import Error_Checking.VariableException;
-import BackEndMain.*;
-import NodeTypes.*;
-import Turtle.*;
+import NodeTypes.Node;
+import NodeTypes.Variable;
+import Turtle.SingleTurtle;
 
 
 /**
  * Subclass of ControlStructuredCommand: it creates index variable and executes loop.
- * 
+ *
  * @author Jin An
  *
  */
@@ -34,8 +36,9 @@ public class DoTimes extends ControlStructuredCommand {
 
     @Override
     public String executeCommand () {
-        if (myContent == null)
+        if (myContent == null) {
             return StrConstant.ZERO;
+        }
         return executeLoop(createIndexVariable());
     }
 
@@ -61,8 +64,9 @@ public class DoTimes extends ControlStructuredCommand {
     }
 
     private String executeLoop (int limit) {
-        if(limit == ERROR)
+        if (limit == ERROR) {
             return null;
+        }
         StringBuilder newCommand = new StringBuilder();
         for (int i = 0; i < limit; i++) {
             newCommand.append(myContent);
@@ -73,7 +77,8 @@ public class DoTimes extends ControlStructuredCommand {
         try {
             result = parser.buildExpressionTree(Arrays.asList(newCommand.toString().split(" ")));
             if (result == null) {
-                throw new Exception(); //if parameter/instruction/variable error occurs, throws new general exception.
+                throw new Exception(); // if parameter/instruction/variable error occurs, throws new
+                                       // general exception.
             }
             List<String> ret = parser.stringizer(result);
             return ret.get(ret.size() - 1);

@@ -1,13 +1,13 @@
 package AllCommands;
 
 import java.util.List;
-import Turtle.SingleTurtle;
 import CommandTypes.TurtleCommand;
+import Turtle.SingleTurtle;
 
 
 /**
  * subclass of turtlecommand: serves to set each turtle's position.
- * 
+ *
  * @author Jin An
  *
  */

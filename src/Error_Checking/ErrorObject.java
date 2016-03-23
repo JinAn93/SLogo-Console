@@ -5,8 +5,8 @@ import javafx.scene.control.Alert.AlertType;
 
 
 /**
- * Serves to create error message dialog. 
- * 
+ * Serves to create error message dialog.
+ *
  * @author Cody Li
  *
  */

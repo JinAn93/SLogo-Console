@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 
 /**
  * MultipleTurtles implements turtle and serves to perform multiple Turtle commands
- * 
+ *
  * @author Jin An
  *
  */

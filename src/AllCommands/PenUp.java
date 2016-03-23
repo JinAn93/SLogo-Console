@@ -2,12 +2,12 @@ package AllCommands;
 
 import java.util.List;
 import CommandTypes.TurtleCommand;
-import Turtle.*;
+import Turtle.SingleTurtle;
 
 
 /**
  * subclass of TurtleCommand: serves to set each turtle's pen property to up and return 0 (penup).
- * 
+ *
  * @author Jin An
  *
  */

@@ -1,21 +1,30 @@
 package BackEndMain;
 
-import java.util.*;
-import NodeTypes.*;
-import Turtle.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.Stack;
 import Error_Checking.BracketException;
 import Error_Checking.ErrorObject;
 import Error_Checking.InstructionException;
 import Error_Checking.ParameterException;
 import Error_Checking.VariableException;
-import Factory.*;
+import Factory.AbstractFactory;
+import Factory.FactoryProducer;
+import NodeTypes.Command;
+import NodeTypes.Node;
+import NodeTypes.UserCommand;
+import NodeTypes.Variable;
+import Turtle.SingleTurtle;
 
 
 /**
  * Parser class serves to receive the collection of nodes, build expression tree, and return the
  * stack of node to be executed. It uses recursive tree to execute command when the parameter is not
  * operand (E.g. sum sum 10 20 30 -> sum 30 30 -> 60)
- * 
+ *
  * @author Jin An
  * @author Sarp Uner
  *
@@ -89,8 +98,9 @@ public class Parser {
                 command = ExistVariable(nodes[i].substring(INDEX_COLON));
                 if (command == null) {
                     try {
-                        if (!isAddNewVariable(nodes, i - 1))
+                        if (!isAddNewVariable(nodes, i - 1)) {
                             throw new VariableException();
+                        }
                         myFactory = myFactoryProducer.getFactory(StrConstant.VARIABLE, myLanguage);
                         command =
                                 myFactory.makeVar(nodes[i].substring(INDEX_COLON));
@@ -110,9 +120,9 @@ public class Parser {
                     int startListIndex = searchListStart(nodes, i, ListorGroup); // true for list
                     if (startListIndex == -1)
                         throw new BracketException();
-                    
+
                     for (int j = startListIndex + 1; j < endListIndex; j++) {
-                        (ListorGroup? content:group).append(nodes[j] + StrConstant.SPACE);
+                        (ListorGroup ? content : group).append(nodes[j] + StrConstant.SPACE);
                     }
                     i = startListIndex;
                     ListOfContents.add(content);
@@ -130,33 +140,40 @@ public class Parser {
     }
 
     private Variable ExistVariable (String variableName) {
-        if (MainBackEnd.getVariables().size() == 0)
+        if (MainBackEnd.getVariables().size() == 0) {
             return null;
+        }
         for (Variable var : MainBackEnd.getVariables()) {
-            if (var.getName().equals(variableName))
+            if (var.getName().equals(variableName)) {
                 return var;
+            }
         }
         return null;
     }
 
     private boolean isAddNewCommand (String[] nodes, int index) {
-        if (index < 0)
+        if (index < 0) {
             return false;
+        }
         String nextCommand = myFactory.searchCommand(nodes[index], myLanguage.getKeys());
-        if (nextCommand == null)
+        if (nextCommand == null) {
             return false;
-        else if (nextCommand.equals(StrConstant.MAKEUSERCOMMAND))
+        }
+        else if (nextCommand.equals(StrConstant.MAKEUSERCOMMAND)) {
             return true;
+        }
         return false;
     }
 
     private boolean isAddNewVariable (String[] nodes, int index) {
         System.out.println("Here");
-        if (index < 0)
+        if (index < 0) {
             return false;
+        }
         String nextCommand = myFactory.searchCommand(nodes[index], myLanguage.getKeys());
-        if (nextCommand.equals(StrConstant.MAKEVARIABLE))
+        if (nextCommand.equals(StrConstant.MAKEVARIABLE)) {
             return true;
+        }
         return false;
     }
 
@@ -199,11 +216,13 @@ public class Parser {
     }
 
     private boolean isUserCommand (String input) {
-        if (MainBackEnd.getUserCommands() == null)
+        if (MainBackEnd.getUserCommands() == null) {
             return false;
+        }
         for (UserCommand ucommand : MainBackEnd.getUserCommands()) {
-            if (ucommand.getUserCommandName().equals(input))
+            if (ucommand.getUserCommandName().equals(input)) {
                 return true;
+            }
         }
         return false;
     }

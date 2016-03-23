@@ -11,7 +11,7 @@ import Turtle.SingleTurtle;
 
 /**
  * Subclass of abstractfactory. It creates variable node.
- * 
+ *
  * @author Jin An
  *
  */

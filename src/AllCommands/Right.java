@@ -2,12 +2,12 @@ package AllCommands;
 
 import java.util.List;
 import CommandTypes.TurtleCommand;
-import Turtle.*;
+import Turtle.SingleTurtle;
 
 
 /**
  * subclass of turtlecommand: serves to rotate each turtle to the right by input (heading).
- * 
+ *
  * @author Jin An
  * @author Sarp Uner
  *

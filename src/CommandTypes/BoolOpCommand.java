@@ -1,12 +1,12 @@
 package CommandTypes;
 
-import NodeTypes.*;
+import NodeTypes.Command;
 
 
 /**
  * BoolOpCommand is a subclass of Command and superclass of specific commands (equal, if..). It has
  * protected final variables that are used multiple times in subclasses.
- * 
+ *
  * @author Jin An
  *
  */

@@ -2,14 +2,16 @@ package CommandTypes;
 
 import java.util.List;
 import java.util.ResourceBundle;
-import Turtle.*;
-import NodeTypes.*;
+import NodeTypes.Command;
+import NodeTypes.UserCommand;
+import NodeTypes.Variable;
+import Turtle.SingleTurtle;
 
 
 /**
  * ControlStructuredCommand class is a subclass of command and super class of specific commands (If,
  * repeat..). It has protected variables that are used multiple times in subclass.
- * 
+ *
  * @author Jin An
  *
  */

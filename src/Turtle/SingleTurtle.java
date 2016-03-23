@@ -1,17 +1,19 @@
 package Turtle;
 
 import java.util.Observable;
-import BackEndMain.StrConstant;
 import javafx.scene.image.Image;
+import BackEndMain.StrConstant;
 
 
 /**
+ *
  * SingleTurtle implements Turtle and it serves to deal with single turtle command
  * (penup/heading..). Turtle Object has TurtlePen object which contains all the information relevant
  * to pen properties such as pen width, pen up or down, pen coloar and etc. Because we did not have
  * enough time to implement it, it is definitely possible by having TurtlePen class which contains
  * all the information that each Turtle can access to.
- * 
+ *
+ *
  * @author Jin An
  *
  */
@@ -147,7 +149,7 @@ public class SingleTurtle extends Observable implements Turtle {
 
     @Override
     public void setTurtleImage (String dir) {
-        this.myTurtleImage = new Image(dir);
+        myTurtleImage = new Image(dir);
         setChanged();
         notifyObservers();
     }

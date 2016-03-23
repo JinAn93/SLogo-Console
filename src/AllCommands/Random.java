@@ -5,7 +5,7 @@ import CommandTypes.MathOpCommand;
 
 /**
  * subclass of mathopcommand: serves to return random number less than the max (first child) value.
- * 
+ *
  * @author Jin An
  *
  */

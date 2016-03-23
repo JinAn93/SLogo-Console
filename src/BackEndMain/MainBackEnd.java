@@ -1,13 +1,20 @@
 package BackEndMain;
 
-import java.util.*;
-import NodeTypes.*;
-import Turtle.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.Stack;
+import NodeTypes.Node;
+import NodeTypes.UserCommand;
+import NodeTypes.Variable;
+import Turtle.SingleTurtle;
 
 
 /**
- * MainBackEnd serves to create Expression Tree and execute commands as it reads the nodes. It takes in Input Object
- * 
+ * MainBackEnd serves to create Expression Tree and execute commands as it reads the nodes. It takes
+ * in Input Object
+ *
  * @author Jin An
  * @author Sarp Uner
  *
@@ -19,7 +26,7 @@ public class MainBackEnd {
     private static List<UserCommand> myUserCommandList = new ArrayList<UserCommand>();
     private static ResourceBundle myLanguage;
     private List<SingleTurtle> myAllTurtles;
-    
+
     public Output executeCommand (Collection<?> commands) {
         Parser parser = new Parser(myAllTurtles, myLanguage);
         Stack<Node> result;
@@ -51,7 +58,7 @@ public class MainBackEnd {
     public static List<Variable> getVariables () {
         return myVariableList;
     }
-    
+
     public static List<UserCommand> getUserCommands () {
         return myUserCommandList;
     }

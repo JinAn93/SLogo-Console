@@ -2,7 +2,7 @@ package NodeTypes;
 
 /**
  * Operand serves to contain its string value.
- * 
+ *
  * @author Sarp Uner
  *
  */

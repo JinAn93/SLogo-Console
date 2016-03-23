@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * TurtleManager serves to work with both single and multiple turtles.
- * 
+ *
  * @author Jin An
  *
  */
@@ -20,15 +20,15 @@ public class TurtleManager {
 
     /**
      * findActiveTurtles method serves to go through turtle list and saves index of active turtles.
-     * 
+     *
      * @return
      */
     public List<Integer> findActiveTurtles () {
         List<Integer> activeIndex = new ArrayList<Integer>();
-        System.out.println("Let's look for active Turtles!");
         for (int i = 0; i < myTurtles.size(); i++) {
-            if (myTurtles.get(i).getActive())
+            if (myTurtles.get(i).getActive()) {
                 activeIndex.add(i);
+            }
         }
         return activeIndex;
     }

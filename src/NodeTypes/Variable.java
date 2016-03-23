@@ -2,7 +2,7 @@ package NodeTypes;
 
 /**
  * Variable is a type of node that contains variable name string and its value.
- * 
+ *
  * @author Jin An
  *
  */

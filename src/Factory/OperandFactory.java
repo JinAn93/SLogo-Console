@@ -11,7 +11,7 @@ import Turtle.SingleTurtle;
 
 /**
  * subclass of abstractFactory. It creates Operand object which extends Node.
- * 
+ *
  * @author Jin An
  *
  */

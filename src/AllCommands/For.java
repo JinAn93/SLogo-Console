@@ -4,18 +4,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
-import CommandTypes.*;
-import NodeTypes.*;
+import BackEndMain.Parser;
+import BackEndMain.StrConstant;
+import CommandTypes.ControlStructuredCommand;
 import Error_Checking.ErrorObject;
 import Error_Checking.VariableException;
-import BackEndMain.*;
-import Turtle.*;
+import NodeTypes.Node;
+import NodeTypes.Variable;
+import Turtle.SingleTurtle;
 
 
 /**
  * subclass of controlstructuredcommand: creates index variable, counts how many times it repeats,
  * and execute the loop.
- * 
+ *
  * @author Jin An
  *
  */
@@ -35,8 +37,9 @@ public class For extends ControlStructuredCommand {
 
     @Override
     public String executeCommand () {
-        if (myContent == null)
+        if (myContent == null) {
             return StrConstant.ZERO;
+        }
         return executeLoop(createIndexVariable());
     }
 
@@ -66,10 +69,12 @@ public class For extends ControlStructuredCommand {
     }
 
     private int countRepeat (int startPoint, int endPoint, int increment) {
-        if ((endPoint - startPoint + 1) % increment == 0)
+        if ((endPoint - startPoint + 1) % increment == 0) {
             return ((endPoint - startPoint + 1) / increment);
-        else
+        }
+        else {
             return ((endPoint - startPoint + 1) / increment) + 1;
+        }
     }
 
     private String executeLoop (int limit) {

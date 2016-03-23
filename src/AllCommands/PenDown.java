@@ -2,12 +2,12 @@ package AllCommands;
 
 import java.util.List;
 import CommandTypes.TurtleCommand;
-import Turtle.*;
+import Turtle.SingleTurtle;
 
 
 /**
  * subclass of turtleCommand: serves to set pendown for each turtle. return 1 (pendown).
- * 
+ *
  * @author Jin An
  *
  */

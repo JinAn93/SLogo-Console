@@ -2,7 +2,7 @@ package Error_Checking;
 
 /**
  * Serves to catch exception pertinent to variable.
- * 
+ *
  * @author Jin An
  *
  */
