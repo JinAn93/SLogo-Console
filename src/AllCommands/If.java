@@ -42,13 +42,13 @@ public class If extends ControlStructuredCommand {
 
     private String executeStatement () {
         Parser parser = new Parser(myTurtle, myLanguage);
-        Stack<Node> result;
+        Stack<Node> root;
         try {
-            result = parser.buildExpressionTree(Arrays.asList(myContent.split(StrConstant.SPACE)));
-            if (result == null) {
+            root = parser.buildExpressionTree(Arrays.asList(myContent.split(StrConstant.SPACE)));
+            if (root == null) {
                 throw new Exception();
             }
-            List<String> ret = parser.stringizer(result);
+            List<String> ret = parser.evaluateRoot(root);
             return ret.get(ret.size() - 1);
         }
         catch (Exception e) {

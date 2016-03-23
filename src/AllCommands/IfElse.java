@@ -42,15 +42,15 @@ public class IfElse extends ControlStructuredCommand {
             return StrConstant.ZERO;
         }
 
-        Stack<Node> result;
+        Stack<Node> root;
         try {
             Collection<?> contents = Arrays.asList((ifOrElse ? myTrueCommand : myFalseCommand)
                                                    .split(StrConstant.SPACE));
-            result = parser.buildExpressionTree(contents);
-            if (result == null) {
+            root = parser.buildExpressionTree(contents);
+            if (root == null) {
                 throw new Exception();
             }
-            List<String> ret = parser.stringizer(result);
+            List<String> ret = parser.evaluateRoot(root);
             return ret.get(ret.size() - 1);
         }
         catch (Exception e) {

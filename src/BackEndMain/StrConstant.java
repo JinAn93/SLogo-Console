@@ -21,6 +21,11 @@ public class StrConstant {
     public static final String NEWLINE = "\n";
     public static final String COMMAND = "Command";
     public static final String COMMENT = "Comment";
+    public static final String CONSTANT = "Constant";
+    public static final String LISTSTART = "ListStart";
+    public static final String LISTEND = "ListEnd";
+    public static final String GROUPSTART = "GroupStart";
+    public static final String GROUPEND = "GroupEnd";
     public static final String OPERAND = "Operand";
     public static final String VARIABLE = "Variable";
     public static final String USERCOMMAND = "UserCommand";

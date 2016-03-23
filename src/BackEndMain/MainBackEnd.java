@@ -29,14 +29,14 @@ public class MainBackEnd {
 
     public Output executeCommand (Collection<?> commands) {
         Parser parser = new Parser(myAllTurtles, myLanguage);
-        Stack<Node> result;
+        Stack<Node> root;
         try {
-            result = parser.buildExpressionTree(commands);
-            if (result == null) {
+            root = parser.buildExpressionTree(commands);
+            if (root == null) {
                 throw new Exception();
             }
             Output output = new Output(myAllTurtles, myVariableList, myUserCommandList);
-            output.setResult(parser.stringizer(result));
+            output.setResult(parser.evaluateRoot(root));
             return output;
         }
         catch (Exception e) {

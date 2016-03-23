@@ -73,14 +73,14 @@ public class DoTimes extends ControlStructuredCommand {
         }
         newCommand.deleteCharAt(newCommand.length() - 1);
         Parser parser = new Parser(myTurtle, myLanguage);
-        Stack<Node> result;
+        Stack<Node> root;
         try {
-            result = parser.buildExpressionTree(Arrays.asList(newCommand.toString().split(" ")));
-            if (result == null) {
+            root = parser.buildExpressionTree(Arrays.asList(newCommand.toString().split(" ")));
+            if (root == null) {
                 throw new Exception(); // if parameter/instruction/variable error occurs, throws new
                                        // general exception.
             }
-            List<String> ret = parser.stringizer(result);
+            List<String> ret = parser.evaluateRoot(root);
             return ret.get(ret.size() - 1);
         }
         catch (Exception e) {

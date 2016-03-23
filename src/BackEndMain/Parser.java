@@ -207,7 +207,7 @@ public class Parser {
         return -1;
     }
 
-    public List<String> stringizer (Stack<Node> input) {
+    public List<String> evaluateRoot (Stack<Node> input) {
         List<String> ret = new ArrayList<String>();
         while (!input.isEmpty()) {
             ret.add(input.pop().getValue());
@@ -228,31 +228,31 @@ public class Parser {
     }
 
     private boolean isCommand (String input) {
-        return input.matches(mySyntaxes.getString("Command"));
+        return input.matches(mySyntaxes.getString(StrConstant.COMMAND));
     }
 
     private boolean isVariable (String input) {
-        return input.matches(mySyntaxes.getString("Variable"));
+        return input.matches(mySyntaxes.getString(StrConstant.VARIABLE));
     }
 
     private boolean isConstant (String input) {
-        return input.matches(mySyntaxes.getString("Constant"));
+        return input.matches(mySyntaxes.getString(StrConstant.CONSTANT));
     }
 
     private boolean isListStart (String input) {
-        return input.matches(mySyntaxes.getString("ListStart"));
+        return input.matches(mySyntaxes.getString(StrConstant.LISTSTART));
     }
 
     private boolean isListEnd (String input) {
-        return input.matches(mySyntaxes.getString("ListEnd"));
+        return input.matches(mySyntaxes.getString(StrConstant.LISTEND));
     }
 
     private boolean isGroupStart (String input) {
-        return input.matches(mySyntaxes.getString("GroupStart"));
+        return input.matches(mySyntaxes.getString(StrConstant.GROUPSTART));
     }
 
     private boolean isGroupEnd (String input) {
-        return input.matches(mySyntaxes.getString("GroupEnd"));
+        return input.matches(mySyntaxes.getString(StrConstant.GROUPEND));
     }
 
 }

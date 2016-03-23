@@ -84,14 +84,14 @@ public class For extends ControlStructuredCommand {
         }
         newCom.deleteCharAt(newCom.length() - 1);
         Parser parser = new Parser(myTurtle, myLanguage);
-        Stack<Node> result;
+        Stack<Node> root;
         try {
-            result = parser.buildExpressionTree(Arrays.asList((newCom.toString()
+            root = parser.buildExpressionTree(Arrays.asList((newCom.toString()
                     .split(StrConstant.SPACE))));
-            if (result == null) {
+            if (root == null) {
                 throw new Exception();
             }
-            List<String> ret = parser.stringizer(result);
+            List<String> ret = parser.evaluateRoot(root);
             return ret.get(ret.size() - 1);
         }
         catch (Exception e) {

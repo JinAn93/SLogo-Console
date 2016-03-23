@@ -42,13 +42,13 @@ public class UserCommand extends Command {
     @Override
     public String executeCommand () {
         Parser parser = new Parser(myTurtle, myLanguage);
-        Stack<Node> result;
+        Stack<Node> root;
         try {
-            result = parser.buildExpressionTree(Arrays.asList(myCommand.split(StrConstant.SPACE)));
-            if (result == null) {
+            root = parser.buildExpressionTree(Arrays.asList(myCommand.split(StrConstant.SPACE)));
+            if (root == null) {
                 throw new Exception();
             }
-            List<String> ret = parser.stringizer(result);
+            List<String> ret = parser.evaluateRoot(root);
             return ret.get(ret.size() - 1); // return the result from last command
         }
         catch (Exception e) {
