@@ -8,7 +8,7 @@ import java.util.Collection;
  * InputNormalizer serves to normalize input. Returns null if there is no input. It will consider
  * taking out comments (line starts with #), changing into lower case, and replacing consecutive
  * spaces into single space.
- * 
+ *
  * @author Jin An
  *
  */
@@ -24,7 +24,8 @@ public class InputNormalizer {
             return null;
         }
         else {
-            String NormalizedInput = commentOut(input).toLowerCase().trim().replaceAll(MULTIPLE_SPACE, SPACE);
+            String NormalizedInput =
+                    commentOut(input).toLowerCase().trim().replaceAll(MULTIPLE_SPACE, SPACE);
             return Arrays.asList(NormalizedInput.split(SPACE));
         }
     }

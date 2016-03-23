@@ -1,16 +1,21 @@
 package AllCommands;
 
-import java.util.*;
-import CommandTypes.*;
-import BackEndMain.*;
-import NodeTypes.*;
-import Turtle.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.Stack;
+import BackEndMain.Parser;
+import BackEndMain.StrConstant;
+import CommandTypes.ControlStructuredCommand;
+import NodeTypes.Node;
+import Turtle.SingleTurtle;
 
 
 /**
  * subclass of control structured command: if parameter is nonzero, execute the first bracket, if
  * not execute the next bracket.
- * 
+ *
  * @author Jin An
  *
  */
@@ -33,13 +38,14 @@ public class IfElse extends ControlStructuredCommand {
     public String executeCommand () {
         Parser parser = new Parser(myTurtle, myLanguage);
         boolean ifOrElse = (Integer.parseInt(myChildren[0].getValue()) == FALSE);
-        if ((ifOrElse && myTrueCommand == null) || !(ifOrElse) && myFalseCommand == null)
+        if ((ifOrElse && myTrueCommand == null) || !(ifOrElse) && myFalseCommand == null) {
             return StrConstant.ZERO;
+        }
 
         Stack<Node> result;
         try {
             Collection<?> contents = Arrays.asList((ifOrElse ? myTrueCommand : myFalseCommand)
-                    .split(StrConstant.SPACE));
+                                                   .split(StrConstant.SPACE));
             result = parser.buildExpressionTree(contents);
             if (result == null) {
                 throw new Exception();

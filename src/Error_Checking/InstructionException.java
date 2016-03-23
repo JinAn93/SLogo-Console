@@ -2,7 +2,7 @@ package Error_Checking;
 
 /**
  * Serves to catch exception when wrong command name is inputed
- * 
+ *
  * @author Jin An
  *
  */

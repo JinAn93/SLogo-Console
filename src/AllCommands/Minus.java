@@ -5,7 +5,7 @@ import CommandTypes.MathOpCommand;
 
 /**
  * subclass of MathOpCommand: serves to return (-1)*input
- * 
+ *
  * @author Jin An
  * @author Sarp Uner
  *

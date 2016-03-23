@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 
 /**
  * SingleTurtle implements Turtle and it serves to deal with single turtle command (penup/heading..)
- * 
+ *
  * @author Jin An
  *
  */
@@ -138,7 +138,7 @@ public class SingleTurtle extends Observable implements Turtle {
 
     @Override
     public void setTurtleImage (String dir) {
-        this.myTurtleImage = new Image(dir);
+        myTurtleImage = new Image(dir);
         setChanged();
         notifyObservers();
     }

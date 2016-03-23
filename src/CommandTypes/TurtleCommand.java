@@ -1,15 +1,16 @@
 package CommandTypes;
 
 import java.util.List;
-import NodeTypes.*;
-import Turtle.*;
+import NodeTypes.Command;
+import Turtle.SingleTurtle;
+import Turtle.TurtleManager;
 
 
 /**
  * TurtleCommand is a subclass of command and super class of all commands involved with
  * turtle (forward, right turn..) It has protected final variables that are used multiple times in
  * subclasses.
- * 
+ *
  * @author Jin An
  *
  */
@@ -27,6 +28,7 @@ public abstract class TurtleCommand extends Command {
      * When the executeCommand method is called, it goes through the Turtle Manager and get the ids
      * for active turtles. Then, it executes the commands for all active turtles
      */
+    @Override
     public String executeCommand () {
         TurtleManager turtleManager = new TurtleManager(myTurtle);
         List<Integer> activeTurtleID = turtleManager.findActiveTurtles();
@@ -39,7 +41,7 @@ public abstract class TurtleCommand extends Command {
 
     /**
      * This will be overrided by subclasses.
-     * 
+     *
      * @param t
      * @return
      */

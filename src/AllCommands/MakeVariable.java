@@ -1,13 +1,14 @@
 package AllCommands;
 
-import NodeTypes.*;
-import BackEndMain.*;
+import BackEndMain.MainBackEnd;
+import NodeTypes.Command;
+import NodeTypes.Variable;
 
 
 /**
  * MakeVariable serves to create user-defined variable. If the variable already exists, it replaces
  * the pre-existing variable.
- * 
+ *
  * @author Jin An
  *
  */
@@ -32,11 +33,13 @@ public class MakeVariable extends Command {
     }
 
     private Variable isAlreadyExist (Variable newVar) {
-        if (MainBackEnd.getVariables().isEmpty())
+        if (MainBackEnd.getVariables().isEmpty()) {
             return null;
+        }
         for (Variable var : MainBackEnd.getVariables()) {
-            if ((var.getName().equals(newVar.getName())))
+            if ((var.getName().equals(newVar.getName()))) {
                 return var;
+            }
         }
         return null;
     }

@@ -5,7 +5,7 @@ import CommandTypes.MathOpCommand;
 
 /**
  * Subclass of MathOpCommand: executes subtraction
- * 
+ *
  * @author Jin An
  * @author Sarp Uner
  *

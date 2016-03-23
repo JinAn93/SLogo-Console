@@ -2,12 +2,12 @@ package AllCommands;
 
 import java.util.List;
 import CommandTypes.TurtleCommand;
-import Turtle.*;
+import Turtle.SingleTurtle;
 
 
 /**
  * subclass of turtlecommand: returns 1 if pen down 0 if pen up
- * 
+ *
  * @author Jin An
  *
  */

@@ -2,7 +2,7 @@ package BackEndMain;
 
 /**
  * String Constant Class serves to store string constants that are used multiple times
- * 
+ *
  * @author Jin An
  *
  */
@@ -10,7 +10,15 @@ public class StrConstant {
     private StrConstant () {
     }
 
+    public static final String TITLE = "Slogo";
+    public static final String HEADER = "Turtle Options";
+    public static final String CONTENT = "Choose your Number of Turtles:";
+    public static final String NUM_TURTLE_ONE = "1";
+    public static final String NUM_TURTLE_TWO = "2";
+    public static final String NUM_TURTLE_THREE = "3";
+    public static final String NUM_TURTLE_FOUR = "4";
     public static final String SPACE = " ";
+    public static final String NEWLINE = "\n";
     public static final String COMMAND = "Command";
     public static final String OPERAND = "Operand";
     public static final String VARIABLE = "Variable";
@@ -26,4 +34,5 @@ public class StrConstant {
     public static final String ALLCOMMANDS = "AllCommands.";
     public static final String ONE_INDEX_DEFAULT = "1";
     public static final String ZERO = "0";
+    public static final String DEFAULTLANG = "languagefiles/English";
 }

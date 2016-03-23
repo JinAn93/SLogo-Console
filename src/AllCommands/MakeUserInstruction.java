@@ -3,15 +3,16 @@ package AllCommands;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import NodeTypes.*;
+import BackEndMain.MainBackEnd;
+import NodeTypes.Command;
+import NodeTypes.UserCommand;
 import Turtle.SingleTurtle;
-import BackEndMain.*;
 
 
 /**
  * Create User-defined instruction. Takes in command name, command details, and parameters. If it
  * already exists, it replaces the pre-existing command.
- * 
+ *
  * @author Jin An
  *
  */
@@ -57,8 +58,9 @@ public class MakeUserInstruction extends Command {
     }
 
     private UserCommand isAlreadyExist (UserCommand newCom) {
-        if (MainBackEnd.getUserCommands().isEmpty())
+        if (MainBackEnd.getUserCommands().isEmpty()) {
             return null;
+        }
         for (UserCommand command : MainBackEnd.getUserCommands()) {
             if ((command.getUserCommandName().equals(newCom.getUserCommandName()))) {
                 return command;
