@@ -12,49 +12,49 @@ import javafx.scene.image.Image;
  */
 public interface Turtle {
 
-    public boolean getActive ();
+    boolean getActive ();
 
-    public double getHeading ();
+    double getHeading ();
 
-    public double getStartXCor ();
+    double getStartXCor ();
 
-    public double getStartYCor ();
+    double getStartYCor ();
 
-    public double getEndYCor ();
+    double getEndYCor ();
 
-    public double getEndXCor ();
+    double getEndXCor ();
 
-    public int getVisibility ();
+    int getVisibility ();
 
-    public int getPen ();
+    int getPen ();
 
-    public TurtlePen getTurtlePen ();
+    TurtlePen getTurtlePen ();
 
-    public double getPenWidth ();
+    double getPenWidth ();
 
-    public Image getTurtleImage ();
+    Image getTurtleImage ();
 
-    public void setActive (boolean active);
+    void setActive (boolean active);
 
-    public void setHeading (double heading);
+    void setHeading (double heading);
 
-    public void setStartXCor (double xCor);
+    void setStartXCor (double xCor);
 
-    public void setStartYCor (double yCor);
+    void setStartYCor (double yCor);
 
-    public void setEndXYCor (double xCor, double yCor);
+    void setEndXYCor (double xCor, double yCor);
 
-    public void setVisibility (int visibility);
+    void setVisibility (int visibility);
 
-    public void setPen (int pen);
+    void setPen (int pen);
 
-    public void setTurtlePen (TurtlePen turtlePen);
+    void setTurtlePen (TurtlePen turtlePen);
 
-    public void setPenWidth (double width);
+    void setPenWidth (double width);
 
-    public void setTurtleImage (String dir);
+    void setTurtleImage (String dir);
 
-    public void setPenDashed ();
+    void setPenDashed ();
 
-    public boolean getPenDashed ();
+    boolean getPenDashed ();
 }
